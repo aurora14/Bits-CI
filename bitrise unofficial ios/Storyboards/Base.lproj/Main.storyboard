@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIU-OW-vfU">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Token Auth View Controller-->
+        <scene sceneID="ZZR-x6-GBC">
+            <objects>
+                <viewController id="3hh-dd-tZS" customClass="TokenAuthViewController" customModule="bitrise_unofficial_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Eq6-P1-ZvI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Eu-fb-bYm">
+                                <rect key="frame" x="16" y="301.5" width="343" height="64"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your Bitrise token" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="5US-KA-5VL">
+                                        <rect key="frame" x="0.0" y="8" width="343" height="48"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartQuotesType="no"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="5US-KA-5VL" secondAttribute="trailing" id="1jc-nN-6RY"/>
+                                    <constraint firstItem="5US-KA-5VL" firstAttribute="top" secondItem="8Eu-fb-bYm" secondAttribute="top" constant="8" id="Dwc-aG-7Ya"/>
+                                    <constraint firstItem="5US-KA-5VL" firstAttribute="leading" secondItem="8Eu-fb-bYm" secondAttribute="leading" id="b1u-VN-hJw"/>
+                                    <constraint firstAttribute="bottom" secondItem="5US-KA-5VL" secondAttribute="bottom" constant="8" id="jKh-lj-Qy2"/>
+                                    <constraint firstAttribute="height" constant="64" id="vLX-NS-V6B"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8Eu-fb-bYm" firstAttribute="centerY" secondItem="Eq6-P1-ZvI" secondAttribute="centerY" id="JLe-7U-8qx"/>
+                            <constraint firstItem="8Eu-fb-bYm" firstAttribute="leading" secondItem="FYf-ys-MWD" secondAttribute="leading" constant="16" id="Suk-ab-eQy"/>
+                            <constraint firstItem="8Eu-fb-bYm" firstAttribute="centerX" secondItem="Eq6-P1-ZvI" secondAttribute="centerX" id="kqW-C1-fs2"/>
+                            <constraint firstItem="FYf-ys-MWD" firstAttribute="trailing" secondItem="8Eu-fb-bYm" secondAttribute="trailing" constant="16" id="mZc-jR-CJq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FYf-ys-MWD"/>
+                    </view>
+                    <connections>
+                        <outlet property="tokenInputTF" destination="5US-KA-5VL" id="vfN-a0-g1y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b3Z-xj-LwC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="97" y="-857"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="eya-JT-Hhg">
+            <objects>
+                <tabBarController id="DIU-OW-vfU" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tF5-gK-3jl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="E2N-C0-IEy" kind="relationship" relationship="viewControllers" id="1Q3-18-oY0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x2e-4F-Fr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-623" y="-167"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mG4-cm-EuU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E2N-C0-IEy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" image="projects" selectedImage="projects" id="Lue-h2-0CR"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="PHh-Yb-OFX">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1gD-l8-Lzy" kind="relationship" relationship="rootViewController" id="yc5-tF-K9B"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KTn-5o-gtG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="97" y="-169"/>
+        </scene>
+        <!--Projects-->
+        <scene sceneID="uEF-0g-zpI">
+            <objects>
+                <tableViewController id="1gD-l8-Lzy" customClass="ProjectListViewController" customModule="bitrise_unofficial_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="rSN-Bq-hR5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectCell" id="TIQ-7g-fXP" customClass="ProjectCell" customModule="bitrise_unofficial_ios" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TIQ-7g-fXP" id="NgR-xb-JMd">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" name="TestViewFill"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1gD-l8-Lzy" id="NE6-1e-SGT"/>
+                            <outlet property="delegate" destination="1gD-l8-Lzy" id="JCA-8Q-UAd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Projects" id="3mT-88-ltU">
+                        <barButtonItem key="rightBarButtonItem" image="user" id="NSr-Mr-wHp">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="3hh-dd-tZS" kind="presentation" identifier="TokenSegue" id="llp-X9-mvH"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qus-59-Nde" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="850" y="-170"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="projects" width="25" height="25"/>
+        <image name="user" width="25" height="25"/>
+        <namedColor name="TestViewFill">
+            <color red="0.30199998617172241" green="0.84500002861022949" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
