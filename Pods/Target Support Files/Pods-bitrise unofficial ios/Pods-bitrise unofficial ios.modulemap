@@ -1,0 +1,6 @@
+framework module Pods_bitrise_unofficial_ios {
+  umbrella header "Pods-bitrise unofficial ios-umbrella.h"
+
+  export *
+  module * { export * }
+}
