@@ -8,9 +8,17 @@
 
 import UIKit
 
-class BitriseProjectViewModel: CellRepresentable {
+struct BitriseProjectViewModel: CellRepresentable {
   
   var rowHeight: CGFloat = 84
+  
+  var app: BitriseApp
+  
+  // TODO: - perform any necessary transformations here
+  
+  init(with app: BitriseApp) {
+    self.app = app
+  }
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
@@ -22,6 +30,8 @@ class BitriseProjectViewModel: CellRepresentable {
     
     cell.setup(with: self)
     
+    // May be replaced with project status, depending on design and API - alternatively might give
+    // user the option of how they want projects colored
     setDefaultBackgroundColor(in: cell, for: indexPath)
     
     return cell
