@@ -29,7 +29,7 @@ target 'bitrise unofficial ios' do
   
   # -- authentication --
   
-  # pod 'KeychainAccess' # let's look at Apple Documentation first and try to do this natively without libraries.
+  pod 'KeychainAccess' # let's look at Apple Documentation first and try to do this natively without libraries.
   
   # -- Lint and Code-Gen --
   pod 'SwiftLint'

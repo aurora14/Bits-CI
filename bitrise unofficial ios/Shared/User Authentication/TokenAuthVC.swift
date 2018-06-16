@@ -16,6 +16,7 @@ protocol BitriseAuthorizationDelegate: class {
   /// * User enters token into the text field and submits.
   /// * If the token is valid, Bitrise API returns user name, slug and avatar URL
   /// * In that case, call this delegate method and dismiss the TokenAuth View Controller.
+  
   func didAuthorizeSuccessfully()
   
   /// Called when the API returns 401 and "Unauthorized" message from the base_url/me endpoint.
@@ -27,6 +28,9 @@ protocol BitriseAuthorizationDelegate: class {
   /// - Parameter error: <#error description#>
   
   func didFailToAuthorize(with message: String)
+  
+  /// User decided not to submit a token and dismissed the view with the cancel button
+  func didCancelAuthorization()
 }
 
 class TokenAuthViewController: UIViewController {

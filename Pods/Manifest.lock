@@ -35,6 +35,7 @@ PODS:
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - IQKeyboardManagerSwift (6.0.4)
+  - KeychainAccess (3.1.1)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -56,6 +57,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - IQKeyboardManagerSwift
+  - KeychainAccess
   - SVProgressHUD
   - SwiftGen
   - SwiftLint
@@ -76,6 +78,7 @@ SPEC REPOS:
     - FirebaseMessaging
     - GoogleToolboxForMac
     - IQKeyboardManagerSwift
+    - KeychainAccess
     - nanopb
     - Protobuf
     - SVProgressHUD
@@ -97,6 +100,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 6894b8fe0a0cf26c3b13dad729f1131654ae0bdb
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   IQKeyboardManagerSwift: 36dbe324b4f9793f5f41ba5227f3e7c76dfefd50
+  KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -105,6 +109,6 @@ SPEC CHECKSUMS:
   SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
   ViewAnimator: 43c31539508d995ea2c5e98338211f7c009b358f
 
-PODFILE CHECKSUM: 3c6f1a563429b1c03869d68f8c430a313482100c
+PODFILE CHECKSUM: 053865a42fd52378be817e5d1df7450c1cf5d3d7
 
 COCOAPODS: 1.5.3

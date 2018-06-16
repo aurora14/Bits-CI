@@ -179,6 +179,8 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
     
   }
   
-  
+  func didCancelAuthorization() {
+    
+  }
   
 }
