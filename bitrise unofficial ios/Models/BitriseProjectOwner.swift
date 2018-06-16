@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+
+struct BitriseProjectOwner: Encodable, Decodable, Equatable {
+  
+  var accountType: String
+  var name: String
+  var slug: String
+  
+  init(accountType account: String, name ownerName: String, slug ownerSlug: String) {
+    accountType = account
+    name = ownerName
+    slug = ownerSlug
+  }
+}
