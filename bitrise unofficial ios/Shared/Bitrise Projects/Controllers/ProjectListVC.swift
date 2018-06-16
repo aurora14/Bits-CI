@@ -64,7 +64,8 @@ class ProjectListViewController: UITableViewController {
     
     switch identifier {
     case "TokenSegue":
-      ()
+      let controller = segue.destination as? TokenAuthViewController
+      controller?.authorizationDelegate = self
     default:
       return
     }
@@ -134,13 +135,13 @@ extension ProjectListViewController {
   }
   
   fileprivate func loadTestItems() {
-    let testModels: [CellRepresentable] = [
-      BitriseProjectViewModel(),
-      BitriseProjectViewModel(),
-      BitriseProjectViewModel(),
-      BitriseProjectViewModel(),
-      BitriseProjectViewModel(),]
-    apps.append(contentsOf: testModels)
+//    let testModels: [CellRepresentable] = [
+//      BitriseProjectViewModel(),
+//      BitriseProjectViewModel(),
+//      BitriseProjectViewModel(),
+//      BitriseProjectViewModel(),
+//      BitriseProjectViewModel(),]
+//    apps.append(contentsOf: testModels)
     activeDataSource = apps
   }
 }
@@ -161,4 +162,23 @@ extension ProjectListViewController: UISearchResultsUpdating {
     }
     tableView.reloadData()
   }
+}
+
+
+extension ProjectListViewController: BitriseAuthorizationDelegate {
+  
+  func didAuthorizeSuccessfully() {
+    
+    // update avatar picture w/AlamofireImage
+    
+    // fetch user's apps
+  }
+  
+  func didFailToAuthorize(with message: String) {
+    
+    
+  }
+  
+  
+  
 }
