@@ -1,0 +1,26 @@
+disabled_rules:
+  - force_try
+  # By default, this limits us to a minimum of 3 characters.
+  # But I think it's practical using 1 char at times when in a short block statement.
+  # We should be on a look out for abuses. Lol
+  - identifier_name
+  - todo
+  - trailing_comma
+  - trailing_whitespace
+  - type_body_length
+# These are areas that are excluded from scan
+excluded:
+  - Pods
+force_cast: warning
+# These are the areas that SwiftLint scans.
+included:
+  - bitrise unofficial ios
+identifier_name:
+  excluded:
+    - id
+line_length:
+  ignores_comments: true
+  warning: 120
+  error: 180
+vertical_whitespace:
+  max_empty_lines: 2

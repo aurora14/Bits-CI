@@ -11,6 +11,8 @@
 		7A200B1720D53604003C6D97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1620D53604003C6D97 /* User.swift */; };
 		7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1820D53E82003C6D97 /* BitriseApp.swift */; };
 		7A200B1B20D54049003C6D97 /* BitriseProjectOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1A20D54049003C6D97 /* BitriseProjectOwner.swift */; };
+		7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1F20D681B4003C6D97 /* Storyboards.swift */; };
+		7A200B2220D681EC003C6D97 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2120D681EC003C6D97 /* Resources.swift */; };
 		7A5DFB7E20D26AE400A3330B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB5D20D26AE300A3330B /* App.swift */; };
 		7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */; };
 		7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6220D26AE300A3330B /* AppDelegate.swift */; };
@@ -38,6 +40,8 @@
 		7A200B1620D53604003C6D97 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7A200B1820D53E82003C6D97 /* BitriseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseApp.swift; sourceTree = "<group>"; };
 		7A200B1A20D54049003C6D97 /* BitriseProjectOwner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseProjectOwner.swift; sourceTree = "<group>"; };
+		7A200B1F20D681B4003C6D97 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		7A200B2120D681EC003C6D97 /* Resources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		7A5DFB4620D26A8D00A3330B /* bitrise unofficial ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bitrise unofficial ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5DFB5D20D26AE300A3330B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthVC.swift; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 		7A5DFB6A20D26AE300A3330B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7A200B2120D681EC003C6D97 /* Resources.swift */,
 				7A5DFB6B20D26AE300A3330B /* Colors.xcassets */,
 				7A5DFB6C20D26AE300A3330B /* Assets.xcassets */,
 			);
@@ -268,6 +273,7 @@
 		7A5DFB7920D26AE400A3330B /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				7A200B1F20D681B4003C6D97 /* Storyboards.swift */,
 				7A5DFB7A20D26AE400A3330B /* LaunchScreen.storyboard */,
 				7A5DFB7C20D26AE400A3330B /* Main.storyboard */,
 			);
@@ -305,6 +311,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A5DFB5820D26A9C00A3330B /* Build configuration list for PBXNativeTarget "bitrise unofficial ios" */;
 			buildPhases = (
+				7A200B1D20D6786A003C6D97 /* Lint Script */,
+				7A200B1E20D680EF003C6D97 /* Codegen Script */,
 				539C3BCB975D072B9320C096 /* [CP] Check Pods Manifest.lock */,
 				7A5DFB4220D26A8D00A3330B /* Sources */,
 				7A5DFB4320D26A8D00A3330B /* Frameworks */,
@@ -452,6 +460,42 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 912acde2d5088c0256bf3fbb92595e9ebf0baa84 6f8735957ae74f51f6bb1a72443a07f2697cc937b6bb287422a0ee9f5242ee52\n";
 		};
+		7A200B1D20D6786A003C6D97 /* Lint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Lint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		7A200B1E20D680EF003C6D97 /* Codegen Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Codegen Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT\"/SwiftGen/bin/swiftgen\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -467,6 +511,8 @@
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
+				7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */,
+				7A200B2220D681EC003C6D97 /* Resources.swift in Sources */,
 				7A5DFB8920D26AE400A3330B /* APIClient.swift in Sources */,
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
 				7A5DFB8420D26AE400A3330B /* ProjectCell.swift in Sources */,
