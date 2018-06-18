@@ -36,6 +36,7 @@ protocol BitriseAuthorizationDelegate: class {
 class TokenAuthViewController: UIViewController {
   
   @IBOutlet weak var tokenInputTF: UITextField!
+  @IBOutlet weak var cancelButton: UIButton!
   
   weak var authorizationDelegate: BitriseAuthorizationDelegate?
   
@@ -44,6 +45,36 @@ class TokenAuthViewController: UIViewController {
     
     // Do any additional setup after loading the view.
     setupTextfield()
+    setupCancelButton()
+  }
+  
+  @IBAction func didTapCancel(_ sender: Any) {
+    
+    authorizationDelegate?.didCancelAuthorization()
+    
+    dismiss(animated: true, completion: nil)
+    
+  }
+  
+  @IBAction func didTapGetNewToken(_ sender: Any) {
+    
+    performSegue(withIdentifier: "GetNewTokenSegue", sender: self)
+  }
+  
+  private func setupCancelButton() {
+    
+    let width = cancelButton.bounds.width
+    let cornerRadius = width / 2
+    
+    cancelButton.backgroundColor = .white
+    
+    let layer = cancelButton.layer
+    layer.cornerRadius = cornerRadius
+    layer.shadowColor = UIColor.black.cgColor
+    layer.shadowOpacity = 0.5
+    layer.shadowOffset = CGSize(width: 1, height: 1)
+    layer.shadowPath = UIBezierPath(roundedRect: cancelButton.bounds, cornerRadius: cornerRadius).cgPath
+    layer.masksToBounds = false
   }
   
   /*
@@ -71,8 +102,6 @@ extension TokenAuthViewController: UITextFieldDelegate {
     guard let token = textField.text else {
       return false
     }
-    
-    
     
     return true
   }
