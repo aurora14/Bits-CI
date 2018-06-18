@@ -11,6 +11,9 @@ import UIKit
 class ProjectListViewController: UITableViewController {
   
   
+  @IBOutlet weak var userProfileButton: UIBarButtonItem!
+  
+  
   fileprivate var isAuthorised = false
   fileprivate var isFiltering = false
   
@@ -21,7 +24,7 @@ class ProjectListViewController: UITableViewController {
     super.viewDidLoad()
     
     // Do any additional setup after loading the view.
-    validateBitriseToken() { isAuthorised in
+    checkForAvailableBitriseToken { isAuthorised in
       
       self.isAuthorised = isAuthorised
       
@@ -49,6 +52,21 @@ class ProjectListViewController: UITableViewController {
   private func presentAuthorizationView() {
     performSegue(withIdentifier: "TokenSegue", sender: nil)
   }
+  
+  // MARK: - UI Actions
+  @IBAction func didTapProfile(_ sender: Any) {
+    
+    checkForAvailableBitriseToken { isAuthorised in
+      
+      guard isAuthorised else {
+        self.presentAuthorizationView()
+        return
+      }
+      
+      // TODO: - Open Profile view if Authorized.
+    }
+  }
+  
   
   // MARK: - Navigation
   
@@ -83,11 +101,12 @@ extension ProjectListViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return 1 // one per section, since we can't set distance between cells - we use sections, one
+             // for each project
   }
   
   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    return 8
+    return 8 // just enough for a subtle but clear separation of the cells
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -114,10 +133,19 @@ extension ProjectListViewController {
 // MARK: - Helpers
 extension ProjectListViewController {
   
-  fileprivate func validateBitriseToken(_ completion: @escaping (Bool) -> Void) {
+  /// Attempts to get a valid stored token from the keychain. If the operation succeeds, calls completion
+  /// handler with true result, otherwise with false result.
+  /// * Under consideration: to include the token in the closure return
+  ///
+  /// - Parameter completion: <#completion description#>
+  fileprivate func checkForAvailableBitriseToken(_ completion: @escaping (_ isAvailable: Bool) -> Void) {
     
     // Check if Keychain has a valid token. If not, open the token modal. There the user
     // has the option
+    guard let _ = App.instance.getBitriseAuthToken() else {
+      completion(false)
+      return
+    }
     
     completion(true)
   }
