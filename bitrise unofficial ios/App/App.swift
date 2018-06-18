@@ -17,7 +17,7 @@ class App {
   let tokenKey = "BitriseAuthorizationToken"
   
   /// Authorization token for Bitrise.io API. This token is required for all Bitrise.io API calls
-  private(set) var bitriseAPIToken: String? =
+  private var bitriseAPIToken: String? =
     "pqDBz0-8jdkomnFoEb48NYu7eacBTpDQxh5rDk_FnSkGABJkBZEOcKO5felT__0tA8_DilBGATpUMi1JrQf7eg"
   // TODO: - return this value from keychain, or nil if this value isn't present
   
@@ -59,11 +59,14 @@ class App {
     }
   }
   
-  func getBitriseAuthToken() {
+  func getBitriseAuthToken() -> String? {
     do {
       try bitriseAPIToken = self.keychain.get(tokenKey)
+      return bitriseAPIToken
     } catch let error {
       print(error.localizedDescription)
+      bitriseAPIToken = nil
+      return bitriseAPIToken
     }
   }
 }
