@@ -37,6 +37,7 @@ class TokenAuthViewController: UIViewController {
   
   @IBOutlet weak var tokenInputTF: UITextField!
   @IBOutlet weak var cancelButton: UIButton!
+  @IBOutlet weak var saveTokenButton: UIButton!
   
   weak var authorizationDelegate: BitriseAuthorizationDelegate?
   
@@ -46,6 +47,7 @@ class TokenAuthViewController: UIViewController {
     // Do any additional setup after loading the view.
     setupTextfield()
     setupCancelButton()
+    setupSaveButton()
   }
   
   @IBAction func didTapCancel(_ sender: Any) {
@@ -57,9 +59,20 @@ class TokenAuthViewController: UIViewController {
   }
   
   @IBAction func didTapGetNewToken(_ sender: Any) {
-    
-    performSegue(withIdentifier: "GetNewTokenSegue", sender: self)
+    perform(segue: StoryboardSegue.Main.getNewTokenSegue)
   }
+  
+  @IBAction func didTapSaveToken(_ sender: Any) {
+    
+    guard let token = tokenInputTF.text else {
+      return
+    }
+    
+    authorizationDelegate?.didAuthorizeSuccessfully()
+    
+    dismiss(animated: true, completion: nil)
+  }
+  
   
   private func setupCancelButton() {
     
@@ -72,20 +85,45 @@ class TokenAuthViewController: UIViewController {
     layer.cornerRadius = cornerRadius
     layer.shadowColor = UIColor.black.cgColor
     layer.shadowOpacity = 0.5
-    layer.shadowOffset = CGSize(width: 1, height: 1)
+    layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
     layer.shadowPath = UIBezierPath(roundedRect: cancelButton.bounds, cornerRadius: cornerRadius).cgPath
     layer.masksToBounds = false
   }
   
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
+  
+  private func setupSaveButton() {
+    let width = saveTokenButton.bounds.width
+    let cornerRadius = width / 2
+    
+    let layer = saveTokenButton.layer
+    layer.cornerRadius = cornerRadius
+    layer.shadowColor = UIColor.black.cgColor
+    layer.shadowOpacity = 0.5
+    layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
+    layer.shadowPath = UIBezierPath(roundedRect: saveTokenButton.bounds, cornerRadius: cornerRadius).cgPath
+    layer.masksToBounds = false
+  }
+  
+  
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    guard let identifier = segue.identifier else {
+      assertionFailure("\(segue.debugDescription) is missing an identifier")
+      return
+    }
+    
+    switch identifier {
+    case StoryboardSegue.Main.getNewTokenSegue.rawValue:
+      let navController = segue.destination as? UINavigationController
+      let controller = navController?.topViewController as? BitriseBrowserViewController
+      controller?.tokenGenerationDelegate = self
+    default:
+      print("Called \(identifier) segue")
+    }
+  }
   
 }
 
@@ -105,4 +143,22 @@ extension TokenAuthViewController: UITextFieldDelegate {
     
     return true
   }
+}
+
+
+extension TokenAuthViewController: TokenGenerationDelegate {
+  
+  
+  func didGenerate(token value: String) {
+    DispatchQueue.main.async {
+      self.tokenInputTF.text = value      
+    }
+    App.sharedInstance.saveBitriseAuthToken(value)
+  }
+  
+  func didCancelGeneration() {
+    print("*** User cancelled token generation - not authorized")
+  }
+  
+  
 }

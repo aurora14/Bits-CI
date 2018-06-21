@@ -13,6 +13,8 @@
 		7A200B1B20D54049003C6D97 /* BitriseProjectOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1A20D54049003C6D97 /* BitriseProjectOwner.swift */; };
 		7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1F20D681B4003C6D97 /* Storyboards.swift */; };
 		7A200B2220D681EC003C6D97 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2120D681EC003C6D97 /* Resources.swift */; };
+		7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */; };
+		7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */; };
 		7A5DFB7E20D26AE400A3330B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB5D20D26AE300A3330B /* App.swift */; };
 		7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */; };
 		7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6220D26AE300A3330B /* AppDelegate.swift */; };
@@ -42,6 +44,9 @@
 		7A200B1A20D54049003C6D97 /* BitriseProjectOwner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseProjectOwner.swift; sourceTree = "<group>"; };
 		7A200B1F20D681B4003C6D97 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		7A200B2120D681EC003C6D97 /* Resources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseBrowserViewController.swift; sourceTree = "<group>"; };
+		7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRSessionManager.swift; sourceTree = "<group>"; };
+		7A22298120D916A100CE5E45 /* JSONTest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = JSONTest.playground; path = ../../../../ConceptStudies/JSONTest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7A5DFB4620D26A8D00A3330B /* bitrise unofficial ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bitrise unofficial ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5DFB5D20D26AE300A3330B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthVC.swift; sourceTree = "<group>"; };
@@ -171,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */,
+				7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */,
 			);
 			path = "User Authentication";
 			sourceTree = "<group>";
@@ -239,6 +245,8 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB7220D26AE300A3330B /* APIClient.swift */,
+				7A22298120D916A100CE5E45 /* JSONTest.playground */,
+				7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -503,6 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */,
 				7A200B1B20D54049003C6D97 /* BitriseProjectOwner.swift in Sources */,
 				7A200B1720D53604003C6D97 /* User.swift in Sources */,
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
@@ -516,6 +525,7 @@
 				7A5DFB8920D26AE400A3330B /* APIClient.swift in Sources */,
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
 				7A5DFB8420D26AE400A3330B /* ProjectCell.swift in Sources */,
+				7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */,
 				7A5DFB8320D26AE400A3330B /* ViewConfigurable.swift in Sources */,
 				7A5DFB8820D26AE400A3330B /* BitriseProjectVM.swift in Sources */,
 				7A5DFB7E20D26AE400A3330B /* App.swift in Sources */,
