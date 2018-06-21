@@ -15,6 +15,17 @@ struct BitriseProjectViewModel: CellRepresentable {
   var app: BitriseApp
   
   // TODO: - perform any necessary transformations here
+  var title: String {
+    return app.title
+  }
+  
+  var isDisabled: Bool {
+    return app.isDisabled
+  }
+  
+  var isPublic: Bool {
+    return app.isPublic
+  }
   
   init(with app: BitriseApp) {
     self.app = app
@@ -23,7 +34,7 @@ struct BitriseProjectViewModel: CellRepresentable {
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
     guard let cell = tableView
-      .dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath) as? ProjectCell else {
+      .dequeueReusableCell(withIdentifier: "ProjectCell") as? ProjectCell else {
         
         return UITableViewCell(style: .default, reuseIdentifier: "ProjectCell")
     }
@@ -39,21 +50,21 @@ struct BitriseProjectViewModel: CellRepresentable {
   
   private func setDefaultBackgroundColor(in cell: UITableViewCell, for indexPath: IndexPath) {
     
-    print("*** Set default background colours")
+    //print("*** Set default background colours for section \(indexPath.section) \(indexPath.section % 5)")
     
     switch indexPath.section % 5 {
     case 0:
-      cell.setContentViewColor(to: UIColor(named: "LightBlue"))
+      cell.setContentViewColor(to: Asset.Colors.lightBlue.color)
     case 1:
-      cell.setContentViewColor(to: UIColor(named: "SaladGreen"))
+      cell.setContentViewColor(to: Asset.Colors.saladGreen.color)
     case 2:
-      cell.setContentViewColor(to: UIColor(named: "CanaryYellow"))
+      cell.setContentViewColor(to: Asset.Colors.canaryYellow.color)
     case 3:
-      cell.setContentViewColor(to: UIColor(named: "FieldGreen"))
+      cell.setContentViewColor(to: Asset.Colors.fieldGreen.color)
     case 4:
-      cell.setContentViewColor(to: UIColor(named: "LushPurple"))
+      cell.setContentViewColor(to: Asset.Colors.lushPurple.color)
     default:
-      cell.setContentViewColor(to: UIColor(named: "TestViewFill"))
+      cell.setContentViewColor(to: Asset.Colors.testViewFill.color)
     }
   }
 }
