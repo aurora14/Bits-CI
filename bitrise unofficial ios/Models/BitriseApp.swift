@@ -8,8 +8,19 @@
 
 import Foundation
 
+struct BitriseProjects: Decodable {
+  let data: [BitriseApp]
+}
 
-struct BitriseApp: Encodable, Decodable, Equatable {
+struct BitriseApp: Codable, Equatable, CustomStringConvertible {
+  
+  var data: Data? // we need a data field to act as a container for the bitrise json model
+  
+  enum VCProvider {
+    case gitlab
+    case github
+    case bitbucket
+  }
   
   var title: String
   var slug: String
@@ -21,7 +32,17 @@ struct BitriseApp: Encodable, Decodable, Equatable {
   var isDisabled: Bool
   var status: Int
   var isPublic: Bool
-  var owner: BitriseProjectOwner
+  var owner: BitriseProjectOwner?
+  
+  var description: String = "\(type(of: BitriseApp.self))"
+  
+  init(from decoder: Decoder) throws {
+    self.init() // Temporary testing code. TODO: - delete after creating the parsing model
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    
+    title = try container.decode(String.self, forKey: .title).uppercased()
+  }
+  
   
   init(
     title appTitle: String,
@@ -50,4 +71,19 @@ struct BitriseApp: Encodable, Decodable, Equatable {
     owner = projectOwner
   }
   
+  
+  /// A convenience dummy initialiser
+  init() {
+    title = "BITRISE SAMPLE PROJECT"
+    slug = ""
+    projectType = ""
+    provider = ""
+    repoOwner = ""
+    repoUrl = ""
+    repoSlug = ""
+    isDisabled = true
+    status = 0
+    isPublic = false
+    owner = nil
+  }
 }
