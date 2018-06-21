@@ -9,7 +9,9 @@ storyboards:
       module: bitrise unofficial ios
 # Assets - e. g. Images & Colors
 xcassets:
-  - paths: bitrise unofficial ios/Resources/Assets.xcassets
+  - paths:
+    - bitrise unofficial ios/Resources/Assets.xcassets
+    - bitrise unofficial ios/Resources/Colors.xcassets
     templateName: swift4
     output: bitrise unofficial ios/Resources/Resources.swift
 # Localization
