@@ -11,7 +11,9 @@ import KeychainAccess
 
 class App {
   
-  static let instance = App()
+  static let sharedInstance = App()
+  
+  let apiClient = APIClient(baseURL: URL(string: "https://api.bitrise.io")!)
   
   let keychain = Keychain(service: "com.gudimenko.alexei.bitrise-unofficial-ios")
   let tokenKey = "BitriseAuthorizationToken"
@@ -25,6 +27,10 @@ class App {
     return UserDefaults.standard
   }
   
+  var currentUser: User?
+  private lazy var encoder = JSONEncoder()
+  private lazy var decoder = JSONDecoder()
+  
   private init() {
     
   }
@@ -35,14 +41,19 @@ class App {
   /// for sign on. If the user decides to log out, that token is wiped and a new one must be entered
   /// before accessing any BR content again
   func saveBitriseAuthToken(_ token: String) {
-    DispatchQueue.global(qos: .background).async {
+    DispatchQueue.global(qos: .background).async { [weak self] in
+      
+      guard let strongSelf = self else {
+        return
+      }
+      
       do {
-        try self.keychain
+        try strongSelf.keychain
           .label("Bitrise Access Token")
           .comment("Authorization value for accessing Bitrise.io API")
           .synchronizable(true)
           .accessibility(.afterFirstUnlock)
-          .set(token, key: self.tokenKey)
+          .set(token, key: strongSelf.tokenKey)
       } catch let error {
         print(error.localizedDescription)
       }
@@ -50,9 +61,14 @@ class App {
   }
   
   func removeBitriseAuthToken() {
-    DispatchQueue.global(qos: .background).async {
+    DispatchQueue.global(qos: .background).async { [ weak self] in
+      
+      guard let strongSelf = self else {
+        return
+      }
+      
       do {
-        try self.keychain.remove(self.tokenKey)
+        try strongSelf.keychain.remove(strongSelf.tokenKey)
       } catch let error {
         print(error.localizedDescription)
       }
@@ -68,5 +84,62 @@ class App {
       bitriseAPIToken = nil
       return bitriseAPIToken
     }
+  }
+  
+}
+
+extension App {
+  
+  func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return paths.first ?? paths[0]
+  }
+  
+  func writeUserToMemory() {
+    do {
+      let file = getDocumentsDirectory().appendingPathComponent("bitriseuser.json")
+      let jsonData = try encoder.encode(currentUser)
+      try jsonData.write(to: file, options: [.atomicWrite, .completeFileProtection])
+    } catch let error {
+      assertionFailure("Unable to write user info: \(error.localizedDescription)")
+      print("*** Error: \(error.localizedDescription)")
+    }
+  }
+  
+  func restoreUserFromMemory() {
+    do {
+      let file = getDocumentsDirectory().appendingPathComponent("bitriseuser.json")
+      let jsonData = try Data(contentsOf: file)
+      currentUser = try decoder.decode(User.self, from: jsonData)
+    } catch let error {
+      assertionFailure("Unable to read user info: \(error.localizedDescription)")
+      print("*** Error: \(error.localizedDescription)")
+    }
+  }
+  
+}
+
+
+extension App {
+  
+  func getProjectsAndUser(_ completion: @escaping (_ user: User?, _ projects: [BitriseProjectViewModel]) -> Void) {
+    
+    apiClient.getUserProfile { [weak self] isSignedIn, user, message in
+      
+      guard let user = user as? Data else {
+        assertionFailure("Couldn't initialise the user")
+        return
+      }
+      
+      do {
+        let u = try JSONDecoder().decode(User.self, from: user)
+        self?.currentUser = u
+        print(u.description)
+      } catch let error {
+        print(error.localizedDescription)
+        self?.currentUser = nil
+      }
+    }
+    
   }
 }
