@@ -10,6 +10,10 @@ import UIKit
 
 class ProjectCell: UITableViewCell, ViewConfigurable {
   
+  @IBOutlet weak var projectIconImageView: UIImageView!
+  
+  @IBOutlet weak var projectNameLabel: UILabel!
+  
   var borderColor: UIColor = .clear
   
   var borderWidth: CGFloat = 0
@@ -36,6 +40,8 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
       print("*** Skipping view setup: invalid view model for Project List")
       return
     }
+    
+    projectNameLabel.text = vm.title
     
     setCornerRounding()
     setDropShadow()
