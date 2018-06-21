@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
+
 
 class ProjectListViewController: UITableViewController {
   
@@ -24,29 +27,72 @@ class ProjectListViewController: UITableViewController {
     super.viewDidLoad()
     
     // Do any additional setup after loading the view.
-    checkForAvailableBitriseToken { isAuthorised in
+    
+    setupSearchUI()
+    
+    checkForAvailableBitriseToken { [weak self] isAuthorised in
       
-      self.isAuthorised = isAuthorised
+      self?.isAuthorised = isAuthorised
+      
+      print("")
       
       if isAuthorised {
-        self.setupSearchUI()
-        self.getProjectsAndUser()
+        self?.getUser()
+        self?.getProjects()
       } else {
-        self.presentAuthorizationView()
+        self?.presentAuthorizationView()
       }
     }
     
     // debug only
-    loadTestItems()
+    //loadTestItems()
   }
   
-  private func getProjectsAndUser() {
+  private func getProjects() {
     
-    // make separate API calls: one to get the list of projects, one to get user information.
+    App.sharedInstance.apiClient.getUserApps { [weak self] success, projects, message in
+      
+      guard let strongSelf = self else {
+        assertionFailure("Couldn't create a strong-self scoped object")
+        return
+      }
+      
+      guard let p = projects else {
+        print("*** projects returned null")
+        return
+      }
+      
+      strongSelf.apps = p
+      self?.activeDataSource = strongSelf.apps
+      
+      print("Apps count: \(strongSelf.apps.count)")
+      print("DS count: \(strongSelf.activeDataSource.count)")
+      
+      DispatchQueue.main.async {
+        self?.tableView.reloadData()        
+      }
+      
+      return
+    }
+  }
+  
+  private func getUser() {
     
-    // cache the user information where relevant
-    
-    activeDataSource = apps
+    App.sharedInstance.apiClient.getUserProfile { [weak self] isSignedIn, user, message in
+      
+      guard isSignedIn, let u = user else {
+        return
+      }
+      
+      guard let avatarUrl = u.avatarUrl else {
+        print("*** User doesn't have an avatar link associated with their account")
+        return
+      }
+      
+      App.sharedInstance
+        .apiClient.getUserImage(from: avatarUrl, completion: { [weak self] _, _, _ in
+      })
+    }
   }
   
   private func presentAuthorizationView() {
@@ -56,10 +102,10 @@ class ProjectListViewController: UITableViewController {
   // MARK: - UI Actions
   @IBAction func didTapProfile(_ sender: Any) {
     
-    checkForAvailableBitriseToken { isAuthorised in
+    checkForAvailableBitriseToken { [weak self] isAuthorised in
       
       guard isAuthorised else {
-        self.presentAuthorizationView()
+        self?.presentAuthorizationView()
         return
       }
       
@@ -93,6 +139,7 @@ class ProjectListViewController: UITableViewController {
   
 }
 
+
 // MARK: - Collection View Datasource
 extension ProjectListViewController {
   
@@ -102,7 +149,7 @@ extension ProjectListViewController {
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1 // one per section, since we can't set distance between cells - we use sections, one
-             // for each project
+    // for each project
   }
   
   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -110,22 +157,23 @@ extension ProjectListViewController {
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return activeDataSource[indexPath.row].rowHeight
+    return activeDataSource[indexPath.section].rowHeight
   }
   
   override func tableView(_ tableView: UITableView,
                           cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return activeDataSource[indexPath.row].cellInstance(tableView, indexPath: indexPath)
+    return activeDataSource[indexPath.section].cellInstance(tableView, indexPath: indexPath)
   }
 }
 
 
 // MARK: - Collection View Delegate
 extension ProjectListViewController {
- 
+  
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     
+    print("*** Tapped row at \(indexPath.section)")
   }
 }
 
@@ -142,7 +190,7 @@ extension ProjectListViewController {
     
     // Check if Keychain has a valid token. If not, open the token modal. There the user
     // has the option
-    guard let _ = App.instance.getBitriseAuthToken() else {
+    guard let _ = App.sharedInstance.getBitriseAuthToken() else {
       completion(false)
       return
     }
@@ -154,7 +202,7 @@ extension ProjectListViewController {
     if #available(iOS 11.0, *) {
       let search = UISearchController(searchResultsController: nil)
       // TODO: - replace with actual property that can be filtered, e.g. name
-      search.searchBar.placeholder = "Filter by project %property%"
+      search.searchBar.placeholder = "Filter by project title"
       search.searchResultsUpdater = self
       self.navigationItem.searchController = search
     } else {
@@ -163,13 +211,13 @@ extension ProjectListViewController {
   }
   
   fileprivate func loadTestItems() {
-//    let testModels: [CellRepresentable] = [
-//      BitriseProjectViewModel(),
-//      BitriseProjectViewModel(),
-//      BitriseProjectViewModel(),
-//      BitriseProjectViewModel(),
-//      BitriseProjectViewModel(),]
-//    apps.append(contentsOf: testModels)
+    let testModels: [CellRepresentable] = [
+      BitriseProjectViewModel(with: BitriseApp()),
+      BitriseProjectViewModel(with: BitriseApp()),
+      BitriseProjectViewModel(with: BitriseApp()),
+      BitriseProjectViewModel(with: BitriseApp()),
+      BitriseProjectViewModel(with: BitriseApp())]
+    apps.append(contentsOf: testModels)
     activeDataSource = apps
   }
 }
@@ -179,14 +227,16 @@ extension ProjectListViewController: UISearchResultsUpdating {
   
   func updateSearchResults(for searchController: UISearchController) {
     
-    if let text = searchController.searchBar.text, !text.isEmpty {
-      activeDataSource = activeDataSource.filter({ (project) -> Bool in
-        return true// return project.someProperty.lowercased().contains(searchbartext)
+    if let text = searchController.searchBar.text,
+      !text.isEmpty, let projects = apps as? [BitriseProjectViewModel] {
+      activeDataSource = projects.filter({ project -> Bool in
+        print("\(text) \(project.title.lowercased())")
+        return project.title.uppercased().contains(text.uppercased())
       })
-      isFiltering = true
+      print(apps.count)
     } else {
-      isFiltering = false
-      activeDataSource = apps // TODO: - optionally, sort these by name or something else
+      activeDataSource = apps
+      print(apps.count)// TODO: - optionally, sort these by name or something else
     }
     tableView.reloadData()
   }
@@ -196,10 +246,8 @@ extension ProjectListViewController: UISearchResultsUpdating {
 extension ProjectListViewController: BitriseAuthorizationDelegate {
   
   func didAuthorizeSuccessfully() {
-    
-    // update avatar picture w/AlamofireImage
-    
-    // fetch user's apps
+    getUser()
+    getProjects()
   }
   
   func didFailToAuthorize(with message: String) {
