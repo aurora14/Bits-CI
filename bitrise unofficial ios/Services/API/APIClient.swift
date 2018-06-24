@@ -206,7 +206,7 @@ extension APIClient {
           do {
             let projectArrayStruct = try self?.decoder.decode(BitriseProjects.self, from: data)
             if let p = projectArrayStruct {
-              retrievedProjects = p.data.map { BitriseProjectViewModel(with: $0) }
+              retrievedProjects = p.data.compactMap { BitriseProjectViewModel(with: $0) }
             } else {
               print("Couldn't unwrap project struct")
             }

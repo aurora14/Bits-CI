@@ -36,11 +36,23 @@ struct BitriseApp: Codable, Equatable, CustomStringConvertible {
   
   var description: String = "\(type(of: BitriseApp.self))"
   
+  
   init(from decoder: Decoder) throws {
-    self.init() // Temporary testing code. TODO: - delete after creating the parsing model
+    //self.init() // Temporary testing code. TODO: - delete after creating the parsing model
     let container = try decoder.container(keyedBy: CodingKeys.self)
     
     title = try container.decode(String.self, forKey: .title).uppercased()
+    slug = try container.decode(String.self, forKey: .slug)
+    projectType = try container.decode(String.self, forKey: .projectType)
+    provider = try container.decode(String.self, forKey: .provider)
+    repoOwner = try container.decode(String.self, forKey: .repoOwner)
+    repoUrl = try container.decode(String.self, forKey: .repoUrl)
+    repoSlug = try container.decode(String.self, forKey: .repoSlug)
+    isDisabled = try container.decode(Bool.self, forKey: .isDisabled)
+    status = try container.decode(Int.self, forKey: .status)
+    isPublic = try container.decode(Bool.self, forKey: .isPublic)
+    owner = try container.decode(BitriseProjectOwner.self, forKey: .owner)
+    
   }
   
   
