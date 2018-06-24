@@ -42,6 +42,7 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.6.0)
+  - SkeletonView (1.2.1)
   - SVProgressHUD (2.2.5)
   - SwiftGen (5.3.0)
   - SwiftLint (0.25.1)
@@ -58,6 +59,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - IQKeyboardManagerSwift
   - KeychainAccess
+  - SkeletonView
   - SVProgressHUD
   - SwiftGen
   - SwiftLint
@@ -81,6 +83,7 @@ SPEC REPOS:
     - KeychainAccess
     - nanopb
     - Protobuf
+    - SkeletonView
     - SVProgressHUD
     - SwiftGen
     - SwiftLint
@@ -103,12 +106,13 @@ SPEC CHECKSUMS:
   KeychainAccess: 7bd430028059754a3debab3cfc0bd1fc7fb85df3
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
+  SkeletonView: 98a31213f9282076149e6eb23f46734604f02086
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftGen: 4379bd3640b0a212a0f6ea3c494adba385513d10
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
   ViewAnimator: 43c31539508d995ea2c5e98338211f7c009b358f
 
-PODFILE CHECKSUM: 053865a42fd52378be817e5d1df7450c1cf5d3d7
+PODFILE CHECKSUM: e0435e1a7aaddcb1a1c4253b6d7498ab5b8b095b
 
 COCOAPODS: 1.5.3
