@@ -11,7 +11,8 @@ import UIKit
 import Fabric
 import Crashlytics
 import Firebase
-
+import Alamofire
+import AlamofireNetworkActivityIndicator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
     // Override point for customization after application launch.
+    
+    NetworkActivityIndicatorManager.shared.isEnabled = true
+    
     FirebaseApp.configure()
     Fabric.sharedSDK().debug = true
     Fabric.with([Crashlytics.self])
