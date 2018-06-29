@@ -12,25 +12,20 @@ import Alamofire
 
 class BRSessionManager {
   
+  
   static let shared = BRSessionManager()
   
-  private init() { }
+  public var background: Alamofire.SessionManager
   
-  private func _httpSessionManager() -> Alamofire.SessionManager {
+  
+  private init() {
     
-    // Create custom manager
     let configuration = URLSessionConfiguration
       .background(withIdentifier: "com.gudimenko.alexei.bitrise-unofficial-ios")
-    configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
-    let manager = Alamofire.SessionManager(
-      configuration: configuration
-      //serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
-    )
     
-    return manager
+    configuration.httpAdditionalHeaders = Alamofire.SessionManager.defaultHTTPHeaders
+    
+    background = Alamofire.SessionManager(configuration: configuration)
   }
-  
-  public var httpSessionManager: Alamofire.SessionManager {
-    return _httpSessionManager()
-  }
+
 }

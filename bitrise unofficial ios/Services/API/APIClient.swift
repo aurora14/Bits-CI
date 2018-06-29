@@ -15,6 +15,7 @@ enum Endpoint: String {
   case apps
 }
 
+
 /// Handles communication with the Bitrise endpoints. Avoid adding state to this. The definition
 /// should not be modified.
 /// This class acts as a wrapper for typical Alamofire requests, allowing specification of
@@ -111,7 +112,7 @@ extension APIClient {
     
     //httpSessionManager.
     
-    Alamofire.request(url, method: .get, parameters: nil,
+    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
                       encoding: JSONEncoding.default, headers: headers)
       .validate(statusCode: 200 ..< 300)
       .responseJSON(queue: queue, completionHandler: { response in
@@ -141,7 +142,7 @@ extension APIClient {
     let url = apiEndpointURL(Endpoint.me.rawValue)
     let queue = DispatchQueue.global(qos: .background)
     
-    Alamofire.request(url, method: .get, parameters: nil,
+    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
                       encoding: JSONEncoding.default, headers: headers)
       .validate(statusCode: 200 ..< 300)
       .responseJSON(queue: queue, completionHandler: { [weak self] response in
@@ -172,6 +173,10 @@ extension APIClient {
   }
   
   
+  /// Makes a call to /apps endpoint.
+  ///
+  /// - Parameter completion: success status that can be true or false, an array of projects
+  /// if successful or nil if not, and a message that provides additional information
   func getUserApps(completion: @escaping (_ success: Bool,
     _ apps: [BitriseProjectViewModel]?, _ message: String) -> Void) {
     
@@ -188,10 +193,12 @@ extension APIClient {
     print(url)
     let queue = DispatchQueue.global(qos: .background)
     
-    Alamofire.request(url, method: .get, parameters: nil,
+    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
                       encoding: JSONEncoding.default, headers: headers)
       .validate()
       .responseJSON(queue: queue, completionHandler: { [weak self] response in
+        
+        print("*** Completed project fetch")
         
         switch response.result {
         case .success:
@@ -201,17 +208,19 @@ extension APIClient {
             return
           }
           
-          var retrievedProjects = [BitriseProjectViewModel]()
-          
-          do {
+          do { // essentially, only one success condition
+            
             let projectArrayStruct = try self?.decoder.decode(BitriseProjects.self, from: data)
+            
             if let p = projectArrayStruct {
+              var retrievedProjects = [BitriseProjectViewModel]()
               retrievedProjects = p.data.compactMap { BitriseProjectViewModel(with: $0) }
+              retrievedProjects.forEach { $0.updateLastBuild() }
+              completion(true, retrievedProjects, "Fetched successfully")
             } else {
               print("Couldn't unwrap project struct")
+              completion(false, nil, "Invalid data structure")
             }
-            
-            completion(true, retrievedProjects, "Fetched successfully")
           } catch let error {
             completion(false, nil, "Failed to decode application sets with \(error.localizedDescription)")
           }
@@ -222,6 +231,11 @@ extension APIClient {
   }
   
   
+  /// <#Description#>
+  ///
+  /// - Parameters:
+  ///   - url: <#url description#>
+  ///   - completion: <#completion description#>
   func getUserImage(from url: URLConvertible,
                     completion: @escaping (_ success: Bool, _ image: UIImage?, _ message: String) -> Void) {
     
@@ -240,5 +254,65 @@ extension APIClient {
           completion(false, nil, "Image retrieval failed with \(error.localizedDescription)")
         }
     }
+  }
+  
+  
+  /// <#Description#>
+  ///
+  /// - Parameters:
+  ///   - app: <#app description#>
+  ///   - completion: <#completion description#>
+  func getBuilds(for app: BitriseApp, withLimit limit: Int = 1,
+                    completion: @escaping (_ success: Bool, _ lastBuild: Build?, _ message: String) -> Void) {
+    
+    // v0.1/apps/{APP-SLUG}/builds
+    
+    guard let token = App.sharedInstance.getBitriseAuthToken() else {
+      completion(false, nil, "No token saved in keychain")
+      return
+    }
+    
+    setAuthHeaders(withToken: token)
+    
+    let limitItem = URLQueryItem(name: "limit", value: "\(limit)")
+    
+    let queryItems: [URLQueryItem] = [limitItem]
+    
+    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds", withQueryItems: queryItems)
+    
+    print("*** Last Build URL String: \(url.absoluteString)")
+    
+    let queue = DispatchQueue.global(qos: .background)
+    
+    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
+                                               encoding: JSONEncoding.default, headers: headers)
+      .validate()
+      .responseJSON(queue: queue, completionHandler: { [weak self] response in
+      
+        switch response.result {
+        case .success:
+          
+          guard let data = response.data else {
+            completion(false, nil, "Response contained no data")
+            return
+          }
+          
+          do { // essentially, only one success condition
+            let builds = try self?.decoder.decode(Builds.self, from: data)
+            let lastBuild = builds?.data.compactMap { $0 }.first
+            //print("Test: last build # \(lastBuild?.buildNumber)")
+            guard lastBuild != nil else {
+              completion(false, nil, "Failed to translate build")
+              return
+            }
+            completion(true, lastBuild, "Successfully fetched build")
+          } catch let error {
+            completion(false, nil, "Build retrieval failed with \(error.localizedDescription), \(response.value)")
+          }
+          
+        case .failure(let error):
+          completion(false, nil, "Build retrieval failed with \(error.localizedDescription)")
+        }
+    })
   }
 }
