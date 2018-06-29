@@ -14,6 +14,14 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   
   @IBOutlet weak var projectNameLabel: UILabel!
   
+  @IBOutlet weak var projectOwnerLabel: UILabel!
+  
+  @IBOutlet weak var contentContainer: ContentContainer!
+  
+  @IBOutlet weak var buildNumberLabel: UILabel!
+  
+  @IBOutlet weak var buildStatusStrip: UIView!
+  
   var borderColor: UIColor = .clear
   
   var borderWidth: CGFloat = 0
@@ -34,15 +42,25 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     }
   }
   
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // Initialization code
+    
+  }
+  
   func setup(with viewModel: ViewRepresentable?) {
     
     guard let vm = viewModel as? BitriseProjectViewModel else {
       print("*** Skipping view setup: invalid view model for Project List")
+      hideAllSkeletons()
       return
     }
     
     projectNameLabel.text = vm.title
+    projectOwnerLabel.text = vm.projectOwner
+    buildNumberLabel.text = vm.lastBuildNumber
     
+    setImages(for: vm.app)
     setCornerRounding()
     setDropShadow()
   }
@@ -58,5 +76,48 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     layer.shadowOffset = CGSize(width: 0, height: 1)
     layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
     layer.masksToBounds = false
+  }
+  
+  private func setImages(for app: BitriseApp) {
+    
+    guard let projectType = app.projectType else {
+      print("*** App doesn't have project type")
+      return
+    }
+    
+    switch projectType.lowercased() {
+    // TODO: - add 'react' option and ensure an icon is created for it
+    case "ios":
+      projectIconImageView.image = Asset.Assets.applicationIos.image
+    case "android":
+      projectIconImageView.image = Asset.Assets.applicationAndroid.image
+    case "xamarin":
+      projectIconImageView.image = Asset.Assets.applicationXamarin.image
+    default:
+      projectIconImageView.image = Asset.Assets.applicationDefault.image
+    }
+  }
+}
+
+
+extension ProjectCell {
+  
+  fileprivate func showAllSkeletons() {
+    if !contentContainer.isReadyToHideSkeleton {
+      DispatchQueue.main.async {
+        self.projectIconImageView.showAnimatedGradientSkeleton()
+        self.projectNameLabel.showAnimatedGradientSkeleton()
+        self.contentContainer.showAnimatedGradientSkeleton()
+      }
+    }
+  }
+  
+  fileprivate func hideAllSkeletons() {
+    DispatchQueue.main.async {
+      self.contentContainer.isReadyToHideSkeleton = true
+      self.projectIconImageView.hideSkeleton()
+      self.projectNameLabel.hideSkeleton()
+      self.contentContainer.hideSkeleton()
+    }
   }
 }

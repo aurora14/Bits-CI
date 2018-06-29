@@ -8,13 +8,25 @@
 
 import UIKit
 
-struct BitriseProjectViewModel: CellRepresentable {
+
+protocol ViewRefreshDelegate: class {
+  func update(at indexPath: IndexPath?)
+}
+
+
+class BitriseProjectViewModel: CellRepresentable {
   
   var rowHeight: CGFloat = 84
   
+  weak var viewRefreshDelegate: ViewRefreshDelegate?
+  
+  /// If the viewmodel is used for a collection or a table view, you may pass the index path
+  /// object in itemForRow or cellForRow methods, should you need to do direct updates to items.
+  /// Otherwise, this property can remain nil and be ignored.
+  var indexPath: IndexPath?
+  
   var app: BitriseApp
   
-  // TODO: - perform any necessary transformations here
   var title: String {
     return app.title
   }
@@ -27,8 +39,47 @@ struct BitriseProjectViewModel: CellRepresentable {
     return app.isPublic
   }
   
+  var projectOwner: String {
+    if let owner = app.owner {
+      return owner.name
+    } else {
+      return ""
+    }
+  }
+  
+  var lastBuild: Build? {
+    didSet {
+      viewRefreshDelegate?.update(at: indexPath)
+    }
+  }
+  
+  var lastBuildNumber: String {
+    return lastBuild == nil ? "" : "\(lastBuild!.buildNumber)"
+  }
+  
+  var lastBuildTime: String? {
+    if let build = lastBuild, let status = build.status {
+      switch status {
+      case .success:    return ""//lastBuild?.finishedAt?.
+      case .failure:    return ""
+      case .inProgress: return status.text
+      }
+    }
+    return nil
+  }
+  
+  var buildStatusColor: UIColor {
+    return lastBuild?.status?.color ?? Asset.Colors.bitriseGreen.color // TODO: - add a grey "unknown" color
+  }
+  
+  var buildStatusIcon: UIImage {
+    return lastBuild?.status?.icon ?? Asset.Assets.close.image
+  }
+  
   init(with app: BitriseApp) {
     self.app = app
+    
+    // get last build information here? 
   }
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
@@ -64,7 +115,21 @@ struct BitriseProjectViewModel: CellRepresentable {
     case 4:
       cell.setContentViewColor(to: Asset.Colors.lushPurple.color)
     default:
-      cell.setContentViewColor(to: Asset.Colors.testViewFill.color)
+      cell.setContentViewColor(to: UIColor.lightGray)
     }
   }
+  
+  
+  func updateLastBuild() {
+    App.sharedInstance.apiClient.getBuilds(for: self.app) { [weak self] success, build, message in
+      self?.lastBuild = build
+      print("""
+        
+        Last Build msg: \(message), \(build.debugDescription)
+        Status: \(build?.status)
+        
+        """)
+    }
+  }
+  
 }
