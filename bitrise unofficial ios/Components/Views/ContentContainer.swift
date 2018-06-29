@@ -37,6 +37,11 @@ class ContentContainer: UIView, ViewConfigurable {
   }
   
   
+  /// This works with the SkeletonView library to let you show and dismiss the
+  /// preview animation
+  var isReadyToHideSkeleton = false
+  
+  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()

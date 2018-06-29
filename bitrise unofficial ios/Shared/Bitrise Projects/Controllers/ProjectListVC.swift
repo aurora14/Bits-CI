@@ -6,9 +6,11 @@
 //  Copyright © 2018 Alexei Gudimenko. All rights reserved.
 //
 
+
 import UIKit
 import Alamofire
 import AlamofireImage
+import SkeletonView
 
 
 class ProjectListViewController: UITableViewController {
@@ -44,11 +46,11 @@ class ProjectListViewController: UITableViewController {
       }
     }
     
-    // debug only
-    //loadTestItems()
   }
   
-  private func getProjects() {
+  @objc private func getProjects() {
+    
+    tableView.showAnimatedGradientSkeleton()
     
     App.sharedInstance.apiClient.getUserApps { [weak self] success, projects, message in
       
@@ -59,6 +61,10 @@ class ProjectListViewController: UITableViewController {
       
       guard let p = projects else {
         print("*** projects returned null")
+        DispatchQueue.main.async {
+          strongSelf.finishRefreshing()
+          strongSelf.tableView.hideSkeleton()
+        }
         return
       }
       
@@ -69,6 +75,8 @@ class ProjectListViewController: UITableViewController {
       print("DS count: \(strongSelf.activeDataSource.count)")
       
       DispatchQueue.main.async {
+        strongSelf.finishRefreshing()
+        self?.tableView.hideSkeleton()
         self?.tableView.reloadData()        
       }
       
@@ -91,7 +99,7 @@ class ProjectListViewController: UITableViewController {
       
       App.sharedInstance
         .apiClient.getUserImage(from: avatarUrl, completion: { [weak self] _, _, _ in
-      })
+        })
     }
   }
   
