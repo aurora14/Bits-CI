@@ -92,7 +92,7 @@ class TokenAuthViewController: UIViewController {
   
   
   private func setupSaveButton() {
-    let width = saveTokenButton.bounds.width
+    let width = saveTokenButton.bounds.height
     let cornerRadius = width / 2
     
     let layer = saveTokenButton.layer
