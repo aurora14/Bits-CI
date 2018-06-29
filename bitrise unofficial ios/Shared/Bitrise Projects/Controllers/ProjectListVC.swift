@@ -18,6 +18,7 @@ class ProjectListViewController: UITableViewController {
   
   @IBOutlet weak var userProfileButton: UIBarButtonItem!
   
+  var searchFooter: SearchFooter?
   
   fileprivate var isAuthorised = false
   fileprivate var isFiltering = false
@@ -28,15 +29,14 @@ class ProjectListViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Do any additional setup after loading the view.
-    
     setupSearchUI()
+    setupTableView()
+    loadTestItems() // dummy items to show a preview until the table view is updated with live data
+    setupRefreshing()
     
     checkForAvailableBitriseToken { [weak self] isAuthorised in
       
       self?.isAuthorised = isAuthorised
-      
-      print("")
       
       if isAuthorised {
         self?.getUser()
@@ -148,10 +148,15 @@ class ProjectListViewController: UITableViewController {
 }
 
 
-// MARK: - Collection View Datasource
+// MARK: - Table View Datasource
 extension ProjectListViewController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
+    if isFiltering {
+      searchFooter?.setIsFilteringToShow(filteredItemCount: activeDataSource.count, of: apps.count)
+    } else {
+      searchFooter?.setNotFiltering()
+    }
     return activeDataSource.count
   }
   
@@ -170,12 +175,16 @@ extension ProjectListViewController {
   
   override func tableView(_ tableView: UITableView,
                           cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let vm = activeDataSource[indexPath.section] as? BitriseProjectViewModel
+    vm?.viewRefreshDelegate = self
+    vm?.indexPath = indexPath
     return activeDataSource[indexPath.section].cellInstance(tableView, indexPath: indexPath)
   }
+  
 }
 
 
-// MARK: - Collection View Delegate
+// MARK: - Table View Delegate
 extension ProjectListViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -183,6 +192,25 @@ extension ProjectListViewController {
     
     print("*** Tapped row at \(indexPath.section)")
   }
+}
+
+// MARK: - Table View Prefetch
+extension ProjectListViewController: UITableViewDataSourcePrefetching {
+  
+  // TODO: - Finish implementation of these for smooth scrolling
+  
+  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+    for _ in indexPaths {
+      
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+    for _ in indexPaths {
+      
+    }
+  }
+  
 }
 
 
@@ -206,16 +234,36 @@ extension ProjectListViewController {
     completion(true)
   }
   
+  /// Configures the search UI (the embedded navigation-bar version as it shows in iOS 11;
+  /// we aren't supporting < 11.0 at this point).
+  /// Some things to keep in mind:
+  /// - 'obscuresBackgroundDuringPresentation' needs to be set to false. We aren't using a
+  /// custom Search Results Controller, therefore if it's set to true (which
   fileprivate func setupSearchUI() {
     if #available(iOS 11.0, *) {
       let search = UISearchController(searchResultsController: nil)
-      // TODO: - replace with actual property that can be filtered, e.g. name
       search.searchBar.placeholder = "Filter by project title"
       search.searchResultsUpdater = self
-      self.navigationItem.searchController = search
+      search.searchBar.tintColor = Asset.Colors.bitriseGreen.color
+      search.obscuresBackgroundDuringPresentation = false
+      search.delegate = self
+      navigationItem.searchController = search
     } else {
       // Fallback on earlier versions
     }
+  }
+  
+  fileprivate func setupTableView() {
+    tableView.prefetchDataSource = self
+    searchFooter = createSearchFooter()
+    tableView.tableFooterView = searchFooter
+  }
+  
+  fileprivate func createSearchFooter() -> SearchFooter {
+    let size = CGSize(width: UIScreen.main.bounds.width - 12, height: 56)
+    let frame = CGRect(origin: .zero, size: size)
+    let footerView = SearchFooter(frame: frame)
+    return footerView
   }
   
   fileprivate func loadTestItems() {
@@ -228,23 +276,63 @@ extension ProjectListViewController {
     apps.append(contentsOf: testModels)
     activeDataSource = apps
   }
+  
+  func setupRefreshing() {
+    refreshControl = UIRefreshControl()
+    
+    // NOTE: - Leave the background property blank to make refresh control have the same bg colour as
+    //  the regular tableview background. Otherwise it'll layer colours and will make the control appear darker.
+    //  Default colour of the Refresh control is .clear
+    //refreshControl?.backgroundColor = selectedMood.themeColorBase
+    refreshControl?.tintColor = Asset.Colors.bitriseGreen.color
+    // refreshControl?.tintColor = .clear
+    refreshControl?.addTarget(self, action: #selector(getProjects),
+                              for: .valueChanged)
+    tableView.refreshControl = refreshControl
+  }
+  
+  func finishRefreshing() {
+    DispatchQueue.main.async { [weak self] in
+      if let refreshControl = self?.refreshControl, refreshControl.isRefreshing {
+        let lastUpdatedDate = dateFormatter.string(from: Date())
+        let title = "Last updated: \(lastUpdatedDate)"
+        let attribs = [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+                        NSAttributedString.Key.foregroundColor: UIColor.darkText ]
+        let attributedTitle = NSAttributedString(string: title, attributes: attribs)
+        self?.refreshControl?.attributedTitle = attributedTitle
+        self?.refreshControl?.endRefreshing()
+        self?.scrollToTop()
+      }
+    }
+  }
+  
+  /// Restores the list back to the start of content. Typically this is done when a new activity
+  /// set is being fetched
+  fileprivate func scrollToTop() {
+    // Set 'y' to 0 to scroll the list all the way to the top. This will also automatically collapse
+    // a large title.
+    tableView.scrollRectToVisible(CGRect(
+      x: 0, y: 0, width: 1, height: 1), animated: false)
+    #warning("setContentOffset() is a temporary workaround for broken Large Titles behaviour")
+    tableView.setContentOffset(CGPoint(x: 0, y: -164), animated: false)
+    print(tableView.contentOffset)
+  }
 }
 
 
-extension ProjectListViewController: UISearchResultsUpdating {
+extension ProjectListViewController: UISearchResultsUpdating, UISearchControllerDelegate {
   
   func updateSearchResults(for searchController: UISearchController) {
     
     if let text = searchController.searchBar.text,
       !text.isEmpty, let projects = apps as? [BitriseProjectViewModel] {
+      isFiltering = true
       activeDataSource = projects.filter({ project -> Bool in
-        print("\(text) \(project.title.lowercased())")
         return project.title.uppercased().contains(text.uppercased())
       })
-      print(apps.count)
     } else {
+      isFiltering = false
       activeDataSource = apps
-      print(apps.count)// TODO: - optionally, sort these by name or something else
     }
     tableView.reloadData()
   }
@@ -267,4 +355,33 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
     
   }
   
+}
+
+
+extension ProjectListViewController {
+  
+  override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+    print(scrollView.frame)
+  }
+  
+  override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    print("\(scrollView.frame) \(scrollView.contentOffset)")
+  }
+}
+
+
+extension ProjectListViewController: ViewRefreshDelegate {
+  
+  func update(at indexPath: IndexPath?) {
+    
+    guard let path = indexPath else {
+      return
+    }
+    
+    DispatchQueue.main.async {
+      self.tableView.beginUpdates()
+      self.tableView.reloadRows(at: [path], with: .automatic)
+      self.tableView.endUpdates()
+    }
+  }
 }
