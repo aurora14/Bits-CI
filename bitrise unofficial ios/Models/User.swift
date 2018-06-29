@@ -53,9 +53,9 @@ struct User: Codable, Equatable, CustomStringConvertible {
     let data = try decoder.container(keyedBy: CodingKeys.self)
     
     let userInfo = try data.nestedContainer(keyedBy: UserInfoKeys.self, forKey: .data)
-    username = try userInfo.decode(String.self, forKey: .username)
-    slug = try userInfo.decode(String.self, forKey: .slug)
-    avatarUrl = try userInfo.decode(String.self, forKey: .avatarUrl)
+    username = try userInfo.decodeIfPresent(String.self, forKey: .username)
+    slug = try userInfo.decodeIfPresent(String.self, forKey: .slug)
+    avatarUrl = try userInfo.decodeIfPresent(String.self, forKey: .avatarUrl)
     
     description = """
     == Struct USER ==

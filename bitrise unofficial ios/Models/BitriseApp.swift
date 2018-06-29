@@ -10,6 +10,7 @@ import Foundation
 
 struct BitriseProjects: Decodable {
   let data: [BitriseApp]
+  let paging: Paging?
 }
 
 struct BitriseApp: Codable, Equatable, CustomStringConvertible {
@@ -43,7 +44,7 @@ struct BitriseApp: Codable, Equatable, CustomStringConvertible {
     
     title = try container.decode(String.self, forKey: .title).uppercased()
     slug = try container.decode(String.self, forKey: .slug)
-    projectType = try container.decode(String.self, forKey: .projectType)
+    projectType = try container.decodeIfPresent(String.self, forKey: .projectType)
     provider = try container.decode(String.self, forKey: .provider)
     repoOwner = try container.decode(String.self, forKey: .repoOwner)
     repoUrl = try container.decode(String.self, forKey: .repoUrl)
@@ -86,7 +87,7 @@ struct BitriseApp: Codable, Equatable, CustomStringConvertible {
   
   /// A convenience dummy initialiser
   init() {
-    title = "BITRISE SAMPLE PROJECT"
+    title = ""
     slug = ""
     projectType = ""
     provider = ""
@@ -98,4 +99,5 @@ struct BitriseApp: Codable, Equatable, CustomStringConvertible {
     isPublic = false
     owner = nil
   }
+
 }
