@@ -81,6 +81,7 @@ internal enum Asset {
     internal static let bitriseGreen = ColorAsset(name: "BitriseGreen")
     internal static let bitriseOrange = ColorAsset(name: "BitriseOrange")
     internal static let bitrisePurple = ColorAsset(name: "BitrisePurple")
+    internal static let bitriseYellow = ColorAsset(name: "BitriseYellow")
     internal static let canaryYellow = ColorAsset(name: "CanaryYellow")
     internal static let fieldGreen = ColorAsset(name: "FieldGreen")
     internal static let lightBlue = ColorAsset(name: "LightBlue")
@@ -93,6 +94,7 @@ internal enum Asset {
       bitriseGreen,
       bitriseOrange,
       bitrisePurple,
+      bitriseYellow,
       canaryYellow,
       fieldGreen,
       lightBlue,
