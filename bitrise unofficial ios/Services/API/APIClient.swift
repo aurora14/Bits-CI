@@ -301,6 +301,7 @@ extension APIClient {
             let builds = try self?.decoder.decode(Builds.self, from: data)
             let lastBuild = builds?.data.compactMap { $0 }.first
             //print("Test: last build # \(lastBuild?.buildNumber)")
+            debugPrint(response.value)
             guard lastBuild != nil else {
               completion(false, nil, "Failed to translate build")
               return
