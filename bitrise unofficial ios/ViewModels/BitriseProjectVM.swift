@@ -41,7 +41,7 @@ class BitriseProjectViewModel: CellRepresentable {
   
   var projectOwner: String {
     if let owner = app.owner {
-      return owner.name
+      return "\(owner.name) / "
     } else {
       return ""
     }
@@ -57,23 +57,23 @@ class BitriseProjectViewModel: CellRepresentable {
     return lastBuild == nil ? "" : "\(lastBuild!.buildNumber)"
   }
   
-  var lastBuildTime: String? {
+  var lastBuildTime: String {
     if let build = lastBuild, let status = build.status {
       switch status {
-      case .success:    return ""//lastBuild?.finishedAt?.
-      case .failure:    return ""
+      case .success:    return "\(build.finishedAt ?? "N/A")"
+      case .failure:    return "\(build.finishedAt ?? "N/A")"
       case .inProgress: return status.text
       }
     }
-    return nil
+    return "N/A"
   }
   
   var buildStatusColor: UIColor {
-    return lastBuild?.status?.color ?? Asset.Colors.bitriseGreen.color // TODO: - add a grey "unknown" color
+    return lastBuild?.status?.color ?? Asset.Colors.bitriseGrey.color
   }
   
   var buildStatusIcon: UIImage {
-    return lastBuild?.status?.icon ?? Asset.Assets.close.image
+    return lastBuild?.status?.icon ?? Asset.Icons.close.image
   }
   
   init(with app: BitriseApp) {
@@ -94,11 +94,18 @@ class BitriseProjectViewModel: CellRepresentable {
     
     // May be replaced with project status, depending on design and API - alternatively might give
     // user the option of how they want projects colored
-    setDefaultBackgroundColor(in: cell, for: indexPath)
+    // setDefaultBackgroundColor(in: cell, for: indexPath)
     
     return cell
   }
   
+  /// Picks one of five colours to apply to the cell's content view depending on its indexpath
+  /// position.
+  ///
+  /// - Parameters:
+  ///   - cell: <#cell description#>
+  ///   - indexPath: <#indexPath description#>
+  @available(*, deprecated: 1.0, message: "Deprecated due to a different design direction. Cell backgrounds should now be plain white (#FFFFFF)")
   private func setDefaultBackgroundColor(in cell: UITableViewCell, for indexPath: IndexPath) {
     
     //print("*** Set default background colours for section \(indexPath.section) \(indexPath.section % 5)")

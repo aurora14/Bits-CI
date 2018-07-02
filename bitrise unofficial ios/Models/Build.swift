@@ -24,17 +24,17 @@ enum BuildStatus: Int, Codable {
   
   var color: UIColor {
     switch self {
-    case .inProgress: return Asset.Colors.lushPurple.color
+    case .inProgress: return Asset.Colors.bitrisePurple.color
     case .success:    return Asset.Colors.bitriseGreen.color
-    case .failure:    return UIColor.orange // TODO: - get the Bitrise orange color
+    case .failure:    return Asset.Colors.bitriseOrange.color
     }
   }
   
   var icon: UIImage {
     switch self {
-    default:
-      // TODO: - update with correct values
-      return Asset.Assets.close.image
+    case .inProgress: return Asset.Icons.buildRunning.image
+    case .success:    return Asset.Icons.buildSucceeded.image
+    case .failure:    return Asset.Icons.buildFailed.image
     }
   }
 }

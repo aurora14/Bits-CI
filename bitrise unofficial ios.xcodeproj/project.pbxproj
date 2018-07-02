@@ -37,6 +37,7 @@
 		7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */; };
 		7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759420DD4285008D32A5 /* String+Digits.swift */; };
 		7A5E759A20DFBE80008D32A5 /* BRColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759920DFBE80008D32A5 /* BRColor.swift */; };
+		7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9917CC20E8EDFA002879AF /* Icons.xcassets */; };
 		7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4275620E3A62000DC99C0 /* Paging.swift */; };
 		7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD314820D3305000BE2A77 /* ContentContainer.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
@@ -79,6 +80,7 @@
 		7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtil.swift; sourceTree = "<group>"; };
 		7A5E759420DD4285008D32A5 /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
 		7A5E759920DFBE80008D32A5 /* BRColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRColor.swift; sourceTree = "<group>"; };
+		7A9917CC20E8EDFA002879AF /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		7ADD314820D3305000BE2A77 /* ContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentContainer.swift; sourceTree = "<group>"; };
 		C9A38727C6B2204731A14ED2 /* Pods-bitrise unofficial ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				7A200B2120D681EC003C6D97 /* Resources.swift */,
 				7A5DFB6B20D26AE300A3330B /* Colors.xcassets */,
 				7A5DFB6C20D26AE300A3330B /* Assets.xcassets */,
+				7A9917CC20E8EDFA002879AF /* Icons.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 			files = (
 				7A5DFB8E20D26AE400A3330B /* Main.storyboard in Resources */,
 				7A5DFB8720D26AE400A3330B /* Assets.xcassets in Resources */,
+				7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */,
 				7A5DFB8620D26AE400A3330B /* Colors.xcassets in Resources */,
 				7A5DFB8B20D26AE400A3330B /* README.md in Resources */,
 				7A5DFB8D20D26AE400A3330B /* LaunchScreen.storyboard in Resources */,

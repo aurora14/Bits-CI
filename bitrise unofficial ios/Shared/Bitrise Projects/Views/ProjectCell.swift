@@ -22,6 +22,11 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   
   @IBOutlet weak var buildStatusStrip: UIView!
   
+  @IBOutlet weak var buildStatusImageView: UIImageView!
+  
+  @IBOutlet weak var timeElapsedSinceLastBuildLabel: UILabel!
+  
+  
   var borderColor: UIColor = .clear
   
   var borderWidth: CGFloat = 0
@@ -58,9 +63,9 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     
     projectNameLabel.text = vm.title
     projectOwnerLabel.text = vm.projectOwner
-    buildNumberLabel.text = vm.lastBuildNumber
     
-    setImages(for: vm.app)
+    setImages(from: vm.app)
+    setLastBuildViews(from: vm)
     setCornerRounding()
     setDropShadow()
   }
@@ -78,7 +83,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     layer.masksToBounds = false
   }
   
-  private func setImages(for app: BitriseApp) {
+  private func setImages(from app: BitriseApp) {
     
     guard let projectType = app.projectType else {
       print("*** App doesn't have project type")
@@ -86,16 +91,27 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     }
     
     switch projectType.lowercased() {
-    // TODO: - add 'react' option and ensure an icon is created for it
     case "ios":
-      projectIconImageView.image = Asset.Assets.applicationIos.image
+      projectIconImageView.image = Asset.Icons.applicationIosGrey.image
     case "android":
-      projectIconImageView.image = Asset.Assets.applicationAndroid.image
+      projectIconImageView.image = Asset.Icons.applicationAndroidGrey.image
     case "xamarin":
-      projectIconImageView.image = Asset.Assets.applicationXamarin.image
+      projectIconImageView.image = Asset.Icons.applicationXamarinGrey.image
+    case "react-native":
+      projectIconImageView.image = Asset.Icons.applicationReactGrey.image
+    case "macos":
+      fallthrough
     default:
-      projectIconImageView.image = Asset.Assets.applicationDefault.image
+      projectIconImageView.image = Asset.Icons.applicationDefault.image
     }
+  }
+  
+  private func setLastBuildViews(from vm: BitriseProjectViewModel) {
+    buildStatusStrip.backgroundColor = vm.buildStatusColor
+    buildStatusImageView.image = vm.buildStatusIcon
+    buildNumberLabel.text = vm.lastBuildNumber
+    buildNumberLabel.textColor = vm.buildStatusColor
+    timeElapsedSinceLastBuildLabel.text = vm.lastBuildTime
   }
 }
 

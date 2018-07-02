@@ -45,33 +45,11 @@ internal struct ColorAsset {
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal enum Assets {
-    internal static let applicationAndroid = ImageAsset(name: "application_android")
-    internal static let applicationDefault = ImageAsset(name: "application_default")
-    internal static let applicationIos = ImageAsset(name: "application_ios")
-    internal static let applicationIosColor = ImageAsset(name: "application_ios_color")
-    internal static let applicationXamarin = ImageAsset(name: "application_xamarin")
-    internal static let close = ImageAsset(name: "close")
-    internal static let projects = ImageAsset(name: "projects")
-    internal static let providerBitbucket = ImageAsset(name: "provider_bitbucket")
-    internal static let providerGithub = ImageAsset(name: "provider_github")
-    internal static let providerGitlab = ImageAsset(name: "provider_gitlab")
-    internal static let user = ImageAsset(name: "user")
 
     // swiftlint:disable trailing_comma
     internal static let allColors: [ColorAsset] = [
     ]
     internal static let allImages: [ImageAsset] = [
-      applicationAndroid,
-      applicationDefault,
-      applicationIos,
-      applicationIosColor,
-      applicationXamarin,
-      close,
-      projects,
-      providerBitbucket,
-      providerGithub,
-      providerGitlab,
-      user,
     ]
     // swiftlint:enable trailing_comma
     @available(*, deprecated, renamed: "allImages")
@@ -79,6 +57,7 @@ internal enum Asset {
   }
   internal enum Colors {
     internal static let bitriseGreen = ColorAsset(name: "BitriseGreen")
+    internal static let bitriseGrey = ColorAsset(name: "BitriseGrey")
     internal static let bitriseOrange = ColorAsset(name: "BitriseOrange")
     internal static let bitrisePurple = ColorAsset(name: "BitrisePurple")
     internal static let bitriseYellow = ColorAsset(name: "BitriseYellow")
@@ -92,6 +71,7 @@ internal enum Asset {
     // swiftlint:disable trailing_comma
     internal static let allColors: [ColorAsset] = [
       bitriseGreen,
+      bitriseGrey,
       bitriseOrange,
       bitrisePurple,
       bitriseYellow,
@@ -103,6 +83,55 @@ internal enum Asset {
       testViewFill,
     ]
     internal static let allImages: [ImageAsset] = [
+    ]
+    // swiftlint:enable trailing_comma
+    @available(*, deprecated, renamed: "allImages")
+    internal static let allValues: [AssetType] = allImages
+  }
+  internal enum Icons {
+    internal static let applicationAndroid = ImageAsset(name: "application_android")
+    internal static let applicationAndroidGrey = ImageAsset(name: "application_android_grey")
+    internal static let applicationDefault = ImageAsset(name: "application_default")
+    internal static let applicationIos = ImageAsset(name: "application_ios")
+    internal static let applicationIosColor = ImageAsset(name: "application_ios_color")
+    internal static let applicationIosGrey = ImageAsset(name: "application_ios_grey")
+    internal static let applicationReactGrey = ImageAsset(name: "application_react_grey")
+    internal static let applicationXamarin = ImageAsset(name: "application_xamarin")
+    internal static let applicationXamarinGrey = ImageAsset(name: "application_xamarin_grey")
+    internal static let buildAborted = ImageAsset(name: "build_aborted")
+    internal static let buildFailed = ImageAsset(name: "build_failed")
+    internal static let buildRunning = ImageAsset(name: "build_running")
+    internal static let buildSucceeded = ImageAsset(name: "build_succeeded")
+    internal static let close = ImageAsset(name: "close")
+    internal static let projects = ImageAsset(name: "projects")
+    internal static let providerBitbucket = ImageAsset(name: "provider_bitbucket")
+    internal static let providerGithub = ImageAsset(name: "provider_github")
+    internal static let providerGitlab = ImageAsset(name: "provider_gitlab")
+    internal static let user = ImageAsset(name: "user")
+
+    // swiftlint:disable trailing_comma
+    internal static let allColors: [ColorAsset] = [
+    ]
+    internal static let allImages: [ImageAsset] = [
+      applicationAndroid,
+      applicationAndroidGrey,
+      applicationDefault,
+      applicationIos,
+      applicationIosColor,
+      applicationIosGrey,
+      applicationReactGrey,
+      applicationXamarin,
+      applicationXamarinGrey,
+      buildAborted,
+      buildFailed,
+      buildRunning,
+      buildSucceeded,
+      close,
+      projects,
+      providerBitbucket,
+      providerGithub,
+      providerGitlab,
+      user,
     ]
     // swiftlint:enable trailing_comma
     @available(*, deprecated, renamed: "allImages")
