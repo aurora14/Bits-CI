@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.14" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIU-OW-vfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14295.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIU-OW-vfU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14270.1"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -171,7 +171,7 @@
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="0VX-JN-QHC"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Bitrise Profile" id="A5W-EC-MSL">
+                    <navigationItem key="navigationItem" title="Bitrise Profile" largeTitleDisplayMode="never" id="A5W-EC-MSL">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="OSj-MP-yvI">
                             <color key="tintColor" name="BitriseGreen"/>
                             <connections>
@@ -225,7 +225,7 @@
         <!--Navigation Controller-->
         <scene sceneID="mG4-cm-EuU">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E2N-C0-IEy" sceneMemberID="viewController">
+                <navigationController hidesBarsWhenKeyboardAppears="YES" hidesBarsWhenVerticallyCompact="YES" id="E2N-C0-IEy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" image="projects" selectedImage="projects" id="Lue-h2-0CR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="PHh-Yb-OFX">
@@ -241,7 +241,7 @@
             </objects>
             <point key="canvasLocation" x="97" y="-169"/>
         </scene>
-        <!--Projects-->
+        <!--Project List View Controller-->
         <scene sceneID="uEF-0g-zpI">
             <objects>
                 <tableViewController id="1gD-l8-Lzy" customClass="ProjectListViewController" customModule="bitrise_unofficial_ios" customModuleProvider="target" sceneMemberID="viewController">
@@ -305,7 +305,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="air-MB-W3o">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="air-MB-W3o">
                                                     <rect key="frame" x="334" y="15.5" width="33" height="15"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                     <color key="textColor" name="BitriseGreen"/>
@@ -360,7 +360,7 @@
                             <outlet property="delegate" destination="1gD-l8-Lzy" id="JCA-8Q-UAd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Projects" id="3mT-88-ltU">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="3mT-88-ltU">
                         <barButtonItem key="rightBarButtonItem" image="user" id="NSr-Mr-wHp">
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>

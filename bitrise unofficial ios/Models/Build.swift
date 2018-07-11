@@ -13,12 +13,14 @@ enum BuildStatus: Int, Codable {
   case inProgress
   case success
   case failure
+  case aborted
   
   var text: String {
     switch self {
     case .inProgress: return "IN PROGRESS"
     case .success:    return "BUILDING"
     case .failure:    return "FAILING"
+    case .aborted:    return "ABORTED"
     }
   }
   
@@ -27,6 +29,7 @@ enum BuildStatus: Int, Codable {
     case .inProgress: return Asset.Colors.bitrisePurple.color
     case .success:    return Asset.Colors.bitriseGreen.color
     case .failure:    return Asset.Colors.bitriseOrange.color
+    case .aborted:    return Asset.Colors.bitriseYellow.color
     }
   }
   
@@ -35,6 +38,7 @@ enum BuildStatus: Int, Codable {
     case .inProgress: return Asset.Icons.buildRunning.image
     case .success:    return Asset.Icons.buildSucceeded.image
     case .failure:    return Asset.Icons.buildFailed.image
+    case .aborted:    return Asset.Icons.buildAborted.image
     }
   }
 }

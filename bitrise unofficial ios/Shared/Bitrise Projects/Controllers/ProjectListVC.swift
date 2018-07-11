@@ -29,7 +29,7 @@ class ProjectListViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setupSearchUI()
+    setupSearchAndNavigationUI()
     setupTableView()
     loadTestItems() // dummy items to show a preview until the table view is updated with live data
     setupRefreshing()
@@ -239,8 +239,13 @@ extension ProjectListViewController {
   /// Some things to keep in mind:
   /// - 'obscuresBackgroundDuringPresentation' needs to be set to false. We aren't using a
   /// custom Search Results Controller, therefore if it's set to true (which
-  fileprivate func setupSearchUI() {
+  fileprivate func setupSearchAndNavigationUI() {
     if #available(iOS 11.0, *) {
+      navigationController?.navigationBar.prefersLargeTitles = true
+      navigationController?.navigationBar.isTranslucent = true
+      navigationItem.largeTitleDisplayMode = .always //locking this permanently for now, will figure out the workaround for broken .automatic behaviour later
+      title = "Projects"
+      
       let search = UISearchController(searchResultsController: nil)
       search.searchBar.placeholder = "Filter by project title"
       search.searchResultsUpdater = self
@@ -301,7 +306,8 @@ extension ProjectListViewController {
         let attributedTitle = NSAttributedString(string: title, attributes: attribs)
         self?.refreshControl?.attributedTitle = attributedTitle
         self?.refreshControl?.endRefreshing()
-        self?.scrollToTop()
+        //self?.tableView.setContentOffset(CGPoint(x: 0, y: -140), animated: true)
+        //self?.scrollToTop()
       }
     }
   }
@@ -311,10 +317,11 @@ extension ProjectListViewController {
   fileprivate func scrollToTop() {
     // Set 'y' to 0 to scroll the list all the way to the top. This will also automatically collapse
     // a large title.
+    print("scrolling to top")
     tableView.scrollRectToVisible(CGRect(
-      x: 0, y: 0, width: 1, height: 1), animated: false)
+      x: 0, y: 141.5, width: 1, height: 1), animated: true)
     #warning("setContentOffset() is a temporary workaround for broken Large Titles behaviour")
-    tableView.setContentOffset(CGPoint(x: 0, y: -164), animated: false)
+    tableView.setContentOffset(CGPoint(x: 0, y: 141.5), animated: true)
     print(tableView.contentOffset)
   }
 }

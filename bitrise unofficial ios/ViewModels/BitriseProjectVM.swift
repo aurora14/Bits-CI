@@ -63,6 +63,7 @@ class BitriseProjectViewModel: CellRepresentable {
       case .success:    return "\(build.finishedAt ?? "N/A")"
       case .failure:    return "\(build.finishedAt ?? "N/A")"
       case .inProgress: return status.text
+      case .aborted:    return "\(build.finishedAt ?? "N/A")"
       }
     }
     return "N/A"

@@ -82,7 +82,7 @@ class SearchFooter: UIView {
     label.frame = self.bounds
   }
   
-  //MARK: - Animation
+  // MARK: - Animation
   
   fileprivate func hideFooter() {
     UIView.animate(withDuration: 0.7) {[unowned self] in
@@ -98,7 +98,7 @@ class SearchFooter: UIView {
 }
 
 extension SearchFooter {
-  //MARK: - Public API
+  // MARK: - Public API
   
   public func setNotFiltering() {
     label.text = ""
