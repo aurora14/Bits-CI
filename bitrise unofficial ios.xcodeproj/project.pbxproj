@@ -36,9 +36,9 @@
 		7A5E759120DD36B4008D32A5 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759020DD36B4008D32A5 /* Build.swift */; };
 		7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */; };
 		7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759420DD4285008D32A5 /* String+Digits.swift */; };
-		7A5E759A20DFBE80008D32A5 /* BRColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759920DFBE80008D32A5 /* BRColor.swift */; };
 		7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9917CC20E8EDFA002879AF /* Icons.xcassets */; };
 		7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4275620E3A62000DC99C0 /* Paging.swift */; };
+		7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */; };
 		7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD314820D3305000BE2A77 /* ContentContainer.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
 /* End PBXBuildFile section */
@@ -79,9 +79,9 @@
 		7A5E759020DD36B4008D32A5 /* Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtil.swift; sourceTree = "<group>"; };
 		7A5E759420DD4285008D32A5 /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
-		7A5E759920DFBE80008D32A5 /* BRColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRColor.swift; sourceTree = "<group>"; };
 		7A9917CC20E8EDFA002879AF /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
+		7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		7ADD314820D3305000BE2A77 /* ContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentContainer.swift; sourceTree = "<group>"; };
 		C9A38727C6B2204731A14ED2 /* Pods-bitrise unofficial ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB6920D26AE300A3330B /* ProjectListVC.swift */,
+				7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -297,7 +298,6 @@
 		7A5DFB7820D26AE400A3330B /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				7A5E759920DFBE80008D32A5 /* BRColor.swift */,
 			);
 			path = Vendors;
 			sourceTree = "<group>";
@@ -343,14 +343,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A5DFB5820D26A9C00A3330B /* Build configuration list for PBXNativeTarget "bitrise unofficial ios" */;
 			buildPhases = (
-				7A5E759620DF22F5008D32A5 /* Linting Script */,
-				7A5E759720DF231B008D32A5 /* Code Gen Script */,
+				7A95AE1C20F80D9B008E6E28 /* Lint */,
+				7A95AE1D20F80D9D008E6E28 /* CodeGen */,
 				539C3BCB975D072B9320C096 /* [CP] Check Pods Manifest.lock */,
 				7A5DFB4220D26A8D00A3330B /* Sources */,
 				7A5DFB4320D26A8D00A3330B /* Frameworks */,
 				7A5DFB4420D26A8D00A3330B /* Resources */,
 				34DBCA121D63CBA8C3965EC8 /* [CP] Embed Pods Frameworks */,
-				7A5E759820DF234B008D32A5 /* Crashlytics Script */,
+				7A95AE1E20F80DA1008E6E28 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -436,8 +436,10 @@
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/ViewAnimator/ViewAnimator.framework",
+				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -451,8 +453,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewAnimator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,7 +482,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7A5E759620DF22F5008D32A5 /* Linting Script */ = {
+		7A95AE1C20F80D9B008E6E28 /* Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -487,7 +491,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Linting Script";
+			name = Lint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -496,7 +500,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		7A5E759720DF231B008D32A5 /* Code Gen Script */ = {
+		7A95AE1D20F80D9D008E6E28 /* CodeGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -505,7 +509,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Code Gen Script";
+			name = CodeGen;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -514,7 +518,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT\"/SwiftGen/bin/swiftgen\n";
 		};
-		7A5E759820DF234B008D32A5 /* Crashlytics Script */ = {
+		7A95AE1E20F80DA1008E6E28 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -523,7 +527,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Crashlytics Script";
+			name = Crashlytics;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -542,7 +546,6 @@
 				7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */,
 				7A200B1B20D54049003C6D97 /* BitriseProjectOwner.swift in Sources */,
 				7A200B1720D53604003C6D97 /* User.swift in Sources */,
-				7A5E759A20DFBE80008D32A5 /* BRColor.swift in Sources */,
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
 				7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
@@ -555,6 +558,7 @@
 				7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */,
 				7A200B2220D681EC003C6D97 /* Resources.swift in Sources */,
 				7A1BD1CE20E11646005D805B /* SearchFooter.swift in Sources */,
+				7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */,
 				7A5DFB8920D26AE400A3330B /* APIClient.swift in Sources */,
 				7A5E758F20DD275B008D32A5 /* Router.swift in Sources */,
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
@@ -641,7 +645,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -695,7 +699,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

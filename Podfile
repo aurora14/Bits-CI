@@ -8,6 +8,7 @@ target 'bitrise unofficial ios' do
   # Pods for bitrise-unofficial-ios
   
   # Utilities
+  pod 'SwiftDate'
   
   # -- networking --
   pod 'Alamofire'
@@ -20,6 +21,7 @@ target 'bitrise unofficial ios' do
   pod 'SwiftSoup'
   pod 'ViewAnimator'
   pod 'SkeletonView'
+  pod 'XLPagerTabStrip'
   
   # -- analytics & crash reporting --
   pod 'Fabric'
