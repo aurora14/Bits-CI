@@ -80,9 +80,9 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   
   private func setDropShadow() {
     layer.shadowColor = UIColor.black.cgColor
-    layer.shadowOpacity = 0.5
-    layer.shadowOffset = CGSize(width: 0, height: 1)
-    layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
+    layer.shadowOpacity = 0.25
+    layer.shadowOffset = CGSize(width: 0, height: 3)
+    layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
     layer.masksToBounds = false
   }
   
