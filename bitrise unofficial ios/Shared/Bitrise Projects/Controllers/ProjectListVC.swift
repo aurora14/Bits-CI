@@ -12,12 +12,14 @@ import Alamofire
 import AlamofireImage
 import SkeletonView
 
-
 class ProjectListViewController: UITableViewController {
   
   
-  @IBOutlet weak var userProfileButton: UIBarButtonItem!
+  @IBOutlet weak var rightBarContainer: UIView!
   
+  @IBOutlet weak var userProfileButton: UIButton!
+  
+  var searchController: UISearchController
   var searchFooter: SearchFooter?
   
   fileprivate var isAuthorised = false
@@ -26,11 +28,19 @@ class ProjectListViewController: UITableViewController {
   var apps = [CellRepresentable]()
   var activeDataSource = [CellRepresentable]()
   
+  required init?(coder aDecoder: NSCoder) {
+    searchController = UISearchController(searchResultsController: nil)
+    super.init(coder: aDecoder)
+    
+    refreshControl = UIRefreshControl()
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     setupSearchAndNavigationUI()
     setupTableView()
+    setupProfileButton()
     loadTestItems() // dummy items to show a preview until the table view is updated with live data
     setupRefreshing()
     
@@ -48,9 +58,12 @@ class ProjectListViewController: UITableViewController {
     
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationItem.largeTitleDisplayMode = .always
+  }
+  
   @objc private func getProjects() {
-    
-    tableView.showAnimatedGradientSkeleton()
     
     App.sharedInstance.apiClient.getUserApps { [weak self] success, projects, message in
       
@@ -97,8 +110,19 @@ class ProjectListViewController: UITableViewController {
         return
       }
       
+      let size = CGSize(width: 24, height: 24)
+      
       App.sharedInstance
-        .apiClient.getUserImage(from: avatarUrl, completion: { [weak self] _, _, _ in
+        .apiClient.getUserImage(from: avatarUrl, completion: { [weak self] _, image, _ in
+          DispatchQueue.main.async {
+            guard let i = image else {
+              self?.userProfileButton.setImage(
+                Asset.Icons.user.image.af_imageAspectScaled(toFit: size),
+                for: .normal)
+              return
+            }
+            self?.userProfileButton.setImage(i.af_imageAspectScaled(toFit: size), for: .normal)
+          }
         })
     }
   }
@@ -143,7 +167,6 @@ class ProjectListViewController: UITableViewController {
     }
     
   }
-  
   
 }
 
@@ -227,14 +250,24 @@ extension ProjectListViewController {
   /// - Parameter completion: <#completion description#>
   fileprivate func checkForAvailableBitriseToken(_ completion: @escaping (_ isAvailable: Bool) -> Void) {
     
-    // Check if Keychain has a valid token. If not, open the token modal. There the user
+    // Step 1: Check if Keychain has a valid token. If not, open the token modal. There the user
     // has the option
-    guard let _ = App.sharedInstance.getBitriseAuthToken() else {
+    guard let savedToken = App.sharedInstance.getBitriseAuthToken() else {
       completion(false)
       return
     }
     
-    completion(true)
+    // Step 2: Check whether the keychain token is stale (e.g. if the user manually deleted it in Bitrise dashboard)
+    App.sharedInstance.apiClient.validateGeneratedToken(savedToken) { isValid, message in
+      
+      if isValid {
+        completion(true)
+        return
+      }
+      
+      completion(false)
+      return
+    }
   }
   
   /// Configures the search UI (the embedded navigation-bar version as it shows in iOS 11;
@@ -249,16 +282,34 @@ extension ProjectListViewController {
       navigationItem.largeTitleDisplayMode = .always //locking this permanently for now, will figure out the workaround for broken .automatic behaviour later
       title = "Projects"
       
-      let search = UISearchController(searchResultsController: nil)
-      search.searchBar.placeholder = "Filter by project title"
-      search.searchResultsUpdater = self
-      search.searchBar.tintColor = Asset.Colors.bitriseGreen.color
-      search.obscuresBackgroundDuringPresentation = false
-      search.delegate = self
-      navigationItem.searchController = search
+      searchController.searchBar.placeholder = "Filter by project title"
+      searchController.searchResultsUpdater = self
+      searchController.searchBar.tintColor = Asset.Colors.bitriseGreen.color
+      searchController.obscuresBackgroundDuringPresentation = false
+      searchController.delegate = self
+      navigationItem.searchController = searchController
     } else {
       // Fallback on earlier versions
     }
+  }
+  
+  /// Sets up the right bar button container and the embedded profile button
+  ///
+  /// Clifton Labrum solved the issue of the button not recognizing touches when embedded in a custom view
+  /// used for the bar button item - done by explicitly setting constraints onto this container view.
+  /// Alternative solution described below:
+  ///
+  /// Adding to Clifton Labrum, this is the way to go. Apple changed the way navigation bars work in iOS 11.
+  /// This can also be done in Storyboard but through descendant constraints.
+  /// The Custom view inside UIBarButtonItem can NOT be given constraints directly. Instead, provide its
+  /// subviews with constraints, and the Custom view will get its constraints implicitly.
+  ///
+  /// Reference: https://stackoverflow.com/questions/46306796/uibutton-in-navigation-bar-not-recognizing-taps-in-ios-11
+  fileprivate func setupProfileButton() {
+    rightBarContainer.widthAnchor.constraint(equalToConstant: 64).isActive = true
+    rightBarContainer.heightAnchor.constraint(equalToConstant: 36).isActive = true
+    userProfileButton.imageView?.contentMode = .scaleAspectFit
+    userProfileButton.setImage(Asset.Icons.user.image, for: .normal)
   }
   
   fileprivate func setupTableView() {
@@ -285,21 +336,17 @@ extension ProjectListViewController {
     activeDataSource = apps
   }
   
-  func setupRefreshing() {
-    refreshControl = UIRefreshControl()
-    
+  fileprivate func setupRefreshing() {
     // NOTE: - Leave the background property blank to make refresh control have the same bg colour as
     //  the regular tableview background. Otherwise it'll layer colours and will make the control appear darker.
     //  Default colour of the Refresh control is .clear
-    //refreshControl?.backgroundColor = selectedMood.themeColorBase
     refreshControl?.tintColor = Asset.Colors.bitriseGreen.color
-    // refreshControl?.tintColor = .clear
     refreshControl?.addTarget(self, action: #selector(getProjects),
                               for: .valueChanged)
     tableView.refreshControl = refreshControl
   }
   
-  func finishRefreshing() {
+  fileprivate func finishRefreshing() {
     DispatchQueue.main.async { [weak self] in
       if let refreshControl = self?.refreshControl, refreshControl.isRefreshing {
         let lastUpdatedDate = dateFormatter.string(from: Date())
@@ -309,27 +356,14 @@ extension ProjectListViewController {
         let attributedTitle = NSAttributedString(string: title, attributes: attribs)
         self?.refreshControl?.attributedTitle = attributedTitle
         self?.refreshControl?.endRefreshing()
-        //self?.tableView.setContentOffset(CGPoint(x: 0, y: -140), animated: true)
-        //self?.scrollToTop()
+        self?.setupRefreshing()
+        self?.tableView.layoutIfNeeded()
       }
     }
   }
-  
-  /// Restores the list back to the start of content. Typically this is done when a new activity
-  /// set is being fetched
-  fileprivate func scrollToTop() {
-    // Set 'y' to 0 to scroll the list all the way to the top. This will also automatically collapse
-    // a large title.
-    print("scrolling to top")
-    tableView.scrollRectToVisible(CGRect(
-      x: 0, y: 141.5, width: 1, height: 1), animated: true)
-    #warning("setContentOffset() is a temporary workaround for broken Large Titles behaviour")
-    tableView.setContentOffset(CGPoint(x: 0, y: 141.5), animated: true)
-    print(tableView.contentOffset)
-  }
 }
 
-
+// MARK: - Search & Filter
 extension ProjectListViewController: UISearchResultsUpdating, UISearchControllerDelegate {
   
   func updateSearchResults(for searchController: UISearchController) {
@@ -365,18 +399,6 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
     
   }
   
-}
-
-
-extension ProjectListViewController {
-  
-  override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-    print(scrollView.frame)
-  }
-  
-  override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    print("\(scrollView.frame) \(scrollView.contentOffset)")
-  }
 }
 
 

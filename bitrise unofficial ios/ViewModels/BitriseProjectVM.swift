@@ -98,8 +98,7 @@ class BitriseProjectViewModel: CellRepresentable {
   
   init(with app: BitriseApp) {
     self.app = app
-    
-    // get last build information here? 
+    // get last build info here?
   }
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
