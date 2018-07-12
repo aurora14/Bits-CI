@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 
 protocol ViewRefreshDelegate: class {
@@ -63,10 +64,25 @@ class BitriseProjectViewModel: CellRepresentable {
   var lastBuildTime: String {
     if let build = lastBuild, let status = build.status {
       switch status {
-      case .success:    return "\(build.finishedAt ?? "N/A")"
-      case .failure:    return "\(build.finishedAt ?? "N/A")"
+      case .success:
+        if let finishedTime = build.finishedAt {
+          return timeSinceBuild(forBuildFinishTime: finishedTime)
+        } else {
+          return "N/A"
+        }
+      case .failure:
+        if let finishedTime = build.finishedAt {
+          return timeSinceBuild(forBuildFinishTime: finishedTime)
+        } else {
+          return "N/A"
+        }
       case .inProgress: return status.text
-      case .aborted:    return "\(build.finishedAt ?? "N/A")"
+      case .aborted:
+        if let finishedTime = build.finishedAt {
+          return timeSinceBuild(forBuildFinishTime: finishedTime)
+        } else {
+          return "N/A"
+        }
       }
     }
     return "N/A"
@@ -137,10 +153,65 @@ class BitriseProjectViewModel: CellRepresentable {
       print("""
         
         Last Build msg: \(message), \(build.debugDescription)
+        Last Build finish time: \(build?.finishedAt)
         Status: \(build?.status)
         
         """)
     }
+  }
+  
+  
+  /// Transforms an iso8601-format string in the Build's 'Finished At' field into a formatted
+  /// string stating the length of time elapsed since the build last finished
+  ///
+  /// - Parameter timeString: <#timeString description#>
+  /// - Returns: <#return value description#>
+  private func timeSinceBuild(forBuildFinishTime timeString: String) -> String {
+    
+    guard let lastBuildDate = DateInRegion(timeString,
+                                           format: DateFormats.iso8601,
+                                           region: SwiftDate.defaultRegion) else {
+                                            
+                                            return ""
+    }
+    
+    let now = Date()
+    
+    let difference = now - lastBuildDate.date
+    
+    var timeElapsed: String = ""
+    
+    if let years = difference.year, years > 0 {
+      timeElapsed.append("\(years) ")
+      years == 1 ? timeElapsed.append("year ") : timeElapsed.append("years ")
+    }
+    
+    if let months = difference.month, months > 0 {
+      timeElapsed.append("\(months) ")
+      months == 1 ? timeElapsed.append("month ") : timeElapsed.append("months ")
+    }
+    
+    if let days = difference.day, days > 0 {
+      timeElapsed.append("\(days) ")
+      days == 1 ? timeElapsed.append("day ") : timeElapsed.append("days ")
+    }
+    
+    if let hours = difference.hour, hours > 0 {
+      timeElapsed.append("\(hours) ")
+      hours == 1 ? timeElapsed.append("hr ") : timeElapsed.append("hrs ")
+    }
+    
+    if let minutes = difference.minute, minutes > 0 {
+      timeElapsed.append("\(minutes) ")
+      minutes == 1 ? timeElapsed.append("min ") : timeElapsed.append("mins ")
+    }
+    
+    if let minutes = difference.minute, minutes == 0,
+      let seconds = difference.second, seconds > 0 {
+      timeElapsed.append("\(seconds) seconds")
+    }
+    
+    return "\(timeElapsed)ago"
   }
   
 }
