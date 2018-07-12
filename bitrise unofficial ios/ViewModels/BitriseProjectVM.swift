@@ -25,6 +25,8 @@ class BitriseProjectViewModel: CellRepresentable {
   /// Otherwise, this property can remain nil and be ignored.
   var indexPath: IndexPath?
   
+  var isReady: Bool = false
+  
   var app: BitriseApp
   
   var title: String {
@@ -49,6 +51,7 @@ class BitriseProjectViewModel: CellRepresentable {
   
   var lastBuild: Build? {
     didSet {
+      isReady = true
       viewRefreshDelegate?.update(at: indexPath)
     }
   }

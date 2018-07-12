@@ -10,6 +10,7 @@ import UIKit
 
 class ProjectCell: UITableViewCell, ViewConfigurable {
   
+  
   @IBOutlet weak var projectIconImageView: UIImageView!
   
   @IBOutlet weak var projectNameLabel: UILabel!
@@ -50,7 +51,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
-    
+    showAllSkeletons()
   }
   
   func setup(with viewModel: ViewRepresentable?) {
@@ -68,6 +69,8 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     setLastBuildViews(from: vm)
     setCornerRounding()
     setDropShadow()
+    
+    if vm.isReady { hideAllSkeletons() }
   }
   
   private func setCornerRounding(withRadius value: CGFloat = 5) {
