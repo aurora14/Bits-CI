@@ -190,7 +190,10 @@ extension ProjectListViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     
+    if searchController.isActive { searchController.isActive = false }
+    
     print("*** Tapped row at \(indexPath.section)")
+    perform(segue: StoryboardSegue.Main.projectDetailSegue)
   }
 }
 
