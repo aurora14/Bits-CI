@@ -19,7 +19,7 @@ class ProjectListViewController: UITableViewController {
   
   @IBOutlet weak var userProfileButton: UIButton!
   
-  var searchController: UISearchController
+  var searchController: UISearchController = UISearchController(searchResultsController: nil)
   var searchFooter: SearchFooter?
   
   fileprivate var isAuthorised = false
@@ -28,10 +28,8 @@ class ProjectListViewController: UITableViewController {
   var apps = [CellRepresentable]()
   var activeDataSource = [CellRepresentable]()
   
-  required init?(coder aDecoder: NSCoder) {
-    searchController = UISearchController(searchResultsController: nil)
-    super.init(coder: aDecoder)
-    
+  override func loadView() {
+    super.loadView()
     refreshControl = UIRefreshControl()
   }
   
@@ -347,16 +345,14 @@ extension ProjectListViewController {
   }
   
   fileprivate func finishRefreshing() {
+    // Note: - do not assign a title to the embedded refresh control, as it breaks
+    // the frame when the control ends refreshing. This is likely due to the call to
+    // endRefreshing() which restores the control to its default state; the label that
+    // holds the title is either annulled or its size is 0, which also pulls up the
+    // content of the scroll view by the amount equal to this label's height.
     DispatchQueue.main.async { [weak self] in
       if let refreshControl = self?.refreshControl, refreshControl.isRefreshing {
-        let lastUpdatedDate = dateFormatter.string(from: Date())
-        let title = "Last updated: \(lastUpdatedDate)"
-        let attribs = [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
-                        NSAttributedString.Key.foregroundColor: UIColor.darkText ]
-        let attributedTitle = NSAttributedString(string: title, attributes: attribs)
-        self?.refreshControl?.attributedTitle = attributedTitle
         self?.refreshControl?.endRefreshing()
-        self?.setupRefreshing()
         self?.tableView.layoutIfNeeded()
       }
     }
