@@ -119,40 +119,12 @@ class BitriseProjectViewModel: CellRepresentable {
     return cell
   }
   
-  /// Picks one of five colours to apply to the cell's content view depending on its indexpath
-  /// position.
-  ///
-  /// - Parameters:
-  ///   - cell: <#cell description#>
-  ///   - indexPath: <#indexPath description#>
-  @available(*, deprecated: 1.0, message: "Deprecated due to a different design direction. Cell backgrounds should now be plain white (#FFFFFF)")
-  private func setDefaultBackgroundColor(in cell: UITableViewCell, for indexPath: IndexPath) {
-    
-    //print("*** Set default background colours for section \(indexPath.section) \(indexPath.section % 5)")
-    
-    switch indexPath.section % 5 {
-    case 0:
-      cell.setContentViewColor(to: Asset.Colors.lightBlue.color)
-    case 1:
-      cell.setContentViewColor(to: Asset.Colors.saladGreen.color)
-    case 2:
-      cell.setContentViewColor(to: Asset.Colors.canaryYellow.color)
-    case 3:
-      cell.setContentViewColor(to: Asset.Colors.fieldGreen.color)
-    case 4:
-      cell.setContentViewColor(to: Asset.Colors.lushPurple.color)
-    default:
-      cell.setContentViewColor(to: UIColor.lightGray)
-    }
-  }
-  
   
   func updateLastBuild() {
     App.sharedInstance.apiClient.getBuilds(for: self.app) { [weak self] success, build, message in
       self?.lastBuild = build
       print("""
-        
-        Last Build msg: \(message), \(build.debugDescription)
+        App: \(self?.app.title)
         Last Build finish time: \(build?.finishedAt)
         Status: \(build?.status)
         
