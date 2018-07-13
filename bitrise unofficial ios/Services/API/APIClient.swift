@@ -215,7 +215,6 @@ extension APIClient {
             if let p = projectArrayStruct {
               var retrievedProjects = [BitriseProjectViewModel]()
               retrievedProjects = p.data.compactMap { BitriseProjectViewModel(with: $0) }
-              retrievedProjects.forEach { $0.updateLastBuild() }
               completion(true, retrievedProjects, "Fetched successfully")
             } else {
               print("Couldn't unwrap project struct")
