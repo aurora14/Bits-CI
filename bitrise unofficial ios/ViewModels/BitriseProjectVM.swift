@@ -169,7 +169,7 @@ class BitriseProjectViewModel: CellRepresentable {
     }
     
     if let days = difference.day, days > 0 {
-      timeElapsed.append("\(days) d")
+      timeElapsed.append("\(days) d ")
     }
     
     if let hours = difference.hour, hours > 0 {
