@@ -100,16 +100,20 @@ internal enum Asset {
     internal static let applicationReactGrey = ImageAsset(name: "application_react_grey")
     internal static let applicationXamarin = ImageAsset(name: "application_xamarin")
     internal static let applicationXamarinGrey = ImageAsset(name: "application_xamarin_grey")
+    internal static let branch = ImageAsset(name: "branch")
     internal static let buildAborted = ImageAsset(name: "build_aborted")
     internal static let buildFailed = ImageAsset(name: "build_failed")
     internal static let buildRunning = ImageAsset(name: "build_running")
     internal static let buildSucceeded = ImageAsset(name: "build_succeeded")
+    internal static let chevron = ImageAsset(name: "chevron")
+    internal static let clock = ImageAsset(name: "clock")
     internal static let close = ImageAsset(name: "close")
     internal static let projects = ImageAsset(name: "projects")
     internal static let providerBitbucket = ImageAsset(name: "provider_bitbucket")
     internal static let providerGithub = ImageAsset(name: "provider_github")
     internal static let providerGitlab = ImageAsset(name: "provider_gitlab")
     internal static let user = ImageAsset(name: "user")
+    internal static let workflow = ImageAsset(name: "workflow")
 
     // swiftlint:disable trailing_comma
     internal static let allColors: [ColorAsset] = [
@@ -124,16 +128,20 @@ internal enum Asset {
       applicationReactGrey,
       applicationXamarin,
       applicationXamarinGrey,
+      branch,
       buildAborted,
       buildFailed,
       buildRunning,
       buildSucceeded,
+      chevron,
+      clock,
       close,
       projects,
       providerBitbucket,
       providerGithub,
       providerGitlab,
       user,
+      workflow,
     ]
     // swiftlint:enable trailing_comma
     @available(*, deprecated, renamed: "allImages")
