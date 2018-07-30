@@ -141,6 +141,17 @@ extension TokenAuthViewController: UITextFieldDelegate {
       return false
     }
     
+    App.sharedInstance.apiClient.validateGeneratedToken(token) { [weak self] isValid, message in
+      
+      if isValid {
+        self?.didGenerate(token: token)
+        self?.authorizationDelegate?.didAuthorizeSuccessfully()
+        self?.dismiss(animated: true, completion: nil)
+      } else {
+        print(message)
+      }
+    }
+    
     return true
   }
 }
