@@ -40,6 +40,13 @@ class BitriseBrowserViewController: UIViewController {
   }
   
   
+  deinit {
+    browserView.removeObserver(self,
+                               forKeyPath: #keyPath(WKWebView.estimatedProgress),
+                               context: nil)
+  }
+  
+  
   @IBAction func didTapCancel(_ sender: Any) {
     
     browserView.stopLoading()
@@ -70,7 +77,6 @@ class BitriseBrowserViewController: UIViewController {
         self?.dismiss(animated: true, completion: nil)
         //print(message)
       } else {
-        
         print(message)
       }
     }
