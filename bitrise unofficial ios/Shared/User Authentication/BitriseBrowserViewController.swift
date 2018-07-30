@@ -74,7 +74,9 @@ class BitriseBrowserViewController: UIViewController {
       
       if isValid {
         self?.tokenGenerationDelegate?.didGenerate(token: tokenValue)
-        self?.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+          self?.dismiss(animated: true, completion: nil)
+        }
         //print(message)
       } else {
         print(message)
@@ -142,15 +144,9 @@ extension BitriseBrowserViewController: WKNavigationDelegate {
   // This function will add web page's title to the title bar
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     title = webView.title
-    
-    print("""
-    == Site info ==
-    
-    """)
   }
   
   func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-    
     print("*** Couldn't load page due to \(error.localizedDescription)")
   }
 }
