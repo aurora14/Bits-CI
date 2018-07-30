@@ -25,12 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
     // Override point for customization after application launch.
-    
-    NetworkActivityIndicatorManager.shared.isEnabled = true
-    
-    FirebaseApp.configure()
-    Fabric.sharedSDK().debug = true
-    Fabric.with([Crashlytics.self])
+    initNetworkUtils()
+    initUserInterfaceUtils()
+    initReportingUtils()
     
     return true
   }
@@ -56,6 +53,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
-
-
 }
