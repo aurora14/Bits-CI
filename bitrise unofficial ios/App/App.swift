@@ -46,7 +46,7 @@ class App {
     
   }
   
-  /// <#Description#>
+  /// Saves the generated token to keychain
   ///
   /// - Parameter token: Bitrise access token. The app should only ever have one value maintained
   /// for sign on. If the user decides to log out, that token is wiped and a new one must be entered
@@ -72,7 +72,7 @@ class App {
   }
   
   func removeBitriseAuthToken() {
-    DispatchQueue.global(qos: .background).async { [ weak self] in
+    DispatchQueue.global(qos: .background).async { [weak self] in
       
       guard let strongSelf = self else {
         return
@@ -156,27 +156,3 @@ extension App {
   
 }
 
-
-extension App {
-  
-  func getProjectsAndUser(_ completion: @escaping (_ user: User?, _ projects: [BitriseProjectViewModel]) -> Void) {
-    
-    apiClient.getUserProfile { [weak self] isSignedIn, user, message in
-      
-      guard let user = user as? Data else {
-        assertionFailure("Couldn't initialise the user")
-        return
-      }
-      
-      do {
-        let u = try JSONDecoder().decode(User.self, from: user)
-        self?.currentUser = u
-        print(u.description)
-      } catch let error {
-        print(error.localizedDescription)
-        self?.currentUser = nil
-      }
-    }
-    
-  }
-}
