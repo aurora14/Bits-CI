@@ -18,7 +18,7 @@ enum BuildStatus: Int, Codable {
   var text: String {
     switch self {
     case .inProgress: return "IN PROGRESS"
-    case .success:    return "BUILDING"
+    case .success:    return "SUCCESS"
     case .failure:    return "FAILING"
     case .aborted:    return "ABORTED"
     }
