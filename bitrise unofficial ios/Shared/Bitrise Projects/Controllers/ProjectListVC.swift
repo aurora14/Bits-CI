@@ -402,7 +402,6 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
   
   func didFailToAuthorize(with message: String) {
     
-    
   }
   
   func didCancelAuthorization() {
