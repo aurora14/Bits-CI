@@ -85,7 +85,7 @@ class BitriseProjectViewModel: CellRepresentable {
         }
       }
     }
-    return "N/A"
+    return ""
   }
   
   var buildStatusColor: UIColor {
@@ -93,13 +93,21 @@ class BitriseProjectViewModel: CellRepresentable {
   }
   
   var buildStatusIcon: UIImage {
-    return lastBuild?.status?.icon ?? Asset.Icons.close.image
+    return lastBuild?.status?.icon ?? UIImage()
   }
+  
+  var buildList = [ProjectBuildViewModel]()
+  
+  var bitriseYML: String?
   
   init(with app: BitriseApp) {
     self.app = app
     // get last build info here?
     updateLastBuild()
+    DispatchQueue.global(qos: .background).async { [weak self] in
+      self?.updateAllBuilds()
+      self?.updateYML()
+    }
   }
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
@@ -121,17 +129,37 @@ class BitriseProjectViewModel: CellRepresentable {
   
   
   func updateLastBuild() {
-    App.sharedInstance.apiClient.getBuilds(for: self.app) { [weak self] success, build, message in
-      self?.lastBuild = build
-      print("""
-        App: \(self?.app.title)
-        Last Build finish time: \(build?.finishedAt)
-        Status: \(build?.status)
-        
-        """)
+    App.sharedInstance.apiClient.getBuilds(for: self.app, withLimit: 1) {
+      [weak self] success, builds, message in
+      self?.lastBuild = builds?.first?.build
     }
   }
   
+  
+  func updateAllBuilds() {
+    
+    // TODO: - assign builds to the model directly instead after the main functionality works
+    
+    App.sharedInstance.apiClient.getBuilds(for: self.app) {
+      [weak self] success, builds, message in
+      
+      guard let b = builds else {
+        print("*** No builds available")
+        self?.buildList = [ProjectBuildViewModel]()
+        return
+      }
+      
+      self?.buildList = b
+    }
+  }
+  
+  
+  func updateYML() {
+    App.sharedInstance.apiClient.getYMLFor(bitriseApp: self.app) { [weak self] success, yml, message in
+      // if let y = yml { print("YML available") } else { print("yml null") }
+      self?.bitriseYML = yml
+    }
+  }
   
   /// Transforms an iso8601-format string in the Build's 'Finished At' field into a formatted
   /// string stating the length of time elapsed since the build last finished

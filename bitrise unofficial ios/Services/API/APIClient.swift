@@ -113,7 +113,7 @@ extension APIClient {
     //httpSessionManager.
     
     BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
-                      encoding: JSONEncoding.default, headers: headers)
+                                               encoding: JSONEncoding.default, headers: headers)
       .validate(statusCode: 200 ..< 300)
       .responseJSON(queue: queue, completionHandler: { response in
         
@@ -143,7 +143,7 @@ extension APIClient {
     let queue = DispatchQueue.global(qos: .background)
     
     BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
-                      encoding: JSONEncoding.default, headers: headers)
+                                               encoding: JSONEncoding.default, headers: headers)
       .validate(statusCode: 200 ..< 300)
       .responseJSON(queue: queue, completionHandler: { [weak self] response in
         
@@ -194,7 +194,7 @@ extension APIClient {
     let queue = DispatchQueue.global(qos: .background)
     
     BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
-                      encoding: JSONEncoding.default, headers: headers)
+                                               encoding: JSONEncoding.default, headers: headers)
       .validate()
       .responseJSON(queue: queue, completionHandler: { [weak self] response in
         
@@ -256,13 +256,16 @@ extension APIClient {
   }
   
   
-  /// <#Description#>
+  /// Fetches builds for a given app on Bitrise.
   ///
   /// - Parameters:
-  ///   - app: <#app description#>
-  ///   - completion: <#completion description#>
-  func getBuilds(for app: BitriseApp, withLimit limit: Int = 1,
-                    completion: @escaping (_ success: Bool, _ lastBuild: Build?, _ message: String) -> Void) {
+  ///   - app: the app as represented by the BitriseApp object. The most important property of this object is the 'slug' - slug is
+  ///     the project ID on Bitrise and must be passed to get builds, YML etc belonging to that application.a
+  ///   - limit: how many builds to fetch. Pass '1' to this parameter to fetch the last build. Pass '0' to this parameter to fetch
+  ///     all builds for an application. Otherwise, set whatever value is necessary for the use case. The default value is '0'.
+  ///   - completion: a closure containing the result of the call, an array of builds on success (or nil on failure), and a message
+  func getBuilds(for app: BitriseApp, withLimit limit: Int = 0,
+                 completion: @escaping (_ success: Bool, _ builds: [ProjectBuildViewModel]?, _ message: String) -> Void) {
     
     // v0.1/apps/{APP-SLUG}/builds
     
@@ -273,11 +276,17 @@ extension APIClient {
     
     setAuthHeaders(withToken: token)
     
-    let limitItem = URLQueryItem(name: "limit", value: "\(limit)")
+    var url: URL
     
-    let queryItems: [URLQueryItem] = [limitItem]
-    
-    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds", withQueryItems: queryItems)
+    if limit == 0 {
+      url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
+    } else {
+      let limitItem = URLQueryItem(name: "limit", value: "\(limit)")
+      
+      let queryItems: [URLQueryItem] = [limitItem]
+      
+      url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds", withQueryItems: queryItems)
+    }
     
     print("*** Last Build URL String: \(url.absoluteString)")
     
@@ -287,7 +296,7 @@ extension APIClient {
                                                encoding: JSONEncoding.default, headers: headers)
       .validate()
       .responseJSON(queue: queue, completionHandler: { [weak self] response in
-      
+        
         switch response.result {
         case .success:
           
@@ -298,21 +307,67 @@ extension APIClient {
           
           do { // essentially, only one success condition
             let builds = try self?.decoder.decode(Builds.self, from: data)
-            let lastBuild = builds?.data.compactMap { $0 }.first
+            let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0) }
             //print("Test: last build # \(lastBuild?.buildNumber)")
-            debugPrint(response.value)
-            guard lastBuild != nil else {
+            //debugPrint(response.value)
+            guard buildsArray != nil else {
               completion(false, nil, "Failed to translate build")
               return
             }
-            completion(true, lastBuild, "Successfully fetched build")
+            completion(true, buildsArray, "Successfully fetched build")
           } catch let error {
-            completion(false, nil, "Build retrieval failed with \(error.localizedDescription), \(response.value)")
+            completion(false, nil,
+                       "Build retrieval failed with \(error.localizedDescription), \(response.value)")
           }
           
         case .failure(let error):
           completion(false, nil, "Build retrieval failed with \(error.localizedDescription)")
         }
-    })
+      })
+  }
+  
+  func getYMLFor(bitriseApp app: BitriseApp, completion: @escaping (_ success: Bool, _ yamlString: String?, _ message: String) -> Void) {
+    
+    guard let token = App.sharedInstance.getBitriseAuthToken() else {
+      completion(false, nil, "No token saved in keychain")
+      return
+    }
+    
+    setAuthHeaders(withToken: token)
+    
+    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/bitrise.yml")
+    
+    let queue = DispatchQueue.global(qos: .background)
+    
+    BRSessionManager.shared.background.request(url,
+                                               method: .get,
+                                               parameters: nil,
+                                               encoding: URLEncoding.default, headers: headers)
+      .validate()
+      .response(queue: queue) { response in
+        
+        guard let httpResponse = response.response else {
+          completion(false, nil, "Bitrise YML wasn't available: missing HTTP URL Response")
+          return
+        }
+        
+        if httpResponse.statusCode == 200 {
+          
+          guard let data = response.data else {
+            completion(false, nil, "Bitrise YML wasn't available")
+            return
+          }
+          
+          let ymlString = String(data: data, encoding: .utf8)
+          
+          completion(true, ymlString, "Successfully fetched yml file")
+          
+        } else {
+          
+          completion(false, nil, "Bitrise YML wasn't available, status code: \(httpResponse.statusCode)")
+          return
+          
+        }
+    }
   }
 }

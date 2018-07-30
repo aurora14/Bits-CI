@@ -157,11 +157,21 @@ class ProjectListViewController: UITableViewController {
     }
     
     switch identifier {
-    case "TokenSegue":
+      
+    case StoryboardSegue.Main.tokenSegue.rawValue:
+      
       let controller = segue.destination as? TokenAuthViewController
       controller?.authorizationDelegate = self
-    default:
-      return
+      
+    case StoryboardSegue.Main.projectDetailSegue.rawValue:
+      
+      let controller = segue.destination as? ProjectDetailViewController
+      print("Sender: \(sender.debugDescription)")
+      if let s = sender as? BitriseProjectViewModel {
+        controller?.projectVM = s
+      }
+      
+    default: return
     }
     
   }
@@ -209,12 +219,16 @@ extension ProjectListViewController {
 extension ProjectListViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
     
     if searchController.isActive { searchController.isActive = false }
     
-    print("*** Tapped row at \(indexPath.section)")
-    perform(segue: StoryboardSegue.Main.projectDetailSegue)
+    //print("*** Tapped row at \(indexPath.section)")
+    
+    let project = activeDataSource[indexPath.section] as? BitriseProjectViewModel
+    
+    perform(segue: StoryboardSegue.Main.projectDetailSegue, sender: project)
+    
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 }
 
