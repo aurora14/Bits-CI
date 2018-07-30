@@ -51,7 +51,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
-    showAllSkeletons()
+    // showAllSkeletons()
   }
   
   func setup(with viewModel: ViewRepresentable?) {
@@ -62,9 +62,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
       return
     }
     
-    projectNameLabel.text = vm.title
-    projectOwnerLabel.text = vm.projectOwner
-    
+    setBasicInfo(from: vm)
     setImages(from: vm.app)
     setLastBuildViews(from: vm)
     setCornerRounding()
@@ -84,6 +82,11 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     layer.shadowOffset = CGSize(width: 0, height: 3)
     layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
     layer.masksToBounds = false
+  }
+  
+  private func setBasicInfo(from vm: BitriseProjectViewModel) {
+    projectNameLabel.text = vm.title
+    projectOwnerLabel.text = vm.projectOwner
   }
   
   private func setImages(from app: BitriseApp) {
@@ -110,12 +113,17 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   }
   
   private func setLastBuildViews(from vm: BitriseProjectViewModel) {
-    buildStatusStrip.backgroundColor = vm.buildStatusColor
-    buildStatusImageView.image = vm.buildStatusIcon
+    
     buildNumberLabel.text = vm.lastBuildNumber
-    buildNumberLabel.textColor = vm.buildStatusColor
+    buildStatusImageView.image = vm.buildStatusIcon
     timeElapsedSinceLastBuildLabel.text = vm.lastBuildTime
+    
+    DispatchQueue.main.async {
+      self.buildNumberLabel.textColor = vm.buildStatusColor
+      self.buildStatusStrip.backgroundColor = vm.buildStatusColor
+    }
   }
+  
 }
 
 
@@ -124,9 +132,13 @@ extension ProjectCell {
   fileprivate func showAllSkeletons() {
     if !contentContainer.isReadyToHideSkeleton {
       DispatchQueue.main.async {
-        self.projectIconImageView.showAnimatedGradientSkeleton()
-        self.projectNameLabel.showAnimatedGradientSkeleton()
-        self.contentContainer.showAnimatedGradientSkeleton()
+        self.projectIconImageView.showAnimatedSkeleton()
+        self.projectNameLabel.showAnimatedSkeleton()
+        self.projectOwnerLabel.showAnimatedSkeleton()
+        self.buildNumberLabel.showAnimatedSkeleton()
+        self.timeElapsedSinceLastBuildLabel.showAnimatedSkeleton()
+        self.buildStatusImageView.showAnimatedSkeleton()
+        //self.contentContainer.showAnimatedGradientSkeleton()
       }
     }
   }
@@ -136,7 +148,10 @@ extension ProjectCell {
       self.contentContainer.isReadyToHideSkeleton = true
       self.projectIconImageView.hideSkeleton()
       self.projectNameLabel.hideSkeleton()
-      self.contentContainer.hideSkeleton()
+      self.projectOwnerLabel.hideSkeleton()
+      self.buildNumberLabel.hideSkeleton()
+      self.timeElapsedSinceLastBuildLabel.hideSkeleton()
+      self.buildStatusImageView.hideSkeleton()
     }
   }
 }

@@ -11,9 +11,9 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SkeletonView
+import ViewAnimator
 
-class ProjectListViewController: UITableViewController {
-  
+class ProjectListViewController: UITableViewController, SkeletonTableViewDataSource {
   
   @IBOutlet weak var rightBarContainer: UIView!
   
@@ -35,25 +35,14 @@ class ProjectListViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     setupSearchAndNavigationUI()
     setupTableView()
     setupProfileButton()
     loadTestItems() // dummy items to show a preview until the table view is updated with live data
     setupRefreshing()
-    
-    checkForAvailableBitriseToken { [weak self] isAuthorised in
-      
-      self?.isAuthorised = isAuthorised
-      
-      if isAuthorised {
-        self?.getUser()
-        self?.getProjects()
-      } else {
-        self?.presentAuthorizationView()
-      }
-    }
-    
+    tableView.showAnimatedSkeleton()
+    loadDataWithAuthorization()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -94,13 +83,11 @@ class ProjectListViewController: UITableViewController {
       strongSelf.apps = p
       self?.activeDataSource = strongSelf.apps
       
-      print("Apps count: \(strongSelf.apps.count)")
-      print("DS count: \(strongSelf.activeDataSource.count)")
-      
       DispatchQueue.main.async {
         strongSelf.finishRefreshing()
         self?.tableView.hideSkeleton()
-        self?.tableView.reloadData()        
+        self?.tableView.reloadData()
+        self?.setupAnimations()
       }
       
       return
@@ -193,7 +180,7 @@ class ProjectListViewController: UITableViewController {
 // MARK: - Table View Datasource
 extension ProjectListViewController {
   
-  override func numberOfSections(in tableView: UITableView) -> Int {
+  override func numberOfSections(in collectionSkeletonView: UITableView) -> Int {
     if isFiltering {
       searchFooter?.setIsFilteringToShow(filteredItemCount: activeDataSource.count, of: apps.count)
     } else {
@@ -221,6 +208,10 @@ extension ProjectListViewController {
     vm?.viewRefreshDelegate = self
     vm?.indexPath = indexPath
     return activeDataSource[indexPath.section].cellInstance(tableView, indexPath: indexPath)
+  }
+  
+  func collectionSkeletonView(_ skeletonView: UITableView, cellIdenfierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+    return "ProjectCell"
   }
   
 }
@@ -330,6 +321,13 @@ extension ProjectListViewController {
     tableView.tableFooterView = searchFooter
   }
   
+  fileprivate func setupAnimations(withDirection: Direction = .bottom) {
+    let fromAnimation = AnimationType.from(direction: .bottom, offset: 24)
+    
+    let cells = tableView.visibleCells
+    UIView.animate(views: cells, animations: [fromAnimation])
+  }
+  
   fileprivate func createSearchFooter() -> SearchFooter {
     let size = CGSize(width: UIScreen.main.bounds.width - 12, height: 56)
     let frame = CGRect(origin: .zero, size: size)
@@ -389,10 +387,12 @@ extension ProjectListViewController: UISearchResultsUpdating, UISearchController
       activeDataSource = apps
     }
     tableView.reloadData()
+    //setupAnimations()
   }
 }
 
 
+// MARK: - Bitrise Authorization delegate
 extension ProjectListViewController: BitriseAuthorizationDelegate {
   
   func didAuthorizeSuccessfully() {
@@ -412,6 +412,8 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
 }
 
 
+// MARK: - View refresh delegate. Typically any data source updates that are initiated
+// from outside of this VC can handle the necessary UI updates here.
 extension ProjectListViewController: ViewRefreshDelegate {
   
   func update(at indexPath: IndexPath?) {

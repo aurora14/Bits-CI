@@ -106,9 +106,9 @@ extension SearchFooter {
   }
   
   public func setIsFilteringToShow(filteredItemCount: Int, of totalItemCount: Int) {
-    if (filteredItemCount == totalItemCount) {
+    if filteredItemCount == totalItemCount {
       setNotFiltering()
-    } else if (filteredItemCount == 0) {
+    } else if filteredItemCount == 0 {
       label.text = "No items match your query"
       showFooter()
     } else {
