@@ -9,6 +9,10 @@
 import Foundation
 import KeychainAccess
 
+protocol UserUpdateDelegate: class {
+  func updateViews()
+}
+
 class App {
   
   static let sharedInstance = App()
@@ -27,7 +31,14 @@ class App {
     return UserDefaults.standard
   }
   
-  var currentUser: User?
+  weak var userUpdateDelegate: UserUpdateDelegate?
+  
+  var currentUser: User? {
+    didSet {
+      userUpdateDelegate?.updateViews()
+    }
+  }
+  
   private lazy var encoder = JSONEncoder()
   private lazy var decoder = JSONDecoder()
   
