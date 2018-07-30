@@ -84,7 +84,7 @@ class TokenAuthViewController: UIViewController {
     let layer = cancelButton.layer
     layer.cornerRadius = cornerRadius
     layer.shadowColor = UIColor.black.cgColor
-    layer.shadowOpacity = 0.5
+    layer.shadowOpacity = 0.25
     layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
     layer.shadowPath = UIBezierPath(roundedRect: cancelButton.bounds, cornerRadius: cornerRadius).cgPath
     layer.masksToBounds = false
@@ -98,7 +98,7 @@ class TokenAuthViewController: UIViewController {
     let layer = saveTokenButton.layer
     layer.cornerRadius = cornerRadius
     layer.shadowColor = UIColor.black.cgColor
-    layer.shadowOpacity = 0.5
+    layer.shadowOpacity = 0.25
     layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
     layer.shadowPath = UIBezierPath(roundedRect: saveTokenButton.bounds, cornerRadius: cornerRadius).cgPath
     layer.masksToBounds = false
