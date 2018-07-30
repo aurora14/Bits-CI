@@ -16,6 +16,7 @@
 		7A200B2220D681EC003C6D97 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2120D681EC003C6D97 /* Resources.swift */; };
 		7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */; };
 		7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */; };
+		7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */; };
 		7A5DFB7E20D26AE400A3330B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB5D20D26AE300A3330B /* App.swift */; };
 		7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */; };
 		7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6220D26AE300A3330B /* AppDelegate.swift */; };
@@ -36,10 +37,20 @@
 		7A5E759120DD36B4008D32A5 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759020DD36B4008D32A5 /* Build.swift */; };
 		7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */; };
 		7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759420DD4285008D32A5 /* String+Digits.swift */; };
+		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
+		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
+		7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */; };
 		7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9917CC20E8EDFA002879AF /* Icons.xcassets */; };
+		7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */; };
 		7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4275620E3A62000DC99C0 /* Paging.swift */; };
 		7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */; };
 		7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD314820D3305000BE2A77 /* ContentContainer.swift */; };
+		7AEEECAB2102037B00D6DD0D /* BuildCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEECAA2102037B00D6DD0D /* BuildCell.xib */; };
+		7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECAC2102058C00D6DD0D /* BuildCell.swift */; };
+		7AEEECAF2106C71B00D6DD0D /* ProjectBuildVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECAE2106C71B00D6DD0D /* ProjectBuildVM.swift */; };
+		7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFA2109537C00D6DD0D /* ProfileViewController.swift */; };
+		7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */; };
+		7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +67,7 @@
 		7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseBrowserViewController.swift; sourceTree = "<group>"; };
 		7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRSessionManager.swift; sourceTree = "<group>"; };
 		7A22298120D916A100CE5E45 /* JSONTest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = JSONTest.playground; path = ../../../../ConceptStudies/JSONTest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseYMLViewController.swift; sourceTree = "<group>"; };
 		7A5DFB4620D26A8D00A3330B /* bitrise unofficial ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bitrise unofficial ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5DFB5D20D26AE300A3330B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthVC.swift; sourceTree = "<group>"; };
@@ -79,10 +91,20 @@
 		7A5E759020DD36B4008D32A5 /* Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtil.swift; sourceTree = "<group>"; };
 		7A5E759420DD4285008D32A5 /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
+		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
+		7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
+		7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageTableViewController.swift; sourceTree = "<group>"; };
 		7A9917CC20E8EDFA002879AF /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
+		7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Utils.swift"; sourceTree = "<group>"; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		7ADD314820D3305000BE2A77 /* ContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentContainer.swift; sourceTree = "<group>"; };
+		7AEEECAA2102037B00D6DD0D /* BuildCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuildCell.xib; sourceTree = "<group>"; };
+		7AEEECAC2102058C00D6DD0D /* BuildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildCell.swift; sourceTree = "<group>"; };
+		7AEEECAE2106C71B00D6DD0D /* ProjectBuildVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectBuildVM.swift; sourceTree = "<group>"; };
+		7AEEECFA2109537C00D6DD0D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
+		7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		C9A38727C6B2204731A14ED2 /* Pods-bitrise unofficial ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +134,8 @@
 			children = (
 				7A5DFB6820D26AE300A3330B /* ProjectCell.swift */,
 				7A1BD1CD20E11646005D805B /* SearchFooter.swift */,
+				7AEEECAA2102037B00D6DD0D /* BuildCell.xib */,
+				7AEEECAC2102058C00D6DD0D /* BuildCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -121,6 +145,8 @@
 			children = (
 				7A5DFB6920D26AE300A3330B /* ProjectListVC.swift */,
 				7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */,
+				7A8E182C20FF67F30013C253 /* BuildListViewController.swift */,
+				7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -184,8 +210,10 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB6220D26AE300A3330B /* AppDelegate.swift */,
+				7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */,
 				7A5DFB6720D26AE300A3330B /* Bitrise Projects */,
 				7A5DFB5F20D26AE300A3330B /* User Authentication */,
+				7A8E182B20FF218F0013C253 /* User Profile */,
 				7A5DFB6120D26AE300A3330B /* Workflow Editor */,
 			);
 			path = Shared;
@@ -241,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB6E20D26AE300A3330B /* BitriseProjectVM.swift */,
+				7AEEECAE2106C71B00D6DD0D /* ProjectBuildVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -312,10 +341,29 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		7A8E182A20FF21150013C253 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */,
+				7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7A8E182B20FF218F0013C253 /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				7AEEECF92109535400D6DD0D /* Controllers */,
+				7AEEECF82109534800D6DD0D /* Views */,
+			);
+			path = "User Profile";
+			sourceTree = "<group>";
+		};
 		7ADD314720D3301600BE2A77 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				7ADD314A20D3314A00BE2A77 /* Views */,
+				7A8E182A20FF21150013C253 /* Controllers */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -326,6 +374,23 @@
 				7ADD314820D3305000BE2A77 /* ContentContainer.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		7AEEECF82109534800D6DD0D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */,
+				7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7AEEECF92109535400D6DD0D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7AEEECFA2109537C00D6DD0D /* ProfileViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		CE768A2B4F5BB1A99DB39E15 /* Frameworks */ = {
@@ -413,6 +478,8 @@
 				7A5DFB8620D26AE400A3330B /* Colors.xcassets in Resources */,
 				7A5DFB8B20D26AE400A3330B /* README.md in Resources */,
 				7A5DFB8D20D26AE400A3330B /* LaunchScreen.storyboard in Resources */,
+				7AEEECAB2102037B00D6DD0D /* BuildCell.xib in Resources */,
+				7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */,
 				7A5DFB8A20D26AE400A3330B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,20 +616,29 @@
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
 				7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
+				7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */,
 				7A5E759120DD36B4008D32A5 /* Build.swift in Sources */,
+				7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */,
 				7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */,
+				7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */,
+				7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */,
 				7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */,
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
+				7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
+				7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */,
 				7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */,
 				7A200B2220D681EC003C6D97 /* Resources.swift in Sources */,
 				7A1BD1CE20E11646005D805B /* SearchFooter.swift in Sources */,
+				7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */,
 				7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */,
+				7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */,
 				7A5DFB8920D26AE400A3330B /* APIClient.swift in Sources */,
 				7A5E758F20DD275B008D32A5 /* Router.swift in Sources */,
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
 				7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */,
+				7AEEECAF2106C71B00D6DD0D /* ProjectBuildVM.swift in Sources */,
 				7A5DFB8420D26AE400A3330B /* ProjectCell.swift in Sources */,
 				7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */,
 				7A5DFB8320D26AE400A3330B /* ViewConfigurable.swift in Sources */,
