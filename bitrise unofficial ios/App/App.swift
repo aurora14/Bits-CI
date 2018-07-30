@@ -86,6 +86,32 @@ class App {
     }
   }
   
+  /// Attempts to get a valid stored token from the keychain. If the operation succeeds, calls completion
+  /// handler with true result, otherwise with false result.
+  /// * Under consideration: to include the token in the closure return
+  ///
+  /// - Parameter completion: true if there are valid credentials available, false if not.
+  func checkForAvailableBitriseToken(_ completion: @escaping (_ isAvailable: Bool) -> Void) {
+    
+    // Step 1: Check if Keychain has a valid token. If not, open the token modal. There the user
+    // has the option
+    guard let savedToken = getBitriseAuthToken() else {
+      completion(false)
+      return
+    }
+    
+    // Step 2: Check whether the keychain token is stale (e.g. if the user manually deleted it in Bitrise dashboard)
+    apiClient.validateGeneratedToken(savedToken) { isValid, message in
+      
+      if isValid {
+        completion(true)
+        return
+      }
+      
+      completion(false)
+      return
+    }
+  }
 }
 
 extension App {

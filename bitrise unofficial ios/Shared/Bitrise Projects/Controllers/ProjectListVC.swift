@@ -59,6 +59,18 @@ class ProjectListViewController: UITableViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationItem.largeTitleDisplayMode = .always
+    
+    App.sharedInstance.checkForAvailableBitriseToken { [weak self] isValid in
+      
+      guard isValid else {
+        self?.apps.removeAll()
+        DispatchQueue.main.async {
+          self?.tableView.reloadData()
+          self?.presentAuthorizationView()          
+        }
+        return
+      }
+    }
   }
   
   @objc private func getProjects() {
@@ -132,14 +144,13 @@ class ProjectListViewController: UITableViewController {
   // MARK: - UI Actions
   @IBAction func didTapProfile(_ sender: Any) {
     
-    checkForAvailableBitriseToken { [weak self] isAuthorised in
+    App.sharedInstance.checkForAvailableBitriseToken { [weak self] isAuthorised in
       
       guard isAuthorised else {
         self?.presentAuthorizationView()
         return
       }
       
-      // TODO: - Open Profile view if Authorized.
     }
   }
   
@@ -255,32 +266,21 @@ extension ProjectListViewController: UITableViewDataSourcePrefetching {
 // MARK: - Helpers
 extension ProjectListViewController {
   
-  /// Attempts to get a valid stored token from the keychain. If the operation succeeds, calls completion
-  /// handler with true result, otherwise with false result.
-  /// * Under consideration: to include the token in the closure return
-  ///
-  /// - Parameter completion: <#completion description#>
-  fileprivate func checkForAvailableBitriseToken(_ completion: @escaping (_ isAvailable: Bool) -> Void) {
-    
-    // Step 1: Check if Keychain has a valid token. If not, open the token modal. There the user
-    // has the option
-    guard let savedToken = App.sharedInstance.getBitriseAuthToken() else {
-      completion(false)
-      return
-    }
-    
-    // Step 2: Check whether the keychain token is stale (e.g. if the user manually deleted it in Bitrise dashboard)
-    App.sharedInstance.apiClient.validateGeneratedToken(savedToken) { isValid, message in
+  fileprivate func loadDataWithAuthorization() {
+    App.sharedInstance.checkForAvailableBitriseToken { [weak self] isAuthorised in
       
-      if isValid {
-        completion(true)
-        return
+      self?.isAuthorised = isAuthorised
+      
+      if isAuthorised {
+        self?.getUser()
+        self?.getProjects()
+      } else {
+        self?.apps.removeAll()
+        self?.presentAuthorizationView()
       }
-      
-      completion(false)
-      return
     }
   }
+
   
   /// Configures the search UI (the embedded navigation-bar version as it shows in iOS 11;
   /// we aren't supporting < 11.0 at this point).
