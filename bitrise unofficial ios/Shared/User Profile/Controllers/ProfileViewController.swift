@@ -14,6 +14,7 @@ class ProfileViewController: UITableViewController {
   
   private let defaultHeaderHeight: CGFloat = 375
   
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -29,8 +30,14 @@ class ProfileViewController: UITableViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    updateWithUserInfo()
-    App.sharedInstance.userUpdateDelegate = self
+    App.sharedInstance.checkForAvailableBitriseToken { [weak self] isAuthorized in
+      if isAuthorized {
+        self?.updateWithUserInfo()
+        App.sharedInstance.userUpdateDelegate = self
+      } else {
+        self?.presentAuthorizationView()
+      }
+    }
   }
   
   
@@ -52,7 +59,7 @@ class ProfileViewController: UITableViewController {
     tableView.tableHeaderView = profileHeaderView
     tableView.tableHeaderView = nil
     tableView.addSubview(profileHeaderView ?? UIView())
-
+    
   }
   
   
@@ -69,20 +76,91 @@ class ProfileViewController: UITableViewController {
       return
     }
     
-    profileHeaderView?.backgroundImageView.image = user.avatarImage ?? Asset.Icons.user.image
-    profileHeaderView?.foregroundImageView.image = user.avatarImage ?? Asset.Icons.user.image
-    profileHeaderView?.usernameLabel.text = user.username ?? "Bitrise User"
+    DispatchQueue.main.async {
+      self.profileHeaderView?.backgroundImageView.image = user.avatarImage ?? Asset.Icons.user.image
+      self.profileHeaderView?.foregroundImageView.image = user.avatarImage ?? Asset.Icons.user.image
+      self.profileHeaderView?.usernameLabel.text = user.username ?? "Bitrise User"
+    }
   }
   
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destination.
-   // Pass the selected object to the new view controller.
-   }
-   */
+  @IBAction func didTapLogOut(_ sender: Any) {
+    print("Logout button tapped")
+    showConfirmationPrompt()
+  }
+  
+  private func showConfirmationPrompt() {
+    
+    let alertController = UIAlertController(
+      title: "Log Out",
+      message: "Are you sure you want to log out? " +
+      "You may need to generate a new access token next time you wish to use the app.",
+      preferredStyle: .actionSheet)
+    
+    alertController.view.tintColor = Asset.Colors.bitriseGreen.color
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+      
+    }
+    
+    let logOutAction = UIAlertAction(title: "Log Out", style: .destructive) { action in
+      
+      // 1. Remove token
+      App.sharedInstance.removeBitriseAuthToken {
+        App.sharedInstance.checkForAvailableBitriseToken { [weak self] isAuthorized in
+          if !isAuthorized {
+            print("*** Log out successful")
+            self?.resetViewsToDefault()
+            self?.presentAuthorizationView()
+          } else {
+            print("*** Log out may have failed")
+          }
+        }
+      }
+    }
+    
+    alertController.addAction(cancelAction)
+    alertController.addAction(logOutAction)
+    
+    present(alertController, animated: true, completion: nil)
+  }
+  
+  private func resetViewsToDefault() {
+    DispatchQueue.main.async {
+      self.profileHeaderView?.backgroundImageView.image = Asset.Icons.user.image
+      self.profileHeaderView?.foregroundImageView.image = Asset.Icons.user.image
+      self.profileHeaderView?.usernameLabel.text = "Bitrise User"
+    }
+  }
+  
+  private func presentAuthorizationView() {
+    DispatchQueue.main.async {
+      self.perform(segue: StoryboardSegue.Main.profileTabTokenSegue)
+    }
+  }
+  
+  
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // Get the new view controller using segue.destination.
+    // Pass the selected object to the new view controller.
+    
+    guard let identifier = segue.identifier else {
+      assertionFailure("Segue \(segue.debugDescription) missing identifier.")
+      return
+    }
+    
+    switch identifier {
+      
+    case StoryboardSegue.Main.tokenSegue.rawValue:
+      
+      let controller = segue.destination as? TokenAuthViewController
+      controller?.authorizationDelegate = self
+      
+    default: return
+    }
+  }
   
 }
 
@@ -188,12 +266,33 @@ extension ProfileViewController {
 
 extension ProfileViewController: UserUpdateDelegate {
   
-  func updateViews() {
+  func updateUserViews() {
     DispatchQueue.main.async {
-      UIView.animate(withDuration: 0.1) {
-        self.updateWithUserInfo()
-      }      
+      UIView.animate(withDuration: 0.1, delay: 0,
+                     options: [.curveEaseOut],
+                     animations: {
+                      self.updateWithUserInfo()
+      }, completion: nil)
     }
   }
+  
+}
+
+
+extension ProfileViewController: BitriseAuthorizationDelegate {
+  
+  func didAuthorizeSuccessfully() {
+    updateWithUserInfo()
+  }
+  
+  func didFailToAuthorize(with message: String) {
+    resetViewsToDefault()
+  }
+  
+  func didCancelAuthorization() {
+    resetViewsToDefault()
+  }
+  
+  
   
 }

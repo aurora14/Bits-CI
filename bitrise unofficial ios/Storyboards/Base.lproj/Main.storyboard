@@ -491,6 +491,9 @@
                     <navigationItem key="navigationItem" id="QwG-OF-iPX">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="DYH-BI-Ywg">
                             <color key="tintColor" name="BitriseGreen"/>
+                            <connections>
+                                <action selector="didTapLogOut:" destination="4IM-2i-lOY" id="orh-Ha-UaR"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

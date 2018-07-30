@@ -10,7 +10,7 @@ import Foundation
 import KeychainAccess
 
 protocol UserUpdateDelegate: class {
-  func updateViews()
+  func updateUserViews()
 }
 
 class App {
@@ -23,9 +23,7 @@ class App {
   let tokenKey = "BitriseAuthorizationToken"
   
   /// Authorization token for Bitrise.io API. This token is required for all Bitrise.io API calls
-  private var bitriseAPIToken: String? =
-    "pqDBz0-8jdkomnFoEb48NYu7eacBTpDQxh5rDk_FnSkGABJkBZEOcKO5felT__0tA8_DilBGATpUMi1JrQf7eg"
-  // TODO: - return this value from keychain, or nil if this value isn't present
+  private var bitriseAPIToken: String?
   
   var userPreferences: UserDefaults {
     return UserDefaults.standard
@@ -35,16 +33,14 @@ class App {
   
   var currentUser: User? {
     didSet {
-      userUpdateDelegate?.updateViews()
+      userUpdateDelegate?.updateUserViews()
     }
   }
   
   private lazy var encoder = JSONEncoder()
   private lazy var decoder = JSONDecoder()
   
-  private init() {
-    
-  }
+  private init() {}
   
   /// Saves the generated token to keychain
   ///
@@ -71,17 +67,20 @@ class App {
     }
   }
   
-  func removeBitriseAuthToken() {
+  func removeBitriseAuthToken(completion: (() -> Void)?) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       
       guard let strongSelf = self else {
+        completion?()
         return
       }
       
       do {
         try strongSelf.keychain.remove(strongSelf.tokenKey)
+        completion?()
       } catch let error {
         print(error.localizedDescription)
+        completion?()
       }
     }
   }
@@ -102,6 +101,8 @@ class App {
   /// * Under consideration: to include the token in the closure return
   ///
   /// - Parameter completion: true if there are valid credentials available, false if not.
+  ///
+  /// * Usage: App.shared.checkForAvailableBitriseToken { isAvailable in }
   func checkForAvailableBitriseToken(_ completion: @escaping (_ isAvailable: Bool) -> Void) {
     
     // Step 1: Check if Keychain has a valid token. If not, open the token modal. There the user
