@@ -42,6 +42,11 @@ class App {
   
   private init() {}
   
+}
+
+// MARK: - Authorization token management
+extension App {
+  
   /// Saves the generated token to keychain
   ///
   /// - Parameter token: Bitrise access token. The app should only ever have one value maintained
@@ -67,6 +72,19 @@ class App {
     }
   }
   
+  /// Removes the token from the keychain if one is present, and calls a
+  /// completion handler once finished.
+  ///
+  /// - Parameter completion: any action to take after removing the token. Typically
+  /// this may include verification of whether it was removed successfully, or updating
+  /// the user interface
+  ///
+  /// Note: this operation is performed on the background thread. If the user decides
+  /// to check for available token immediately after calling this method, the check
+  /// may still return valid authorization. Therefore any operations that may be
+  /// time-dependent should be placed in the completion closure. If there's nothing
+  /// that needs to be done after removing a token, the user can pass 'nil' for this
+  /// parameter
   func removeBitriseAuthToken(completion: (() -> Void)?) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       
@@ -126,6 +144,7 @@ class App {
   }
 }
 
+// MARK: - Caching/saving common data to disk
 extension App {
   
   func getDocumentsDirectory() -> URL {

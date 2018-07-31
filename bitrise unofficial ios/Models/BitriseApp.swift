@@ -39,7 +39,7 @@ struct BitriseApp: Codable, Equatable, CustomStringConvertible {
   
   
   init(from decoder: Decoder) throws {
-    //self.init() // Temporary testing code. TODO: - delete after creating the parsing model
+    
     let container = try decoder.container(keyedBy: CodingKeys.self)
     
     title = try container.decode(String.self, forKey: .title).uppercased()

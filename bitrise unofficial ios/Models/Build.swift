@@ -82,7 +82,7 @@ struct Build: Codable {
   var triggeredWorkflow: String
   
   init(from decoder: Decoder) throws {
-    //self.init() // Temporary testing code. TODO: - delete after creating the parsing model
+    
     let container = try decoder.container(keyedBy: CodingKeys.self)
     
     abortReason = try container.decodeIfPresent(String.self, forKey: .abortReason)
