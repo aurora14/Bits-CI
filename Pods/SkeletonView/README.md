@@ -1,4 +1,4 @@
-![](Assets/header.jpg)
+![](Assets/header2.jpg)
 
 <p align="center">
     <a href="https://travis-ci.org/Juanpe/SkeletonView">
@@ -31,6 +31,8 @@
     </a>
 </p>
 
+🌎  Translations: [ [🇨🇳](https://github.com/Juanpe/SkeletonView/blob/master/README_zh.md) by [@WhatsXie](https://twitter.com/WhatsXie) ]
+
 Today almost all apps have async processes, such as Api requests, long running processes, etc. And while the processes are working, usually developers place a loading view to show users that something is going on.
 
 ```SkeletonView``` has been conceived to address this need, an elegant way to show users that something is happening and also prepare them to which contents he is waiting.
@@ -47,11 +49,12 @@ Enjoy it! 🙂
   * [Collections](#-collections)
   * [Multiline text](#-multiline-text)
   * [Custom colors](#-custom-colors)
+  * [Appearance](#-appearance)
   * [Custom animations](#-custom-animations)
   * [Hierarchy](#-hierarchy)
 * [Documentation](#-documentation)
 * [Next steps](#-next-steps)
-* [Contributed](#-contributed)
+* [Contributing](#-contributing)
 * [Mentions](#-mentions)
 * [Author](#-author)
 * [License](#-license)
@@ -76,8 +79,6 @@ Enjoy it! 🙂
 ### 🔮 Example
 
 To run the example project, clone the repo and run `SkeletonViewExample` target.
-
-![](Assets/demoApp2.png)
 
 ## 📲 Installation
 
@@ -173,7 +174,7 @@ If you want to show the skeleton in a ```UITableView```, you need to conform to 
 public protocol SkeletonTableViewDataSource: UITableViewDataSource {
     func numSections(in collectionSkeletonView: UITableView) -> Int
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int
-    func collectionSkeletonView(_ skeletonView: UITableView, cellIdenfierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier
 }
 ```
 As you can see, this protocol inherits from ```UITableViewDataSource```, so you can replace this protocol with the skeleton protocol.
@@ -193,12 +194,12 @@ func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection s
 
 There is only one method you need to implement to let Skeleton know the cell identifier. This method doesn't have default implementation:
  ``` swift
- func collectionSkeletonView(_ skeletonView: UITableView, cellIdenfierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier
+ func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier
  ```
 
 **Example**
  ``` swift
- func collectionSkeletonView(_ skeletonView: UITableView, cellIdenfierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+ func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
     return "CellIdentifier"
 }
  ```
@@ -231,12 +232,14 @@ Besides, you can decide how many lines you want. If  ```numberOfLines``` is set 
 ##### 🎛 Customize
 
 You can set some properties for multilines elements.
-- **Filling percent** of the last line.
-  - values: `0...100`
-  - default: `70%`
-- **Corner radius** of lines. (**NEW**)
-  - values: `0...10
-  - default: `0`
+
+
+| Property | Values | Default | Preview
+| ------- | ------- |------- | -------
+| **Filling percent** of the last line. | `0...100` | `70%` | ![](Assets/multiline_lastline.png)
+| **Corner radius** of lines. (**NEW**) | `0...10` | `0` | ![](Assets/multiline_corner.png)
+
+
 
 To modify the percent or radius **using code**, set the properties:
 ```swift
@@ -271,9 +274,22 @@ Besides, ```SkeletonView``` features 20 flat colors 🤙🏼
 ![](Assets/flatcolors.png)
 ###### Image captured from website [https://flatuicolors.com](https://flatuicolors.com)
 
+### 🦋 Appearance
+
+**NEW** The skeletons have a default appearance. So, when you don't specify the color, gradient or multilines properties, `SkeletonView` uses the default values.
+
+Default values:
+- **tintColor**: UIColor
+- **gradient**: SkeletonGradient
+- **multilineHeight**: CGFloat
+- **multilineSpacing**: CGFloat
+- **multilineLastLineFillPercent**: Int
+- **multilineCornerRadius**: Int _0_
+
+
 ### 🤓 Custom animations
 
-Now, ```SkeletonView``` has two built-in animations, *pulse* for solid skeletons and *sliding* for gradients.
+```SkeletonView``` has two built-in animations, *pulse* for solid skeletons and *sliding* for gradients.
 
 Besides, if you want to do your own skeleton animation, it's really easy.
 
@@ -295,7 +311,7 @@ view.showAnimatedSkeleton { (layer) -> CAAnimation in
 }
 ```
 
-**NEW** It's available ```SkeletonAnimationBuilder```. It's a builder to make ```SkeletonLayerAnimation```.
+It's available ```SkeletonAnimationBuilder```. It's a builder to make ```SkeletonLayerAnimation```.
 
 Today, you can create **sliding animations** for gradients, deciding the **direction** and setting the **duration** of the animation (default = 1.5s).
 
@@ -313,7 +329,7 @@ view.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation)
 |------- | -------
 | .leftRight | ![](Assets/sliding_left_to_right.gif)
 | .rightLeft | ![](Assets/sliding_right_to_left.gif)
-| .topBottom | ![](Assets/sliding_top_to_bottom.gif)  
+| .topBottom | ![](Assets/sliding_top_to_bottom.gif)
 | .bottomTop | ![](Assets/sliding_bottom_to_top.gif)
 | .topLeftBottomRight | ![](Assets/sliding_topLeft_to_bottomRight.gif)
 | .bottomRightTopLeft | ![](Assets/sliding_bottomRight_to_topLeft.gif)
@@ -350,11 +366,12 @@ Coming soon...😅
 * [x] CollectionView compatible
 * [x] tvOS compatible
 * [x] Add recovery state
+* [x] Custom default appearance
 * [ ] Custom collections compatible
 * [ ] Add animations when it shows/hides the skeletons
 * [ ] MacOS and WatchOS compatible
 
-## ❤️ Contributed
+## ❤️ Contributing
 This is an open source project, so feel free to contribute. How?
 - Open an [issue](https://github.com/Juanpe/SkeletonView/issues/new).
 - Send feedback via [email](mailto://juanpecatalan.com).

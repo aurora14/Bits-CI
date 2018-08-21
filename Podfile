@@ -17,14 +17,16 @@ target 'bitrise unofficial ios' do
   
   # -- UI --
   pod 'IQKeyboardManagerSwift'
+  pod 'SkyFloatingLabelTextField'
   pod 'SVProgressHUD'
   pod 'SwiftSoup'
   pod 'ViewAnimator'
   pod 'SkeletonView'
   pod 'XLPagerTabStrip'
+  pod 'lottie-ios'
   
   # -- analytics & crash reporting --
-  pod 'Fabric'
+  pod 'Fabric' #Broken on Xcode 10 Beta 5, fixed in subsequent builds
   pod 'Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
