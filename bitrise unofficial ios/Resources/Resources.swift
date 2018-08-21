@@ -102,17 +102,23 @@ internal enum Asset {
     internal static let applicationXamarinGrey = ImageAsset(name: "application_xamarin_grey")
     internal static let branch = ImageAsset(name: "branch")
     internal static let buildAborted = ImageAsset(name: "build_aborted")
+    internal static let buildAbortedWhite = ImageAsset(name: "build_aborted_white")
     internal static let buildFailed = ImageAsset(name: "build_failed")
+    internal static let buildFailedWhite = ImageAsset(name: "build_failed_white")
     internal static let buildRunning = ImageAsset(name: "build_running")
+    internal static let buildRunningWhite = ImageAsset(name: "build_running_white")
     internal static let buildSucceeded = ImageAsset(name: "build_succeeded")
+    internal static let buildSucceededWhite = ImageAsset(name: "build_succeeded_white")
     internal static let chevron = ImageAsset(name: "chevron")
     internal static let clock = ImageAsset(name: "clock")
     internal static let close = ImageAsset(name: "close")
+    internal static let message = ImageAsset(name: "message")
     internal static let projects = ImageAsset(name: "projects")
     internal static let providerBitbucket = ImageAsset(name: "provider_bitbucket")
     internal static let providerGithub = ImageAsset(name: "provider_github")
     internal static let providerGitlab = ImageAsset(name: "provider_gitlab")
     internal static let user = ImageAsset(name: "user")
+    internal static let userLrg = ImageAsset(name: "user_lrg")
     internal static let workflow = ImageAsset(name: "workflow")
 
     // swiftlint:disable trailing_comma
@@ -130,17 +136,23 @@ internal enum Asset {
       applicationXamarinGrey,
       branch,
       buildAborted,
+      buildAbortedWhite,
       buildFailed,
+      buildFailedWhite,
       buildRunning,
+      buildRunningWhite,
       buildSucceeded,
+      buildSucceededWhite,
       chevron,
       clock,
       close,
+      message,
       projects,
       providerBitbucket,
       providerGithub,
       providerGitlab,
       user,
+      userLrg,
       workflow,
     ]
     // swiftlint:enable trailing_comma
