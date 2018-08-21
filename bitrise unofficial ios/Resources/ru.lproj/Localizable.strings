@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  bitrise unofficial ios
+
+  Created by Alexei Gudimenko on 18/8/18.
+  Copyright © 2018 Alexei Gudimenko. All rights reserved.
+*/
+
+// General text
+"startBuild"       = "Начать сборку";
+"bitriseUser"      = "Пользователь Bitrise";
+"projects"         = "Приложения";
+"profile"          = "Профиль";
+
+// Login & Authorization
+"logIn"            = "Войти";
+"logOut"           = "Выйти";
+"logOutConfirmationMsg" = "Вы действительно хотите выйти? Вам потребуется новый ключ авторизации при следующем входе.";
+"noTokenInKeychain" = "Ключ авторизации не найден в связке Keychain";
+
+// User information
+"noOrganizations"  = "Пользователь не состоит в организации";
+
+// Standard actions
+"dismiss"          = "Закрыть";
+"cancel"           = "Отмена";
+
+// Error handling
+"invalidParams"    = "Неверные параметры";
+"checkBuildParamsMsg" = "Проверьте что нужные поля заполнены";
+
+// Bitrise content
+"ymlUnavailable" = "Файл Bitrise YML не доступен для этого приложения";
+"branchParamRequired" = "Параметр 'Ветка' должен быть заполнен чтобы начать сборку";

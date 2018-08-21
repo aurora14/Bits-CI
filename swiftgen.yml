@@ -16,6 +16,11 @@ xcassets:
     templateName: swift4
     output: bitrise unofficial ios/Resources/Resources.swift
 # Localization
+strings:
+  - paths:
+    - bitrise unofficial ios/Resources/en.lproj/Localizable.strings
+    templateName: structured-swift4
+    output: bitrise unofficial ios/Resources/Strings.swift
 # strings:
 #   - paths:
 #     - bitrise unofficial ios/Localization/en.lproj/Localizable.strings
