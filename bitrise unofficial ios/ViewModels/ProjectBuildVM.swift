@@ -12,7 +12,7 @@ import SwiftDate
 
 class ProjectBuildViewModel: CellRepresentable {
   
-  var rowHeight: CGFloat = 96
+  var rowHeight: CGFloat = 84
   
   var build: Build
   
