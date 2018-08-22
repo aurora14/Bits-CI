@@ -33,12 +33,23 @@ enum BuildStatus: Int, Codable {
     }
   }
   
+  /// Build status icon for use on white backgrounds
   var icon: UIImage {
     switch self {
     case .inProgress: return Asset.Icons.buildRunning.image
     case .success:    return Asset.Icons.buildSucceeded.image
     case .failure:    return Asset.Icons.buildFailed.image
     case .aborted:    return Asset.Icons.buildAborted.image
+    }
+  }
+  
+  /// Build status icon for use on darker solid colour backgrounds
+  var iconWhite: UIImage {
+    switch self {
+    case .inProgress: return Asset.Icons.buildRunningWhite.image
+    case .success:    return Asset.Icons.buildSucceededWhite.image
+    case .failure:    return Asset.Icons.buildFailedWhite.image
+    case .aborted:    return Asset.Icons.buildAbortedWhite.image
     }
   }
 }

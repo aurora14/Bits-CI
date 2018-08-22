@@ -51,13 +51,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="24h 59m 59s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNF-rp-t19">
-                                <rect key="frame" x="154" y="50.5" width="76" height="15"/>
+                                <rect key="frame" x="158" y="50.5" width="76" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="#99999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQu-ze-x0W">
-                                <rect key="frame" x="234" y="50.5" width="99" height="15"/>
+                                <rect key="frame" x="238" y="50.5" width="95" height="15"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -74,7 +74,7 @@
                                     <constraint firstAttribute="width" constant="56" id="h5L-A0-3aj"/>
                                     <constraint firstAttribute="height" constant="16" id="xfD-JM-SEi"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <color key="textColor" name="BitriseGreen"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -89,7 +89,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="sVP-lW-54t">
-                                <rect key="frame" x="134" y="50" width="16" height="16"/>
+                                <rect key="frame" x="138" y="50" width="16" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="bgX-31-3w6"/>
                                     <constraint firstAttribute="width" constant="16" id="irg-di-SM7"/>
@@ -125,7 +125,7 @@
                             <constraint firstItem="Krm-Ie-Bp0" firstAttribute="firstBaseline" secondItem="kgH-MH-8Ub" secondAttribute="firstBaseline" id="MOm-ef-VDq"/>
                             <constraint firstItem="DZy-1N-nSn" firstAttribute="centerY" secondItem="dFc-3V-6AS" secondAttribute="centerY" id="Y9g-Dx-u3w"/>
                             <constraint firstItem="HNF-rp-t19" firstAttribute="height" secondItem="Rkj-XB-Xe2" secondAttribute="height" id="Zen-4H-krX"/>
-                            <constraint firstItem="sVP-lW-54t" firstAttribute="leading" secondItem="Rkj-XB-Xe2" secondAttribute="trailing" constant="4" id="ZkK-d4-e4S"/>
+                            <constraint firstItem="sVP-lW-54t" firstAttribute="leading" secondItem="Rkj-XB-Xe2" secondAttribute="trailing" constant="8" id="ZkK-d4-e4S"/>
                             <constraint firstItem="HNF-rp-t19" firstAttribute="firstBaseline" secondItem="Rkj-XB-Xe2" secondAttribute="firstBaseline" id="Zzt-wL-tgZ"/>
                             <constraint firstItem="Rkj-XB-Xe2" firstAttribute="leading" secondItem="DZy-1N-nSn" secondAttribute="leading" id="bvY-se-Dd0"/>
                             <constraint firstItem="Pi5-ae-ubq" firstAttribute="leading" secondItem="dFc-3V-6AS" secondAttribute="leading" id="eO8-k8-PUh"/>

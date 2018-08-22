@@ -67,6 +67,7 @@ class BuildCell: UITableViewCell, ViewConfigurable {
     buildTriggeredTimeLabel.text = vm.buildTriggeredAt
     buildDurationLabel.text = vm.duration
     bitriseBuildNumberLabel.text = vm.buildNumber
+    buildStatusIcon.image = vm.buildStatusIcon
     
     // this must be on the main thread for the colour updates to take effect immediately
     DispatchQueue.main.async { 
