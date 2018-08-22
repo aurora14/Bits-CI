@@ -28,6 +28,8 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   var apps = [CellRepresentable]()
   var activeDataSource = [CellRepresentable]()
   
+  let impactGenerator = UIImpactFeedbackGenerator(style: .light)
+  
   override func loadView() {
     super.loadView()
     refreshControl = UIRefreshControl()
@@ -43,6 +45,8 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     setupRefreshing()
     tableView.showAnimatedSkeleton()
     loadDataWithAuthorization()
+    
+    impactGenerator.prepare()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -210,8 +214,14 @@ extension ProjectListViewController {
     return activeDataSource[indexPath.section].cellInstance(tableView, indexPath: indexPath)
   }
   
-  func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+  func collectionSkeletonView(_ skeletonView: UITableView,
+                              cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
     return "ProjectCell"
+  }
+  
+  override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+    impactGenerator.impactOccurred()
   }
   
 }
