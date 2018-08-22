@@ -11,6 +11,7 @@
 "bitriseUser"      = "Bitrise User";
 "projects"         = "Projects";
 "profile"          = "Profile";
+"showingAllApps"   = "Showing all apps";
 
 // Login & Authorization
 "logIn"            = "Log In";

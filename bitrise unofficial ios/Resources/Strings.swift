@@ -33,6 +33,8 @@ internal enum L10n {
   internal static let profile = L10n.tr("Localizable", "profile")
   /// Projects
   internal static let projects = L10n.tr("Localizable", "projects")
+  /// Showing all apps
+  internal static let showingAllApps = L10n.tr("Localizable", "showingAllApps")
   /// Start Build
   internal static let startBuild = L10n.tr("Localizable", "startBuild")
   /// Bitrise YML isn't available for this application

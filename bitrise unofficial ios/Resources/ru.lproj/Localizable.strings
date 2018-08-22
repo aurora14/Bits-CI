@@ -11,6 +11,7 @@
 "bitriseUser"      = "Пользователь Bitrise";
 "projects"         = "Приложения";
 "profile"          = "Профиль";
+"showingAllApps"   = "Все приложения";
 
 // Login & Authorization
 "logIn"            = "Войти";
