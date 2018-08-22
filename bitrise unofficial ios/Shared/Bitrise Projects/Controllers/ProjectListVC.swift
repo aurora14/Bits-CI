@@ -342,6 +342,7 @@ extension ProjectListViewController {
     let size = CGSize(width: UIScreen.main.bounds.width - 12, height: 56)
     let frame = CGRect(origin: .zero, size: size)
     let footerView = SearchFooter(frame: frame)
+    footerView.label.text = L10n.showingAllApps
     return footerView
   }
   

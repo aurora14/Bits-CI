@@ -101,7 +101,7 @@ extension SearchFooter {
   // MARK: - Public API
   
   public func setNotFiltering() {
-    label.text = ""
+    label.text = L10n.showingAllApps
     hideFooter()
   }
   
