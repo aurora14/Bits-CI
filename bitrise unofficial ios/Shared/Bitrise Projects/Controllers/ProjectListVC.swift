@@ -142,6 +142,22 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
         return
       }
       
+      //self?.tabBarController?.selectedIndex = 1
+    }
+    
+    // Switch tab bar controller to Profile
+    guard let controllers = tabBarController?.children else {
+      print("*** Couldn't get children controllers")
+      return
+    }
+    
+    if let token = App.sharedInstance.getBitriseAuthToken() {
+      for (index, controller) in controllers.enumerated() where controller is UINavigationController {
+        if let profileController = controller.children.first as? ProfileViewController {
+          print("*** Updating to controller at \(index)")
+          tabBarController?.selectedIndex = index
+        }
+      }
     }
   }
   
@@ -281,7 +297,7 @@ extension ProjectListViewController {
       }
     }
   }
-
+  
   
   /// Configures the search UI (the embedded navigation-bar version as it shows in iOS 11;
   /// we aren't supporting < 11.0 at this point).
