@@ -210,7 +210,7 @@ extension ProjectListViewController {
     return activeDataSource[indexPath.section].cellInstance(tableView, indexPath: indexPath)
   }
   
-  func collectionSkeletonView(_ skeletonView: UITableView, cellIdenfierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+  func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
     return "ProjectCell"
   }
   
