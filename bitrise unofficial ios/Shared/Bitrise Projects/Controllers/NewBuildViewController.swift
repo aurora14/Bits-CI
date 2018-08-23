@@ -27,6 +27,7 @@ class NewBuildViewController: UIViewController {
   @IBOutlet weak var workflowTextField: SkyFloatingLabelTextFieldWithIcon!
   @IBOutlet weak var commitMessageTextField: SkyFloatingLabelTextFieldWithIcon!
   @IBOutlet weak var startBuildButton: UIButton!
+  @IBOutlet weak var container: UIView!
   
   @IBOutlet var textFields: [SkyFloatingLabelTextFieldWithIcon]!
   
@@ -39,7 +40,8 @@ class NewBuildViewController: UIViewController {
   var message: String = ""
   
   // pan/swipe gesture vars
-  var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
+  var containerYOrigin: CGFloat = 36
+  var initialTouchPoint: CGPoint?
   
   private var selectionFeedbackGenerator: UISelectionFeedbackGenerator? = UISelectionFeedbackGenerator()
   private var notificationFeedbackGenerator: UINotificationFeedbackGenerator? = UINotificationFeedbackGenerator()
@@ -47,6 +49,8 @@ class NewBuildViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    configureContainer()
+    configureInitTouchPoint()
     configureTextFields()
     configureSwipeModal()
     configureProgressViews()
@@ -63,20 +67,19 @@ class NewBuildViewController: UIViewController {
     
     selectionFeedbackGenerator?.selectionChanged()
     
-    SVProgressHUD.show(withStatus: "Starting Build")
     // gather stuff from text fields, then send API request
-    // Only the branch is required
-    
+    // The only required parameter is Branch
     guard validated().result == .success else {
       branchTextField.errorMessage = branch.isEmpty ? "Required" : ""
-      dismissStartHUD()
       DispatchQueue.main.async {
         self.notificationFeedbackGenerator?.notificationOccurred(.warning)
       }
-      showErrorAlert(withTitle: "Invalid Build Configuration",
-                     withMessage: validated().message)
+//      showErrorAlert(withTitle: "Invalid Build Configuration",
+//                     withMessage: validated().message)
       return
     }
+    
+    SVProgressHUD.show(withStatus: "Starting Build")
     
     let buildData = BuildData(branch: branch, workflowId: workflow, commitMessage: message)
     
@@ -90,20 +93,19 @@ class NewBuildViewController: UIViewController {
           // 1. close controller
           NotificationCenter
             .default
-            .post(name: NSNotification.Name(rawValue: didStartNewBuildNotification), object: nil)
+            .post(name: NSNotification.Name(rawValue: didStartNewBuildNotification), object: self)
           self.dismissStartHUD()
           DispatchQueue.main.async {
             self.notificationFeedbackGenerator?.notificationOccurred(.success)
           }
-          //self.closeTapticEngines()
           self.startBuildDelegate?.didStartNewBuild(from: self)
-          self.dismiss(animated: true, completion: nil)
+          self.didTapDismiss()
         case .error:
           self.dismissStartHUD()
           DispatchQueue.main.async {
             self.notificationFeedbackGenerator?.notificationOccurred(.error)
+            self.showErrorAlert(withTitle: "Failed to Start Build", withMessage: message)
           }
-          self.showErrorAlert(withTitle: "Failed to Start Build", withMessage: message)
           print("*** \(message)")
         }
     }
@@ -111,9 +113,13 @@ class NewBuildViewController: UIViewController {
   
   @IBAction func didTapDismiss() {
     dismissStartHUD()
-    //closeTapticEngines()
+    closeTapticEngines()
     startBuildDelegate?.didCancelNewBuild(from: self)
-    dismiss(animated: true, completion: nil)
+    UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: {
+      DispatchQueue.main.async {
+        self.dismiss(animated: true, completion: nil)
+      }
+    }, completion: nil)
   }
   
   /// Checks branch, workflow and message variables for valid input and that the app isn't nil
@@ -122,13 +128,13 @@ class NewBuildViewController: UIViewController {
   func validated() -> (result: AsyncResult, message: String) {
     // add new validation rules as necessary
     guard !branch.isEmpty else {
-      //assertionFailure(L10n.branchParamRequired)
       return (.error, L10n.branchParamRequired)
     }
     
     guard app != nil else {
       assertionFailure("*** App property wasn't initialised in view controller. This property must " +
         "be populated with a valid Bitrise App to allow posting new builds")
+      Answers.logCustomEvent(withName: "New Build Error", customAttributes: ["Reason": "Null App Property"])
       return (.error, "*** App property wasn't initialised in view controller. This property must " +
         "be populated with a valid Bitrise App to allow posting new builds")
     }
@@ -139,7 +145,7 @@ class NewBuildViewController: UIViewController {
   
   private func showErrorAlert(withTitle errorName: String, withMessage errorMessage: String) {
     // TODO: - replace with an alert controller presentation
-    print("*** Error \(errorName): \(errorMessage)")
+    // print("*** Error \(errorName): \(errorMessage)")
     SVProgressHUD.showError(withStatus: errorMessage)
   }
   
@@ -207,6 +213,16 @@ extension NewBuildViewController: UITextFieldDelegate {
 // MARK: - Helpers
 extension NewBuildViewController {
   
+  fileprivate func configureContainer() {
+    container.clipsToBounds = true
+    container.layer.cornerRadius = 5
+    container.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMinYCorner ]
+  }
+  
+  fileprivate func configureInitTouchPoint() {
+    initialTouchPoint = CGPoint(x: 0, y: containerYOrigin)
+  }
+  
   fileprivate func configureTextFields() {
     
     for f in textFields {
@@ -224,31 +240,36 @@ extension NewBuildViewController {
   }
   
   @IBAction @objc private func didStartPanGesture(_ sender: UIPanGestureRecognizer) {
+    
+    guard let initPoint = initialTouchPoint else {
+      return
+    }
+    
     let touchPoint = sender.location(in: view?.window)
     
     switch sender.state {
     case .began:
       initialTouchPoint = touchPoint
     case .changed:
-      if touchPoint.y - initialTouchPoint.y > 0 {
-        self.view.frame = CGRect(x: 0,
-                                 y: touchPoint.y - initialTouchPoint.y,
-                                 width: view.frame.size.width,
-                                 height: view.frame.size.height)
+      if touchPoint.y - initPoint.y > 0 {
+        self.container.frame = CGRect(x: 0,
+                                 y: touchPoint.y - initPoint.y,
+                                 width: container.frame.size.width,
+                                 height: container.frame.size.height)
       }
     case .ended, .cancelled:
-      if touchPoint.y - initialTouchPoint.y > 100 {
+      if touchPoint.y - initPoint.y > 150 {
         didTapDismiss()
       } else {
         UIView.animate(withDuration: 0.3, animations: {
-          self.view.frame = CGRect(x: 0,
-                                   y: 0,
-                                   width: self.view.frame.size.width,
-                                   height: self.view.frame.size.height)
+          self.container.frame = CGRect(x: 0,
+                                   y: self.containerYOrigin,
+                                   width: self.container.frame.size.width,
+                                   height: self.container.frame.size.height)
         })
       }
     default:
-      ()
+      () // do nothing on any other states
     }
   }
   

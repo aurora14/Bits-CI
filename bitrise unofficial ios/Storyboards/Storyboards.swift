@@ -70,6 +70,7 @@ internal enum StoryboardSegue {
     case getNewTokenSegue = "GetNewTokenSegue"
     case profileTabTokenSegue = "ProfileTabTokenSegue"
     case projectDetailSegue = "ProjectDetailSegue"
+    case startNewBuildSegue = "StartNewBuildSegue"
     case tokenSegue = "TokenSegue"
   }
 }

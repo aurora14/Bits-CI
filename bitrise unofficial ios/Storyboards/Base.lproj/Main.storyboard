@@ -417,6 +417,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Start Build" id="q0D-GZ-bNH">
                             <connections>
                                 <action selector="didTapBarButton:" destination="YCJ-NK-gmS" id="1tF-4f-w5D"/>
+                                <segue destination="6Tw-QT-LSv" kind="presentation" identifier="StartNewBuildSegue" modalPresentationStyle="overFullScreen" id="Atm-5X-3bd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -474,7 +475,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="pUq-o6-Af0">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileInfoCell" id="pUq-o6-Af0">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pUq-o6-Af0" id="jC7-mF-wbL">
@@ -504,18 +505,184 @@
             </objects>
             <point key="canvasLocation" x="849" y="565"/>
         </scene>
+        <!--New Build View Controller-->
+        <scene sceneID="UjN-Hq-Qg6">
+            <objects>
+                <viewController id="6Tw-QT-LSv" customClass="NewBuildViewController" customModule="bitrise_unofficial_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hkq-ku-5Qr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXr-lg-983">
+                                <rect key="frame" x="0.0" y="28" width="375" height="639"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="99x-bL-Yzh" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="16" y="98" width="343" height="42"/>
+                                        <color key="tintColor" name="BitrisePurple"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="MXg-dk-fCy"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="branch"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="BitrisePurple"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconTypeValue">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Branch"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="BitriseGreen"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="BitrisePurple"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1sj-Kk-w4J" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="16" y="164" width="343" height="42"/>
+                                        <color key="tintColor" name="BitrisePurple"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="workflow"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="BitrisePurple"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconTypeValue">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Workflow (defaults to trigger map if empty)"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="BitriseGreen"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="BitrisePurple"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dkR-V6-B0K" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="16" y="230" width="343" height="42"/>
+                                        <color key="tintColor" name="BitrisePurple"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="message"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" name="BitrisePurple"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iconTypeValue">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Commit message (optional)"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" name="BitriseGreen"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" name="BitrisePurple"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pag-qX-mMo">
+                                        <rect key="frame" x="159.5" y="8" width="56" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="YM0-3g-xLp"/>
+                                            <constraint firstAttribute="width" constant="56" id="fLF-sU-0jK"/>
+                                        </constraints>
+                                        <state key="normal" image="chevron"/>
+                                        <connections>
+                                            <action selector="didTapDismiss" destination="6Tw-QT-LSv" eventType="touchUpInside" id="Uf3-Pe-R0R"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="1sj-Kk-w4J" firstAttribute="centerX" secondItem="99x-bL-Yzh" secondAttribute="centerX" id="36C-be-mu5"/>
+                                    <constraint firstItem="1sj-Kk-w4J" firstAttribute="top" secondItem="99x-bL-Yzh" secondAttribute="bottom" constant="24" id="6mA-T6-7o0"/>
+                                    <constraint firstItem="1sj-Kk-w4J" firstAttribute="height" secondItem="99x-bL-Yzh" secondAttribute="height" id="A5k-au-otf"/>
+                                    <constraint firstAttribute="trailing" secondItem="99x-bL-Yzh" secondAttribute="trailing" constant="16" id="EXS-2P-ve3"/>
+                                    <constraint firstItem="dkR-V6-B0K" firstAttribute="height" secondItem="99x-bL-Yzh" secondAttribute="height" id="ODS-L5-5ki"/>
+                                    <constraint firstItem="pag-qX-mMo" firstAttribute="centerX" secondItem="DXr-lg-983" secondAttribute="centerX" id="PtG-RM-TSM"/>
+                                    <constraint firstItem="dkR-V6-B0K" firstAttribute="width" secondItem="99x-bL-Yzh" secondAttribute="width" id="QAX-bO-DTf"/>
+                                    <constraint firstItem="1sj-Kk-w4J" firstAttribute="width" secondItem="99x-bL-Yzh" secondAttribute="width" id="UpU-by-kub"/>
+                                    <constraint firstItem="dkR-V6-B0K" firstAttribute="centerX" secondItem="99x-bL-Yzh" secondAttribute="centerX" id="VUX-UI-9zh"/>
+                                    <constraint firstItem="99x-bL-Yzh" firstAttribute="leading" secondItem="DXr-lg-983" secondAttribute="leading" constant="16" id="e9t-33-Jge"/>
+                                    <constraint firstItem="99x-bL-Yzh" firstAttribute="top" secondItem="pag-qX-mMo" secondAttribute="bottom" constant="54" id="gwr-9e-m2e"/>
+                                    <constraint firstItem="pag-qX-mMo" firstAttribute="top" secondItem="DXr-lg-983" secondAttribute="top" constant="8" id="jUV-14-06m"/>
+                                    <constraint firstItem="dkR-V6-B0K" firstAttribute="top" secondItem="1sj-Kk-w4J" secondAttribute="bottom" constant="24" id="s9k-cS-Xgs"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJp-w2-ZGv">
+                                <rect key="frame" x="16" y="575" width="343" height="56"/>
+                                <color key="backgroundColor" name="BitriseGreen"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="oR1-YH-nic"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <state key="normal" title="Start Build">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapStartBuild" destination="6Tw-QT-LSv" eventType="touchUpInside" id="9Ce-nN-akb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.2540132705479452" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="DXr-lg-983" firstAttribute="centerX" secondItem="t0F-Ay-NhS" secondAttribute="centerX" id="397-B5-gh4"/>
+                            <constraint firstItem="DXr-lg-983" firstAttribute="height" secondItem="hkq-ku-5Qr" secondAttribute="height" constant="-28" id="K8G-tz-1el"/>
+                            <constraint firstItem="DXr-lg-983" firstAttribute="width" secondItem="hkq-ku-5Qr" secondAttribute="width" id="Stt-vC-Xz6"/>
+                            <constraint firstItem="sJp-w2-ZGv" firstAttribute="leading" secondItem="t0F-Ay-NhS" secondAttribute="leading" constant="16" id="UBm-u6-V8V"/>
+                            <constraint firstItem="t0F-Ay-NhS" firstAttribute="bottom" secondItem="sJp-w2-ZGv" secondAttribute="bottom" constant="36" id="b4N-6c-s9m"/>
+                            <constraint firstItem="DXr-lg-983" firstAttribute="centerY" secondItem="t0F-Ay-NhS" secondAttribute="centerY" constant="4" id="kAJ-9Z-9QL"/>
+                            <constraint firstItem="t0F-Ay-NhS" firstAttribute="trailing" secondItem="sJp-w2-ZGv" secondAttribute="trailing" constant="16" id="o1b-8A-NqT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="t0F-Ay-NhS"/>
+                    </view>
+                    <connections>
+                        <outlet property="branchTextField" destination="99x-bL-Yzh" id="tV4-NK-gIo"/>
+                        <outlet property="commitMessageTextField" destination="dkR-V6-B0K" id="9aQ-cd-x7M"/>
+                        <outlet property="container" destination="DXr-lg-983" id="pyZ-fV-0ez"/>
+                        <outlet property="startBuildButton" destination="sJp-w2-ZGv" id="nCF-ve-H7A"/>
+                        <outlet property="workflowTextField" destination="1sj-Kk-w4J" id="sWh-qj-Nn0"/>
+                        <outletCollection property="textFields" destination="99x-bL-Yzh" collectionClass="NSMutableArray" id="acY-re-hnb"/>
+                        <outletCollection property="textFields" destination="1sj-Kk-w4J" collectionClass="NSMutableArray" id="Tu3-yk-KDe"/>
+                        <outletCollection property="textFields" destination="dkR-V6-B0K" collectionClass="NSMutableArray" id="02d-CE-m1u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aso-CH-1cW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1648.8" y="564.46776611694156"/>
+        </scene>
     </scenes>
     <resources>
         <image name="application_ios_grey" width="45" height="45"/>
+        <image name="branch" width="36" height="36"/>
         <image name="build_succeeded" width="37" height="37"/>
+        <image name="chevron" width="36" height="12"/>
         <image name="close" width="25" height="25"/>
+        <image name="message" width="16" height="16"/>
         <image name="projects" width="25" height="25"/>
         <image name="user" width="25" height="25"/>
+        <image name="workflow" width="32" height="32"/>
         <namedColor name="BitriseGreen">
             <color red="0.2627450980392157" green="0.76078431372549016" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="BitrisePurple">
+            <color red="0.50196078431372548" green="0.32941176470588235" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="llp-X9-mvH"/>
+        <segue reference="d6h-CL-gzm"/>
     </inferredMetricsTieBreakers>
 </document>

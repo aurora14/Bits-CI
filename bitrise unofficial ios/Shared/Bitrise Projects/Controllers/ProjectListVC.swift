@@ -30,6 +30,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   
   let impactGenerator = UIImpactFeedbackGenerator(style: .light)
   
+  // MARK: - View lifecycle
   override func loadView() {
     super.loadView()
     refreshControl = UIRefreshControl()
@@ -47,6 +48,11 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     loadDataWithAuthorization()
     
     impactGenerator.prepare()
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(tableView.reloadData),
+                                           name: NSNotification.Name(didStartNewBuildNotification),
+                                           object: NewBuildViewController.self)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +72,15 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     }
   }
   
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self,
+                                           name: NSNotification.Name(didStartNewBuildNotification),
+                                           object: NewBuildViewController.self)
+  }
+  
+  
+  // MARK: - Data fetch
   @objc private func getProjects() {
     
     App.sharedInstance.apiClient.getUserApps { [weak self] success, projects, message in
@@ -106,7 +121,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
         return
       }
       
-      guard let avatarUrl = u.avatarUrl else {
+      guard let avatarUrl = u.avatarUrl?.replacingOccurrences(of: "http", with: "https") else {
         print("*** User doesn't have an avatar link associated with their account")
         return
       }
@@ -151,9 +166,9 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
       return
     }
     
-    if let token = App.sharedInstance.getBitriseAuthToken() {
+    if let _ = App.sharedInstance.getBitriseAuthToken() {
       for (index, controller) in controllers.enumerated() where controller is UINavigationController {
-        if let profileController = controller.children.first as? ProfileViewController {
+        if let _ = controller.children.first as? ProfileViewController {
           print("*** Updating to controller at \(index)")
           tabBarController?.selectedIndex = index
         }
@@ -309,7 +324,7 @@ extension ProjectListViewController {
       navigationController?.navigationBar.prefersLargeTitles = true
       navigationController?.navigationBar.isTranslucent = true
       navigationItem.largeTitleDisplayMode = .always //locking this permanently for now, will figure out the workaround for broken .automatic behaviour later
-      title = "Projects"
+      title = L10n.projects
       
       searchController.searchBar.placeholder = "Filter by project title"
       searchController.searchResultsUpdater = self

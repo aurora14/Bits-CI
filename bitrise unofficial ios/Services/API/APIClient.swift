@@ -29,7 +29,8 @@ final class APIClient {
   
   private(set) var headers: HTTPHeaders
   
-  fileprivate lazy var decoder = JSONDecoder()
+  fileprivate lazy var decoder = JSONDecoder() // consume API payload
+  fileprivate lazy var encoder = JSONEncoder() // send API payload
   
   /// Creates an instance of an APIClient for issuing network request.
   ///
@@ -49,6 +50,7 @@ final class APIClient {
     
     decoder.keyDecodingStrategy = .convertFromSnakeCase
     decoder.dataDecodingStrategy = .deferredToData
+    encoder.keyEncodingStrategy = .convertToSnakeCase
   }
   
   /// Generates a URL with the provided endpoint path. Paths must not start with a forward slash.
@@ -369,5 +371,75 @@ extension APIClient {
           
         }
     }
+  }
+}
+
+// MARK: - New build
+extension APIClient {
+  
+  func startNewBuild(for app: BitriseApp,
+                     withBuildParams buildParams: BuildData,
+                     completion: @escaping (_ result: AsyncResult, _ message: String) -> Void) {
+    
+    // ensure user is authorized
+    guard let token = App.sharedInstance.getBitriseAuthToken() else {
+      completion(.error, "No token saved in keychain")
+      return
+    }
+    
+    setAuthHeaders(withToken: token)
+    
+    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
+    
+    // Encode build params data
+    var buildRequestBody: Data
+    do {
+      buildRequestBody = try encoder.encode(buildParams)
+    } catch let error {
+      print(error.localizedDescription)
+      completion(.error, error.localizedDescription)
+      return
+    }
+    
+    // Create a custom request
+    var buildRequest = URLRequest(url: url)
+    buildRequest.httpMethod = HTTPMethod.post.rawValue
+    buildRequest.setValue(token, forHTTPHeaderField: "Authorization")
+    buildRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    buildRequest.httpBody = buildRequestBody
+    
+    BRSessionManager.shared.background.request(buildRequest)
+      .validate()
+      .responseJSON { response in
+        
+        switch response.result {
+        case .success:
+          guard let data = response.data, let statusCode = response.response?.statusCode else {
+            completion(.success, "Build started successfully")
+            return
+          }
+          do {
+            let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
+            completion(.success, "\(statusCode): \(response.message)")
+          } catch {
+            completion(.success, "Build started successfully")
+          }
+          completion(.success, "Build started successfully")
+        case .failure(let error):
+          guard let data = response.data, let statusCode = response.response?.statusCode else {
+            completion(.error, error.localizedDescription)
+            return
+          }
+          do {
+            let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
+            completion(.error, "\(statusCode): \(response.message)")
+          } catch {
+            completion(.error, error.localizedDescription)
+          }
+        }
+    }
+    
+    
+    // Validate HTTP errors, get HTTP body of response
   }
 }

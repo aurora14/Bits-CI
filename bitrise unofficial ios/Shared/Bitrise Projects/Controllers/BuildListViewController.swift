@@ -13,6 +13,8 @@ class BuildListViewController: TabPageTableViewController {
 
   var projectVM: BitriseProjectViewModel
   
+  let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+  
   init(style: UITableView.Style, itemInfo: IndicatorInfo, forAppViewModel appVM: BitriseProjectViewModel) {
     projectVM = appVM
     super.init(style: style, itemInfo: itemInfo)
@@ -28,8 +30,25 @@ class BuildListViewController: TabPageTableViewController {
     tableView.register(UINib(nibName: "BuildCell", bundle: nil), forCellReuseIdentifier: "BuildCell")
     tableView.separatorStyle = .singleLine
     tableView.separatorInset = .zero
+    
+    selectionFeedbackGenerator.prepare()
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(tableView.reloadData),
+                                           name: NSNotification.Name(didStartNewBuildNotification),
+                                           object: NewBuildViewController.self)
   }
   
+  deinit {
+    NotificationCenter.default.removeObserver(self,
+                                              name: NSNotification.Name(didStartNewBuildNotification),
+                                              object: NewBuildViewController.self)
+  }
+  
+  @objc private func updateViews() {
+    selectionFeedbackGenerator.selectionChanged()
+    tableView.reloadData()
+  }
 }
 
 // MARK: - table view datasource
