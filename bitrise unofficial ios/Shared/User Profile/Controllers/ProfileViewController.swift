@@ -77,8 +77,8 @@ class ProfileViewController: UITableViewController {
     }
     
     DispatchQueue.main.async {
-      self.profileHeaderView?.backgroundImageView.image = user.avatarImage ?? Asset.Icons.user.image
-      self.profileHeaderView?.foregroundImageView.image = user.avatarImage ?? Asset.Icons.user.image
+      self.profileHeaderView?.backgroundImageView.image = user.avatarImage ?? Asset.Icons.userLrg.image
+      self.profileHeaderView?.foregroundImageView.image = user.avatarImage ?? Asset.Icons.userLrg.image
       self.profileHeaderView?.usernameLabel.text = user.username ?? "Bitrise User"
     }
   }
@@ -91,18 +91,17 @@ class ProfileViewController: UITableViewController {
   private func showConfirmationPrompt() {
     
     let alertController = UIAlertController(
-      title: "Log Out",
-      message: "Are you sure you want to log out? " +
-      "You may need to generate a new access token next time you wish to use the app.",
+      title: L10n.logOut,
+      message: L10n.logOutConfirmationMsg,
       preferredStyle: .actionSheet)
     
     alertController.view.tintColor = Asset.Colors.bitriseGreen.color
     
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+    let cancelAction = UIAlertAction(title: L10n.cancel, style: .cancel) { _ in
       
     }
     
-    let logOutAction = UIAlertAction(title: "Log Out", style: .destructive) { action in
+    let logOutAction = UIAlertAction(title: L10n.logOut, style: .destructive) { _ in
       
       // 1. Remove token
       App.sharedInstance.removeBitriseAuthToken {
@@ -126,9 +125,9 @@ class ProfileViewController: UITableViewController {
   
   private func resetViewsToDefault() {
     DispatchQueue.main.async {
-      self.profileHeaderView?.backgroundImageView.image = Asset.Icons.user.image
-      self.profileHeaderView?.foregroundImageView.image = Asset.Icons.user.image
-      self.profileHeaderView?.usernameLabel.text = "Bitrise User"
+      self.profileHeaderView?.backgroundImageView.image = Asset.Icons.userLrg.image
+      self.profileHeaderView?.foregroundImageView.image = Asset.Icons.userLrg.image
+      self.profileHeaderView?.usernameLabel.text = L10n.bitriseUser
     }
   }
   
@@ -185,13 +184,14 @@ extension ProfileViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileInfoCell") else {
       let cell = UITableViewCell(style: .default, reuseIdentifier: "ProfileInfoCell")
-      cell.textLabel?.text = "User doesn't belong to any organizations"
+      cell.textLabel?.text = L10n.noOrganizations
       cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .light)
       cell.textLabel?.textAlignment = .center
       return cell
     }
     
     cell.textLabel?.text = "Organization support coming soon"
+    cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .light)
     cell.textLabel?.textAlignment = .center
     
     return cell
@@ -292,7 +292,5 @@ extension ProfileViewController: BitriseAuthorizationDelegate {
   func didCancelAuthorization() {
     resetViewsToDefault()
   }
-  
-  
-  
+
 }
