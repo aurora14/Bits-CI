@@ -41,6 +41,8 @@ class TokenAuthViewController: UIViewController {
   
   weak var authorizationDelegate: BitriseAuthorizationDelegate?
   
+  var enteredToken: String = ""
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -64,13 +66,12 @@ class TokenAuthViewController: UIViewController {
   
   @IBAction func didTapSaveToken(_ sender: Any) {
     
-    guard let token = tokenInputTF.text else {
+    guard let token = tokenInputTF.text, enteredToken == token else {
       return
     }
     
-    authorizationDelegate?.didAuthorizeSuccessfully()
+    validateAndClose(with: token)
     
-    dismiss(animated: true, completion: nil)
   }
   
   
@@ -130,9 +131,18 @@ class TokenAuthViewController: UIViewController {
 
 extension TokenAuthViewController: UITextFieldDelegate {
   
+  @objc func textFieldDidChangeValue(_ textField: UITextField) {
+    //print("*** \(textField.text ?? "") in \(textField)")
+    switch textField {
+    default:
+      enteredToken = textField.text ?? ""
+    }
+  }
+  
   func setupTextfield() {
     tokenInputTF.delegate = self
     tokenInputTF.becomeFirstResponder()
+    tokenInputTF.addTarget(self, action: #selector(textFieldDidChangeValue(_:)), for: [.editingChanged])
   }
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -141,16 +151,7 @@ extension TokenAuthViewController: UITextFieldDelegate {
       return false
     }
     
-    App.sharedInstance.apiClient.validateGeneratedToken(token) { [weak self] isValid, message in
-      
-      if isValid {
-        self?.didGenerate(token: token)
-        self?.authorizationDelegate?.didAuthorizeSuccessfully()
-        self?.dismiss(animated: true, completion: nil)
-      } else {
-        print(message)
-      }
-    }
+    validateAndClose(with: token)
     
     return true
   }
@@ -159,12 +160,29 @@ extension TokenAuthViewController: UITextFieldDelegate {
 
 extension TokenAuthViewController: TokenGenerationDelegate {
   
+  func validateAndClose(with token: String) {
+    App.sharedInstance.apiClient.validateGeneratedToken(token) { [weak self] isValid, message in
+      
+      if isValid {
+        self?.didGenerate(token: token) {
+          DispatchQueue.main.async {
+            self?.dismiss(animated: true, completion: nil)
+          }
+        }
+      } else {
+        print(message)
+      }
+    }
+  }
   
-  func didGenerate(token value: String) {
+  func didGenerate(token value: String, completion: (() -> Void)? = nil) {
     DispatchQueue.main.async {
       self.tokenInputTF.text = value      
     }
-    App.sharedInstance.saveBitriseAuthToken(value)
+    App.sharedInstance.saveBitriseAuthToken(value) {
+      self.authorizationDelegate?.didAuthorizeSuccessfully()
+      completion?()
+    }
   }
   
   func didCancelGeneration() {
