@@ -58,9 +58,9 @@ class NewBuildViewController: UIViewController {
     selectionFeedbackGenerator?.prepare()
     notificationFeedbackGenerator?.prepare()
     
-//    Answers.logContentView(withName: "Start New Build",
-//                           contentType: "Start new app build scene",
-//                           contentId: nil, customAttributes: nil)
+    //    Answers.logContentView(withName: "Start New Build",
+    //                           contentType: "Start new app build scene",
+    //                           contentId: nil, customAttributes: nil)
   }
   
   @IBAction func didTapStartBuild() {
@@ -74,8 +74,8 @@ class NewBuildViewController: UIViewController {
       DispatchQueue.main.async {
         self.notificationFeedbackGenerator?.notificationOccurred(.warning)
       }
-//      showErrorAlert(withTitle: "Invalid Build Configuration",
-//                     withMessage: validated().message)
+      //      showErrorAlert(withTitle: "Invalid Build Configuration",
+      //                     withMessage: validated().message)
       return
     }
     
@@ -115,11 +115,38 @@ class NewBuildViewController: UIViewController {
     dismissStartHUD()
     closeTapticEngines()
     startBuildDelegate?.didCancelNewBuild(from: self)
-    UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut], animations: {
-      DispatchQueue.main.async {
-        self.dismiss(animated: true, completion: nil)
-      }
+    
+    UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [ .calculationModeCubic, .beginFromCurrentState ], animations: {
+      UIView.addKeyframe(withRelativeStartTime: 0.0/1.0, relativeDuration: 0.6/1.0, animations: {
+        DispatchQueue.main.async {
+          self.dismiss(animated: true, completion: nil)
+        }
+      })
+      UIView.addKeyframe(withRelativeStartTime: 0.4/1.0, relativeDuration: 0.6/1.0, animations: {
+        DispatchQueue.main.async {
+          self.dismiss(animated: true, completion: nil)
+        }
+      })
     }, completion: nil)
+    
+    UIView.animate(withDuration: 0.2, delay: 0, options: [ .beginFromCurrentState ], animations: {
+      DispatchQueue.main.async {
+        self.view.backgroundColor = .clear
+      }
+    }, completion: { _ in
+      UIView.animate(withDuration: 1.0,
+                     delay: 0,
+                     options: [
+                      .curveEaseInOut,
+                      .beginFromCurrentState,
+                      .preferredFramesPerSecond60,
+                      .transitionCrossDissolve ], animations: {
+                        DispatchQueue.main.async {
+                          self.dismiss(animated: true, completion: nil)
+                        }
+      }, completion: nil)
+    })
+    
   }
   
   /// Checks branch, workflow and message variables for valid input and that the app isn't nil
@@ -253,19 +280,19 @@ extension NewBuildViewController {
     case .changed:
       if touchPoint.y - initPoint.y > 0 {
         self.container.frame = CGRect(x: 0,
-                                 y: touchPoint.y - initPoint.y,
-                                 width: container.frame.size.width,
-                                 height: container.frame.size.height)
+                                      y: touchPoint.y - initPoint.y + containerYOrigin,
+                                      width: container.frame.size.width,
+                                      height: container.frame.size.height)
       }
     case .ended, .cancelled:
       if touchPoint.y - initPoint.y > 150 {
         didTapDismiss()
       } else {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
           self.container.frame = CGRect(x: 0,
-                                   y: self.containerYOrigin,
-                                   width: self.container.frame.size.width,
-                                   height: self.container.frame.size.height)
+                                        y: self.containerYOrigin,
+                                        width: self.container.frame.size.width,
+                                        height: self.container.frame.size.height)
         })
       }
     default:
