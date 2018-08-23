@@ -12,7 +12,7 @@ import SwiftDate
 
 class ProjectBuildViewModel: CellRepresentable {
   
-  var rowHeight: CGFloat = 84
+  var rowHeight: CGFloat = 76
   
   var build: Build
   
@@ -30,6 +30,10 @@ class ProjectBuildViewModel: CellRepresentable {
     return statusText.capitalized
   }
   
+  var buildStatusIcon: UIImage {
+    return build.status?.iconWhite ?? UIImage()
+  }
+  
   var buildTriggeredAt: String {
     
     guard let startDate = DateInRegion(
@@ -39,7 +43,7 @@ class ProjectBuildViewModel: CellRepresentable {
         return build.triggeredAt
     }
     
-    return startDate.toString()
+    return startDate.toFormat("dd MMM yyyy 'at' HH:mm", locale: Locale.current)
   }
   
   var workflow: String {
