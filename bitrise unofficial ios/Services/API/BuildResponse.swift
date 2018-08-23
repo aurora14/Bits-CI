@@ -16,3 +16,18 @@ struct BuildErrorResponse: Codable {
   var service: String
   
 }
+
+struct BuildSuccessResponse: Codable {
+  
+  var status: String
+  var message: String
+  var slug: String
+  var service: String
+  var buildSlug: String
+  var buildNumber: String
+  var buildUrl: String
+  var triggeredWorkflow: String
+  
+}
+
+

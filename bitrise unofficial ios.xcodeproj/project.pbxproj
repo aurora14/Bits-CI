@@ -43,6 +43,11 @@
 		7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9917CC20E8EDFA002879AF /* Icons.xcassets */; };
 		7A99C6A3212D3D04003DC5D9 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6A2212D3D04003DC5D9 /* Strings.swift */; };
 		7A99C6A8212D3E4A003DC5D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A99C6A6212D3E49003DC5D9 /* Localizable.strings */; };
+		7A99C6AE212E5515003DC5D9 /* NewBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6AD212E5515003DC5D9 /* NewBuildViewController.swift */; };
+		7A99C6B0212E5552003DC5D9 /* UIButton+ViewConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6AF212E5552003DC5D9 /* UIButton+ViewConfigurable.swift */; };
+		7A99C6B2212E55A8003DC5D9 /* AsyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6B1212E55A8003DC5D9 /* AsyncResult.swift */; };
+		7A99C6B4212E55C4003DC5D9 /* StartNewBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6B3212E55C4003DC5D9 /* StartNewBuild.swift */; };
+		7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */; };
 		7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */; };
 		7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4275620E3A62000DC99C0 /* Paging.swift */; };
 		7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */; };
@@ -103,6 +108,12 @@
 		7A99C6A9212D3E78003DC5D9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7A99C6AA212D405D003DC5D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		7A99C6AC212D4065003DC5D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		7A99C6AD212E5515003DC5D9 /* NewBuildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBuildViewController.swift; sourceTree = "<group>"; };
+		7A99C6AF212E5552003DC5D9 /* UIButton+ViewConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ViewConfigurable.swift"; sourceTree = "<group>"; };
+		7A99C6B1212E55A8003DC5D9 /* AsyncResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncResult.swift; sourceTree = "<group>"; };
+		7A99C6B3212E55C4003DC5D9 /* StartNewBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartNewBuild.swift; sourceTree = "<group>"; };
+		7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildResponse.swift; sourceTree = "<group>"; };
+		7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = JSONPlayground.playground; path = "bitrise unofficial ios/Utils/JSONPlayground.playground"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Utils.swift"; sourceTree = "<group>"; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +166,7 @@
 				7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */,
 				7A8E182C20FF67F30013C253 /* BuildListViewController.swift */,
 				7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */,
+				7A99C6AD212E5515003DC5D9 /* NewBuildViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -162,6 +174,7 @@
 		7A200B1320D5147E003C6D97 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7A99C6AF212E5552003DC5D9 /* UIButton+ViewConfigurable.swift */,
 				7A200B1420D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift */,
 				7A5E759420DD4285008D32A5 /* String+Digits.swift */,
 			);
@@ -307,6 +320,7 @@
 				7A5DFB7220D26AE300A3330B /* APIClient.swift */,
 				7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */,
 				7A5E758E20DD275B008D32A5 /* Router.swift */,
+				7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -324,11 +338,14 @@
 		7A5DFB7720D26AE400A3330B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7A99C6B1212E55A8003DC5D9 /* AsyncResult.swift */,
 				7A200B1620D53604003C6D97 /* User.swift */,
 				7A200B1820D53E82003C6D97 /* BitriseApp.swift */,
 				7A200B1A20D54049003C6D97 /* BitriseProjectOwner.swift */,
 				7A5E759020DD36B4008D32A5 /* Build.swift */,
 				7AC4275620E3A62000DC99C0 /* Paging.swift */,
+				7A99C6B3212E55C4003DC5D9 /* StartNewBuild.swift */,
+				7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -627,16 +644,19 @@
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
 				7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
+				7A99C6AE212E5515003DC5D9 /* NewBuildViewController.swift in Sources */,
 				7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */,
 				7A5E759120DD36B4008D32A5 /* Build.swift in Sources */,
 				7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */,
 				7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */,
 				7A99C6A3212D3D04003DC5D9 /* Strings.swift in Sources */,
 				7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */,
+				7A99C6B2212E55A8003DC5D9 /* AsyncResult.swift in Sources */,
 				7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */,
 				7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */,
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
 				7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */,
+				7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
 				7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */,
@@ -651,11 +671,13 @@
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
 				7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */,
 				7AEEECAF2106C71B00D6DD0D /* ProjectBuildVM.swift in Sources */,
+				7A99C6B0212E5552003DC5D9 /* UIButton+ViewConfigurable.swift in Sources */,
 				7A5DFB8420D26AE400A3330B /* ProjectCell.swift in Sources */,
 				7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */,
 				7A5DFB8320D26AE400A3330B /* ViewConfigurable.swift in Sources */,
 				7A5DFB8820D26AE400A3330B /* BitriseProjectVM.swift in Sources */,
 				7A5DFB7E20D26AE400A3330B /* App.swift in Sources */,
+				7A99C6B4212E55C4003DC5D9 /* StartNewBuild.swift in Sources */,
 				7A5DFB8220D26AE400A3330B /* CellRepresentable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
