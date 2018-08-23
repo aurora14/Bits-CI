@@ -10,23 +10,14 @@ import UIKit
 
 class ProjectCell: UITableViewCell, ViewConfigurable {
   
-  
   @IBOutlet weak var projectIconImageView: UIImageView!
-  
   @IBOutlet weak var projectNameLabel: UILabel!
-  
   @IBOutlet weak var projectOwnerLabel: UILabel!
-  
   @IBOutlet weak var contentContainer: ContentContainer!
-  
   @IBOutlet weak var buildNumberLabel: UILabel!
-  
   @IBOutlet weak var buildStatusStrip: UIView!
-  
   @IBOutlet weak var buildStatusImageView: UIImageView!
-  
   @IBOutlet weak var timeElapsedSinceLastBuildLabel: UILabel!
-  
   
   var borderColor: UIColor = .clear
   
@@ -41,9 +32,9 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     set (newFrame) {
       var frame = newFrame
       frame.origin.x += 6.0
-      frame.origin.y += 4.0
+      frame.origin.y += 2.0
       frame.size.width -= 12.0
-      frame.size.height -= 4.0
+      frame.size.height -= 2.0
       super.frame = frame
     }
   }
@@ -74,6 +65,8 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   private func setCornerRounding(withRadius value: CGFloat = 5) {
     contentView.layer.cornerRadius = value
     contentView.layer.masksToBounds = true
+//    buildStatusStrip.layer.cornerRadius = value
+//    buildStatusStrip.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMinXMaxYCorner ]
   }
   
   private func setDropShadow() {
