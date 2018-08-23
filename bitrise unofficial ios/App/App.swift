@@ -52,10 +52,11 @@ extension App {
   /// - Parameter token: Bitrise access token. The app should only ever have one value maintained
   /// for sign on. If the user decides to log out, that token is wiped and a new one must be entered
   /// before accessing any BR content again
-  func saveBitriseAuthToken(_ token: String) {
+  func saveBitriseAuthToken(_ token: String, completion: (() -> Void)? = nil) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       
       guard let strongSelf = self else {
+        completion?()
         return
       }
       
@@ -66,8 +67,10 @@ extension App {
           .synchronizable(true)
           .accessibility(.afterFirstUnlock)
           .set(token, key: strongSelf.tokenKey)
+        completion?()
       } catch let error {
         print(error.localizedDescription)
+        completion?()
       }
     }
   }
