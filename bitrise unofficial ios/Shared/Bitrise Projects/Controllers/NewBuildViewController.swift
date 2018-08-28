@@ -23,6 +23,7 @@ protocol StartBuildDelegate: class {
 
 class NewBuildViewController: UIViewController {
   
+  @IBOutlet weak var projectNameLabel: UILabel!
   @IBOutlet weak var branchTextField: SkyFloatingLabelTextFieldWithIcon!
   @IBOutlet weak var workflowTextField: SkyFloatingLabelTextFieldWithIcon!
   @IBOutlet weak var commitMessageTextField: SkyFloatingLabelTextFieldWithIcon!
@@ -50,6 +51,7 @@ class NewBuildViewController: UIViewController {
     super.viewDidLoad()
     
     configureContainer()
+    configureProjectNameLabel()
     configureInitTouchPoint()
     configureTextFields()
     configureSwipeModal()
@@ -159,11 +161,9 @@ class NewBuildViewController: UIViewController {
     }
     
     guard app != nil else {
-      assertionFailure("*** App property wasn't initialised in view controller. This property must " +
-        "be populated with a valid Bitrise App to allow posting new builds")
+      assertionFailure(L10n.nullAppProperty)
       Answers.logCustomEvent(withName: "New Build Error", customAttributes: ["Reason": "Null App Property"])
-      return (.error, "*** App property wasn't initialised in view controller. This property must " +
-        "be populated with a valid Bitrise App to allow posting new builds")
+      return (.error, L10n.nullAppProperty)
     }
     
     return (.success, "Valid Params")
@@ -246,6 +246,19 @@ extension NewBuildViewController {
     container.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMinYCorner ]
   }
   
+  fileprivate func configureProjectNameLabel() {
+    guard let app = app else {
+      assertionFailure(L10n.nullAppProperty)
+      return
+    }
+    
+    projectNameLabel.text =
+      app.title
+      .capitalized
+      .replacingOccurrences(of: "-", with: " ")
+      .replacingOccurrences(of: "Ios", with: "iOS")
+  }
+  
   fileprivate func configureInitTouchPoint() {
     initialTouchPoint = CGPoint(x: 0, y: containerYOrigin)
   }
@@ -268,6 +281,8 @@ extension NewBuildViewController {
   
   @IBAction @objc private func didStartPanGesture(_ sender: UIPanGestureRecognizer) {
     
+    let zeroOrigin: CGFloat = 0
+    
     guard let initPoint = initialTouchPoint else {
       return
     }
@@ -278,8 +293,8 @@ extension NewBuildViewController {
     case .began:
       initialTouchPoint = touchPoint
     case .changed:
-      if touchPoint.y - initPoint.y > 0 {
-        self.container.frame = CGRect(x: 0,
+      if touchPoint.y - initPoint.y > zeroOrigin {
+        self.container.frame = CGRect(x: zeroOrigin,
                                       y: touchPoint.y - initPoint.y + containerYOrigin,
                                       width: container.frame.size.width,
                                       height: container.frame.size.height)
@@ -289,7 +304,7 @@ extension NewBuildViewController {
         didTapDismiss()
       } else {
         UIView.animate(withDuration: 0.4, animations: {
-          self.container.frame = CGRect(x: 0,
+          self.container.frame = CGRect(x: zeroOrigin,
                                         y: self.containerYOrigin,
                                         width: self.container.frame.size.width,
                                         height: self.container.frame.size.height)

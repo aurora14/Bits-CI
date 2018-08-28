@@ -516,7 +516,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXr-lg-983">
                                 <rect key="frame" x="0.0" y="28" width="375" height="639"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="99x-bL-Yzh" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="99x-bL-Yzh" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <rect key="frame" x="16" y="98" width="343" height="42"/>
                                         <color key="tintColor" name="BitrisePurple"/>
                                         <constraints>
@@ -524,7 +524,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="branch"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
@@ -542,12 +542,12 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1sj-Kk-w4J" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="1sj-Kk-w4J" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <rect key="frame" x="16" y="164" width="343" height="42"/>
                                         <color key="tintColor" name="BitrisePurple"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="workflow"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
@@ -565,12 +565,12 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dkR-V6-B0K" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="dkR-V6-B0K" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <rect key="frame" x="16" y="230" width="343" height="42"/>
                                         <color key="tintColor" name="BitrisePurple"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="message"/>
                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
@@ -636,15 +636,25 @@
                                     <action selector="didTapStartBuild" destination="6Tw-QT-LSv" eventType="touchUpInside" id="9Ce-nN-akb"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROJECT NAME" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKI-GP-zTu">
+                                <rect key="frame" x="16" y="88" width="343" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.2540132705479452" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="DXr-lg-983" firstAttribute="centerX" secondItem="t0F-Ay-NhS" secondAttribute="centerX" id="397-B5-gh4"/>
+                            <constraint firstItem="MKI-GP-zTu" firstAttribute="centerX" secondItem="99x-bL-Yzh" secondAttribute="centerX" id="5BU-ha-5LG"/>
+                            <constraint firstItem="99x-bL-Yzh" firstAttribute="top" secondItem="MKI-GP-zTu" secondAttribute="bottom" constant="8" id="8na-DW-hs4"/>
                             <constraint firstItem="DXr-lg-983" firstAttribute="height" secondItem="hkq-ku-5Qr" secondAttribute="height" constant="-28" id="K8G-tz-1el"/>
                             <constraint firstItem="DXr-lg-983" firstAttribute="width" secondItem="hkq-ku-5Qr" secondAttribute="width" id="Stt-vC-Xz6"/>
                             <constraint firstItem="sJp-w2-ZGv" firstAttribute="leading" secondItem="t0F-Ay-NhS" secondAttribute="leading" constant="16" id="UBm-u6-V8V"/>
+                            <constraint firstItem="MKI-GP-zTu" firstAttribute="width" secondItem="99x-bL-Yzh" secondAttribute="width" id="WHs-VK-9Oe"/>
                             <constraint firstItem="t0F-Ay-NhS" firstAttribute="bottom" secondItem="sJp-w2-ZGv" secondAttribute="bottom" constant="36" id="b4N-6c-s9m"/>
                             <constraint firstItem="DXr-lg-983" firstAttribute="centerY" secondItem="t0F-Ay-NhS" secondAttribute="centerY" constant="4" id="kAJ-9Z-9QL"/>
+                            <constraint firstItem="MKI-GP-zTu" firstAttribute="top" secondItem="pag-qX-mMo" secondAttribute="bottom" constant="16" id="mjY-Qf-oHg"/>
                             <constraint firstItem="t0F-Ay-NhS" firstAttribute="trailing" secondItem="sJp-w2-ZGv" secondAttribute="trailing" constant="16" id="o1b-8A-NqT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t0F-Ay-NhS"/>
@@ -653,6 +663,7 @@
                         <outlet property="branchTextField" destination="99x-bL-Yzh" id="tV4-NK-gIo"/>
                         <outlet property="commitMessageTextField" destination="dkR-V6-B0K" id="9aQ-cd-x7M"/>
                         <outlet property="container" destination="DXr-lg-983" id="pyZ-fV-0ez"/>
+                        <outlet property="projectNameLabel" destination="MKI-GP-zTu" id="DdI-X6-YUM"/>
                         <outlet property="startBuildButton" destination="sJp-w2-ZGv" id="nCF-ve-H7A"/>
                         <outlet property="workflowTextField" destination="1sj-Kk-w4J" id="sWh-qj-Nn0"/>
                         <outletCollection property="textFields" destination="99x-bL-Yzh" collectionClass="NSMutableArray" id="acY-re-hnb"/>
