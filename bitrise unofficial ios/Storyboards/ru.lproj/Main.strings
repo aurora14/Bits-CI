@@ -9,10 +9,10 @@
 "5US-KA-5VL.placeholder" = "Введите Ваш ключ Bitrise";
 
 /* Class = "UITextField"; placeholder = "Paste token value here & tap 'Save'"; ObjectID = "9Y4-e7-1c6"; */
-"9Y4-e7-1c6.placeholder" = "Paste token value here & tap 'Save'";
+"9Y4-e7-1c6.placeholder" = "Введите ключ сюда и нажмите “Сохранить“";
 
 /* Class = "UINavigationItem"; title = "Bitrise Profile"; ObjectID = "A5W-EC-MSL"; */
-"A5W-EC-MSL.title" = "Bitrise Profile";
+"A5W-EC-MSL.title" = "Профиль Bitrise";
 
 /* Class = "UIBarButtonItem"; title = "Log Out"; ObjectID = "DYH-BI-Ywg"; */
 "DYH-BI-Ywg.title" = "Выйти";

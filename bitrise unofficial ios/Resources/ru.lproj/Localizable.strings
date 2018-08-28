@@ -29,7 +29,32 @@
 // Error handling
 "invalidParams"    = "Неверные параметры";
 "checkBuildParamsMsg" = "Проверьте что нужные поля заполнены";
+"nullAppProperty" = "App property wasn't initialised in view controller. This property must be populated with a valid Bitrise App to allow posting new builds";
 
 // Bitrise content
 "ymlUnavailable" = "Файл Bitrise YML не доступен для этого приложения";
 "branchParamRequired" = "Параметр 'Ветка' должен быть заполнен чтобы начать сборку";
+
+// Time - full version
+"seconds" = "секунд";
+"minutes" = "минут";
+"hours" = "часов";
+"days" = "дней";
+"weeks" = "недель";
+"months" = "месяцев";
+"years" = "лет";
+"ago" = "назад";
+
+// Time - contracted version
+"hr" = "ч";
+"hrs" = "ч";
+"min" = "м";
+"mins" = "м";
+"d" = "д";
+"wk" = "нд";
+"wks" = "нд";
+"mth" = "мсц";
+"mths" = "мсц";
+"yr" = "г";
+"yrs" = "г";
+

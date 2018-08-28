@@ -29,7 +29,31 @@
 // Error handling
 "invalidParams"    = "Invalid Parameters";
 "checkBuildParamsMsg" = "Please check that required fields are filled in, and that Branch, Workflow and Commit Message fields contain valid strings.";
+"nullAppProperty" = "App property wasn't initialised in view controller. This property must be populated with a valid Bitrise App to allow posting new builds";
 
 // Bitrise content
 "ymlUnavailable" = "Bitrise YML isn't available for this application";
 "branchParamRequired" = "'Branch' parameter is empty. Branch is required for starting a build";
+
+// Time - full version
+"seconds" = "seconds";
+"minutes" = "minutes";
+"hours" = "hours";
+"days" = "days";
+"weeks" = "weeks";
+"months" = "months";
+"years" = "years";
+"ago" = "ago";
+
+// Time - short version
+"hr" = "hr";
+"hrs" = "hrs";
+"min" = "min";
+"mins" = "mins";
+"d" = "d";
+"wk" = "wk";
+"wks" = "wks";
+"mth" = "mth";
+"mths" = "mths";
+"yr" = "yr";
+"yrs" = "yrs";

@@ -129,8 +129,10 @@ class BitriseProjectViewModel: CellRepresentable {
   
   
   func updateLastBuild() {
-    App.sharedInstance.apiClient.getBuilds(for: self.app, withLimit: 1) {
-      [weak self] success, builds, message in
+    App
+      .sharedInstance
+      .apiClient
+      .getBuilds(for: self.app, withLimit: 1) { [weak self] success, builds, message in
       self?.lastBuild = builds?.first?.build
     }
   }
@@ -138,10 +140,12 @@ class BitriseProjectViewModel: CellRepresentable {
   
   func updateAllBuilds() {
     
-    // TODO: - assign builds to the model directly instead after the main functionality works
+    // TODO: - assign builds to the BitriseApp model directly instead after the main functionality works
     
-    App.sharedInstance.apiClient.getBuilds(for: self.app) {
-      [weak self] success, builds, message in
+    App
+      .sharedInstance
+      .apiClient
+      .getBuilds(for: self.app) { [weak self] success, builds, message in
       
       guard let b = builds else {
         print("*** No builds available")
@@ -155,7 +159,7 @@ class BitriseProjectViewModel: CellRepresentable {
   
   
   func updateYML() {
-    App.sharedInstance.apiClient.getYMLFor(bitriseApp: self.app) { [weak self] success, yml, message in
+    App.sharedInstance.apiClient.getYMLFor(bitriseApp: self.app) { [weak self] _, yml, _ in
       // if let y = yml { print("YML available") } else { print("yml null") }
       self?.bitriseYML = yml
     }
@@ -202,20 +206,20 @@ class BitriseProjectViewModel: CellRepresentable {
     
     if let hours = difference.hour, hours > 0 {
       timeElapsed.append("\(hours) ")
-      hours == 1 ? timeElapsed.append("hr ") : timeElapsed.append("hrs ")
+      hours == 1 ? timeElapsed.append("\(L10n.hr) ") : timeElapsed.append("\(L10n.hrs) ")
     }
     
     if let minutes = difference.minute, minutes > 0 {
       timeElapsed.append("\(minutes) ")
-      minutes == 1 ? timeElapsed.append("min ") : timeElapsed.append("mins ")
+      minutes == 1 ? timeElapsed.append("\(L10n.min) ") : timeElapsed.append("\(L10n.mins) ")
     }
     
     if let minutes = difference.minute, minutes == 0,
       let seconds = difference.second, seconds > 0 {
-      timeElapsed.append("\(seconds) seconds")
+      timeElapsed.append("\(seconds) \(L10n.seconds)")
     }
     
-    return "\(timeElapsed)ago"
+    return "\(timeElapsed)\(L10n.ago)"
   }
   
 }
