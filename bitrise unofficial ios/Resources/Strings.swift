@@ -67,6 +67,10 @@ internal enum L10n {
   internal static let startBuild = L10n.tr("Localizable", "startBuild")
   /// weeks
   internal static let weeks = L10n.tr("Localizable", "weeks")
+  /// wk
+  internal static let wk = L10n.tr("Localizable", "wk")
+  /// wks
+  internal static let wks = L10n.tr("Localizable", "wks")
   /// years
   internal static let years = L10n.tr("Localizable", "years")
   /// Bitrise YML isn't available for this application

@@ -187,21 +187,21 @@ class BitriseProjectViewModel: CellRepresentable {
     
     if let years = difference.year, years > 0 {
       timeElapsed.append("\(years) ")
-      years == 1 ? timeElapsed.append("yr ") : timeElapsed.append("yrs ")
+      years == 1 ? timeElapsed.append("\(L10n.yr) ") : timeElapsed.append("\(L10n.yrs) ")
     }
     
     if let months = difference.month, months > 0 {
       timeElapsed.append("\(months) ")
-      months == 1 ? timeElapsed.append("mth ") : timeElapsed.append("mths ")
+      months == 1 ? timeElapsed.append("\(L10n.mth) ") : timeElapsed.append("\(L10n.mths) ")
     }
 
     if let weeks = difference.weekOfYear, weeks > 0 {
       timeElapsed.append("\(weeks) ")
-      weeks == 1 ? timeElapsed.append("wk ") : timeElapsed.append("wks ")
+      weeks == 1 ? timeElapsed.append("\(L10n.wk) ") : timeElapsed.append("\(L10n.wks) ")
     }
     
     if let days = difference.day, days > 0 {
-      timeElapsed.append("\(days) d ")
+      timeElapsed.append("\(days) \(L10n.d) ")
     }
     
     if let hours = difference.hour, hours > 0 {
