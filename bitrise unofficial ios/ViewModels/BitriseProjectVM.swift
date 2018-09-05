@@ -132,7 +132,7 @@ class BitriseProjectViewModel: CellRepresentable {
     App
       .sharedInstance
       .apiClient
-      .getBuilds(for: self.app, withLimit: 1) { [weak self] success, builds, message in
+      .getBuilds(for: self.app, withLimit: 1) { [weak self] _, builds, _ in
       self?.lastBuild = builds?.first?.build
     }
   }
@@ -145,7 +145,7 @@ class BitriseProjectViewModel: CellRepresentable {
     App
       .sharedInstance
       .apiClient
-      .getBuilds(for: self.app) { [weak self] success, builds, message in
+      .getBuilds(for: self.app) { [weak self] _, builds, _ in
       
       guard let b = builds else {
         print("*** No builds available")
