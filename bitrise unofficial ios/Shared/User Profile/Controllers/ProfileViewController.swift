@@ -72,6 +72,7 @@ class ProfileViewController: UITableViewController {
   
   
   private func updateWithUserInfo() {
+    // TODO: - handle null user
     guard let user = App.sharedInstance.currentUser else {
       return
     }
@@ -100,19 +101,7 @@ class ProfileViewController: UITableViewController {
     let cancelAction = UIAlertAction(title: L10n.cancel, style: .cancel) { _ in }
     
     let logOutAction = UIAlertAction(title: L10n.logOut, style: .destructive) { _ in
-      
-      // 1. Remove token
-      App.sharedInstance.removeBitriseAuthToken {
-        App.sharedInstance.checkForAvailableBitriseToken { [weak self] isAuthorized in
-          if !isAuthorized {
-            print("*** Log out successful")
-            self?.resetViewsToDefault()
-            self?.presentAuthorizationView()
-          } else {
-            print("*** Log out may have failed")
-          }
-        }
-      }
+      self.logOut()
     }
     
     alertController.addAction(cancelAction)
@@ -249,14 +238,23 @@ extension ProfileViewController {
   }
   
   
-  @objc
-  func logOut() {
-    // confirm
-    
-    // if yes:
-    // - remove stored authorization token
-    // - reset UI to defaults (user image)
-    // - return to 'Projects' tab
+  @objc func logOut() {
+    // 1. Remove token
+    App.sharedInstance.removeBitriseAuthToken {
+      App.sharedInstance.checkForAvailableBitriseToken { [weak self] isAuthorized in
+        if !isAuthorized {
+          print("*** Log out successful")
+          // 2. Remove in-memory user instance
+          App.sharedInstance.currentUser = nil
+          // 3. Update UI
+          self?.resetViewsToDefault()
+          // 4. Show authorization view
+          self?.presentAuthorizationView()
+        } else {
+          print("*** Log out may have failed")
+        }
+      }
+    }
   }
   
 }
