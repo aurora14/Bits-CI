@@ -9,29 +9,9 @@
 import UIKit
 import Fabric
 import Crashlytics
+import SVProgressHUD
 
-protocol BitriseAuthorizationDelegate: class {
-  
-  /// Called when the API returns user information from base_url/me endpoint.
-  /// * User enters token into the text field and submits.
-  /// * If the token is valid, Bitrise API returns user name, slug and avatar URL
-  /// * In that case, call this delegate method and dismiss the TokenAuth View Controller.
-  
-  func didAuthorizeSuccessfully()
-  
-  /// Called when the API returns 401 and "Unauthorized" message from the base_url/me endpoint.
-  /// * User enters token into the text field and submits
-  /// * Invalid token & Unauth 401 result
-  /// * DO NOT dismiss the view controller. Highlight the text field border in red and show an error message
-  /// * When the user starts editing again, revert the border to the original colour and hide the error msg
-  ///
-  /// - Parameter error: <#error description#>
-  
-  func didFailToAuthorize(with message: String)
-  
-  /// User decided not to submit a token and dismissed the view with the cancel button
-  func didCancelAuthorization()
-}
+let didAuthorizeUserNotification = "didAuthUserNotification"
 
 class TokenAuthViewController: UIViewController {
   
@@ -66,7 +46,13 @@ class TokenAuthViewController: UIViewController {
   
   @IBAction func didTapSaveToken(_ sender: Any) {
     
+    SVProgressHUD.show(Asset.Icons.userLrg.image, status: "Getting everything ready")
+    
     guard let token = tokenInputTF.text, enteredToken == token else {
+      SVProgressHUD.dismiss()
+      if enteredToken != tokenInputTF.text {
+        assertionFailure("\(L10n.unequalTokenInAuthTF) \(tokenInputTF.text ?? "") <-> \(enteredToken)")
+      }
       return
     }
     
@@ -147,7 +133,8 @@ extension TokenAuthViewController: UITextFieldDelegate {
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     
-    guard let token = textField.text else {
+    guard let token = textField.text, token == enteredToken else {
+      assertionFailure("\(L10n.unequalTokenInAuthTF) \(tokenInputTF.text ?? "") <-> \(enteredToken)")
       return false
     }
     
@@ -160,11 +147,12 @@ extension TokenAuthViewController: UITextFieldDelegate {
 
 extension TokenAuthViewController: TokenGenerationDelegate {
   
-  func validateAndClose(with token: String) {
+  func validateAndClose(with token: AuthToken) {
     App.sharedInstance.apiClient.validateGeneratedToken(token) { [weak self] isValid, message in
-      
+      SVProgressHUD.dismiss()
       if isValid {
         self?.didGenerate(token: token) {
+          NotificationCenter.default.post(name: Notification.Name(didAuthorizeUserNotification), object: self)
           DispatchQueue.main.async {
             self?.dismiss(animated: true, completion: nil)
           }
@@ -175,12 +163,13 @@ extension TokenAuthViewController: TokenGenerationDelegate {
     }
   }
   
-  func didGenerate(token value: String, completion: (() -> Void)? = nil) {
+  func didGenerate(token value: AuthToken, completion: (() -> Void)? = nil) {
+    enteredToken = value
     DispatchQueue.main.async {
-      self.tokenInputTF.text = value      
+      self.tokenInputTF.text = self.enteredToken
     }
     App.sharedInstance.saveBitriseAuthToken(value) {
-      self.authorizationDelegate?.didAuthorizeSuccessfully()
+      self.authorizationDelegate?.didAuthorizeSuccessfully(withToken: value)
       completion?()
     }
   }

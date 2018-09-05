@@ -437,7 +437,7 @@ extension ProjectListViewController: UISearchResultsUpdating, UISearchController
 // MARK: - Bitrise Authorization delegate
 extension ProjectListViewController: BitriseAuthorizationDelegate {
   
-  func didAuthorizeSuccessfully() {
+  func didAuthorizeSuccessfully(withToken authorizationToken: AuthToken? = nil) {
     getUser()
     getProjects()
   }

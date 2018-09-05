@@ -281,8 +281,15 @@ extension ProfileViewController: UserUpdateDelegate {
 
 extension ProfileViewController: BitriseAuthorizationDelegate {
   
-  func didAuthorizeSuccessfully() {
-    updateWithUserInfo()
+  func didAuthorizeSuccessfully(withToken authorizationToken: AuthToken? = nil) {
+    if App.sharedInstance.currentUser == nil {
+      App.sharedInstance.apiClient.getUserProfile { _, _, _ in
+        self.updateWithUserInfo()
+      }
+    } else {
+      print("*** User wasn't null \(App.sharedInstance.currentUser.debugDescription)")
+      updateWithUserInfo()
+    }
   }
   
   func didFailToAuthorize(with message: String) {
