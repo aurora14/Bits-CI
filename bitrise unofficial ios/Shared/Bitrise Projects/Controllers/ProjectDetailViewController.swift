@@ -17,6 +17,8 @@ UIGestureRecognizerDelegate {
   
   var projectVM: BitriseProjectViewModel?
   
+  let selectionGenerator = UISelectionFeedbackGenerator()
+  
   override func viewDidLoad() {
     setupPagerTabStripSettings()
     
@@ -29,6 +31,8 @@ UIGestureRecognizerDelegate {
     }
     // Do any additional setup after loading the view.
     configureDefaultInteractiveGestures()
+    
+    selectionGenerator.prepare()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -87,8 +91,7 @@ UIGestureRecognizerDelegate {
   
   
   @IBAction func didTapBarButton(_ sender: Any) {
-    
-    
+    selectionGenerator.selectionChanged()
   }
   
   // MARK: - Navigation
