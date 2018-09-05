@@ -49,10 +49,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     
     impactGenerator.prepare()
     
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(tableView.reloadData),
-                                           name: NSNotification.Name(didStartNewBuildNotification),
-                                           object: NewBuildViewController.self)
+    subscribeToNotifications()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +74,10 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     NotificationCenter.default.removeObserver(self,
                                            name: NSNotification.Name(didStartNewBuildNotification),
                                            object: NewBuildViewController.self)
+    
+    NotificationCenter.default.removeObserver(self,
+                                           name: NSNotification.Name(didAuthorizeUserNotification),
+                                           object: TokenAuthViewController.self)
   }
   
   
@@ -410,6 +411,19 @@ extension ProjectListViewController {
         self?.tableView.layoutIfNeeded()
       }
     }
+  }
+  
+  fileprivate func subscribeToNotifications() {
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(tableView.reloadData),
+                                           name: NSNotification.Name(didStartNewBuildNotification),
+                                           object: NewBuildViewController.self)
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(tableView.reloadData),
+                                           name: NSNotification.Name(didAuthorizeUserNotification),
+                                           object: TokenAuthViewController.self)
   }
 }
 
