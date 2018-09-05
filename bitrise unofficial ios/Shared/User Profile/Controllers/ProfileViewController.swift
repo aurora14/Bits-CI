@@ -97,9 +97,7 @@ class ProfileViewController: UITableViewController {
     
     alertController.view.tintColor = Asset.Colors.bitriseGreen.color
     
-    let cancelAction = UIAlertAction(title: L10n.cancel, style: .cancel) { _ in
-      
-    }
+    let cancelAction = UIAlertAction(title: L10n.cancel, style: .cancel) { _ in }
     
     let logOutAction = UIAlertAction(title: L10n.logOut, style: .destructive) { _ in
       

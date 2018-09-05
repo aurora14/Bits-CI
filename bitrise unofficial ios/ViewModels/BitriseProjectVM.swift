@@ -216,7 +216,7 @@ class BitriseProjectViewModel: CellRepresentable {
     
     if let minutes = difference.minute, minutes == 0,
       let seconds = difference.second, seconds > 0 {
-      timeElapsed.append("\(seconds) \(L10n.seconds)")
+      timeElapsed.append("\(seconds) \(L10n.seconds) ")
     }
     
     return "\(timeElapsed)\(L10n.ago)"

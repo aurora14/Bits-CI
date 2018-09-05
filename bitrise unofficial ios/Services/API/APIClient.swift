@@ -319,7 +319,7 @@ extension APIClient {
             completion(true, buildsArray, "Successfully fetched build")
           } catch let error {
             completion(false, nil,
-                       "Build retrieval failed with \(error.localizedDescription), \(response.value)")
+                       "Build retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
           }
           
         case .failure(let error):
@@ -383,7 +383,7 @@ extension APIClient {
     
     // ensure user is authorized
     guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      completion(.error, "No token saved in keychain")
+      completion(.error, L10n.noTokenInKeychain)
       return
     }
     

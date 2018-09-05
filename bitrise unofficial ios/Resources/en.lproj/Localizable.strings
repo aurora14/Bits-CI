@@ -12,6 +12,7 @@
 "projects"         = "Projects";
 "profile"          = "Profile";
 "showingAllApps"   = "Showing all apps";
+"filterByProjectTitle" = "Find your project by name";
 
 // Login & Authorization
 "logIn"            = "Log In";
@@ -30,6 +31,7 @@
 "invalidParams"    = "Invalid Parameters";
 "checkBuildParamsMsg" = "Please check that required fields are filled in, and that Branch, Workflow and Commit Message fields contain valid strings.";
 "nullAppProperty" = "App property wasn't initialised in view controller. This property must be populated with a valid Bitrise App to allow posting new builds";
+"unequalTokenInAuthTF" = "Value of 'enteredToken' isn't equal to text field value:";
 
 // Bitrise content
 "ymlUnavailable" = "Bitrise YML isn't available for this application";

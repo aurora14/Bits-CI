@@ -23,6 +23,8 @@ internal enum L10n {
   internal static let days = L10n.tr("Localizable", "days")
   /// Dismiss
   internal static let dismiss = L10n.tr("Localizable", "dismiss")
+  /// Find your project by name
+  internal static let filterByProjectTitle = L10n.tr("Localizable", "filterByProjectTitle")
   /// hours
   internal static let hours = L10n.tr("Localizable", "hours")
   /// hr
@@ -65,6 +67,8 @@ internal enum L10n {
   internal static let showingAllApps = L10n.tr("Localizable", "showingAllApps")
   /// Start Build
   internal static let startBuild = L10n.tr("Localizable", "startBuild")
+  /// Value of 'enteredToken' isn't equal to text field value:
+  internal static let unequalTokenInAuthTF = L10n.tr("Localizable", "unequalTokenInAuthTF")
   /// weeks
   internal static let weeks = L10n.tr("Localizable", "weeks")
   /// wk
