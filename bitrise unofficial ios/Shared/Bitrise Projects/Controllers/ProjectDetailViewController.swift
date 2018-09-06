@@ -23,6 +23,7 @@ UIGestureRecognizerDelegate {
     setupPagerTabStripSettings()
     
     super.viewDidLoad()
+    selectionGenerator.prepare()
     
     if let viewModel = projectVM {
       setFormattedTitle(with: viewModel)
@@ -32,7 +33,6 @@ UIGestureRecognizerDelegate {
     // Do any additional setup after loading the view.
     configureDefaultInteractiveGestures()
     
-    selectionGenerator.prepare()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +91,11 @@ UIGestureRecognizerDelegate {
   
   
   @IBAction func didTapBarButton(_ sender: Any) {
-    selectionGenerator.selectionChanged()
+    DispatchQueue.global(qos: .utility).async {
+      print("*** Project detail bar button tapped")
+    }
+    self.selectionGenerator.selectionChanged()
+    perform(segue: StoryboardSegue.Main.startNewBuildSegue)
   }
   
   // MARK: - Navigation

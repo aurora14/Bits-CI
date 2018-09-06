@@ -416,13 +416,13 @@
                     <navigationItem key="navigationItem" title="Title" id="uZx-1E-VlC">
                         <barButtonItem key="rightBarButtonItem" title="Start Build" id="q0D-GZ-bNH">
                             <connections>
-                                <action selector="didTapBarButton:" destination="YCJ-NK-gmS" id="1tF-4f-w5D"/>
-                                <segue destination="6Tw-QT-LSv" kind="presentation" identifier="StartNewBuildSegue" modalPresentationStyle="overFullScreen" id="Atm-5X-3bd"/>
+                                <action selector="didTapBarButton:" destination="YCJ-NK-gmS" id="7cR-zb-QOJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="detailBarButton" destination="q0D-GZ-bNH" id="9gc-Oj-W8g"/>
+                        <segue destination="6Tw-QT-LSv" kind="presentation" identifier="StartNewBuildSegue" modalPresentationStyle="overCurrentContext" id="F9f-T1-WZq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nrb-jY-eUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -514,7 +514,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXr-lg-983">
-                                <rect key="frame" x="0.0" y="28" width="375" height="639"/>
+                                <rect key="frame" x="0.0" y="3.5" width="375" height="639"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="99x-bL-Yzh" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
                                         <rect key="frame" x="16" y="98" width="343" height="42"/>
@@ -628,7 +628,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJp-w2-ZGv">
-                                <rect key="frame" x="16" y="575" width="343" height="56"/>
+                                <rect key="frame" x="16" y="526" width="343" height="56"/>
                                 <color key="backgroundColor" name="BitriseGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="oR1-YH-nic"/>
