@@ -421,7 +421,7 @@ extension ProjectListViewController {
                                            object: NewBuildViewController.self)
     
     NotificationCenter.default.addObserver(self,
-                                           selector: #selector(tableView.reloadData),
+                                           selector: #selector(getProjects),
                                            name: NSNotification.Name(didAuthorizeUserNotification),
                                            object: TokenAuthViewController.self)
   }
