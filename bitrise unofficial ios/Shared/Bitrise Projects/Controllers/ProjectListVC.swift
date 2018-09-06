@@ -435,7 +435,7 @@ extension ProjectListViewController: UISearchResultsUpdating, UISearchController
     if let text = searchController.searchBar.text,
       !text.isEmpty, let projects = apps as? [BitriseProjectViewModel] {
       isFiltering = true
-      activeDataSource = projects.filter({ project -> Bool in
+      activeDataSource = projects.lazy.filter({ project -> Bool in
         return project.title.uppercased().contains(text.uppercased())
       })
     } else {
