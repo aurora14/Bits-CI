@@ -34,15 +34,15 @@ class BuildListViewController: TabPageTableViewController {
     selectionFeedbackGenerator.prepare()
     
     NotificationCenter.default.addObserver(self,
-                                           selector: #selector(tableView.reloadData),
-                                           name: NSNotification.Name(didStartNewBuildNotification),
-                                           object: NewBuildViewController.self)
+                                           selector: #selector(refreshBuilds),
+                                           name: .didStartNewBuildNotification,
+                                           object: nil)
   }
   
   deinit {
     NotificationCenter.default.removeObserver(self,
-                                              name: NSNotification.Name(didStartNewBuildNotification),
-                                              object: NewBuildViewController.self)
+                                              name: .didStartNewBuildNotification,
+                                              object: nil)
   }
   
   @objc private func updateViews() {
@@ -81,5 +81,17 @@ extension BuildListViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
     tableView.deselectRow(at: indexPath, animated: true)
+  }
+}
+
+extension BuildListViewController {
+  
+  @objc fileprivate func refreshBuilds() {
+    App.sharedInstance.apiClient.getBuilds(for: projectVM.app) { _, buildList, _ in
+      self.projectVM.buildList = buildList ?? []
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+    }
   }
 }

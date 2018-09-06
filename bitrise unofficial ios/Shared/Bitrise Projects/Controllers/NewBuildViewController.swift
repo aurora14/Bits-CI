@@ -13,9 +13,6 @@ import Fabric
 import Crashlytics
 import Lottie
 
-// FIXME: - consider moving this elsewhere. Try to avoid global strings
-let didStartNewBuildNotification: String = "didStartNewBuildNotification"
-
 protocol StartBuildDelegate: class {
   func didStartNewBuild(from controller: NewBuildViewController)
   func didCancelNewBuild(from controller: NewBuildViewController)
@@ -95,7 +92,7 @@ class NewBuildViewController: UIViewController {
           // 1. close controller
           NotificationCenter
             .default
-            .post(name: NSNotification.Name(rawValue: didStartNewBuildNotification), object: self)
+            .post(name: .didStartNewBuildNotification, object: self)
           self.dismissStartHUD()
           DispatchQueue.main.async {
             self.notificationFeedbackGenerator?.notificationOccurred(.success)

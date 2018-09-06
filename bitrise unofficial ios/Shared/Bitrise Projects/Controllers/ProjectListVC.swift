@@ -30,6 +30,11 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   
   let impactGenerator = UIImpactFeedbackGenerator(style: .light)
   
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    subscribeToNotifications()
+  }
+  
   // MARK: - View lifecycle
   override func loadView() {
     super.loadView()
@@ -48,8 +53,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     loadDataWithAuthorization()
     
     impactGenerator.prepare()
-    
-    subscribeToNotifications()
+    //subscribeToNotifications()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -71,19 +75,20 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   
   
   deinit {
+    print("*** Project List VC Deinit")
     NotificationCenter.default.removeObserver(self,
-                                           name: NSNotification.Name(didStartNewBuildNotification),
-                                           object: NewBuildViewController.self)
-    
+                                           name: .didStartNewBuildNotification,
+                                           object: nil)
+
     NotificationCenter.default.removeObserver(self,
-                                           name: NSNotification.Name(didAuthorizeUserNotification),
-                                           object: TokenAuthViewController.self)
+                                           name: .didAuthorizeUserNotification,
+                                           object: nil)
   }
   
   
   // MARK: - Data fetch
   @objc private func getProjects() {
-    
+    print("*** GETTING PROJECTS")
     App.sharedInstance.apiClient.getUserApps { [weak self] success, projects, message in
       
       guard let strongSelf = self else {
@@ -122,26 +127,30 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
         return
       }
       
-      guard let avatarUrl = u.avatarUrl?.replacingOccurrences(of: "http", with: "https") else {
-        print("*** User doesn't have an avatar link associated with their account")
-        return
-      }
-      
-      let size = CGSize(width: 24, height: 24)
-      
-      App.sharedInstance
-        .apiClient.getUserImage(from: avatarUrl, then: { [weak self] _, image, _ in
-          DispatchQueue.main.async {
-            guard let i = image else {
-              self?.userProfileButton.setImage(
-                Asset.Icons.user.image.af_imageAspectScaled(toFit: size),
-                for: .normal)
-              return
-            }
-            self?.userProfileButton.setImage(i.af_imageAspectScaled(toFit: size), for: .normal)
-          }
-        })
+      self?.updateAvatar(for: u)
     }
+  }
+  
+  private func updateAvatar(for user: User) {
+    guard let avatarUrl = user.avatarUrl?.replacingOccurrences(of: "http", with: "https") else {
+      print("*** User doesn't have an avatar link associated with their account")
+      return
+    }
+    
+    let size = CGSize(width: 24, height: 24)
+    
+    App.sharedInstance
+      .apiClient.getUserImage(from: avatarUrl, then: { [weak self] _, image, _ in
+        DispatchQueue.main.async {
+          guard let i = image else {
+            self?.userProfileButton.setImage(
+              Asset.Icons.user.image.af_imageAspectScaled(toFit: size),
+              for: .normal)
+            return
+          }
+          self?.userProfileButton.setImage(i.af_imageAspectScaled(toFit: size), for: .normal)
+        }
+      })
   }
   
   private func presentAuthorizationView() {
@@ -416,14 +425,14 @@ extension ProjectListViewController {
   fileprivate func subscribeToNotifications() {
     
     NotificationCenter.default.addObserver(self,
-                                           selector: #selector(tableView.reloadData),
-                                           name: NSNotification.Name(didStartNewBuildNotification),
-                                           object: NewBuildViewController.self)
+                                           selector: #selector(getProjects),
+                                           name: .didStartNewBuildNotification,
+                                           object: nil)
     
     NotificationCenter.default.addObserver(self,
-                                           selector: #selector(getProjects),
-                                           name: NSNotification.Name(didAuthorizeUserNotification),
-                                           object: TokenAuthViewController.self)
+                                           selector: #selector(authNotificationWrapper),
+                                           name: .didAuthorizeUserNotification,
+                                           object: nil)
   }
 }
 
@@ -451,7 +460,12 @@ extension ProjectListViewController: UISearchResultsUpdating, UISearchController
 // MARK: - Bitrise Authorization delegate
 extension ProjectListViewController: BitriseAuthorizationDelegate {
   
-  func didAuthorizeSuccessfully(withToken authorizationToken: AuthToken? = nil) {
+  @objc func authNotificationWrapper() {
+    print("*** updating on Auth Notification")
+    didAuthorizeSuccessfully(withToken: nil)
+  }
+  
+  @objc func didAuthorizeSuccessfully(withToken authorizationToken: AuthToken? = nil) {
     getUser()
     getProjects()
   }

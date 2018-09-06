@@ -11,8 +11,6 @@ import Fabric
 import Crashlytics
 import SVProgressHUD
 
-let didAuthorizeUserNotification = "didAuthUserNotification"
-
 class TokenAuthViewController: UIViewController {
   
   @IBOutlet weak var tokenInputTF: UITextField!
@@ -171,6 +169,7 @@ extension TokenAuthViewController: TokenGenerationDelegate {
       self.tokenInputTF.text = self.enteredToken
     }
     App.sharedInstance.saveBitriseAuthToken(value) {
+      NotificationCenter.default.post(name: .didAuthorizeUserNotification, object: self)
       self.authorizationDelegate?.didAuthorizeSuccessfully(withToken: value)
       then?()
     }
