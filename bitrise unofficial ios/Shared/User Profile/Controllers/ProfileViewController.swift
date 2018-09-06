@@ -25,6 +25,11 @@ class ProfileViewController: UITableViewController {
     
     // If user isn't authorized, present TokenAuth view
     updateWithUserInfo()
+    
+    //NotificationCenter.default.addObserver(self,
+    //                                       selector: #selector(didAuthorizeSuccessfully(withToken:)),
+    //                                       name: NSNotification.Name(didAuthorizeUserNotification),
+    //                                       object: TokenAuthViewController.self)
   }
   
   
@@ -71,16 +76,21 @@ class ProfileViewController: UITableViewController {
   }
   
   
-  private func updateWithUserInfo() {
+  /// <#Description#>
+  ///
+  /// - Parameter bitriseUser: optional user parameter. You can force a UI update with
+  ///   explicit user info. If a user object is passed in as an argument, it will take
+  ///   precedence over the shared instance version.
+  private func updateWithUserInfo(forUser bitriseUser: User? = nil) {
     // TODO: - handle null user
-    guard let user = App.sharedInstance.currentUser else {
-      return
-    }
+    var currentUser: User? = bitriseUser == nil ? App.sharedInstance.currentUser : bitriseUser
+    
+    guard let u = currentUser else { return }
     
     DispatchQueue.main.async {
-      self.profileHeaderView?.backgroundImageView.image = user.avatarImage ?? Asset.Icons.userLrg.image
-      self.profileHeaderView?.foregroundImageView.image = user.avatarImage ?? Asset.Icons.userLrg.image
-      self.profileHeaderView?.usernameLabel.text = user.username ?? "Bitrise User"
+      self.profileHeaderView?.backgroundImageView.image = u.avatarImage ?? Asset.Icons.userLrg.image
+      self.profileHeaderView?.foregroundImageView.image = u.avatarImage ?? Asset.Icons.userLrg.image
+      self.profileHeaderView?.usernameLabel.text = u.username ?? L10n.bitriseUser
     }
   }
   
@@ -139,8 +149,7 @@ class ProfileViewController: UITableViewController {
     
     switch identifier {
       
-    case StoryboardSegue.Main.tokenSegue.rawValue:
-      
+    case StoryboardSegue.Main.profileTabTokenSegue.rawValue:
       let controller = segue.destination as? TokenAuthViewController
       controller?.authorizationDelegate = self
       
@@ -277,10 +286,11 @@ extension ProfileViewController: UserUpdateDelegate {
 
 extension ProfileViewController: BitriseAuthorizationDelegate {
   
-  func didAuthorizeSuccessfully(withToken authorizationToken: AuthToken? = nil) {
+  @objc func didAuthorizeSuccessfully(withToken authorizationToken: AuthToken? = nil) {
+    print("*** Auth delegate called")
     if App.sharedInstance.currentUser == nil {
-      App.sharedInstance.apiClient.getUserProfile { _, _, _ in
-        self.updateWithUserInfo()
+      App.sharedInstance.apiClient.getUserProfile { _, user, _ in
+        self.updateWithUserInfo(forUser: user)
       }
     } else {
       print("*** User wasn't null \(App.sharedInstance.currentUser.debugDescription)")
