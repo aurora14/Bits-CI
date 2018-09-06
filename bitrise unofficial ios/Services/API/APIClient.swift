@@ -105,7 +105,7 @@ extension APIClient {
   ///   - token: Bitrise Personal Access Token
   ///   - completion: Validation result handler.
   func validateGeneratedToken(_ token: String,
-                              completion: @escaping (_ isValid: Bool, _ message: String) -> Void) {
+                              then: @escaping (_ isValid: Bool, _ message: String) -> Void) {
     
     setAuthHeaders(withToken: token)
     
@@ -121,9 +121,9 @@ extension APIClient {
         
         switch response.result {
         case .success:
-          completion(true, "\(response.value ?? "Authorized")")
+          then(true, "\(response.value ?? "Authorized")")
         case .failure(let error):
-          completion(false, "Unauthorized, \(error.localizedDescription)")
+          then(false, "Unauthorized, \(error.localizedDescription)")
         }
       })
   }
@@ -179,11 +179,11 @@ extension APIClient {
   ///
   /// - Parameter completion: success status that can be true or false, an array of projects
   /// if successful or nil if not, and a message that provides additional information
-  func getUserApps(completion: @escaping (_ success: Bool,
+  func getUserApps(then: @escaping (_ success: Bool,
     _ apps: [BitriseProjectViewModel]?, _ message: String) -> Void) {
     
     guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      completion(false, nil, "No token saved in keychain")
+      then(false, nil, "No token saved in keychain")
       return
     }
     
@@ -206,7 +206,7 @@ extension APIClient {
         case .success:
           
           guard let data = response.data else {
-            completion(false, nil, "Response contained no data")
+            then(false, nil, "Response contained no data")
             return
           }
           
@@ -217,16 +217,16 @@ extension APIClient {
             if let p = projectArrayStruct {
               var retrievedProjects = [BitriseProjectViewModel]()
               retrievedProjects = p.data.compactMap { BitriseProjectViewModel(with: $0) }
-              completion(true, retrievedProjects, "Fetched successfully")
+              then(true, retrievedProjects, "Fetched successfully")
             } else {
               print("Couldn't unwrap project struct")
-              completion(false, nil, "Invalid data structure")
+              then(false, nil, "Invalid data structure")
             }
           } catch let error {
-            completion(false, nil, "Failed to decode application sets with \(error.localizedDescription)")
+            then(false, nil, "Failed to decode application sets with \(error.localizedDescription)")
           }
         case .failure(let error):
-          completion(false, nil, "Unauthorized, \(error.localizedDescription)")
+          then(false, nil, "Unauthorized, \(error.localizedDescription)")
         }
       })
   }
@@ -238,7 +238,7 @@ extension APIClient {
   ///   - url: <#url description#>
   ///   - completion: <#completion description#>
   func getUserImage(from url: URLConvertible,
-                    completion: @escaping (_ success: Bool, _ image: UIImage?, _ message: String) -> Void) {
+                    then: @escaping (_ success: Bool, _ image: UIImage?, _ message: String) -> Void) {
     
     Alamofire.request(url)
       .validate()
@@ -249,10 +249,10 @@ extension APIClient {
           if var retrievedImage = response.result.value {
             retrievedImage = retrievedImage.af_imageRoundedIntoCircle()
             App.sharedInstance.currentUser?.avatarImage = retrievedImage
-            completion(true, retrievedImage, "Image received successfully")
+            then(true, retrievedImage, "Image received successfully")
           }
         case .failure(let error):
-          completion(false, nil, "Image retrieval failed with \(error.localizedDescription)")
+          then(false, nil, "Image retrieval failed with \(error.localizedDescription)")
         }
     }
   }
@@ -267,12 +267,12 @@ extension APIClient {
   ///     all builds for an application. Otherwise, set whatever value is necessary for the use case. The default value is '0'.
   ///   - completion: a closure containing the result of the call, an array of builds on success (or nil on failure), and a message
   func getBuilds(for app: BitriseApp, withLimit limit: Int = 0,
-                 completion: @escaping (_ success: Bool, _ builds: [ProjectBuildViewModel]?, _ message: String) -> Void) {
+                 then: @escaping (_ success: Bool, _ builds: [ProjectBuildViewModel]?, _ message: String) -> Void) {
     
     // v0.1/apps/{APP-SLUG}/builds
     
     guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      completion(false, nil, "No token saved in keychain")
+      then(false, nil, "No token saved in keychain")
       return
     }
     
@@ -303,7 +303,7 @@ extension APIClient {
         case .success:
           
           guard let data = response.data else {
-            completion(false, nil, "Response contained no data")
+            then(false, nil, "Response contained no data")
             return
           }
           
@@ -313,17 +313,17 @@ extension APIClient {
             //print("Test: last build # \(lastBuild?.buildNumber)")
             //debugPrint(response.value)
             guard buildsArray != nil else {
-              completion(false, nil, "Failed to translate build")
+              then(false, nil, "Failed to translate build")
               return
             }
-            completion(true, buildsArray, "Successfully fetched build")
+            then(true, buildsArray, "Successfully fetched build")
           } catch let error {
-            completion(false, nil,
+            then(false, nil,
                        "Build retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
           }
           
         case .failure(let error):
-          completion(false, nil, "Build retrieval failed with \(error.localizedDescription)")
+          then(false, nil, "Build retrieval failed with \(error.localizedDescription)")
         }
       })
   }
@@ -379,11 +379,11 @@ extension APIClient {
   
   func startNewBuild(for app: BitriseApp,
                      withBuildParams buildParams: BuildData,
-                     completion: @escaping (_ result: AsyncResult, _ message: String) -> Void) {
+                     then: @escaping (_ result: AsyncResult, _ message: String) -> Void) {
     
     // ensure user is authorized
     guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      completion(.error, L10n.noTokenInKeychain)
+      then(.error, L10n.noTokenInKeychain)
       return
     }
     
@@ -397,7 +397,7 @@ extension APIClient {
       buildRequestBody = try encoder.encode(buildParams)
     } catch let error {
       print(error.localizedDescription)
-      completion(.error, error.localizedDescription)
+      then(.error, error.localizedDescription)
       return
     }
     
@@ -415,26 +415,26 @@ extension APIClient {
         switch response.result {
         case .success:
           guard let data = response.data, let statusCode = response.response?.statusCode else {
-            completion(.success, "Build started successfully")
+            then(.success, "Build started successfully")
             return
           }
           do {
             let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
-            completion(.success, "\(statusCode): \(response.message)")
+            then(.success, "\(statusCode): \(response.message)")
           } catch {
-            completion(.success, "Build started successfully")
+            then(.success, "Build started successfully")
           }
-          completion(.success, "Build started successfully")
+          then(.success, "Build started successfully")
         case .failure(let error):
           guard let data = response.data, let statusCode = response.response?.statusCode else {
-            completion(.error, error.localizedDescription)
+            then(.error, error.localizedDescription)
             return
           }
           do {
             let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
-            completion(.error, "\(statusCode): \(response.message)")
+            then(.error, "\(statusCode): \(response.message)")
           } catch {
-            completion(.error, error.localizedDescription)
+            then(.error, error.localizedDescription)
           }
         }
     }
