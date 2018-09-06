@@ -38,6 +38,7 @@
 		7A5E759120DD36B4008D32A5 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759020DD36B4008D32A5 /* Build.swift */; };
 		7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */; };
 		7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759420DD4285008D32A5 /* String+Digits.swift */; };
+		7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
 		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
 		7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */; };
@@ -99,6 +100,7 @@
 		7A5E759020DD36B4008D32A5 /* Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtil.swift; sourceTree = "<group>"; };
 		7A5E759420DD4285008D32A5 /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
+		7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNameExt+Names.swift"; sourceTree = "<group>"; };
 		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
 		7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 		7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageTableViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				7A99C6AF212E5552003DC5D9 /* UIButton+ViewConfigurable.swift */,
 				7A200B1420D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift */,
 				7A5E759420DD4285008D32A5 /* String+Digits.swift */,
+				7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				7A5E759120DD36B4008D32A5 /* Build.swift in Sources */,
 				7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */,
 				7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */,
+				7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */,
 				7A99C6A3212D3D04003DC5D9 /* Strings.swift in Sources */,
 				7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */,
 				7A99C6B2212E55A8003DC5D9 /* AsyncResult.swift in Sources */,
