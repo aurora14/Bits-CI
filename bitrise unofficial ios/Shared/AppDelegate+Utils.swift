@@ -24,7 +24,7 @@ extension AppDelegate {
   /// your "finishedLaunchingWith(options:)", just before "return true".
   func initReportingUtils() {
     FirebaseApp.configure()
-    Fabric.sharedSDK().debug = true
+    Fabric.sharedSDK().debug = false
     Fabric.with([Crashlytics.self])
   }
   
