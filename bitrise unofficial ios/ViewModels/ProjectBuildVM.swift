@@ -43,7 +43,7 @@ class ProjectBuildViewModel: CellRepresentable {
         return build.triggeredAt
     }
     
-    return startDate.toFormat("dd MMM yyyy 'at' HH:mm", locale: Locale.current)
+    return startDate.toFormat("dd MMM yyyy 'at' HH:mm", locale: Locale.autoupdatingCurrent)
   }
   
   var workflow: String {

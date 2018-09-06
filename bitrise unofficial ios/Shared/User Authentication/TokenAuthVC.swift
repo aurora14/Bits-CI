@@ -149,10 +149,11 @@ extension TokenAuthViewController: TokenGenerationDelegate {
   
   func validateAndClose(with token: AuthToken) {
     App.sharedInstance.apiClient.validateGeneratedToken(token) { [weak self] isValid, message in
-      SVProgressHUD.dismiss()
+      DispatchQueue.main.async {
+        SVProgressHUD.dismiss()
+      }
       if isValid {
         self?.didGenerate(token: token) {
-          NotificationCenter.default.post(name: Notification.Name(didAuthorizeUserNotification), object: self)
           DispatchQueue.main.async {
             self?.dismiss(animated: true, completion: nil)
           }

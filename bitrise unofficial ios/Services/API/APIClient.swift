@@ -290,8 +290,6 @@ extension APIClient {
       url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds", withQueryItems: queryItems)
     }
     
-    print("*** Last Build URL String: \(url.absoluteString)")
-    
     let queue = DispatchQueue.global(qos: .background)
     
     BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
