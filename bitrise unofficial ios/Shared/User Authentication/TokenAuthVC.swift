@@ -165,14 +165,14 @@ extension TokenAuthViewController: TokenGenerationDelegate {
     }
   }
   
-  func didGenerate(token value: AuthToken, completion: (() -> Void)? = nil) {
+  func didGenerate(token value: AuthToken, then: (() -> Void)? = nil) {
     enteredToken = value
     DispatchQueue.main.async {
       self.tokenInputTF.text = self.enteredToken
     }
     App.sharedInstance.saveBitriseAuthToken(value) {
       self.authorizationDelegate?.didAuthorizeSuccessfully(withToken: value)
-      completion?()
+      then?()
     }
   }
   

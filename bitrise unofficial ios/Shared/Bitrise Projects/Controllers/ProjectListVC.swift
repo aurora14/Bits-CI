@@ -130,7 +130,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
       let size = CGSize(width: 24, height: 24)
       
       App.sharedInstance
-        .apiClient.getUserImage(from: avatarUrl, completion: { [weak self] _, image, _ in
+        .apiClient.getUserImage(from: avatarUrl, then: { [weak self] _, image, _ in
           DispatchQueue.main.async {
             guard let i = image else {
               self?.userProfileButton.setImage(

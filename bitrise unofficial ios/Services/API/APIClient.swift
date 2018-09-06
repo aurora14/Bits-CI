@@ -132,10 +132,10 @@ extension APIClient {
   /// <#Description#>
   ///
   /// - Parameter completion: <#completion description#>
-  func getUserProfile(completion: @escaping (_ isSignedIn: Bool, _ user: User?, _ message: String) -> Void) {
+  func getUserProfile(then: @escaping (_ isSignedIn: Bool, _ user: User?, _ message: String) -> Void) {
     
     guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      completion(false, nil, "No token saved in keychain")
+      then(false, nil, "No token saved in keychain")
       return
     }
     
@@ -153,7 +153,7 @@ extension APIClient {
         case .success:
           
           guard let data = response.data else {
-            completion(false, nil, "Response contained no data")
+            then(false, nil, "Response contained no data")
             return
           }
           
@@ -162,14 +162,14 @@ extension APIClient {
             let user = try self?.decoder.decode(User.self, from: data)
             //print(user?.description)
             App.sharedInstance.currentUser = user
-            completion(true, user, "User retrieved successfully")
+            then(true, user, "User retrieved successfully")
             
           } catch let error {
             print("Failed json decoding with \(error.localizedDescription)")
-            completion(false, nil, "Failed to decode user object with \(error.localizedDescription)")
+            then(false, nil, "Failed to decode user object with \(error.localizedDescription)")
           }
         case .failure(let error):
-          completion(false, nil, "Unauthorized, \(error.localizedDescription)")
+          then(false, nil, "Unauthorized, \(error.localizedDescription)")
         }
       })
   }
@@ -236,7 +236,7 @@ extension APIClient {
   ///
   /// - Parameters:
   ///   - url: <#url description#>
-  ///   - completion: <#completion description#>
+  ///   - then: <#completion description#>
   func getUserImage(from url: URLConvertible,
                     then: @escaping (_ success: Bool, _ image: UIImage?, _ message: String) -> Void) {
     
@@ -309,10 +309,10 @@ extension APIClient {
           
           do { // essentially, only one success condition
             let builds = try self?.decoder.decode(Builds.self, from: data)
-            let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0) }
-            //print("Test: last build # \(lastBuild?.buildNumber)")
-            //debugPrint(response.value)
-            guard buildsArray != nil else {
+            // experimenting with a lazy collection instead of standard map and seeing whether performance
+            // improves
+            let buildsArray = Array((builds?.data.lazy.compactMap { ProjectBuildViewModel(with: $0) }) ?? [])
+            guard !buildsArray.isEmpty else {
               then(false, nil, "Failed to translate build")
               return
             }
@@ -328,10 +328,10 @@ extension APIClient {
       })
   }
   
-  func getYMLFor(bitriseApp app: BitriseApp, completion: @escaping (_ success: Bool, _ yamlString: String?, _ message: String) -> Void) {
+  func getYMLFor(bitriseApp app: BitriseApp, then: @escaping (_ success: Bool, _ yamlString: String?, _ message: String) -> Void) {
     
     guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      completion(false, nil, "No token saved in keychain")
+      then(false, nil, "No token saved in keychain")
       return
     }
     
@@ -349,26 +349,24 @@ extension APIClient {
       .response(queue: queue) { response in
         
         guard let httpResponse = response.response else {
-          completion(false, nil, "Bitrise YML wasn't available: missing HTTP URL Response")
+          then(false, nil, "Bitrise YML wasn't available: missing HTTP URL Response")
           return
         }
         
         if httpResponse.statusCode == 200 {
           
           guard let data = response.data else {
-            completion(false, nil, "Bitrise YML wasn't available")
+            then(false, nil, "Bitrise YML wasn't available")
             return
           }
           
           let ymlString = String(data: data, encoding: .utf8)
           
-          completion(true, ymlString, "Successfully fetched yml file")
+          then(true, ymlString, "Successfully fetched yml file")
           
         } else {
-          
-          completion(false, nil, "Bitrise YML wasn't available, status code: \(httpResponse.statusCode)")
+          then(false, nil, "Bitrise YML wasn't available, status code: \(httpResponse.statusCode)")
           return
-          
         }
     }
   }

@@ -52,11 +52,11 @@ extension App {
   /// - Parameter token: Bitrise access token. The app should only ever have one value maintained
   /// for sign on. If the user decides to log out, that token is wiped and a new one must be entered
   /// before accessing any BR content again
-  func saveBitriseAuthToken(_ token: String, completion: (() -> Void)? = nil) {
+  func saveBitriseAuthToken(_ token: String, then: (() -> Void)? = nil) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       
       guard let strongSelf = self else {
-        completion?()
+        then?()
         return
       }
       
@@ -67,10 +67,10 @@ extension App {
           .synchronizable(true)
           .accessibility(.afterFirstUnlock)
           .set(token, key: strongSelf.tokenKey)
-        completion?()
+        then?()
       } catch let error {
         print(error.localizedDescription)
-        completion?()
+        then?()
       }
     }
   }
@@ -88,20 +88,20 @@ extension App {
   /// time-dependent should be placed in the completion closure. If there's nothing
   /// that needs to be done after removing a token, the user can pass 'nil' for this
   /// parameter
-  func removeBitriseAuthToken(completion: (() -> Void)?) {
+  func removeBitriseAuthToken(then: (() -> Void)?) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       
       guard let strongSelf = self else {
-        completion?()
+        then?()
         return
       }
       
       do {
         try strongSelf.keychain.remove(strongSelf.tokenKey)
-        completion?()
+        then?()
       } catch let error {
         print(error.localizedDescription)
-        completion?()
+        then?()
       }
     }
   }
@@ -124,12 +124,12 @@ extension App {
   /// - Parameter completion: true if there are valid credentials available, false if not.
   ///
   /// * Usage: App.shared.checkForAvailableBitriseToken { isAvailable in }
-  func checkForAvailableBitriseToken(_ completion: @escaping (_ isAvailable: Bool) -> Void) {
+  func checkForAvailableBitriseToken(_ then: @escaping (_ isAvailable: Bool) -> Void) {
     
     // Step 1: Check if Keychain has a valid token. If not, open the token modal. There the user
     // has the option
     guard let savedToken = getBitriseAuthToken() else {
-      completion(false)
+      then(false)
       return
     }
     
@@ -137,11 +137,11 @@ extension App {
     apiClient.validateGeneratedToken(savedToken) { isValid, message in
       
       if isValid {
-        completion(true)
+        then(true)
         return
       }
       
-      completion(false)
+      then(false)
       return
     }
   }
