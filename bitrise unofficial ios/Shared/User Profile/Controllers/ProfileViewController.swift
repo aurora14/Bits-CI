@@ -214,7 +214,10 @@ extension ProfileViewController {
   }
   
   override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
+    invokeElasticHeader(in: scrollView)
+  }
+  
+  fileprivate func invokeElasticHeader(in scrollView: UIScrollView) {
     if profileHeaderView != nil {
       
       let yPos: CGFloat = -scrollView.contentOffset.y
@@ -245,7 +248,6 @@ extension ProfileViewController {
       }
     }
   }
-  
   
   @objc func logOut() {
     // 1. Remove token
@@ -281,6 +283,22 @@ extension ProfileViewController: UserUpdateDelegate {
     }
   }
   
+  private func updateAvatar(for user: User) {
+    
+    guard let avatarUrl = user.avatarUrl?.replacingOccurrences(of: "http", with: "https") else {
+      print("*** User doesn't have an avatar link associated with their account")
+      return
+    }
+    
+    App.sharedInstance
+      .apiClient.getUserImage(from: avatarUrl, then: { [weak self] _, image, _ in
+        DispatchQueue.main.async {
+          guard let i = image else { return }
+          self?.profileHeaderView?.backgroundImageView.image = i
+          self?.profileHeaderView?.foregroundImageView.image = i
+        }
+      })
+  }
 }
 
 
@@ -291,6 +309,7 @@ extension ProfileViewController: BitriseAuthorizationDelegate {
     if App.sharedInstance.currentUser == nil {
       App.sharedInstance.apiClient.getUserProfile { _, user, _ in
         self.updateWithUserInfo(forUser: user)
+        self.updateAvatar(for: user ?? User(username: L10n.bitriseUser, slug: nil, avatarURL: nil))
       }
     } else {
       print("*** User wasn't null \(App.sharedInstance.currentUser.debugDescription)")
