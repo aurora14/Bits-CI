@@ -628,7 +628,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJp-w2-ZGv">
-                                <rect key="frame" x="16" y="526" width="343" height="56"/>
+                                <rect key="frame" x="16" y="506" width="343" height="56"/>
                                 <color key="backgroundColor" name="BitriseGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="oR1-YH-nic"/>
@@ -639,7 +639,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="3"/>
+                                        <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -653,7 +653,7 @@
                             <constraint firstItem="DXr-lg-983" firstAttribute="height" secondItem="hkq-ku-5Qr" secondAttribute="height" constant="-28" id="K8G-tz-1el"/>
                             <constraint firstItem="DXr-lg-983" firstAttribute="width" secondItem="hkq-ku-5Qr" secondAttribute="width" id="Stt-vC-Xz6"/>
                             <constraint firstItem="sJp-w2-ZGv" firstAttribute="leading" secondItem="t0F-Ay-NhS" secondAttribute="leading" constant="16" id="UBm-u6-V8V"/>
-                            <constraint firstItem="t0F-Ay-NhS" firstAttribute="bottom" secondItem="sJp-w2-ZGv" secondAttribute="bottom" constant="36" id="b4N-6c-s9m"/>
+                            <constraint firstItem="t0F-Ay-NhS" firstAttribute="bottom" secondItem="sJp-w2-ZGv" secondAttribute="bottom" constant="56" id="b4N-6c-s9m"/>
                             <constraint firstItem="DXr-lg-983" firstAttribute="centerY" secondItem="t0F-Ay-NhS" secondAttribute="centerY" constant="4" id="kAJ-9Z-9QL"/>
                             <constraint firstItem="t0F-Ay-NhS" firstAttribute="trailing" secondItem="sJp-w2-ZGv" secondAttribute="trailing" constant="16" id="o1b-8A-NqT"/>
                         </constraints>
