@@ -46,6 +46,8 @@ class TokenAuthViewController: UIViewController {
   
   @IBAction func didTapSaveToken(_ sender: Any) {
     
+    SVProgressHUD.setShouldTintImages(true)
+    SVProgressHUD.setDefaultStyle(.dark)
     SVProgressHUD.show(Asset.Icons.userLrg.image, status: "Getting everything ready")
     
     guard let token = tokenInputTF.text, enteredToken == token else {
