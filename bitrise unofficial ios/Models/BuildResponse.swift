@@ -30,4 +30,10 @@ struct BuildSuccessResponse: Codable {
   
 }
 
+struct AbortBuildResponse: Codable {
+  var status: String
+}
 
+struct AbortErrorResponse: Codable {
+  var errorMsg: String
+}

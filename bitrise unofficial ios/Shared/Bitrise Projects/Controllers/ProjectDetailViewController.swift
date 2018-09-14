@@ -33,6 +33,7 @@ UIGestureRecognizerDelegate {
     // Do any additional setup after loading the view.
     configureDefaultInteractiveGestures()
     
+    containerView?.isScrollEnabled = false
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -50,11 +51,13 @@ UIGestureRecognizerDelegate {
   private func configureDefaultInteractiveGestures() {
     navigationController?.interactivePopGestureRecognizer?.delegate = self
     navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    navigationController?.interactivePopGestureRecognizer?.cancelsTouchesInView = false // see if this helps with swipe-on-row actions
   }
   
   /// Configures pager tab settings. This method should be called in viewDidLoad() and
   /// before super.viewDidLoad()
   private func setupPagerTabStripSettings() {
+    
     settings.style.buttonBarBackgroundColor = .white
     settings.style.buttonBarItemBackgroundColor = .white
     settings.style.selectedBarBackgroundColor = Asset.Colors.bitriseGreen.color

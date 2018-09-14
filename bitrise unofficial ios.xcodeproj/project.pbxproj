@@ -39,6 +39,7 @@
 		7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */; };
 		7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759420DD4285008D32A5 /* String+Digits.swift */; };
 		7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */; };
+		7A69095221420C4C00487F13 /* BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69095121420C4C00487F13 /* BuildAction.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
 		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
 		7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */; };
@@ -60,6 +61,7 @@
 		7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFA2109537C00D6DD0D /* ProfileViewController.swift */; };
 		7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */; };
 		7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */; };
+		7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +103,7 @@
 		7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtil.swift; sourceTree = "<group>"; };
 		7A5E759420DD4285008D32A5 /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
 		7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNameExt+Names.swift"; sourceTree = "<group>"; };
+		7A69095121420C4C00487F13 /* BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAction.swift; sourceTree = "<group>"; };
 		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
 		7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 		7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageTableViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 		7AEEECFA2109537C00D6DD0D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortBuildParams.swift; sourceTree = "<group>"; };
 		C9A38727C6B2204731A14ED2 /* Pods-bitrise unofficial ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -326,7 +330,6 @@
 				7A5DFB7220D26AE300A3330B /* APIClient.swift */,
 				7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */,
 				7A5E758E20DD275B008D32A5 /* Router.swift */,
-				7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -351,6 +354,9 @@
 				7A5E759020DD36B4008D32A5 /* Build.swift */,
 				7AC4275620E3A62000DC99C0 /* Paging.swift */,
 				7A99C6B3212E55C4003DC5D9 /* StartNewBuild.swift */,
+				7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */,
+				7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */,
+				7A69095121420C4C00487F13 /* BuildAction.swift */,
 				7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */,
 			);
 			path = Models;
@@ -666,10 +672,12 @@
 				7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
+				7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */,
 				7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */,
 				7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */,
 				7A200B2220D681EC003C6D97 /* Resources.swift in Sources */,
 				7A1BD1CE20E11646005D805B /* SearchFooter.swift in Sources */,
+				7A69095221420C4C00487F13 /* BuildAction.swift in Sources */,
 				7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */,
 				7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */,
 				7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */,

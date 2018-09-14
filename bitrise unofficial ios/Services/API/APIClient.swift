@@ -15,6 +15,10 @@ enum Endpoint: String {
   case apps
 }
 
+/// Alphanumeric string ID used by every Bitrise object as its unique ID
+typealias Slug = String
+
+// MARK: - Initialization/default config
 
 /// Handles communication with the Bitrise endpoints. Avoid adding state to this. The definition
 /// should not be modified.
@@ -23,6 +27,9 @@ enum Endpoint: String {
 /// as an internal JSONDecoder to allow manipulation of content received from the server.
 /// Most of this functionality is internal to this file or the main containing block, but this
 /// may change as required.
+///
+/// Note that all calls must be made with https. Currently the app is not configured to handle
+/// arbitrary loads or for any domain exceptions. 
 final class APIClient {
   
   private(set) var baseURL: URL
@@ -89,6 +96,8 @@ final class APIClient {
   }
 }
 
+
+// MARK: - Authorization/validation
 extension APIClient {
   
   /// Sends a request to base_url/me with the token value to ensure that what the user is saving
@@ -127,7 +136,10 @@ extension APIClient {
         }
       })
   }
-  
+}
+
+// MARK: - Pull user & app data
+extension APIClient {
   
   /// <#Description#>
   ///
@@ -309,11 +321,7 @@ extension APIClient {
             let builds = try self?.decoder.decode(Builds.self, from: data)
             // experimenting with a lazy collection instead of standard map and seeing whether performance
             // improves
-            let buildsArray = Array((builds?.data.lazy.compactMap { ProjectBuildViewModel(with: $0) }) ?? [])
-            guard !buildsArray.isEmpty else {
-              then(false, nil, "Failed to translate build")
-              return
-            }
+            let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0) }
             then(true, buildsArray, "Successfully fetched build")
           } catch let error {
             then(false, nil,
@@ -437,5 +445,69 @@ extension APIClient {
     
     
     // Validate HTTP errors, get HTTP body of response
+  }
+}
+
+
+// MARK: - Abort build
+extension APIClient {
+  
+  func abortBuild(for buildID: Slug, inApp bitriseAppID: Slug,
+                  withParams abortParams: AbortBuildParams, then: @escaping () -> Void) {
+    
+    // ensure user is authorized
+    guard let token = App.sharedInstance.getBitriseAuthToken() else {
+      then()
+      return
+    }
+    
+    setAuthHeaders(withToken: token)
+    
+    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/abort")
+    
+    print("Abort PARAMS: \(url) \(token) \(buildID) \(bitriseAppID)")
+    
+    // Encode build params data
+    var requestBody: Data
+    do {
+      requestBody = try encoder.encode(abortParams)
+    } catch let error {
+      print(error.localizedDescription)
+      then()
+      return
+    }
+    
+    // Create a custom request
+    var abortRequest = URLRequest(url: url)
+    abortRequest.httpMethod = HTTPMethod.post.rawValue
+    abortRequest.setValue(token, forHTTPHeaderField: "Authorization")
+    abortRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    abortRequest.httpBody = requestBody
+    
+    let queue = DispatchQueue.global(qos: .background)
+    
+    BRSessionManager.shared.background.request(abortRequest)
+      .validate()
+      .responseJSON(queue: queue) { response in
+        
+        switch response.result {
+        case .success:
+          print("*** API Client MSG: build aborted successfully")
+          then()
+        case .failure(let error):
+          print("*** API Client MSG: build abort op FAIL: \(error.localizedDescription)")
+          if let data = response.data {
+            do {
+              let response = try self.decoder.decode(AbortErrorResponse.self, from: data)
+              print(response.errorMsg)
+              then()
+            } catch {
+              then()
+            }
+          }
+          then()
+        }
+    }
+    //then()
   }
 }

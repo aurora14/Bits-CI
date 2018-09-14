@@ -117,6 +117,7 @@ internal enum Asset {
     internal static let providerBitbucket = ImageAsset(name: "provider_bitbucket")
     internal static let providerGithub = ImageAsset(name: "provider_github")
     internal static let providerGitlab = ImageAsset(name: "provider_gitlab")
+    internal static let `repeat` = ImageAsset(name: "repeat")
     internal static let user = ImageAsset(name: "user")
     internal static let userLrg = ImageAsset(name: "user_lrg")
     internal static let workflow = ImageAsset(name: "workflow")
@@ -151,6 +152,7 @@ internal enum Asset {
       providerBitbucket,
       providerGithub,
       providerGitlab,
+      `repeat`,
       user,
       userLrg,
       workflow,
