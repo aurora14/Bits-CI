@@ -121,7 +121,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   
   private func getUser() {
     
-    App.sharedInstance.apiClient.getUserProfile { [weak self] isSignedIn, user, message in
+    App.sharedInstance.apiClient.getUserProfile { [weak self] isSignedIn, user, _ in
       
       guard isSignedIn, let u = user else {
         return
@@ -132,7 +132,8 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   }
   
   private func updateAvatar(for user: User) {
-    guard let avatarUrl = user.avatarUrl?.replacingOccurrences(of: "http", with: "https") else {
+    
+    guard let avatarUrl = user.avatarUrl else {
       print("*** User doesn't have an avatar link associated with their account")
       return
     }
