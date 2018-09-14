@@ -181,13 +181,13 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem style="plain" systemItem="save" id="cgi-qG-OVo">
+                            <barButtonItem systemItem="save" id="cgi-qG-OVo">
                                 <color key="tintColor" name="BitriseGreen"/>
                                 <connections>
                                     <action selector="didTapSave:" destination="OEt-ov-1e6" id="RCl-uY-ClO"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem style="plain" systemItem="refresh" id="StS-Gc-dXY">
+                            <barButtonItem systemItem="refresh" id="StS-Gc-dXY">
                                 <color key="tintColor" name="BitriseGreen"/>
                                 <connections>
                                     <action selector="didTapRefresh:" destination="OEt-ov-1e6" id="UUp-bk-Edo"/>
@@ -365,7 +365,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Projects" largeTitleDisplayMode="always" id="3mT-88-ltU">
-                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="KS5-ow-Qs4">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="KS5-ow-Qs4">
                             <view key="customView" contentMode="scaleToFill" id="jLJ-OR-JSy">
                                 <rect key="frame" x="276" y="0.0" width="83" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
