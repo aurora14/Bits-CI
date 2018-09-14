@@ -77,7 +77,7 @@ class BitriseProjectViewModel: CellRepresentable {
           return "N/A"
         }
       case .inProgress: return status.text
-      case .aborted:
+      case .aborted, .abortedWithSuccess:
         if let finishedTime = build.finishedAt {
           return timeSinceBuild(forBuildFinishTime: finishedTime)
         } else {
@@ -145,10 +145,10 @@ class BitriseProjectViewModel: CellRepresentable {
     App
       .sharedInstance
       .apiClient
-      .getBuilds(for: self.app) { [weak self] _, builds, _ in
+      .getBuilds(for: self.app) { [weak self] _, builds, message in
       
       guard let b = builds else {
-        print("*** No builds available")
+        print("*** No builds available, \(message)")
         self?.buildList = [ProjectBuildViewModel]()
         return
       }
