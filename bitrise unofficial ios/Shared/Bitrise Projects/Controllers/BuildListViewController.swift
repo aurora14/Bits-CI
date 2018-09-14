@@ -170,6 +170,7 @@ extension BuildListViewController {
     let build = projectVM.buildList[indexPath.section].build
     
     DispatchQueue.main.async {
+      SVProgressHUD.setDefaultStyle(.dark)
       SVProgressHUD.show(withStatus: "Starting Build")
     }
     
