@@ -62,6 +62,7 @@
 		7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */; };
 		7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */; };
 		7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */; };
+		7AFCBB8C214C8C9000FF0326 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB8B214C8C9000FF0326 /* Organization.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortBuildParams.swift; sourceTree = "<group>"; };
+		7AFCBB8B214C8C9000FF0326 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		C9A38727C6B2204731A14ED2 /* Pods-bitrise unofficial ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -358,6 +360,7 @@
 				7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */,
 				7A69095121420C4C00487F13 /* BuildAction.swift */,
 				7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */,
+				7AFCBB8B214C8C9000FF0326 /* Organization.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */,
 				7A99C6A3212D3D04003DC5D9 /* Strings.swift in Sources */,
 				7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */,
+				7AFCBB8C214C8C9000FF0326 /* Organization.swift in Sources */,
 				7A99C6B2212E55A8003DC5D9 /* AsyncResult.swift in Sources */,
 				7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */,
 				7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */,
