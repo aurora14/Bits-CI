@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIU-OW-vfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIU-OW-vfU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Eu-fb-bYm">
-                                <rect key="frame" x="16" y="301.5" width="343" height="64"/>
+                                <rect key="frame" x="16" y="237.5" width="343" height="64"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your Bitrise token" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="5US-KA-5VL">
                                         <rect key="frame" x="0.0" y="8" width="343" height="48"/>
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="NXy-h1-obK">
-                                <rect key="frame" x="117.5" y="372" width="140.5" height="27"/>
+                                <rect key="frame" x="117.5" y="308" width="140.5" height="27"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No token? Get one " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfS-bq-y87">
                                         <rect key="frame" x="0.0" y="0.0" width="108.5" height="27"/>
@@ -92,7 +92,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ntw-bN-O2b" firstAttribute="centerX" secondItem="Eq6-P1-ZvI" secondAttribute="centerX" id="Chn-nD-749"/>
-                            <constraint firstItem="8Eu-fb-bYm" firstAttribute="centerY" secondItem="Eq6-P1-ZvI" secondAttribute="centerY" id="JLe-7U-8qx"/>
+                            <constraint firstItem="8Eu-fb-bYm" firstAttribute="centerY" secondItem="Eq6-P1-ZvI" secondAttribute="centerY" constant="-64" id="JLe-7U-8qx"/>
                             <constraint firstItem="8Eu-fb-bYm" firstAttribute="leading" secondItem="FYf-ys-MWD" secondAttribute="leading" constant="16" id="Suk-ab-eQy"/>
                             <constraint firstItem="NXy-h1-obK" firstAttribute="top" secondItem="8Eu-fb-bYm" secondAttribute="bottom" constant="6.5" id="TwG-2i-ZBP"/>
                             <constraint firstItem="FYf-ys-MWD" firstAttribute="trailing" secondItem="WqE-av-wIa" secondAttribute="trailing" constant="16" id="WlP-f9-FCN"/>
@@ -694,6 +694,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d6h-CL-gzm"/>
+        <segue reference="llp-X9-mvH"/>
     </inferredMetricsTieBreakers>
 </document>
