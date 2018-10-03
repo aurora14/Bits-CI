@@ -228,7 +228,7 @@
         <!--Navigation Controller-->
         <scene sceneID="mG4-cm-EuU">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E2N-C0-IEy" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E2N-C0-IEy" customClass="BRNavigationController" customModule="bitrise_unofficial_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" image="projects" selectedImage="projects" id="Lue-h2-0CR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="PHh-Yb-OFX">
