@@ -36,8 +36,10 @@
 		7A5DFB8E20D26AE400A3330B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A5DFB7C20D26AE400A3330B /* Main.storyboard */; };
 		7A5E758F20DD275B008D32A5 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E758E20DD275B008D32A5 /* Router.swift */; };
 		7A5E759120DD36B4008D32A5 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759020DD36B4008D32A5 /* Build.swift */; };
-		7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */; };
 		7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5E759420DD4285008D32A5 /* String+Digits.swift */; };
+		7A628C30215B4A8D00759E48 /* BuildLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A628C2F215B4A8D00759E48 /* BuildLog.swift */; };
+		7A628C32215B597000759E48 /* BuildLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A628C31215B597000759E48 /* BuildLogViewController.swift */; };
+		7A628C34215BC0C600759E48 /* BRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A628C33215BC0C600759E48 /* BRNavigationController.swift */; };
 		7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */; };
 		7A69095221420C4C00487F13 /* BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69095121420C4C00487F13 /* BuildAction.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
@@ -61,6 +63,9 @@
 		7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFA2109537C00D6DD0D /* ProfileViewController.swift */; };
 		7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */; };
 		7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */; };
+		7AEF23EF215A4BF700BB8DE2 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF23EE215A4BF700BB8DE2 /* BuildDetailViewController.swift */; };
+		7AEF23F1215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */; };
+		7AF10AE22164CA9E00547FFE /* APIClient+AbortBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10AE12164CA9E00547FFE /* APIClient+AbortBuild.swift */; };
 		7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */; };
 		7AFCBB8C214C8C9000FF0326 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB8B214C8C9000FF0326 /* Organization.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
@@ -101,8 +106,10 @@
 		7A5DFB8F20D26B0B00A3330B /* bitrise unofficial ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "bitrise unofficial ios.entitlements"; sourceTree = "<group>"; };
 		7A5E758E20DD275B008D32A5 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		7A5E759020DD36B4008D32A5 /* Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
-		7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterUtil.swift; sourceTree = "<group>"; };
 		7A5E759420DD4285008D32A5 /* String+Digits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Digits.swift"; sourceTree = "<group>"; };
+		7A628C2F215B4A8D00759E48 /* BuildLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLog.swift; sourceTree = "<group>"; };
+		7A628C31215B597000759E48 /* BuildLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLogViewController.swift; sourceTree = "<group>"; };
+		7A628C33215BC0C600759E48 /* BRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNavigationController.swift; sourceTree = "<group>"; };
 		7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNameExt+Names.swift"; sourceTree = "<group>"; };
 		7A69095121420C4C00487F13 /* BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAction.swift; sourceTree = "<group>"; };
 		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +139,9 @@
 		7AEEECFA2109537C00D6DD0D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7AEEECFC21097DD100D6DD0D /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		7AEF23EE215A4BF700BB8DE2 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
+		7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+InteractiveGestures.swift"; sourceTree = "<group>"; };
+		7AF10AE12164CA9E00547FFE /* APIClient+AbortBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+AbortBuild.swift"; sourceTree = "<group>"; };
 		7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortBuildParams.swift; sourceTree = "<group>"; };
 		7AFCBB8B214C8C9000FF0326 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		C9A38727C6B2204731A14ED2 /* Pods-bitrise unofficial ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -177,6 +187,8 @@
 				7A8E182C20FF67F30013C253 /* BuildListViewController.swift */,
 				7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */,
 				7A99C6AD212E5515003DC5D9 /* NewBuildViewController.swift */,
+				7AEF23EE215A4BF700BB8DE2 /* BuildDetailViewController.swift */,
+				7A628C31215B597000759E48 /* BuildLogViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -188,6 +200,7 @@
 				7A200B1420D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift */,
 				7A5E759420DD4285008D32A5 /* String+Digits.swift */,
 				7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */,
+				7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -313,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				7A200B1320D5147E003C6D97 /* Extensions */,
-				7A5E759220DD40BB008D32A5 /* DateFormatterUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -330,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB7220D26AE300A3330B /* APIClient.swift */,
+				7AF10AE12164CA9E00547FFE /* APIClient+AbortBuild.swift */,
 				7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */,
 				7A5E758E20DD275B008D32A5 /* Router.swift */,
 			);
@@ -361,6 +374,7 @@
 				7A69095121420C4C00487F13 /* BuildAction.swift */,
 				7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */,
 				7AFCBB8B214C8C9000FF0326 /* Organization.swift */,
+				7A628C2F215B4A8D00759E48 /* BuildLog.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -387,6 +401,7 @@
 			children = (
 				7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */,
 				7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */,
+				7A628C33215BC0C600759E48 /* BRNavigationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -484,6 +499,9 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.Siri = {
 								enabled = 1;
 							};
 						};
@@ -654,10 +672,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */,
+				7AF10AE22164CA9E00547FFE /* APIClient+AbortBuild.swift in Sources */,
 				7A200B1B20D54049003C6D97 /* BitriseProjectOwner.swift in Sources */,
 				7A200B1720D53604003C6D97 /* User.swift in Sources */,
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
-				7A5E759320DD40BB008D32A5 /* DateFormatterUtil.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
 				7A99C6AE212E5515003DC5D9 /* NewBuildViewController.swift in Sources */,
 				7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */,
@@ -682,6 +700,7 @@
 				7A200B2220D681EC003C6D97 /* Resources.swift in Sources */,
 				7A1BD1CE20E11646005D805B /* SearchFooter.swift in Sources */,
 				7A69095221420C4C00487F13 /* BuildAction.swift in Sources */,
+				7AEF23EF215A4BF700BB8DE2 /* BuildDetailViewController.swift in Sources */,
 				7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */,
 				7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */,
 				7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */,
@@ -694,11 +713,15 @@
 				7A99C6B0212E5552003DC5D9 /* UIButton+ViewConfigurable.swift in Sources */,
 				7A5DFB8420D26AE400A3330B /* ProjectCell.swift in Sources */,
 				7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */,
+				7A628C32215B597000759E48 /* BuildLogViewController.swift in Sources */,
 				7A5DFB8320D26AE400A3330B /* ViewConfigurable.swift in Sources */,
 				7A5DFB8820D26AE400A3330B /* BitriseProjectVM.swift in Sources */,
+				7A628C30215B4A8D00759E48 /* BuildLog.swift in Sources */,
 				7A5DFB7E20D26AE400A3330B /* App.swift in Sources */,
 				7A99C6B4212E55C4003DC5D9 /* StartNewBuild.swift in Sources */,
 				7A5DFB8220D26AE400A3330B /* CellRepresentable.swift in Sources */,
+				7AEF23F1215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift in Sources */,
+				7A628C34215BC0C600759E48 /* BRNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +883,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "bitrise unofficial ios/bitrise unofficial ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2T22SH3926;
 				INFOPLIST_FILE = "$(SRCROOT)/bitrise unofficial ios/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
