@@ -102,7 +102,12 @@ class BitriseProjectViewModel: CellRepresentable {
   
   init(with app: BitriseApp) {
     self.app = app
-    // get last build info here?
+    
+    guard !app.slug.isEmpty else {
+      // if there's no app ID, don't get the last builds (e.g. if loading dummy items)
+      return
+    }
+    
     updateLastBuild()
     DispatchQueue.global(qos: .background).async { [weak self] in
       self?.updateAllBuilds()
