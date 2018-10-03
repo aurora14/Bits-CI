@@ -38,7 +38,7 @@ class ProjectDetailViewController: ButtonBarPagerTabStripViewController {
       title = "Detail"
     }
     // Do any additional setup after loading the view.
-    configureDefaultInteractiveGestures()
+    setupSwipeToGoBack(withPopGestureRecognizerEnabled: true, consumesGesture: false)
     
     containerView?.isScrollEnabled = false
   }
@@ -53,12 +53,6 @@ class ProjectDetailViewController: ButtonBarPagerTabStripViewController {
     super.viewWillDisappear(animated)
     navigationController?.navigationBar.isTranslucent = true
     tabBarController?.tabBar.isTranslucent = true
-  }
-  
-  private func configureDefaultInteractiveGestures() {
-    navigationController?.interactivePopGestureRecognizer?.delegate = self
-    navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-    navigationController?.interactivePopGestureRecognizer?.cancelsTouchesInView = false // see if this helps with swipe-on-row actions
   }
   
   /// Configures pager tab settings. This method should be called in viewDidLoad() and

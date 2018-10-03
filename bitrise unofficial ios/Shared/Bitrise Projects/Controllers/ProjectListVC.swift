@@ -210,7 +210,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     case StoryboardSegue.Main.projectDetailSegue.rawValue:
       
       let controller = segue.destination as? ProjectDetailViewController
-      print("Sender: \(sender.debugDescription)")
+      
       if let s = sender as? BitriseProjectViewModel {
         controller?.projectVM = s
       }
