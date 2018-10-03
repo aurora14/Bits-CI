@@ -67,6 +67,7 @@ internal enum StoryboardScene {
 
 internal enum StoryboardSegue {
   internal enum Main: String, SegueType {
+    case buildDetailSegue = "BuildDetailSegue"
     case getNewTokenSegue = "GetNewTokenSegue"
     case profileTabTokenSegue = "ProfileTabTokenSegue"
     case projectDetailSegue = "ProjectDetailSegue"

@@ -423,11 +423,27 @@
                     <connections>
                         <outlet property="detailBarButton" destination="q0D-GZ-bNH" id="9gc-Oj-W8g"/>
                         <segue destination="6Tw-QT-LSv" kind="presentation" identifier="StartNewBuildSegue" modalPresentationStyle="overCurrentContext" id="F9f-T1-WZq"/>
+                        <segue destination="hWT-Go-cob" kind="show" identifier="BuildDetailSegue" id="U9i-oS-pmN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nrb-jY-eUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1649" y="-168"/>
+        </scene>
+        <!--Build Detail View Controller-->
+        <scene sceneID="65U-ZQ-aed">
+            <objects>
+                <viewController id="hWT-Go-cob" customClass="BuildDetailViewController" customModule="bitrise_unofficial_ios" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S9w-om-bWr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="cyP-3w-R2M"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Un-sk-JQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2452" y="-169"/>
         </scene>
         <!--Authorization Container-->
         <scene sceneID="paR-uX-c76">
@@ -677,15 +693,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="application_ios_grey" width="45" height="45"/>
-        <image name="branch" width="36" height="36"/>
-        <image name="build_succeeded" width="37" height="37"/>
+        <image name="application_ios_grey" width="90" height="90"/>
+        <image name="branch" width="72" height="72"/>
+        <image name="build_succeeded" width="75" height="75"/>
         <image name="chevron" width="36" height="12"/>
-        <image name="close" width="25" height="25"/>
-        <image name="message" width="16" height="16"/>
-        <image name="projects" width="25" height="25"/>
-        <image name="user" width="25" height="25"/>
-        <image name="workflow" width="32" height="32"/>
+        <image name="close" width="50" height="50"/>
+        <image name="message" width="32" height="32"/>
+        <image name="projects" width="50" height="50"/>
+        <image name="user" width="50" height="50"/>
+        <image name="workflow" width="64" height="64"/>
         <namedColor name="BitriseGreen">
             <color red="0.2627450980392157" green="0.76078431372549016" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
