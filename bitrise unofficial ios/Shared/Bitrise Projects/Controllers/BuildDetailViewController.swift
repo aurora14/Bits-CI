@@ -30,6 +30,9 @@ class BuildDetailViewController: ButtonBarPagerTabStripViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     navigationItem.largeTitleDisplayMode = .never
+    //nav and tab bar should be opaque to correctly display the tabs and their content
+    navigationController?.navigationBar.isTranslucent = false
+    tabBarController?.tabBar.isTranslucent = false
     super.viewWillAppear(animated)
   }
   
