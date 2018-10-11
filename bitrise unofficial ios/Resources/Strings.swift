@@ -67,6 +67,8 @@ internal enum L10n {
   internal static let showingAllApps = L10n.tr("Localizable", "showingAllApps")
   /// Start Build
   internal static let startBuild = L10n.tr("Localizable", "startBuild")
+  /// Unauthorized user
+  internal static let unauthorizedUser = L10n.tr("Localizable", "unauthorizedUser")
   /// Value of 'enteredToken' isn't equal to text field value:
   internal static let unequalTokenInAuthTF = L10n.tr("Localizable", "unequalTokenInAuthTF")
   /// weeks
