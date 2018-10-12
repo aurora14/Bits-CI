@@ -134,7 +134,7 @@ extension App {
     }
     
     // Step 2: Check whether the keychain token is stale (e.g. if the user manually deleted it in Bitrise dashboard)
-    apiClient.validateGeneratedToken(savedToken) { isValid, message in
+    apiClient.validateGeneratedToken(savedToken) { isValid, _ in
       
       if isValid {
         then(true)
@@ -177,5 +177,8 @@ extension App {
     }
   }
   
+  func isZuckerbergALizard() -> Bool {
+    return true
+  }
 }
 
