@@ -43,6 +43,7 @@
 		7A628C34215BC0C600759E48 /* BRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A628C33215BC0C600759E48 /* BRNavigationController.swift */; };
 		7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */; };
 		7A69095221420C4C00487F13 /* BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69095121420C4C00487F13 /* BuildAction.swift */; };
+		7A797D992170497700E57587 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A797D982170497700E57587 /* Segues.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
 		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
 		7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */; };
@@ -113,6 +114,7 @@
 		7A628C33215BC0C600759E48 /* BRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNavigationController.swift; sourceTree = "<group>"; };
 		7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNameExt+Names.swift"; sourceTree = "<group>"; };
 		7A69095121420C4C00487F13 /* BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAction.swift; sourceTree = "<group>"; };
+		7A797D982170497700E57587 /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
 		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
 		7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 		7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageTableViewController.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 		7A5DFB7920D26AE400A3330B /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				7A797D982170497700E57587 /* Segues.swift */,
 				7A200B1F20D681B4003C6D97 /* Storyboards.swift */,
 				7A5DFB7A20D26AE400A3330B /* LaunchScreen.storyboard */,
 				7A5DFB7C20D26AE400A3330B /* Main.storyboard */,
@@ -464,9 +467,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A5DFB5820D26A9C00A3330B /* Build configuration list for PBXNativeTarget "bitrise unofficial ios" */;
 			buildPhases = (
+				539C3BCB975D072B9320C096 /* [CP] Check Pods Manifest.lock */,
 				7A95AE1C20F80D9B008E6E28 /* Lint */,
 				7A95AE1D20F80D9D008E6E28 /* CodeGen */,
-				539C3BCB975D072B9320C096 /* [CP] Check Pods Manifest.lock */,
 				7A5DFB4220D26A8D00A3330B /* Sources */,
 				7A5DFB4320D26A8D00A3330B /* Frameworks */,
 				7A5DFB4420D26A8D00A3330B /* Resources */,
@@ -554,20 +557,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityIndicator/AlamofireNetworkActivityIndicator.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/ViewAnimator/ViewAnimator.framework",
 				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -575,21 +580,23 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityIndicator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewAnimator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		539C3BCB975D072B9320C096 /* [CP] Check Pods Manifest.lock */ = {
@@ -674,6 +681,7 @@
 				7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */,
 				7A200B1B20D54049003C6D97 /* BitriseProjectOwner.swift in Sources */,
 				7A200B1720D53604003C6D97 /* User.swift in Sources */,
+				7A797D992170497700E57587 /* Segues.swift in Sources */,
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
 				7A99C6AE212E5515003DC5D9 /* NewBuildViewController.swift in Sources */,

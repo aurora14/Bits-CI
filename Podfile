@@ -46,7 +46,7 @@ target 'bitrise unofficial ios' do
       target.build_configurations.each do |config|
         config.build_settings['SWIFT_VERSION'] = '4.0'
       end # end Swiftversion
-    end # end loop through targets 
+    end # end loop through targets
   end # end post-install
-  
+
 end
