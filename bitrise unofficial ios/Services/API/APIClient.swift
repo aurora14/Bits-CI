@@ -60,6 +60,41 @@ final class APIClient {
     encoder.keyEncodingStrategy = .convertToSnakeCase
   }
   
+  /// Checks for presence of Bitrise token and sets the authorization headers if one is found.
+  ///
+  /// This is purely a helper method to remove some of the common boilerplate from endpoint callers
+  ///
+  /// - Returns: true or false based on whether a token was found and headers set. When false, the
+  ///   "Authorization" header key can be assumed to contain a nil or invalid value.
+  internal func headersSetWithAuthorization() -> Bool {
+    guard let token = App.sharedInstance.getBitriseAuthToken() else {
+      return false
+    }
+    
+    setAuthHeaders(withToken: token)
+    return true
+  }
+  
+  
+  /// Helper method that sets the Authorization header to a valid token value. Mainly acts as a wrapper
+  /// to provide clarity and auto-completion
+  ///
+  /// - Parameter value: an authorization token string. An authorization token is the Personal Access Token
+  ///   obtained from the Bitrise site.
+  private func setAuthHeaders(withToken value: String) {
+    headers["Authorization"] = value
+  }
+
+  
+  /// Resets the Authorization header to an empty string, wiping any stored value. Normally you wouldn't
+  /// need to use this functionality, but it's provided as a convenience in case you want to call an
+  /// endpoint with a clean slate.
+  ///
+  /// Note that this doesn't change anything in the Keychain, it purely clears the HTTP headers
+  internal func invalidateAuthHeaders() {
+    headers["Authorization"] = ""
+  }
+  
   /// Generates a URL with the provided endpoint path. Paths must not start with a forward slash.
   ///
   /// Examples:
