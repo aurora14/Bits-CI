@@ -16,6 +16,7 @@
 		7A200B2220D681EC003C6D97 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2120D681EC003C6D97 /* Resources.swift */; };
 		7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */; };
 		7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */; };
+		7A22923D216DB4A700372FDF /* APIClient+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22923C216DB4A700372FDF /* APIClient+Build.swift */; };
 		7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */; };
 		7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */; };
 		7A5DFB7E20D26AE400A3330B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB5D20D26AE300A3330B /* App.swift */; };
@@ -65,7 +66,6 @@
 		7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */; };
 		7AEF23EF215A4BF700BB8DE2 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF23EE215A4BF700BB8DE2 /* BuildDetailViewController.swift */; };
 		7AEF23F1215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */; };
-		7AF10AE22164CA9E00547FFE /* APIClient+AbortBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10AE12164CA9E00547FFE /* APIClient+AbortBuild.swift */; };
 		7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */; };
 		7AFCBB8C214C8C9000FF0326 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB8B214C8C9000FF0326 /* Organization.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
@@ -83,6 +83,7 @@
 		7A200B2120D681EC003C6D97 /* Resources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseBrowserViewController.swift; sourceTree = "<group>"; };
 		7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRSessionManager.swift; sourceTree = "<group>"; };
+		7A22923C216DB4A700372FDF /* APIClient+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Build.swift"; sourceTree = "<group>"; };
 		7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseAuthDelegate.swift; sourceTree = "<group>"; };
 		7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseYMLViewController.swift; sourceTree = "<group>"; };
 		7A5DFB4620D26A8D00A3330B /* bitrise unofficial ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bitrise unofficial ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,7 +142,6 @@
 		7AEEECFE2109843D00D6DD0D /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		7AEF23EE215A4BF700BB8DE2 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+InteractiveGestures.swift"; sourceTree = "<group>"; };
-		7AF10AE12164CA9E00547FFE /* APIClient+AbortBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+AbortBuild.swift"; sourceTree = "<group>"; };
 		7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortBuildParams.swift; sourceTree = "<group>"; };
 		7AFCBB8B214C8C9000FF0326 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		C9A38727C6B2204731A14ED2 /* Pods-bitrise unofficial ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.release.xcconfig"; sourceTree = "<group>"; };
@@ -325,6 +325,7 @@
 		7A5DFB6F20D26AE300A3330B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */,
 				7A200B1320D5147E003C6D97 /* Extensions */,
 			);
 			path = Utils;
@@ -342,7 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB7220D26AE300A3330B /* APIClient.swift */,
-				7AF10AE12164CA9E00547FFE /* APIClient+AbortBuild.swift */,
+				7A22923C216DB4A700372FDF /* APIClient+Build.swift */,
 				7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */,
 				7A5E758E20DD275B008D32A5 /* Router.swift */,
 			);
@@ -372,7 +373,6 @@
 				7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */,
 				7AFCBB89214B8A6000FF0326 /* AbortBuildParams.swift */,
 				7A69095121420C4C00487F13 /* BuildAction.swift */,
-				7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */,
 				7AFCBB8B214C8C9000FF0326 /* Organization.swift */,
 				7A628C2F215B4A8D00759E48 /* BuildLog.swift */,
 			);
@@ -672,7 +672,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A200B2420D7389A003C6D97 /* BitriseBrowserViewController.swift in Sources */,
-				7AF10AE22164CA9E00547FFE /* APIClient+AbortBuild.swift in Sources */,
 				7A200B1B20D54049003C6D97 /* BitriseProjectOwner.swift in Sources */,
 				7A200B1720D53604003C6D97 /* User.swift in Sources */,
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
@@ -711,6 +710,7 @@
 				7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */,
 				7AEEECAF2106C71B00D6DD0D /* ProjectBuildVM.swift in Sources */,
 				7A99C6B0212E5552003DC5D9 /* UIButton+ViewConfigurable.swift in Sources */,
+				7A22923D216DB4A700372FDF /* APIClient+Build.swift in Sources */,
 				7A5DFB8420D26AE400A3330B /* ProjectCell.swift in Sources */,
 				7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */,
 				7A628C32215B597000759E48 /* BuildLogViewController.swift in Sources */,
