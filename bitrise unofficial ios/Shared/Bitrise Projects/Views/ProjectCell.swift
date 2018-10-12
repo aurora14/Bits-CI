@@ -90,7 +90,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     }
     
     switch projectType.lowercased() {
-    case "ios":
+    case "ios", "macos": // TODO: - find more appropriate Mac OS icon to diff between mobile & desktop
       projectIconImageView.image = Asset.Icons.applicationIosGrey.image
     case "android":
       projectIconImageView.image = Asset.Icons.applicationAndroidGrey.image
@@ -98,8 +98,6 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
       projectIconImageView.image = Asset.Icons.applicationXamarinGrey.image
     case "react-native":
       projectIconImageView.image = Asset.Icons.applicationReactGrey.image
-    case "macos":
-      fallthrough
     default:
       projectIconImageView.image = Asset.Icons.applicationDefault.image
     }
