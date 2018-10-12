@@ -125,10 +125,6 @@ final class APIClient {
       return baseURL.appendingPathComponent("v0.1/\(path)")
     }
   }
-  
-  func setAuthHeaders(withToken value: String) {
-    headers["Authorization"] = value
-  }
 }
 
 
@@ -156,8 +152,6 @@ extension APIClient {
     let url = apiEndpointURL(Endpoint.me.rawValue)
     let queue = DispatchQueue.global(qos: .background)
     
-    //httpSessionManager.
-    
     BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
                                                encoding: JSONEncoding.default, headers: headers)
       .validate(statusCode: 200 ..< 300)
@@ -181,12 +175,10 @@ extension APIClient {
   /// - Parameter completion: <#completion description#>
   func getUserProfile(then: @escaping (_ isSignedIn: Bool, _ user: User?, _ message: String) -> Void) {
     
-    guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      then(false, nil, "No token saved in keychain")
+    guard headersSetWithAuthorization() else {
+      then(false, nil, L10n.noTokenInKeychain)
       return
     }
-    
-    setAuthHeaders(withToken: token)
     
     let url = apiEndpointURL(Endpoint.me.rawValue)
     let queue = DispatchQueue.global(qos: .background)
@@ -229,12 +221,10 @@ extension APIClient {
   func getUserApps(then: @escaping (_ success: Bool,
     _ apps: [BitriseProjectViewModel]?, _ message: String) -> Void) {
     
-    guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      then(false, nil, "No token saved in keychain")
+    guard headersSetWithAuthorization() else {
+      then(false, nil, L10n.noTokenInKeychain)
       return
     }
-    
-    setAuthHeaders(withToken: token)
     
     let sortByLastBuildQuery = URLQueryItem(name: "sort_by", value: "last_build_at")
     let queryItems = [sortByLastBuildQuery]
@@ -303,80 +293,15 @@ extension APIClient {
         }
     }
   }
+
   
-  
-  /// Fetches builds for a given app on Bitrise.
-  ///
-  /// - Parameters:
-  ///   - app: the app as represented by the BitriseApp object. The most important property of this object is the 'slug' - slug is
-  ///     the project ID on Bitrise and must be passed to get builds, YML etc belonging to that application.a
-  ///   - limit: how many builds to fetch. Pass '1' to this parameter to fetch the last build. Pass '0' to this parameter to fetch
-  ///     all builds for an application. Otherwise, set whatever value is necessary for the use case. The default value is '0'.
-  ///   - completion: a closure containing the result of the call, an array of builds on success (or nil on failure), and a message
-  func getBuilds(for app: BitriseApp, withLimit limit: Int = 0,
-                 then: @escaping (_ success: Bool, _ builds: [ProjectBuildViewModel]?, _ message: String) -> Void) {
+  func getYMLFor(bitriseApp app: BitriseApp,
+                 then: @escaping (_ success: Bool, _ yamlString: String?, _ message: String) -> Void) {
     
-    // v0.1/apps/{APP-SLUG}/builds
-    
-    guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      then(false, nil, "No token saved in keychain")
+    guard headersSetWithAuthorization() else {
+      then(false, nil, L10n.noTokenInKeychain)
       return
     }
-    
-    setAuthHeaders(withToken: token)
-    
-    var url: URL
-    
-    if limit == 0 {
-      url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
-    } else {
-      let limitItem = URLQueryItem(name: "limit", value: "\(limit)")
-      
-      let queryItems: [URLQueryItem] = [limitItem]
-      
-      url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds", withQueryItems: queryItems)
-    }
-    
-    let queue = DispatchQueue.global(qos: .background)
-    
-    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
-                                               encoding: JSONEncoding.default, headers: headers)
-      .validate()
-      .responseJSON(queue: queue, completionHandler: { [weak self] response in
-        
-        switch response.result {
-        case .success:
-          
-          guard let data = response.data else {
-            then(false, nil, "Response contained no data")
-            return
-          }
-          
-          do { // essentially, only one success condition
-            let builds = try self?.decoder.decode(Builds.self, from: data)
-            // experimenting with a lazy collection instead of standard map and seeing whether performance
-            // improves
-            let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0) }
-            then(true, buildsArray, "Successfully fetched build")
-          } catch let error {
-            then(false, nil,
-                       "Build retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
-          }
-          
-        case .failure(let error):
-          then(false, nil, "Build retrieval failed with \(error.localizedDescription)")
-        }
-      })
-  }
-  
-  func getYMLFor(bitriseApp app: BitriseApp, then: @escaping (_ success: Bool, _ yamlString: String?, _ message: String) -> Void) {
-    
-    guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      then(false, nil, "No token saved in keychain")
-      return
-    }
-    
-    setAuthHeaders(withToken: token)
     
     let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/bitrise.yml")
     
@@ -410,75 +335,5 @@ extension APIClient {
           return
         }
     }
-  }
-}
-
-// MARK: - New build
-extension APIClient {
-  
-  func startNewBuild(for app: BitriseApp,
-                     withBuildParams buildParams: BuildData,
-                     then: @escaping (_ result: AsyncResult, _ message: String) -> Void) {
-    
-    // ensure user is authorized
-    guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      then(.error, L10n.noTokenInKeychain)
-      return
-    }
-    
-    setAuthHeaders(withToken: token)
-    
-    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
-    
-    // Encode build params data
-    var buildRequestBody: Data
-    do {
-      buildRequestBody = try encoder.encode(buildParams)
-    } catch let error {
-      print(error.localizedDescription)
-      then(.error, error.localizedDescription)
-      return
-    }
-    
-    // Create a custom request
-    var buildRequest = URLRequest(url: url)
-    buildRequest.httpMethod = HTTPMethod.post.rawValue
-    buildRequest.setValue(token, forHTTPHeaderField: "Authorization")
-    buildRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-    buildRequest.httpBody = buildRequestBody
-    
-    BRSessionManager.shared.background.request(buildRequest)
-      .validate()
-      .responseJSON { response in
-        
-        switch response.result {
-        case .success:
-          guard let data = response.data, let statusCode = response.response?.statusCode else {
-            then(.success, "Build started successfully")
-            return
-          }
-          do {
-            let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
-            then(.success, "\(statusCode): \(response.message)")
-          } catch {
-            then(.success, "Build started successfully")
-          }
-          then(.success, "Build started successfully")
-        case .failure(let error):
-          guard let data = response.data, let statusCode = response.response?.statusCode else {
-            then(.error, error.localizedDescription)
-            return
-          }
-          do {
-            let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
-            then(.error, "\(statusCode): \(response.message)")
-          } catch {
-            then(.error, error.localizedDescription)
-          }
-        }
-    }
-    
-    
-    // Validate HTTP errors, get HTTP body of response
   }
 }
