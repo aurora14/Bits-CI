@@ -10,7 +10,13 @@ import UIKit
 import XLPagerTabStrip
 import SVProgressHUD
 
+protocol BuildRowTapDelegate: class {
+  func didSelectBuild(at indexPath: IndexPath)
+}
+
 class BuildListViewController: TabPageTableViewController {
+  
+  weak var buildRowTapDelegate: BuildRowTapDelegate?
 
   var projectVM: BitriseProjectViewModel
   
@@ -81,6 +87,12 @@ extension BuildListViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    buildRowTapDelegate?.didSelectBuild(at: indexPath)
+    // access through parent, because Build List is contained in a pager controller and isn't
+    // created in the storyboard. Of course we could change that or just use push() to invoke
+    // the controller, but all the other navigation is done through segues, so this seemed to
+    // be more consistent.
+    //parent?.perform(segue: StoryboardSegue.Main.buildDetailSegue)
   }
   
   override func tableView(_ tableView: UITableView,
@@ -99,18 +111,23 @@ extension BuildListViewController {
     
   }
   
-  override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+  override func tableView(_ tableView: UITableView,
+                          trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     return createSwipeConfiguration(forRequestAction: .rebuild, forRowAt: indexPath)
   }
   
   @available(iOS 11.0, *)
-  /// <#Description#>
+  /// Creates a swipe configuration for a cell. Used in conjunction with the leading and trailing
+  /// swipe configuration methods. Currently returns a configuration object with a single action.
+  /// In the future, there is consideration to make `action` into an array, so that multiple
+  /// actions can be returned. 
   ///
   /// - Parameters:
-  ///   - action: <#action description#>
-  ///   - indexPath: <#indexPath description#>
-  /// - Returns: <#return value description#>
-  private func createSwipeConfiguration(forRequestAction action: BuildAction, forRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+  ///   - action: Build Action to create a configuration for.
+  ///   - indexPath: path of the cell/item that the action is created for
+  /// - Returns: A swipe configuration that can be used as a return in tableView(_:leadingSwipeActionsConfigurationForRowAt:) and its trailing configuration counterpart.
+  private func createSwipeConfiguration(forRequestAction action: BuildAction,
+                                        forRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     
     guard !projectVM.buildList.isEmpty else {
       return nil
@@ -118,8 +135,6 @@ extension BuildListViewController {
     
     switch action {
     case .abort:
-      // TODO: - refine this behaviour. Currently the side menu behaviour overrides the swipe to the right, so swipe to the left needs to
-      // function in a similar manner to the way it does on iOS 10
       let build = projectVM.buildList[indexPath.section].build
       let abort = UIContextualAction(style: .destructive, title: action.title,
                                       handler: { _, _, success in
@@ -141,6 +156,7 @@ extension BuildListViewController {
   }
 }
 
+// MARK: - Build action helpers
 extension BuildListViewController {
   
   @objc fileprivate func refreshBuilds() {

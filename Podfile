@@ -26,7 +26,7 @@ target 'bitrise unofficial ios' do
   pod 'lottie-ios'
   
   # -- analytics & crash reporting --
-  pod 'Fabric' #Broken on Xcode 10 Beta 5, fixed in subsequent builds
+  pod 'Fabric'
   pod 'Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
@@ -41,12 +41,12 @@ target 'bitrise unofficial ios' do
   pod 'SwiftGen'
   
   # TEMP - Remove once pods are updated to Swift 4.2
-  post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '4.0'
-      end # end Swiftversion
-    end # end loop through targets 
-  end # end post-install
-  
+#  post_install do |installer|
+#    installer.pods_project.targets.each do |target|
+#      target.build_configurations.each do |config|
+#        config.build_settings['SWIFT_VERSION'] = '4.0'
+#      end # end Swiftversion
+#    end # end loop through targets
+#  end # end post-install
+
 end

@@ -171,7 +171,8 @@ extension TokenAuthViewController: TokenGenerationDelegate {
     }
     App.sharedInstance.saveBitriseAuthToken(value) {
       NotificationCenter.default.post(name: .didAuthorizeUserNotification, object: self)
-      self.authorizationDelegate?.didAuthorizeSuccessfully(withToken: value)
+      #warning("Removed authorizationDelegate call; ensure project & user fetch still works")
+      //self.authorizationDelegate?.didAuthorizeSuccessfully(withToken: value)
       then?()
     }
   }

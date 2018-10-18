@@ -1,28 +1,27 @@
 output_paths: Sources/Generated
 # Storyboards and User Interface
-storyboards:
-  - paths: bitrise unofficial ios/Storyboards/Base.lproj
-    templateName: swift4
-    output: bitrise unofficial ios/Storyboards/Storyboards.swift
-    params:
+ib:
+  - inputs: bitrise unofficial ios/Storyboards
+    outputs:
+      - templateName: scenes-swift4
+        output: bitrise unofficial ios/Storyboards/Storyboards.swift
+      - templateName: segues-swift4
+        output: bitrise unofficial ios/Storyboards/Segues.swift
+    outputs.params:
       ignoreTargetModule: true
       module: bitrise unofficial ios
 # Assets - e. g. Images & Colors
 xcassets:
-  - paths:
+  - inputs:
     - bitrise unofficial ios/Resources/Assets.xcassets
     - bitrise unofficial ios/Resources/Colors.xcassets
     - bitrise unofficial ios/Resources/Icons.xcassets
-    templateName: swift4
-    output: bitrise unofficial ios/Resources/Resources.swift
+    outputs:
+      - templateName: swift4
+        output: bitrise unofficial ios/Resources/Resources.swift
 # Localization
 strings:
-  - paths:
-    - bitrise unofficial ios/Resources/en.lproj/Localizable.strings
-    templateName: structured-swift4
-    output: bitrise unofficial ios/Resources/Strings.swift
-# strings:
-#   - paths:
-#     - bitrise unofficial ios/Localization/en.lproj/Localizable.strings
-#     templateName: structured-swift4
-#     output: bitrise unofficial ios/Localization/Strings.swift
+  - inputs: bitrise unofficial ios/Resources/en.lproj/Localizable.strings
+    outputs:
+      templateName: structured-swift4
+      output: bitrise unofficial ios/Resources/Strings.swift

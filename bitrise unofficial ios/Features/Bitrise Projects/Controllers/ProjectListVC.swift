@@ -89,7 +89,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   // MARK: - Data fetch
   @objc private func getProjects() {
     print("*** GETTING PROJECTS")
-    App.sharedInstance.apiClient.getUserApps { [weak self] success, projects, message in
+    App.sharedInstance.apiClient.getUserApps { [weak self] _, projects, _ in
       
       guard let strongSelf = self else {
         assertionFailure("Couldn't create a strong-self scoped object")
@@ -177,7 +177,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
       return
     }
     
-    if let _ = App.sharedInstance.getBitriseAuthToken() {
+    if App.sharedInstance.getBitriseAuthToken() != nil {
       for (index, controller) in controllers.enumerated() where controller is UINavigationController {
         if let _ = controller.children.first as? ProfileViewController {
           print("*** Updating to controller at \(index)")
@@ -210,7 +210,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     case StoryboardSegue.Main.projectDetailSegue.rawValue:
       
       let controller = segue.destination as? ProjectDetailViewController
-      print("Sender: \(sender.debugDescription)")
+      
       if let s = sender as? BitriseProjectViewModel {
         controller?.projectVM = s
       }
@@ -334,7 +334,8 @@ extension ProjectListViewController {
     if #available(iOS 11.0, *) {
       navigationController?.navigationBar.prefersLargeTitles = true
       navigationController?.navigationBar.isTranslucent = true
-      navigationItem.largeTitleDisplayMode = .always //locking this permanently for now, will figure out the workaround for broken .automatic behaviour later
+      // always show large title irrespective of navbar state of other controllers on the stack
+      navigationItem.largeTitleDisplayMode = .always
       title = L10n.projects
       
       searchController.searchBar.placeholder = "Filter by project title"

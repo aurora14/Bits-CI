@@ -10,15 +10,22 @@ import UIKit
 import XLPagerTabStrip
 
 
-class ProjectDetailViewController: ButtonBarPagerTabStripViewController,
-UIGestureRecognizerDelegate {
+class ProjectDetailViewController: ButtonBarPagerTabStripViewController {
   
   @IBOutlet weak var detailBarButton: UIBarButtonItem!
   
+  /// A viewmodel passed from the project list VC during navigation. Contains
+  /// all the information about a single project
   var projectVM: BitriseProjectViewModel?
+  
+  /// A viewmodel that corresponds a selected row in Build List VC. Populated
+  /// when the BuildListVS's delegate method is called by using index path's section
+  /// property to select a build from `projectVM.buildList`
+  var selectedBuildVM: ProjectBuildViewModel?
   
   let selectionGenerator = UISelectionFeedbackGenerator()
   
+  // MARK: - View lifecycle
   override func viewDidLoad() {
     setupPagerTabStripSettings()
     
@@ -31,7 +38,7 @@ UIGestureRecognizerDelegate {
       title = "Detail"
     }
     // Do any additional setup after loading the view.
-    configureDefaultInteractiveGestures()
+    setupSwipeToGoBack(withPopGestureRecognizerEnabled: true, consumesGesture: false)
     
     containerView?.isScrollEnabled = false
   }
@@ -46,12 +53,6 @@ UIGestureRecognizerDelegate {
     super.viewWillDisappear(animated)
     navigationController?.navigationBar.isTranslucent = true
     tabBarController?.tabBar.isTranslucent = true
-  }
-  
-  private func configureDefaultInteractiveGestures() {
-    navigationController?.interactivePopGestureRecognizer?.delegate = self
-    navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-    navigationController?.interactivePopGestureRecognizer?.cancelsTouchesInView = false // see if this helps with swipe-on-row actions
   }
   
   /// Configures pager tab settings. This method should be called in viewDidLoad() and
@@ -85,6 +86,9 @@ UIGestureRecognizerDelegate {
     let page1 = BuildListViewController(style: .plain, itemInfo: "BUILDS",
                                         forAppViewModel: projectVM ??
                                           BitriseProjectViewModel(with: BitriseApp()))
+    
+    page1.buildRowTapDelegate = self
+    
     let page2 = BitriseYMLViewController(itemInfo: "YML",
                                          forAppViewModel: projectVM ??
                                           BitriseProjectViewModel(with: BitriseApp()))
@@ -110,11 +114,25 @@ UIGestureRecognizerDelegate {
       if let controller = segue.destination as? NewBuildViewController {
         controller.app = projectVM?.app
       }
+    case StoryboardSegue.Main.buildDetailSegue.rawValue:
+      if let controller = segue.destination as? BuildDetailViewController, let b = selectedBuildVM {
+        controller.buildVM = b
+      }
     default:
       return
     }
   }
   
+}
+
+
+extension ProjectDetailViewController: BuildRowTapDelegate {
+  
+  func didSelectBuild(at indexPath: IndexPath) {
+    // build list uses sections with one row each, rather than one section with multiple rows
+    selectedBuildVM = projectVM?.buildList[indexPath.section]
+    perform(segue: StoryboardSegue.Main.buildDetailSegue)
+  }
 }
 
 

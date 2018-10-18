@@ -1,3 +1,4 @@
+// swiftlint:disable all
 // Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
 import Foundation
@@ -5,7 +6,10 @@ import Foundation
 // swiftlint:disable superfluous_disable_command
 // swiftlint:disable file_length
 
-// swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
+// MARK: - Strings
+
+// swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
+// swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
   /// ago
   internal static let ago = L10n.tr("Localizable", "ago")
@@ -67,6 +71,8 @@ internal enum L10n {
   internal static let showingAllApps = L10n.tr("Localizable", "showingAllApps")
   /// Start Build
   internal static let startBuild = L10n.tr("Localizable", "startBuild")
+  /// Unauthorized user
+  internal static let unauthorizedUser = L10n.tr("Localizable", "unauthorizedUser")
   /// Value of 'enteredToken' isn't equal to text field value:
   internal static let unequalTokenInAuthTF = L10n.tr("Localizable", "unequalTokenInAuthTF")
   /// weeks
@@ -84,7 +90,10 @@ internal enum L10n {
   /// yrs
   internal static let yrs = L10n.tr("Localizable", "yrs")
 }
-// swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
+// swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
+// swiftlint:enable nesting type_body_length type_name
+
+// MARK: - Implementation Details
 
 extension L10n {
   private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {

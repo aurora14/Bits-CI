@@ -97,6 +97,7 @@ struct Build: Codable {
   var triggeredBy: String
   var triggeredWorkflow: String
   
+  
   init(from decoder: Decoder) throws {
     
     let container = try decoder.container(keyedBy: CodingKeys.self)
