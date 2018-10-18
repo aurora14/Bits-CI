@@ -11,7 +11,7 @@ disabled_rules:
   - trailing_newline
 # These are areas that are excluded from scan
 excluded:
-  - Pods/
+  - Pods
 force_cast: warning
 # These are the areas that SwiftLint scans.
 included:
