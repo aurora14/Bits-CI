@@ -1,2 +1,4 @@
 codesigndoc_exports/Identities.p12
 codesigndoc_exports/xcodebuild-output.log
+bitrise unofficial ios/Utils/JSONPlayground.playground/Contents.swift
+bitrise unofficial ios/Utils/JSONPlayground.playground/timeline.xctimeline
