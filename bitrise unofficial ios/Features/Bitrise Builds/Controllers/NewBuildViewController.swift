@@ -115,7 +115,9 @@ class NewBuildViewController: UIViewController {
     closeTapticEngines()
     startBuildDelegate?.didCancelNewBuild(from: self)
     
-    UIView.animateKeyframes(withDuration: 1.0, delay: 0, options: [ .calculationModeCubic, .beginFromCurrentState ], animations: {
+    UIView.animateKeyframes(withDuration: 1.0, delay: 0,
+                            options: [ .calculationModeCubic, .beginFromCurrentState ],
+                            animations: {
       UIView.addKeyframe(withRelativeStartTime: 0.0/1.0, relativeDuration: 0.6/1.0, animations: {
         DispatchQueue.main.async {
           self.dismiss(animated: true, completion: nil)

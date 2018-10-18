@@ -111,7 +111,8 @@ extension BuildListViewController {
     
   }
   
-  override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+  override func tableView(_ tableView: UITableView,
+                          trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     return createSwipeConfiguration(forRequestAction: .rebuild, forRowAt: indexPath)
   }
   
