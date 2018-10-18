@@ -100,6 +100,7 @@ class BitriseProjectViewModel: CellRepresentable {
   
   var bitriseYML: String?
   
+  
   init(with app: BitriseApp) {
     self.app = app
     
@@ -114,6 +115,7 @@ class BitriseProjectViewModel: CellRepresentable {
       self?.updateYML()
     }
   }
+
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     

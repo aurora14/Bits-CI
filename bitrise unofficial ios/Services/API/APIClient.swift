@@ -322,7 +322,7 @@ extension APIClient {
         if httpResponse.statusCode == 200 {
           
           guard let data = response.data else {
-            then(false, nil, "Bitrise YML wasn't available")
+            then(false, nil, "Bitrise YML wasn't available: response's data payload was empty")
             return
           }
           
