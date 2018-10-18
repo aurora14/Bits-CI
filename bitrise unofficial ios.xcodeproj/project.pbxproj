@@ -175,8 +175,6 @@
 			children = (
 				7A5DFB6820D26AE300A3330B /* ProjectCell.swift */,
 				7A1BD1CD20E11646005D805B /* SearchFooter.swift */,
-				7AEEECAA2102037B00D6DD0D /* BuildCell.xib */,
-				7AEEECAC2102058C00D6DD0D /* BuildCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,11 +184,7 @@
 			children = (
 				7A5DFB6920D26AE300A3330B /* ProjectListVC.swift */,
 				7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */,
-				7A8E182C20FF67F30013C253 /* BuildListViewController.swift */,
 				7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */,
-				7A99C6AD212E5515003DC5D9 /* NewBuildViewController.swift */,
-				7AEF23EE215A4BF700BB8DE2 /* BuildDetailViewController.swift */,
-				7A628C31215B597000759E48 /* BuildLogViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -233,14 +227,13 @@
 				7A5DFB6A20D26AE300A3330B /* Resources */,
 				7ADD314720D3301600BE2A77 /* Components */,
 				7A5DFB7020D26AE300A3330B /* Services */,
-				7A5DFB5E20D26AE300A3330B /* Shared */,
+				7A5DFB5E20D26AE300A3330B /* Features */,
 				7A5DFB6320D26AE300A3330B /* Protocols */,
 				7A5DFB7720D26AE400A3330B /* Models */,
 				7A5DFB6D20D26AE300A3330B /* ViewModels */,
 				7A5DFB7920D26AE400A3330B /* Storyboards */,
 				7A5DFB7320D26AE300A3330B /* Supporting Files */,
 				7A5DFB6F20D26AE300A3330B /* Utils */,
-				7A5DFB7820D26AE400A3330B /* Vendors */,
 			);
 			path = "bitrise unofficial ios";
 			sourceTree = "<group>";
@@ -249,21 +242,21 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB5D20D26AE300A3330B /* App.swift */,
+				7A5DFB6220D26AE300A3330B /* AppDelegate.swift */,
+				7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
 		};
-		7A5DFB5E20D26AE300A3330B /* Shared */ = {
+		7A5DFB5E20D26AE300A3330B /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				7A5DFB6220D26AE300A3330B /* AppDelegate.swift */,
-				7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */,
 				7A5DFB6720D26AE300A3330B /* Bitrise Projects */,
+				7A797D9A2170746100E57587 /* Bitrise Builds */,
 				7A5DFB5F20D26AE300A3330B /* User Authentication */,
 				7A8E182B20FF218F0013C253 /* User Profile */,
-				7A5DFB6120D26AE300A3330B /* Workflow Editor */,
 			);
-			path = Shared;
+			path = Features;
 			sourceTree = "<group>";
 		};
 		7A5DFB5F20D26AE300A3330B /* User Authentication */ = {
@@ -273,13 +266,6 @@
 				7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */,
 			);
 			path = "User Authentication";
-			sourceTree = "<group>";
-		};
-		7A5DFB6120D26AE300A3330B /* Workflow Editor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Workflow Editor";
 			sourceTree = "<group>";
 		};
 		7A5DFB6320D26AE300A3330B /* Protocols */ = {
@@ -296,8 +282,8 @@
 		7A5DFB6720D26AE300A3330B /* Bitrise Projects */ = {
 			isa = PBXGroup;
 			children = (
-				7A200B1220D4FFCC003C6D97 /* Controllers */,
 				7A200B1120D4FFC6003C6D97 /* Views */,
+				7A200B1220D4FFCC003C6D97 /* Controllers */,
 			);
 			path = "Bitrise Projects";
 			sourceTree = "<group>";
@@ -381,13 +367,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		7A5DFB7820D26AE400A3330B /* Vendors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vendors;
-			sourceTree = "<group>";
-		};
 		7A5DFB7920D26AE400A3330B /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +376,35 @@
 				7A5DFB7C20D26AE400A3330B /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		7A797D9A2170746100E57587 /* Bitrise Builds */ = {
+			isa = PBXGroup;
+			children = (
+				7A797D9C2170749A00E57587 /* Controllers */,
+				7A797D9B2170749400E57587 /* Views */,
+			);
+			path = "Bitrise Builds";
+			sourceTree = "<group>";
+		};
+		7A797D9B2170749400E57587 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7AEEECAA2102037B00D6DD0D /* BuildCell.xib */,
+				7AEEECAC2102058C00D6DD0D /* BuildCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7A797D9C2170749A00E57587 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7A8E182C20FF67F30013C253 /* BuildListViewController.swift */,
+				7A99C6AD212E5515003DC5D9 /* NewBuildViewController.swift */,
+				7AEF23EE215A4BF700BB8DE2 /* BuildDetailViewController.swift */,
+				7A628C31215B597000759E48 /* BuildLogViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		7A8E182A20FF21150013C253 /* Controllers */ = {

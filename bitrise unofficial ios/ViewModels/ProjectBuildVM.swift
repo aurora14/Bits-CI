@@ -16,6 +16,8 @@ class ProjectBuildViewModel: CellRepresentable {
   
   var build: Build
   
+  var app: BitriseApp?
+  
   var buildStatusColor: UIColor {
     guard let color = build.status?.color else {
       return Asset.Colors.bitriseGrey.color
@@ -104,9 +106,17 @@ class ProjectBuildViewModel: CellRepresentable {
     return "#\(build.buildNumber)"
   }
   
-  init(with build: Build) {
+  var log: BuildLog?
+  
+  private init(with build: Build) {
     self.build = build
   }
+  
+  convenience init(with build: Build, forApp app: BitriseApp) {
+    self.init(with: build)
+    self.app = app
+  }
+  
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
@@ -120,4 +130,5 @@ class ProjectBuildViewModel: CellRepresentable {
     
     return cell
   }
+  
 }

@@ -63,7 +63,7 @@ extension APIClient {
             let builds = try self?.decoder.decode(Builds.self, from: data)
             // experimenting with a lazy collection instead of standard map and seeing whether performance
             // improves
-            let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0) }
+            let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0, forApp: app) }
             then(true, buildsArray, "Successfully fetched build")
           } catch let error {
             then(false, nil,
@@ -230,5 +230,45 @@ extension APIClient {
       then(.error, nil, L10n.noTokenInKeychain)
       return
     }
+    
+    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/log")
+    
+    let queue = DispatchQueue.global(qos: .background)
+    
+    BRSessionManager
+      .shared
+      .background
+      .request(url, method: .get, parameters: nil,
+               encoding: JSONEncoding.default, headers: headers)
+      .validate().responseJSON(queue: queue) { [weak self] response in
+        
+        switch response.result {
+        case .success:
+          
+          guard let data = response.data else {
+            then(.error, nil, "Build Log Request: response contained no data")
+            return
+          }
+          
+          do { // essentially, only one success condition
+            let buildLog = try self?.decoder.decode(BuildLog.self, from: data)
+            then(.success, buildLog, "Successfully fetched build log")
+          } catch let error {
+            then(.error, nil,
+                 "Build log retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
+          }
+          
+        case .failure(let error):
+          then(.error, nil, "Build log retrieval failed with \(error.localizedDescription)")
+        }
+    }
   }
+  
+  
+  func getFullBuildLog(from url: URLConvertible,
+                       then: @escaping (_ result: AsyncResult, _ completeLog: String, _ message: String) -> Void) {
+    
+    
+  }
+  
 }
