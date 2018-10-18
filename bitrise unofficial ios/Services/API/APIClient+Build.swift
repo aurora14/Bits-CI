@@ -231,6 +231,8 @@ extension APIClient {
       return
     }
     
+    // v0.1/apps/{APP-SLUG}/builds/{BUILD-SLUG}/log
+    
     let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/log")
     
     let queue = DispatchQueue.global(qos: .background)
@@ -266,9 +268,35 @@ extension APIClient {
   
   
   func getFullBuildLog(from url: URLConvertible,
-                       then: @escaping (_ result: AsyncResult, _ completeLog: String, _ message: String) -> Void) {
+                       then: @escaping (_ result: AsyncResult, _ completeLog: String?, _ message: String) -> Void) {
     
+    let queue = DispatchQueue.global(qos: .background)
     
+    BRSessionManager.shared.background.request(url).validate().response(queue: queue) { response in
+      
+      guard let httpResponse = response.response else {
+        then(.error, nil, "Full log wasn't available: missing HTTP URL Response")
+        return
+      }
+      
+      if httpResponse.statusCode == 200 {
+        
+        guard let data = response.data else {
+          then(.error, nil, "Full log wasn't available: response's data payload was empty")
+          return
+        }
+        
+        let logString = """
+        \(String(data: data, encoding: .utf8) ?? "")
+        """
+        
+        then(.success, logString, "Successfully fetched full build log")
+        
+      } else {
+        then(.error, nil, "Full log wasn't available, status code: \(httpResponse.statusCode)")
+        return
+      }
+    }
   }
   
 }
