@@ -71,7 +71,7 @@ PODS:
   - SwiftDate (5.0.5)
   - SwiftGen (6.0.2)
   - SwiftLint (0.27.0)
-  - SwiftSoup (1.7.2)
+  - SwiftSoup (1.7.4)
   - ViewAnimator (2.1.2)
   - XLPagerTabStrip (8.0.1)
 
@@ -149,10 +149,10 @@ SPEC CHECKSUMS:
   SwiftDate: 963ed9f6d97e2de396d4ce73174185de04f9cdb6
   SwiftGen: e5b047067aa84082826a0c4f1c4c2ddc95bcf74c
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
-  SwiftSoup: e5f61d37e3d802a4b5db81b4945de3da9bfdf115
+  SwiftSoup: 92f5b348c131aed8af04f4326db1579ab19fa08c
   ViewAnimator: 20df9a24a076c6ee78b77a4dbf1943808c94954e
   XLPagerTabStrip: c908b17cbf42fcd2598ee1adfc49bae25444d88a
 
-PODFILE CHECKSUM: 046ba4e616bcdd675d55efddfe33b25059dc3b71
+PODFILE CHECKSUM: b74163bc36f5542afe5621df58fd6009c8fdce73
 
 COCOAPODS: 1.6.0.beta.1
