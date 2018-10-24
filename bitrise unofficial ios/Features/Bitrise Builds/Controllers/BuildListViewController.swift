@@ -199,9 +199,13 @@ extension BuildListViewController {
     
     App.sharedInstance.apiClient
       .startNewBuild(for: projectVM.app, withBuildParams: buildData) { _, _ in
+        
+        NotificationCenter
+          .default
+          .post(name: .didStartNewBuildNotification, object: self)
+        
         DispatchQueue.main.async {
           SVProgressHUD.dismiss()
-          self.refreshBuilds()
         }
     }
   }
