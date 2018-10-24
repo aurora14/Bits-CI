@@ -242,6 +242,7 @@ extension ProfileViewController {
     cell.textLabel?.text = L10n.noOrganizations
     cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .light)
     cell.textLabel?.textAlignment = .center
+    cell.imageView?.image = nil
   }
   
   private func updateViewsWithOrgData(in cell: UITableViewCell, for org: Organization) {
