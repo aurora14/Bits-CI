@@ -1,0 +1,63 @@
+/* 
+  Localizable.strings
+  bitrise unofficial ios
+
+  Created by Alexei Gudimenko on 18/8/18.
+  Copyright © 2018 Alexei Gudimenko. All rights reserved.
+*/
+
+// General text
+"startBuild"       = "Start Build";
+"bitriseUser"      = "Bitrise User";
+"projects"         = "Projects";
+"profile"          = "Profile";
+"showingAllApps"   = "Showing all apps";
+"filterByProjectTitle" = "Find your project by name";
+"welcome"          = "Welcome,";
+
+// Login & Authorization
+"logIn"            = "Log In";
+"logOut"           = "Log Out";
+"logOutConfirmationMsg" = "Are you sure you want to log out? You may need to generate a new access token next time you wish to use the app.";
+"noTokenInKeychain" = "No token saved in keychain";
+
+// User information
+"noOrganizations"  = "User doesn't belong to any organizations";
+
+// Standard actions
+"dismiss"          = "Dismiss";
+"cancel"           = "Cancel";
+
+// Error handling
+"invalidParams"    = "Invalid Parameters";
+"checkBuildParamsMsg" = "Please check that required fields are filled in, and that Branch, Workflow and Commit Message fields contain valid strings.";
+"nullAppProperty" = "App property wasn't initialised in view controller. This property must be populated with a valid Bitrise App to allow posting new builds";
+"unequalTokenInAuthTF" = "Value of 'enteredToken' isn't equal to text field value:";
+"unauthorizedUser" = "Unauthorized user";
+
+// Bitrise content
+"ymlUnavailable" = "Bitrise YML isn't available for this application";
+"branchParamRequired" = "'Branch' parameter is empty. Branch is required for starting a build";
+
+// Time - full version
+"seconds" = "seconds";
+"minutes" = "minutes";
+"hours" = "hours";
+"days" = "days";
+"weeks" = "weeks";
+"months" = "months";
+"years" = "years";
+"ago" = "ago";
+
+// Time - short version
+"hr" = "hr";
+"hrs" = "hrs";
+"min" = "min";
+"mins" = "mins";
+"d" = "d";
+"wk" = "wk";
+"wks" = "wks";
+"mth" = "mth";
+"mths" = "mths";
+"yr" = "yr";
+"yrs" = "yrs";

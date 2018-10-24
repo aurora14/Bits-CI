@@ -112,6 +112,9 @@
 		7A628C2F215B4A8D00759E48 /* BuildLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLog.swift; sourceTree = "<group>"; };
 		7A628C31215B597000759E48 /* BuildLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLogViewController.swift; sourceTree = "<group>"; };
 		7A628C33215BC0C600759E48 /* BRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNavigationController.swift; sourceTree = "<group>"; };
+		7A6649DB21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		7A6649DC21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		7A6649DD21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNameExt+Names.swift"; sourceTree = "<group>"; };
 		7A69095121420C4C00487F13 /* BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAction.swift; sourceTree = "<group>"; };
 		7A797D982170497700E57587 /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
