@@ -38,13 +38,15 @@ class ProjectBuildViewModel: CellRepresentable {
   
   var buildTriggeredAt: String {
     
+    let region = Region(calendar: Calendars.gregorian, zone: Zones.current, locale: Locale.autoupdatingCurrent)
+    
     guard let startDate = DateInRegion(
       build.triggeredAt,
       format: DateFormats.iso8601,
-      region: SwiftDate.defaultRegion) else {
+      region: region) else {
         return build.triggeredAt
     }
-    
+
     return startDate.toFormat("dd MMM yyyy 'at' HH:mm", locale: Locale.autoupdatingCurrent)
   }
   
