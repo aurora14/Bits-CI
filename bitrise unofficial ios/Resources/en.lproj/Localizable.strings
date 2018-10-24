@@ -13,6 +13,7 @@
 "profile"          = "Profile";
 "showingAllApps"   = "Showing all apps";
 "filterByProjectTitle" = "Find your project by name";
+"welcome"          = "Welcome,";
 
 // Login & Authorization
 "logIn"            = "Log In";
