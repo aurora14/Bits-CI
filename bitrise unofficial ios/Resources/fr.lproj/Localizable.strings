@@ -7,57 +7,57 @@
 */
 
 // General text
-"startBuild"       = "Start Build";
-"bitriseUser"      = "Bitrise User";
-"projects"         = "Projects";
-"profile"          = "Profile";
-"showingAllApps"   = "Showing all apps";
-"filterByProjectTitle" = "Find your project by name";
-"welcome"          = "Welcome,";
+"startBuild"       = "Démarrer la génération";
+"bitriseUser"      = "Utilisateur Bitrise";
+"projects"         = "Projets";
+"profile"          = "Profil";
+"showingAllApps"   = "Afficher toutes les applications";
+"filterByProjectTitle" = "Trouvez votre projet par nom";
+"welcome"          = "Bonjour,";
 
 // Login & Authorization
-"logIn"            = "Log In";
-"logOut"           = "Log Out";
-"logOutConfirmationMsg" = "Are you sure you want to log out? You may need to generate a new access token next time you wish to use the app.";
-"noTokenInKeychain" = "No token saved in keychain";
+"logIn"            = "Entrée;
+"logOut"           = "Sortie";
+"logOutConfirmationMsg" = "Êtes-vous sûr de vouloir vous déconnecter? Vous devrez peut-être générer un nouveau jeton d'accès la prochaine fois que vous souhaitez utiliser l'application.";
+"noTokenInKeychain" = "Aucun jeton enregistré dans le trousseau";
 
 // User information
-"noOrganizations"  = "User doesn't belong to any organizations";
+"noOrganizations"  = "L'utilisateur n'appartient à aucune organisation";
 
 // Standard actions
-"dismiss"          = "Dismiss";
-"cancel"           = "Cancel";
+"dismiss"          = "Fermer";
+"cancel"           = "Annuler";
 
 // Error handling
-"invalidParams"    = "Invalid Parameters";
-"checkBuildParamsMsg" = "Please check that required fields are filled in, and that Branch, Workflow and Commit Message fields contain valid strings.";
-"nullAppProperty" = "App property wasn't initialised in view controller. This property must be populated with a valid Bitrise App to allow posting new builds";
-"unequalTokenInAuthTF" = "Value of 'enteredToken' isn't equal to text field value:";
-"unauthorizedUser" = "Unauthorized user";
+"invalidParams"    = "Paramètres non valides";
+"checkBuildParamsMsg" = "Assurez-vous que les champs requis sont remplis et que les champs de message Branch, Workflow et Commit Contiennent des chaînes valides.";
+"nullAppProperty" = "La propriété app n'a pas été initialisée dans le contrôleur de vue. Cette propriété doit être remplie avec une application bitrise valide pour permettre la validation de nouvelles générations";
+"unequalTokenInAuthTF" = "La valeur de'enteredToken'n'est pas égale à la valeur du champ de texte:";
+"unauthorizedUser" = "Utilisateur non autorisé";
 
 // Bitrise content
-"ymlUnavailable" = "Bitrise YML isn't available for this application";
-"branchParamRequired" = "'Branch' parameter is empty. Branch is required for starting a build";
+"ymlUnavailable" = "Bitrise YML n'est pas disponible pour cette application";
+"branchParamRequired" = "Le paramètre 'Branch' est vide. Succursale est nécessaire pour démarrer une build";
 
 // Time - full version
-"seconds" = "seconds";
+"seconds" = "secondes";
 "minutes" = "minutes";
-"hours" = "hours";
-"days" = "days";
-"weeks" = "weeks";
-"months" = "months";
-"years" = "years";
-"ago" = "ago";
+"hours" = "heures";
+"days" = "jours";
+"weeks" = "semaines";
+"months" = "mois";
+"years" = "ans";
+"ago" = "longtemps";
 
 // Time - short version
 "hr" = "hr";
 "hrs" = "hrs";
 "min" = "min";
 "mins" = "mins";
-"d" = "d";
-"wk" = "wk";
-"wks" = "wks";
-"mth" = "mth";
-"mths" = "mths";
-"yr" = "yr";
-"yrs" = "yrs";
+"d" = "jrs";
+"wk" = "sem";
+"wks" = "sems";
+"mth" = "mois";
+"mths" = "mois";
+"yr" = "année";
+"yrs" = "ans";
