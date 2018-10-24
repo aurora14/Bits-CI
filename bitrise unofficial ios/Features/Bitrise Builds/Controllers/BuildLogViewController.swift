@@ -22,7 +22,7 @@ class BuildLogViewController: TabPageViewController {
   var logTextView: UITextView?
   var fullLogTextButton: UIButton?
   
-  var buttonHeightConstraint: NSLayoutConstraint?
+  var buttonTopAnchorConstraint: NSLayoutConstraint?
   
   // MARK: - Build datastore properties
   var buildVM: ProjectBuildViewModel
@@ -105,7 +105,7 @@ class BuildLogViewController: TabPageViewController {
     l.autocorrectionType = .no
     l.dataDetectorTypes = [ .link ]
     
-    l.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    l.textContainerInset = UIEdgeInsets(top: 4, left: 16, bottom: 0, right: 16)
     
     view.addSubview(l) // make sure you add the textview to the parent view before adding constraints
   }
@@ -115,15 +115,17 @@ class BuildLogViewController: TabPageViewController {
     
     let margins = view.layoutMarginsGuide
     
-    fullLogTextButton?.translatesAutoresizingMaskIntoConstraints = false
+    let buttonHeight: CGFloat = 36
     
+    fullLogTextButton?.translatesAutoresizingMaskIntoConstraints = false
     
     fullLogTextButton?.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 0).isActive = true
     fullLogTextButton?
       .trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 0).isActive = true
-    fullLogTextButton?.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
-    buttonHeightConstraint = fullLogTextButton?.heightAnchor.constraint(equalToConstant: 0)
-    buttonHeightConstraint?.isActive = true
+    buttonTopAnchorConstraint =
+      fullLogTextButton?.topAnchor.constraint(equalTo: margins.topAnchor, constant: -buttonHeight)
+    buttonTopAnchorConstraint?.isActive = true
+    fullLogTextButton?.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
   }
   
   
@@ -144,34 +146,36 @@ class BuildLogViewController: TabPageViewController {
   // MARK: - Log retrieval and presentation
   private func getBuildLog(forBuildID buildID: Slug, forAppID appID: Slug, completion: @escaping () -> Void) {
     
-    SVProgressHUD.setDefaultStyle(.dark)
-    SVProgressHUD.show(Asset.Icons.projects.image, status: "Fetching the build log. Please wait...")
+    DispatchQueue.main.async {
+      SVProgressHUD.setDefaultStyle(.dark)
+      SVProgressHUD.show(Asset.Icons.log.image, status: "Fetching the build log. Please wait...")
+    }
     
-    App.sharedInstance.apiClient.getLog(forBuildID: buildID, inApp: appID) { _, log, message in
+    App.sharedInstance.apiClient.getLog(forBuildID: buildID, inApp: appID) { [weak self] _, log, message in
       
-      print("ProjectBuildVM: Fetch log result - \(message) ")
-      print("Log is archived: \(log?.isArchived)")
-      
-      SVProgressHUD.dismiss()
+      DispatchQueue.main.async {
+        SVProgressHUD.dismiss()
+      }
       
       guard let l = log else { return }
-      
-      self.updateUIWithContentsOf(l)
-      
-      // TODO: - fetch the full log using the temporary URL
-      if l.isArchived {
-        App.sharedInstance.apiClient
-          .getFullBuildLog(from: l.expiringRawLogUrl, then: { result, log, message in
-          
-            switch result {
-            case .success:
-              guard let fullLog = log, !fullLog.isEmpty else { return }
-              self.fullLogVersion = fullLog
-              self.presentFullLogControls()
-            default:
-              print("Full log unavailable: \(message)")
-            }
-        })
+
+      DispatchQueue.global(qos: .utility).async {
+        self?.updateUIWithContentsOf(l)
+        
+        if l.isArchived {
+          App.sharedInstance.apiClient
+            .getFullBuildLog(from: l.expiringRawLogUrl, then: { result, log, message in
+              
+              switch result {
+              case .success:
+                guard let fullLog = log, !fullLog.isEmpty else { return }
+                self?.fullLogVersion = fullLog
+                self?.presentFullLogControls()
+              default:
+                print("Full log unavailable: \(message)")
+              }
+            })
+        }
       }
     }
   }
@@ -192,13 +196,13 @@ class BuildLogViewController: TabPageViewController {
   /// Shows a button that allows toggling between full and short log versions
   private func presentFullLogControls() {
     DispatchQueue.main.async {
-      UIView.animate(withDuration: 0.2) {
-        self.buttonHeightConstraint?.constant = 36
-        self.fullLogTextButton?.layoutIfNeeded()
-        self.logTextView?.layoutIfNeeded()
-      }
+      UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1,
+                     initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+        self.buttonTopAnchorConstraint?.constant = 0
+      }, completion: nil)
     }
   }
+  
   
   @objc private func didTapLogButton() {
     print("Tapped log button")
@@ -211,7 +215,7 @@ class BuildLogViewController: TabPageViewController {
       fullLogTextButton?.setTitle("Show complete log", for: .normal)
     }
     
-    isViewingShortLog.toggle() // no joke, waited for six months to use this. Yes, sadboii
+    isViewingShortLog.toggle() // no joke, waited for six months to use this. Whores will have their trinkets? 
   }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class ProfileViewController: UITableViewController {
   
@@ -14,6 +15,7 @@ class ProfileViewController: UITableViewController {
   
   private let defaultHeaderHeight: CGFloat = 375
   
+  private var organizations = [Organization]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,6 +28,7 @@ class ProfileViewController: UITableViewController {
     // If user isn't authorized, present TokenAuth view
     updateWithUserInfo()
     
+    // TODO: - Look into logout, can't remember where this ended up. Seems like it's using a delegate right now
     //NotificationCenter.default.addObserver(self,
     //                                       selector: #selector(didAuthorizeSuccessfully(withToken:)),
     //                                       name: NSNotification.Name(didAuthorizeUserNotification),
@@ -73,6 +76,8 @@ class ProfileViewController: UITableViewController {
   /// set as the table view header
   private func setupProfileView() {
     profileHeaderView = ProfileHeaderView.instanceFromNib()
+    profileHeaderView?.welcomeLabel.text = L10n.welcome
+    profileHeaderView?.welcomeLabel.adjustsFontSizeToFitWidth = true
   }
   
   
@@ -82,10 +87,14 @@ class ProfileViewController: UITableViewController {
   ///   explicit user info. If a user object is passed in as an argument, it will take
   ///   precedence over the shared instance version.
   private func updateWithUserInfo(forUser bitriseUser: User? = nil) {
-    // TODO: - handle null user
-    var currentUser: User? = bitriseUser == nil ? App.sharedInstance.currentUser : bitriseUser
+    
+    let currentUser: User? = bitriseUser == nil ? App.sharedInstance.currentUser : bitriseUser
     
     guard let u = currentUser else { return }
+    
+    DispatchQueue.global(qos: .utility).async {
+      self.getUserOrganizations()
+    }
     
     DispatchQueue.main.async {
       self.profileHeaderView?.backgroundImageView.image = u.avatarImage ?? Asset.Icons.userLrg.image
@@ -93,6 +102,16 @@ class ProfileViewController: UITableViewController {
       self.profileHeaderView?.usernameLabel.text = u.username ?? L10n.bitriseUser
     }
   }
+  
+  
+  private func getUserOrganizations() {
+    App.sharedInstance.apiClient.getOrganizations { _, orgs, _ in
+      //for o in organizations { print(o.name) }
+      self.organizations = orgs
+      self.reloadTableRows()
+    }
+  }
+  
   
   @IBAction func didTapLogOut(_ sender: Any) {
     print("Logout button tapped")
@@ -160,6 +179,7 @@ class ProfileViewController: UITableViewController {
 }
 
 
+// MARK: - Table view management
 extension ProfileViewController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
@@ -172,7 +192,11 @@ extension ProfileViewController {
     case 0:
       return 0
     default:
-      return 1
+      if organizations.isEmpty {
+        return 1
+      } else {
+        return organizations.count
+      }
     }
   }
   
@@ -180,15 +204,16 @@ extension ProfileViewController {
     
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileInfoCell") else {
       let cell = UITableViewCell(style: .default, reuseIdentifier: "ProfileInfoCell")
-      cell.textLabel?.text = L10n.noOrganizations
-      cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .light)
-      cell.textLabel?.textAlignment = .center
+      setDefaultValues(for: cell)
       return cell
     }
     
-    cell.textLabel?.text = "Organization support coming soon"
-    cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .light)
-    cell.textLabel?.textAlignment = .center
+    if organizations.isEmpty {
+      setDefaultValues(for: cell)
+    } else {
+      let organization = organizations[indexPath.row]
+      updateViewsWithOrgData(in: cell, for: organization)
+    }
     
     return cell
   }
@@ -213,6 +238,30 @@ extension ProfileViewController {
     }
   }
   
+  private func setDefaultValues(for cell: UITableViewCell) {
+    cell.textLabel?.text = L10n.noOrganizations
+    cell.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .light)
+    cell.textLabel?.textAlignment = .center
+  }
+  
+  private func updateViewsWithOrgData(in cell: UITableViewCell, for org: Organization) {
+    cell.textLabel?.text = org.name
+    cell.textLabel?.textAlignment = .natural
+    cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .light)
+    if let avatarUrlString = org.avatarIconUrl, let url = URL(string: avatarUrlString) {
+      cell.imageView?.af_setImage(
+        withURL: url,
+        placeholderImage: Asset.Icons.projects.image,
+        imageTransition: .crossDissolve(0.1))
+    }
+  }
+  
+  private func reloadTableRows() {
+    DispatchQueue.main.async {
+      self.tableView.reloadData()
+    }
+  }
+  
   override func scrollViewDidScroll(_ scrollView: UIScrollView) {
     invokeElasticHeader(in: scrollView)
   }
@@ -224,12 +273,14 @@ extension ProfileViewController {
       
       let defaultHeaderHeight: CGFloat = self.defaultHeaderHeight
       let profileImageDefaultTopSpacing: CGFloat = 84
-      let usernameLabelDefaultTopSpacing: CGFloat = 25
+      let usernameLabelDefaultTopSpacing: CGFloat = 40
+      let defaultEdgeMargin: CGFloat = 16
+      let yOrigin: CGFloat = 0
       
       // if y position is to be different than 0, reset the header to 0 and resize the header to its
       // original height += the y position
       
-      if yPos > 0 {
+      if yPos > yOrigin {
         
         // start with the original frame
         var newHeaderFrame = profileHeaderView!.frame
@@ -245,6 +296,13 @@ extension ProfileViewController {
         
         let usernameTopSpacing: CGFloat = usernameLabelDefaultTopSpacing + yPos / 4
         profileHeaderView?.usernameTopSpacingConstraint.constant = usernameTopSpacing
+        
+      } else if yPos <= yOrigin && yPos > -(profileImageDefaultTopSpacing + usernameLabelDefaultTopSpacing) {
+        
+        let edgeMargin: CGFloat = defaultEdgeMargin - yPos
+        profileHeaderView?.usernameLeadingConstraint.constant = edgeMargin
+        profileHeaderView?.usernameTrailingConstraint.constant = edgeMargin
+        
       }
     }
   }

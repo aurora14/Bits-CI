@@ -56,6 +56,8 @@
 		7A99C6B4212E55C4003DC5D9 /* StartNewBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6B3212E55C4003DC5D9 /* StartNewBuild.swift */; };
 		7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */; };
 		7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */; };
+		7ABD284E2179E01F004BA681 /* APIClient+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABD284D2179E01F004BA681 /* APIClient+Organizations.swift */; };
+		7ABD2856217DD127004BA681 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD2855217DD127004BA681 /* CloudKit.framework */; };
 		7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4275620E3A62000DC99C0 /* Paging.swift */; };
 		7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */; };
 		7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD314820D3305000BE2A77 /* ContentContainer.swift */; };
@@ -112,6 +114,9 @@
 		7A628C2F215B4A8D00759E48 /* BuildLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLog.swift; sourceTree = "<group>"; };
 		7A628C31215B597000759E48 /* BuildLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLogViewController.swift; sourceTree = "<group>"; };
 		7A628C33215BC0C600759E48 /* BRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNavigationController.swift; sourceTree = "<group>"; };
+		7A6649DB21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		7A6649DC21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		7A6649DD21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNameExt+Names.swift"; sourceTree = "<group>"; };
 		7A69095121420C4C00487F13 /* BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAction.swift; sourceTree = "<group>"; };
 		7A797D982170497700E57587 /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
@@ -131,8 +136,9 @@
 		7A99C6B1212E55A8003DC5D9 /* AsyncResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncResult.swift; sourceTree = "<group>"; };
 		7A99C6B3212E55C4003DC5D9 /* StartNewBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartNewBuild.swift; sourceTree = "<group>"; };
 		7A99C6B5212E55E2003DC5D9 /* BuildResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildResponse.swift; sourceTree = "<group>"; };
-		7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = JSONPlayground.playground; path = "bitrise unofficial ios/Utils/JSONPlayground.playground"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Utils.swift"; sourceTree = "<group>"; };
+		7ABD284D2179E01F004BA681 /* APIClient+Organizations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Organizations.swift"; sourceTree = "<group>"; };
+		7ABD2855217DD127004BA681 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		7ADD314820D3305000BE2A77 /* ContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentContainer.swift; sourceTree = "<group>"; };
@@ -155,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */,
+				7ABD2856217DD127004BA681 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +320,6 @@
 		7A5DFB6F20D26AE300A3330B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				7A99C6B7212E60AA003DC5D9 /* JSONPlayground.playground */,
 				7A200B1320D5147E003C6D97 /* Extensions */,
 			);
 			path = Utils;
@@ -332,6 +338,7 @@
 			children = (
 				7A5DFB7220D26AE300A3330B /* APIClient.swift */,
 				7A22923C216DB4A700372FDF /* APIClient+Build.swift */,
+				7ABD284D2179E01F004BA681 /* APIClient+Organizations.swift */,
 				7A200B2520D78F1B003C6D97 /* BRSessionManager.swift */,
 				7A5E758E20DD275B008D32A5 /* Router.swift */,
 			);
@@ -463,6 +470,7 @@
 		CE768A2B4F5BB1A99DB39E15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7ABD2855217DD127004BA681 /* CloudKit.framework */,
 				1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */,
 			);
 			name = Frameworks;
@@ -515,6 +523,9 @@
 							com.apple.Siri = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -527,6 +538,7 @@
 				en,
 				Base,
 				ru,
+				fr,
 			);
 			mainGroup = 7A5DFB3D20D26A8D00A3330B;
 			productRefGroup = 7A5DFB4720D26A8D00A3330B /* Products */;
@@ -717,6 +729,7 @@
 				7A69095221420C4C00487F13 /* BuildAction.swift in Sources */,
 				7AEF23EF215A4BF700BB8DE2 /* BuildDetailViewController.swift in Sources */,
 				7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */,
+				7ABD284E2179E01F004BA681 /* APIClient+Organizations.swift in Sources */,
 				7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */,
 				7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */,
 				7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */,
@@ -750,6 +763,7 @@
 				7A5DFB7B20D26AE400A3330B /* Base */,
 				7A99C6A0212D3C0B003DC5D9 /* ru */,
 				7A99C6AC212D4065003DC5D9 /* en */,
+				7A6649DB21797D3600543F89 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -760,6 +774,7 @@
 				7A5DFB7D20D26AE400A3330B /* Base */,
 				7A99C6A1212D3C0C003DC5D9 /* ru */,
 				7A99C6AA212D405D003DC5D9 /* en */,
+				7A6649DC21797D3600543F89 /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -769,6 +784,7 @@
 			children = (
 				7A99C6A7212D3E49003DC5D9 /* en */,
 				7A99C6A9212D3E78003DC5D9 /* ru */,
+				7A6649DD21797D3600543F89 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

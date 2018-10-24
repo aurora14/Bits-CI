@@ -14,8 +14,11 @@ class BitriseYMLViewController: TabPageViewController {
   var ymlTextView: UITextView?
   var projectVM: BitriseProjectViewModel
   
+  var ymlText: String?
+  
   init(itemInfo: IndicatorInfo, forAppViewModel appVM: BitriseProjectViewModel) {
     projectVM = appVM
+    ymlText = projectVM.bitriseYML
     super.init(itemInfo: itemInfo)
   }
   
@@ -62,7 +65,7 @@ class BitriseYMLViewController: TabPageViewController {
   
   
   private func updateTextViewContent() {
-    guard let yml = projectVM.bitriseYML else {
+    guard let yml = ymlText else {
       ymlTextView?.text = "Bitrise YML isn't available for this application"
       return
     }
@@ -74,15 +77,5 @@ class BitriseYMLViewController: TabPageViewController {
     view.addSubview(ymlTextView!)
     view.bringSubviewToFront(ymlTextView!)
   }
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destination.
-   // Pass the selected object to the new view controller.
-   }
-   */
   
 }

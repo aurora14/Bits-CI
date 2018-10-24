@@ -56,6 +56,7 @@ internal enum Asset {
     internal static let chevron = ImageAsset(name: "chevron")
     internal static let clock = ImageAsset(name: "clock")
     internal static let close = ImageAsset(name: "close")
+    internal static let log = ImageAsset(name: "log")
     internal static let message = ImageAsset(name: "message")
     internal static let projects = ImageAsset(name: "projects")
     internal static let providerBitbucket = ImageAsset(name: "provider_bitbucket")

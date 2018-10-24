@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class ProfileHeaderView: UIView {
   
@@ -14,7 +15,7 @@ class ProfileHeaderView: UIView {
   @IBOutlet weak var backgroundImageView: UIImageView!
   @IBOutlet weak var foregroundImageView: UIImageView!
   @IBOutlet weak var usernameLabel: UILabel!
-  
+  @IBOutlet weak var welcomeLabel: UILabel!
   
   // Blur UI elements
   @IBOutlet weak var foundationVisualEffectView: UIVisualEffectView!

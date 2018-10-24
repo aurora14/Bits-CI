@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,7 +48,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bitrise User" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="08z-1C-oSb">
-                    <rect key="frame" x="16" y="205" width="343" height="65"/>
+                    <rect key="frame" x="16" y="220" width="343" height="65"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="65" id="sy1-K0-RX7"/>
                     </constraints>
@@ -56,12 +56,24 @@
                     <color key="textColor" white="0.0" alpha="0.59668236301369859" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome," textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TyI-pr-cTB">
+                    <rect key="frame" x="16" y="205" width="343" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="4WE-EE-aeE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="jQt-MT-uDS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="43d-Y4-2Hn"/>
                 <constraint firstItem="QG4-YT-tD9" firstAttribute="centerX" secondItem="jQt-MT-uDS" secondAttribute="centerX" id="4Jm-1L-Jrb"/>
+                <constraint firstItem="08z-1C-oSb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4L8-po-Qxf"/>
                 <constraint firstItem="0qy-Cc-gqC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6J0-ae-EzS"/>
+                <constraint firstItem="TyI-pr-cTB" firstAttribute="centerX" secondItem="08z-1C-oSb" secondAttribute="centerX" id="CJl-B3-C4z"/>
+                <constraint firstItem="TyI-pr-cTB" firstAttribute="width" secondItem="08z-1C-oSb" secondAttribute="width" id="Fub-PB-lef"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jQt-MT-uDS" secondAttribute="trailing" id="KMe-nX-3KV"/>
                 <constraint firstItem="QG4-YT-tD9" firstAttribute="height" secondItem="jQt-MT-uDS" secondAttribute="height" id="PLo-9g-ckL"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jQt-MT-uDS" secondAttribute="bottom" id="Ugd-zd-0Lr"/>
@@ -69,9 +81,10 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="08z-1C-oSb" secondAttribute="trailing" constant="16" id="bJ3-NH-Qz5"/>
                 <constraint firstItem="QG4-YT-tD9" firstAttribute="centerY" secondItem="jQt-MT-uDS" secondAttribute="centerY" id="dwU-Rq-4ky"/>
                 <constraint firstItem="jQt-MT-uDS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="fUg-r7-Vl2"/>
+                <constraint firstItem="08z-1C-oSb" firstAttribute="top" secondItem="TyI-pr-cTB" secondAttribute="bottom" id="paD-oa-yMQ"/>
                 <constraint firstItem="QG4-YT-tD9" firstAttribute="width" secondItem="jQt-MT-uDS" secondAttribute="width" id="rJm-k7-Tsf"/>
                 <constraint firstItem="0qy-Cc-gqC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="84" id="rxz-Cd-wM6"/>
-                <constraint firstItem="08z-1C-oSb" firstAttribute="top" secondItem="0qy-Cc-gqC" secondAttribute="bottom" constant="25" id="vLw-qR-Mt7"/>
+                <constraint firstItem="08z-1C-oSb" firstAttribute="top" secondItem="0qy-Cc-gqC" secondAttribute="bottom" constant="40" id="vLw-qR-Mt7"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -86,11 +99,12 @@
                 <outlet property="usernameTopSpacingConstraint" destination="vLw-qR-Mt7" id="AOl-jQ-oqI"/>
                 <outlet property="usernameTrailingConstraint" destination="bJ3-NH-Qz5" id="PqO-2w-nlW"/>
                 <outlet property="vibrancyVisualEffectView" destination="Ali-zr-t6Q" id="ZKp-vS-6G8"/>
+                <outlet property="welcomeLabel" destination="TyI-pr-cTB" id="n68-qA-RRu"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="225.5"/>
         </view>
     </objects>
     <resources>
-        <image name="user_lrg" width="128" height="128"/>
+        <image name="user_lrg" width="256" height="256"/>
     </resources>
 </document>

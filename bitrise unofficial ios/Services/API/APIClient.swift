@@ -13,6 +13,7 @@ import AlamofireImage
 enum Endpoint: String {
   case me
   case apps
+  case organizations
 }
 
 /// Alphanumeric string ID used by every Bitrise object as its unique ID

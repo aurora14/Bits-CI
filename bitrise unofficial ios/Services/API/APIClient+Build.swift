@@ -235,7 +235,7 @@ extension APIClient {
     
     let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/log")
     
-    let queue = DispatchQueue.global(qos: .background)
+    let queue = DispatchQueue.global(qos: .utility)
     
     BRSessionManager
       .shared
@@ -267,6 +267,11 @@ extension APIClient {
   }
   
   
+  /// Calls the expiring raw url obtained from the /log endpoint to retrieve the full contents of that log.
+  ///
+  /// - Parameters:
+  ///   - url: the raw expiring URL
+  ///   - then: completion handler that returns a result, log (if available) and information message
   func getFullBuildLog(from url: URLConvertible,
                        then: @escaping (_ result: AsyncResult, _ completeLog: String?, _ message: String) -> Void) {
     

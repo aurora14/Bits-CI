@@ -1,0 +1,57 @@
+
+/* Class = "UINavigationItem"; title = "Projects"; ObjectID = "3mT-88-ltU"; */
+"3mT-88-ltU.title" = "Projects";
+
+/* Class = "UITextField"; placeholder = "Enter your Bitrise token"; ObjectID = "5US-KA-5VL"; */
+"5US-KA-5VL.placeholder" = "Enter your Bitrise token";
+
+/* Class = "UITextField"; placeholder = "Paste token value here & tap 'Save'"; ObjectID = "9Y4-e7-1c6"; */
+"9Y4-e7-1c6.placeholder" = "Paste token value here & tap 'Save'";
+
+/* Class = "UINavigationItem"; title = "Bitrise Profile"; ObjectID = "A5W-EC-MSL"; */
+"A5W-EC-MSL.title" = "Bitrise Profile";
+
+/* Class = "UIBarButtonItem"; title = "Log Out"; ObjectID = "DYH-BI-Ywg"; */
+"DYH-BI-Ywg.title" = "Log Out";
+
+/* Class = "UILabel"; text = "Appetiser / "; ObjectID = "DjV-bW-m7Y"; */
+"DjV-bW-m7Y.text" = "Appetiser / ";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "KS5-ow-Qs4"; */
+"KS5-ow-Qs4.title" = "Item";
+
+/* Class = "UILabel"; text = "PROJECT NAME"; ObjectID = "MKI-GP-zTu"; */
+"MKI-GP-zTu.text" = "PROJECT NAME";
+
+/* Class = "UILabel"; text = "BITRISE SAMPLE PROJECT"; ObjectID = "NV3-ZL-lwk"; */
+"NV3-ZL-lwk.text" = "BITRISE SAMPLE PROJECT";
+
+/* Class = "UIButton"; normalTitle = "Save!"; ObjectID = "Ntw-bN-O2b"; */
+"Ntw-bN-O2b.normalTitle" = "Save!";
+
+/* Class = "UILabel"; text = "99 months ago"; ObjectID = "aWt-9h-K9Z"; */
+"aWt-9h-K9Z.text" = "99 months ago";
+
+/* Class = "UILabel"; text = "9999"; ObjectID = "air-MB-W3o"; */
+"air-MB-W3o.text" = "9999";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "bfZ-ZO-4Lo"; */
+"bfZ-ZO-4Lo.title" = "Profile";
+
+/* Class = "UILabel"; text = "No token? Get one "; ObjectID = "cfS-bq-y87"; */
+"cfS-bq-y87.text" = "No token? Get one ";
+
+/* Class = "UINavigationController"; title = "Authorization Container"; ObjectID = "dFu-3Y-Gmh"; */
+"dFu-3Y-Gmh.title" = "Authorization Container";
+
+/* Class = "UIBarButtonItem"; title = "Start Build"; ObjectID = "q0D-GZ-bNH"; */
+"q0D-GZ-bNH.title" = "Start Build";
+
+/* Class = "UIButton"; normalTitle = "here!"; ObjectID = "qzp-N0-Q1u"; */
+"qzp-N0-Q1u.normalTitle" = "here!";
+
+/* Class = "UIButton"; normalTitle = "Start Build"; ObjectID = "sJp-w2-ZGv"; */
+"sJp-w2-ZGv.normalTitle" = "Start Build";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "uZx-1E-VlC"; */
+"uZx-1E-VlC.title" = "Title";

@@ -13,6 +13,7 @@
 "profile"          = "Профиль";
 "showingAllApps"   = "Все приложения";
 "filterByProjectTitle" = "Фильтровать по названию";
+"welcome"          = "Здравствуй,";
 
 // Login & Authorization
 "logIn"            = "Войти";

@@ -77,6 +77,8 @@ internal enum L10n {
   internal static let unequalTokenInAuthTF = L10n.tr("Localizable", "unequalTokenInAuthTF")
   /// weeks
   internal static let weeks = L10n.tr("Localizable", "weeks")
+  /// Welcome,
+  internal static let welcome = L10n.tr("Localizable", "welcome")
   /// wk
   internal static let wk = L10n.tr("Localizable", "wk")
   /// wks
