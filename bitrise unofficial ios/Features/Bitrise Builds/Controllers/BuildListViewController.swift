@@ -58,7 +58,7 @@ class BuildListViewController: TabPageTableViewController {
   }
 }
 
-// MARK: - table view datasource
+// MARK: - Table view datasource
 extension BuildListViewController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
@@ -82,7 +82,7 @@ extension BuildListViewController {
   }
 }
 
-// MARK: - table view delegate
+// MARK: - Table view delegate
 extension BuildListViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
