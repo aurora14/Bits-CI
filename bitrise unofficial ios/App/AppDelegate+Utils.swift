@@ -11,9 +11,11 @@ import AlamofireNetworkActivityIndicator
 import Firebase
 import Fabric
 import IQKeyboardManagerSwift
+import UserNotifications
+import UserNotificationsUI
 
 
-extension AppDelegate {
+extension AppDelegate: UNUserNotificationCenterDelegate {
   
   /// Any shared Alamofire, Firebase etc
   func initNetworkUtils() {
@@ -32,5 +34,9 @@ extension AppDelegate {
   func initUserInterfaceUtils() {
     IQKeyboardManager.shared.enable = true
     IQKeyboardManager.shared.shouldToolbarUsesTextFieldTintColor = true
+  }
+  
+  func initNotificationSettings() {
+    
   }
 }
