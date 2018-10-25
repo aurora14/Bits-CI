@@ -13,10 +13,16 @@ import AlamofireImage
 import SkeletonView
 import ViewAnimator
 
+/// Landing Page
+///
+/// This is the first view that the user should see on opening the app. All the other
+/// functionality and scenes branch off from here.
 class ProjectListViewController: UITableViewController, SkeletonTableViewDataSource {
   
   @IBOutlet weak var rightBarContainer: UIView!
   
+  // TODO: - should remove this and just update the tab bar with the user image.
+  // TODO: - use this button instead for something like adding a new application.
   @IBOutlet weak var userProfileButton: UIButton!
   
   var searchController: UISearchController = UISearchController(searchResultsController: nil)
@@ -53,7 +59,6 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     loadDataWithAuthorization()
     
     impactGenerator.prepare()
-    //subscribeToNotifications()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -62,12 +67,25 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     
     App.sharedInstance.checkForAvailableBitriseToken { [weak self] isValid in
       
+      self?.isAuthorised = isValid
+      
       guard isValid else {
         self?.apps.removeAll()
         DispatchQueue.main.async {
           self?.tableView.reloadData()
-          self?.presentAuthorizationView()          
         }
+        return
+      }
+    }
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    App.sharedInstance.checkForAvailableBitriseToken { [weak self] isValid in
+      self?.isAuthorised = isValid
+      guard isValid else {
+        self?.presentAuthorizationView()
         return
       }
     }
@@ -319,7 +337,6 @@ extension ProjectListViewController {
         self?.getProjects()
       } else {
         self?.apps.removeAll()
-        self?.presentAuthorizationView()
       }
     }
   }
@@ -454,7 +471,6 @@ extension ProjectListViewController: UISearchResultsUpdating, UISearchController
       activeDataSource = apps
     }
     tableView.reloadData()
-    //setupAnimations()
   }
 }
 

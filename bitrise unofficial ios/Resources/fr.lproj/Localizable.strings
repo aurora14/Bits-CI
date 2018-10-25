@@ -16,7 +16,7 @@
 "welcome"          = "Bonjour,";
 
 // Login & Authorization
-"logIn"            = "Entrée;
+"logIn"            = "Entrée";
 "logOut"           = "Sortie";
 "logOutConfirmationMsg" = "Êtes-vous sûr de vouloir vous déconnecter? Vous devrez peut-être générer un nouveau jeton d'accès la prochaine fois que vous souhaitez utiliser l'application.";
 "noTokenInKeychain" = "Aucun jeton enregistré dans le trousseau";
