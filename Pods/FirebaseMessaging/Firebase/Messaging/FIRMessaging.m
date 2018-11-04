@@ -23,6 +23,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FIRMessagingAnalytics.h"
 #import "FIRMessagingClient.h"
 #import "FIRMessagingConstants.h"
 #import "FIRMessagingContextManagerService.h"
@@ -31,12 +32,20 @@
 #import "FIRMessagingLogger.h"
 #import "FIRMessagingPubSub.h"
 #import "FIRMessagingReceiver.h"
+#import "FIRMessagingRemoteNotificationsProxy.h"
 #import "FIRMessagingRmqManager.h"
 #import "FIRMessagingSyncMessageManager.h"
 #import "FIRMessagingUtilities.h"
 #import "FIRMessagingVersionUtilities.h"
+#import "FIRMessaging_Private.h"
 
+#import <FirebaseAnalyticsInterop/FIRAnalyticsInterop.h>
 #import <FirebaseCore/FIRAppInternal.h>
+#import <FirebaseCore/FIRComponent.h>
+#import <FirebaseCore/FIRComponentContainer.h>
+#import <FirebaseCore/FIRComponentRegistrant.h>
+#import <FirebaseCore/FIRCoreConfigurable.h>
+#import <FirebaseCore/FIRDependency.h>
 #import <FirebaseInstanceID/FirebaseInstanceID.h>
 #import <GoogleUtilities/GULReachabilityChecker.h>
 
@@ -113,15 +122,6 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   return self;
 }
 
-- (instancetype)initWithMessage:(FIRMessagingRemoteMessage *)message {
-  self = [self init];
-  if (self) {
-    _appData = [message.appData copy];
-  }
-
-  return self;
-}
-
 @end
 
 @interface FIRMessaging ()<FIRMessagingClientDelegate, FIRMessagingReceiverDelegate,
@@ -148,38 +148,62 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
 /// which can happen if the user inadvertently calls `appDidReceiveMessage` along with us
 /// calling it implicitly during swizzling.
 @property(nonatomic, readwrite, strong) NSMutableSet *loggedMessageIDs;
+@property(nonatomic, readwrite, strong) id<FIRAnalyticsInterop> _Nullable analytics;
 
-- (instancetype)initWithInstanceID:(FIRInstanceID *)instanceID
-                      userDefaults:(NSUserDefaults *)defaults NS_DESIGNATED_INITIALIZER;
+@end
 
+// Messaging doesn't provide any functionality to other components,
+// so it provides a private, empty protocol that it conforms to and use it for registration.
+
+@protocol FIRMessagingInstanceProvider
+@end
+
+@interface FIRMessaging () <FIRMessagingInstanceProvider,
+                            FIRCoreConfigurable,
+                            FIRComponentRegistrant>
 @end
 
 @implementation FIRMessaging
 
+// File static to support InstanceID tests that call [FIRMessaging messaging] after
+// [FIRMessaging messagingForTests].
+static FIRMessaging *sMessaging;
+
 + (FIRMessaging *)messaging {
-  static FIRMessaging *messaging;
+  if (sMessaging != nil) {
+    return sMessaging;
+  }
+  FIRApp *defaultApp = [FIRApp defaultApp];  // Missing configure will be logged here.
+  id<FIRMessagingInstanceProvider> messaging =
+      FIR_COMPONENT(FIRMessagingInstanceProvider, defaultApp.container);
+
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    messaging = [[FIRMessaging alloc] initPrivately];
-    [messaging start];
+    [(FIRMessaging *)messaging start];
   });
-  return messaging;
+  sMessaging = (FIRMessaging *)messaging;
+  return sMessaging;
 }
 
-- (instancetype)initWithInstanceID:(FIRInstanceID *)instanceID
-                      userDefaults:(NSUserDefaults *)defaults {
++ (FIRMessaging *)messagingForTests {
+  sMessaging = [[FIRMessaging alloc] initWithAnalytics:nil
+                                        withInstanceID:[FIRInstanceID instanceID]
+                                      withUserDefaults:[NSUserDefaults standardUserDefaults]];
+  [sMessaging start];
+  return sMessaging;
+}
+
+- (instancetype)initWithAnalytics:(nullable id<FIRAnalyticsInterop>)analytics
+                   withInstanceID:(FIRInstanceID *)instanceID
+                 withUserDefaults:(NSUserDefaults *)defaults {
   self = [super init];
   if (self != nil) {
     _loggedMessageIDs = [NSMutableSet set];
     _instanceID = instanceID;
     _messagingUserDefaults = defaults;
+    _analytics = analytics;
   }
   return self;
-}
-
-- (instancetype)initPrivately {
-  return [self initWithInstanceID:[FIRInstanceID instanceID]
-                     userDefaults:[NSUserDefaults standardUserDefaults]];
 }
 
 - (void)dealloc {
@@ -189,6 +213,59 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
 }
 
 #pragma mark - Config
+
++ (void)load {
+  [FIRApp registerAsConfigurable:self];
+  [FIRComponentContainer registerAsComponentRegistrant:self];
+}
+
++ (nonnull NSArray<FIRComponent *> *)componentsToRegister {
+  FIRDependency *analyticsDep =
+      [FIRDependency dependencyWithProtocol:@protocol(FIRAnalyticsInterop) isRequired:NO];
+  FIRComponentCreationBlock creationBlock =
+      ^id _Nullable(FIRComponentContainer *container, BOOL *isCacheable) {
+    // Ensure it's cached so it returns the same instance every time messaging is called.
+    *isCacheable = YES;
+    id<FIRAnalyticsInterop> analytics = FIR_COMPONENT(FIRAnalyticsInterop, container);
+        return [[FIRMessaging alloc] initWithAnalytics:analytics
+                                        withInstanceID:[FIRInstanceID instanceID]
+                                      withUserDefaults:[NSUserDefaults standardUserDefaults]];
+  };
+  FIRComponent *messagingProvider =
+      [FIRComponent componentWithProtocol:@protocol(FIRMessagingInstanceProvider)
+                      instantiationTiming:FIRInstantiationTimingLazy
+                             dependencies:@[ analyticsDep ]
+                           creationBlock:creationBlock];
+
+  return @[ messagingProvider ];
+}
+
++ (void)configureWithApp:(FIRApp *)app {
+  if (!app.isDefaultApp) {
+    // Only configure for the default FIRApp.
+    FIRMessagingLoggerDebug(kFIRMessagingMessageCodeFIRApp001,
+                            @"Firebase Messaging only works with the default app.");
+    return;
+  }
+  [[FIRMessaging messaging] configureMessaging:app];
+}
+
+- (void)configureMessaging:(FIRApp *)app {
+  // Swizzle remote-notification-related methods (app delegate and UNUserNotificationCenter)
+  if ([FIRMessagingRemoteNotificationsProxy canSwizzleMethods]) {
+    NSString *docsURLString = @"https://firebase.google.com/docs/cloud-messaging/ios/client"
+                              @"#method_swizzling_in_firebase_messaging";
+    FIRMessagingLoggerNotice(kFIRMessagingMessageCodeFIRApp000,
+                             @"FIRMessaging Remote Notifications proxy enabled, will swizzle "
+                             @"remote notification receiver handlers. If you'd prefer to manually "
+                             @"integrate Firebase Messaging, add \"%@\" to your Info.plist, "
+                             @"and set it to NO. Follow the instructions at:\n%@\nto ensure "
+                             @"proper integration.",
+                             kFIRMessagingRemoteNotificationsProxyEnabledInfoPlistKey,
+                             docsURLString);
+    [FIRMessagingRemoteNotificationsProxy swizzleMethods];
+  }
+}
 
 - (void)start {
   // Print the library version for logging.
@@ -335,16 +412,7 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   }
 
   if (!isOldMessage) {
-    Class firMessagingLogClass = NSClassFromString(@"FIRMessagingLog");
-    SEL logMessageSelector = NSSelectorFromString(@"logMessage:");
-
-    if ([firMessagingLogClass respondsToSelector:logMessageSelector]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-      [firMessagingLogClass performSelector:logMessageSelector
-                                 withObject:message];
-    }
-#pragma clang diagnostic pop
+    [FIRMessagingAnalytics logMessage:message toAnalytics:_analytics];
     [self handleContextManagerMessage:message];
     [self handleIncomingLinkIfNeededFromMessage:message];
   }
@@ -484,6 +552,7 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   BOOL isFCMAutoInitEnabled = [self isAutoInitEnabled];
   [_messagingUserDefaults setBool:autoInitEnabled
                            forKey:kFIRMessagingUserDefaultsKeyAutoInitEnabled];
+  [_messagingUserDefaults synchronize];
   if (!isFCMAutoInitEnabled && autoInitEnabled) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -586,6 +655,15 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   if ([self.delegate respondsToSelector:@selector(messaging:didReceiveRegistrationToken:)]) {
     [self.delegate messaging:self didReceiveRegistrationToken:self.defaultFcmToken];
   }
+}
+
+
+- (void)setUseMessagingDelegateForDirectChannel:(BOOL)useMessagingDelegateForDirectChannel {
+  self.receiver.useDirectChannel = useMessagingDelegateForDirectChannel;
+}
+
+- (BOOL)useMessagingDelegateForDirectChannel {
+  return self.receiver.useDirectChannel;
 }
 
 #pragma mark - Application State Changes
@@ -718,6 +796,9 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   }
   FIRMessagingLoggerError(kFIRMessagingMessageCodeMessaging009,
                           @"Cannot parse topic name %@. Will not subscribe.", topic);
+  if (completion) {
+    completion([NSError fcm_errorWithCode:FIRMessagingErrorInvalidTopicName userInfo:nil]);
+  }
 }
 
 - (void)unsubscribeFromTopic:(NSString *)topic {
@@ -744,6 +825,9 @@ NSString *const kFIRMessagingPlistAutoInitEnabled =
   }
   FIRMessagingLoggerError(kFIRMessagingMessageCodeMessaging011,
                           @"Cannot parse topic name %@. Will not unsubscribe.", topic);
+  if (completion) {
+    completion([NSError fcm_errorWithCode:FIRMessagingErrorInvalidTopicName userInfo:nil]);
+  }
 }
 
 #pragma mark - Send

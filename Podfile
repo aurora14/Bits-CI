@@ -30,11 +30,11 @@ target 'bitrise unofficial ios' do
   pod 'Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  #  pod 'Firebase/Performance'
+  pod 'Firebase/Performance'
   
   # -- authentication --
-  
-  pod 'KeychainAccess' # let's look at Apple Documentation first and try to do this natively without libraries.
+  pod 'KeychainAccess'
+  pod 'SmileLock'
   
   # -- Lint and Code-Gen --
   pod 'SwiftLint'
