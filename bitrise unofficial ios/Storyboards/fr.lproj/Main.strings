@@ -1,6 +1,6 @@
 
 /* Class = "UINavigationItem"; title = "Projects"; ObjectID = "3mT-88-ltU"; */
-"3mT-88-ltU.title" = "Projects";
+"3mT-88-ltU.title" = "Projets";
 
 /* Class = "UITextField"; placeholder = "Enter your Bitrise token"; ObjectID = "5US-KA-5VL"; */
 "5US-KA-5VL.placeholder" = "Enter your Bitrise token";
@@ -9,10 +9,10 @@
 "9Y4-e7-1c6.placeholder" = "Paste token value here & tap 'Save'";
 
 /* Class = "UINavigationItem"; title = "Bitrise Profile"; ObjectID = "A5W-EC-MSL"; */
-"A5W-EC-MSL.title" = "Bitrise Profile";
+"A5W-EC-MSL.title" = "Profil Bitrise";
 
 /* Class = "UIBarButtonItem"; title = "Log Out"; ObjectID = "DYH-BI-Ywg"; */
-"DYH-BI-Ywg.title" = "Log Out";
+"DYH-BI-Ywg.title" = "Sortie";
 
 /* Class = "UILabel"; text = "Appetiser / "; ObjectID = "DjV-bW-m7Y"; */
 "DjV-bW-m7Y.text" = "Appetiser / ";
@@ -27,7 +27,7 @@
 "NV3-ZL-lwk.text" = "BITRISE SAMPLE PROJECT";
 
 /* Class = "UIButton"; normalTitle = "Save!"; ObjectID = "Ntw-bN-O2b"; */
-"Ntw-bN-O2b.normalTitle" = "Save!";
+"Ntw-bN-O2b.normalTitle" = "Sauver!";
 
 /* Class = "UILabel"; text = "99 months ago"; ObjectID = "aWt-9h-K9Z"; */
 "aWt-9h-K9Z.text" = "99 months ago";
@@ -36,7 +36,7 @@
 "air-MB-W3o.text" = "9999";
 
 /* Class = "UITabBarItem"; title = "Profile"; ObjectID = "bfZ-ZO-4Lo"; */
-"bfZ-ZO-4Lo.title" = "Profile";
+"bfZ-ZO-4Lo.title" = "Profil";
 
 /* Class = "UILabel"; text = "No token? Get one "; ObjectID = "cfS-bq-y87"; */
 "cfS-bq-y87.text" = "No token? Get one ";
@@ -45,13 +45,13 @@
 "dFu-3Y-Gmh.title" = "Authorization Container";
 
 /* Class = "UIBarButtonItem"; title = "Start Build"; ObjectID = "q0D-GZ-bNH"; */
-"q0D-GZ-bNH.title" = "Start Build";
+"q0D-GZ-bNH.title" = "Démarrer la génération";
 
 /* Class = "UIButton"; normalTitle = "here!"; ObjectID = "qzp-N0-Q1u"; */
 "qzp-N0-Q1u.normalTitle" = "here!";
 
 /* Class = "UIButton"; normalTitle = "Start Build"; ObjectID = "sJp-w2-ZGv"; */
-"sJp-w2-ZGv.normalTitle" = "Start Build";
+"sJp-w2-ZGv.normalTitle" = "Démarrer la génération";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "uZx-1E-VlC"; */
 "uZx-1E-VlC.title" = "Title";
