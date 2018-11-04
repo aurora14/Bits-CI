@@ -32,29 +32,38 @@ class BitriseYMLViewController: TabPageViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Do any additional setup after loading the view.
     setupTextView()
   }
   
   
   private func setupTextView() {
     
-    setupTextViewDimensions()
+    createTextView()
     setupTextViewContentManagement()
+    setupTextViewConstraints()
     updateTextViewContent()
-    presentTextView()
    
   }
   
   
-  private func setupTextViewDimensions() {
-    ymlTextView = UITextView(frame: CGRect(
-      x: view.frame.origin.x,
-      y: view.frame.origin.y,
-      width: view.frame.size.width,
-      height: view.frame.size.height - 204) //large title + std nav bar + status bar + tab bar
-    )
+  private func createTextView() {
+    ymlTextView = UITextView(frame: .zero)
     ymlTextView?.textContainerInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    view.addSubview(self.ymlTextView!)
+  }
+  
+  
+  private func setupTextViewConstraints() {
+    
+    let margins = view.layoutMarginsGuide
+    
+    ymlTextView?.translatesAutoresizingMaskIntoConstraints = false
+    
+    ymlTextView?.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 0).isActive = true
+    ymlTextView?.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 0).isActive = true
+    ymlTextView?.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
+    ymlTextView?.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true
+    
   }
   
   
