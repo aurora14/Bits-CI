@@ -8,6 +8,7 @@
 
 import UIKit
 import XLPagerTabStrip
+import FirebasePerformance
 
 class BitriseYMLViewController: TabPageViewController {
   
@@ -17,9 +18,10 @@ class BitriseYMLViewController: TabPageViewController {
   var ymlText: String?
   
   init(itemInfo: IndicatorInfo, forAppViewModel appVM: BitriseProjectViewModel) {
+    let trace = Performance.startTrace(name: "YML Initialisation")
     projectVM = appVM
-    ymlText = projectVM.bitriseYML
     super.init(itemInfo: itemInfo)
+    trace?.stop()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -69,13 +71,16 @@ class BitriseYMLViewController: TabPageViewController {
       ymlTextView?.text = "Bitrise YML isn't available for this application"
       return
     }
+    let trace = Performance.startTrace(name: "Populating YML Text View")
     ymlTextView?.text = yml
+    trace?.stop()
   }
   
   
   private func presentTextView() {
-    view.addSubview(ymlTextView!)
-    view.bringSubviewToFront(ymlTextView!)
+    DispatchQueue.main.async {
+      self.view.addSubview(self.ymlTextView!)
+    }
   }
   
 }

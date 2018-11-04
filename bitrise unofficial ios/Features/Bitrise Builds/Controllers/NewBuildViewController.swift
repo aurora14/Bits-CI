@@ -56,10 +56,6 @@ class NewBuildViewController: UIViewController {
     
     selectionFeedbackGenerator?.prepare()
     notificationFeedbackGenerator?.prepare()
-    
-    //    Answers.logContentView(withName: "Start New Build",
-    //                           contentType: "Start new app build scene",
-    //                           contentId: nil, customAttributes: nil)
   }
   
   @IBAction func didTapStartBuild() {
@@ -88,8 +84,7 @@ class NewBuildViewController: UIViewController {
         print("*** Start New Build: \(message)")
         switch result {
         case .success:
-          print("*** \(message)")
-          // 1. close controller
+          //print("*** \(message)")
           NotificationCenter
             .default
             .post(name: .didStartNewBuildNotification, object: self)
@@ -98,6 +93,7 @@ class NewBuildViewController: UIViewController {
             self.notificationFeedbackGenerator?.notificationOccurred(.success)
           }
           self.startBuildDelegate?.didStartNewBuild(from: self)
+          Answers.logCustomEvent(withName: "New Build Started", customAttributes: nil)
           self.didTapDismiss()
         case .error:
           self.dismissStartHUD()
@@ -174,17 +170,7 @@ class NewBuildViewController: UIViewController {
     // print("*** Error \(errorName): \(errorMessage)")
     SVProgressHUD.showError(withStatus: errorMessage)
   }
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destination.
-   // Pass the selected object to the new view controller.
-   }
-   */
-  
+
 }
 
 
