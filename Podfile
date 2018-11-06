@@ -34,7 +34,7 @@ target 'bitrise unofficial ios' do
   
   # -- authentication --
   pod 'KeychainAccess'
-  pod 'SmileLock'
+  # pod 'SmileLock' # @see Vendors subdirectory & contained README.md
   
   # -- Lint and Code-Gen --
   pod 'SwiftLint'

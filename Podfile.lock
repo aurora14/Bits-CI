@@ -104,7 +104,6 @@ PODS:
   - Protobuf (3.6.1)
   - SkeletonView (1.4.1)
   - SkyFloatingLabelTextField (3.6.0)
-  - SmileLock (3.0.5)
   - SVProgressHUD (2.2.5)
   - SwiftDate (5.0.5)
   - SwiftGen (6.0.2)
@@ -127,7 +126,6 @@ DEPENDENCIES:
   - lottie-ios
   - SkeletonView
   - SkyFloatingLabelTextField
-  - SmileLock
   - SVProgressHUD
   - SwiftDate
   - SwiftGen
@@ -163,7 +161,6 @@ SPEC REPOS:
     - Protobuf
     - SkeletonView
     - SkyFloatingLabelTextField
-    - SmileLock
     - SVProgressHUD
     - SwiftDate
     - SwiftGen
@@ -198,7 +195,6 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SkeletonView: 60d6ce7edb0cb4c7758db33c74add50392b3c475
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
-  SmileLock: 8f57ad4626cd23a8e1e01230521ede7761b38b0c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftDate: 963ed9f6d97e2de396d4ce73174185de04f9cdb6
   SwiftGen: e5b047067aa84082826a0c4f1c4c2ddc95bcf74c
@@ -207,6 +203,6 @@ SPEC CHECKSUMS:
   ViewAnimator: 20df9a24a076c6ee78b77a4dbf1943808c94954e
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
 
-PODFILE CHECKSUM: 5567cfcfd15d3e81dfa4faf7ebcb12d6f3546525
+PODFILE CHECKSUM: fa1b85aa4376c980a43b0b8c5cfa3f1cbde48ae3
 
 COCOAPODS: 1.6.0.beta.1
