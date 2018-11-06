@@ -49,6 +49,7 @@ class NewBuildViewController: UIViewController {
     
     configureContainer()
     configureProjectNameLabel()
+    configureStartBuildButton()
     configureInitTouchPoint()
     configureTextFields()
     configureSwipeModal()
@@ -148,7 +149,7 @@ class NewBuildViewController: UIViewController {
   
   /// Checks branch, workflow and message variables for valid input and that the app isn't nil
   ///
-  /// - Returns: true if all parameters are correct, false if not
+  /// - Returns: true if all parameters are correct, false if not. Provides an info message for further debugging
   func validated() -> (result: AsyncResult, message: String) {
     // add new validation rules as necessary
     guard !branch.isEmpty else {
@@ -262,6 +263,10 @@ extension NewBuildViewController {
   fileprivate func configureSwipeModal() {
     let panGR = UIPanGestureRecognizer(target: self, action: #selector(didStartPanGesture(_:)))
     view.addGestureRecognizer(panGR)
+  }
+  
+  fileprivate func configureStartBuildButton() {
+    startBuildButton.setTitle(L10n.startBuild, for: .normal)
   }
   
   @IBAction @objc private func didStartPanGesture(_ sender: UIPanGestureRecognizer) {
