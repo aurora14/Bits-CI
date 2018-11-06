@@ -61,3 +61,8 @@
 "mths" = "mths";
 "yr" = "yr";
 "yrs" = "yrs";
+
+// Setting and flag keys
+"isDarkThemeSelected" = "Dark Theme Selection Key";
+"isUsingPasscodeUnlock" = "Passcode Lock Key";
+"isUsingBiometricUnlock" = "Biometric Lock Key";

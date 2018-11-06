@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
     // Override point for customization after application launch.
+    initUITheme()
     initNetworkUtils()
     initUserInterfaceUtils()
     initReportingUtils()

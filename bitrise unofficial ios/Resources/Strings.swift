@@ -37,6 +37,12 @@ internal enum L10n {
   internal static let hrs = L10n.tr("Localizable", "hrs")
   /// Invalid Parameters
   internal static let invalidParams = L10n.tr("Localizable", "invalidParams")
+  /// Dark Theme Selection Key
+  internal static let isDarkThemeSelected = L10n.tr("Localizable", "isDarkThemeSelected")
+  /// Biometric Lock Key
+  internal static let isUsingBiometricUnlock = L10n.tr("Localizable", "isUsingBiometricUnlock")
+  /// Passcode Lock Key
+  internal static let isUsingPasscodeUnlock = L10n.tr("Localizable", "isUsingPasscodeUnlock")
   /// Log In
   internal static let logIn = L10n.tr("Localizable", "logIn")
   /// Log Out

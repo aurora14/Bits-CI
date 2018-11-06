@@ -182,3 +182,15 @@ extension App {
   }
 }
 
+// MARK: - UIAppearance & theme setting
+extension App {
+  
+  func setDarkThemeActive(_ flag: Bool = false) {
+    
+    print("Setting theme to dark: \(flag)")
+    
+    let theme: Theme = flag ? .dark : .regular
+
+  }
+  
+}

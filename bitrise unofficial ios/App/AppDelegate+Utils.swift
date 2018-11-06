@@ -39,4 +39,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
   func initNotificationSettings() {
     
   }
+  
+  func initUITheme() {
+    App.sharedInstance.setDarkThemeActive(UserDefaults.standard.bool(forKey: L10n.isDarkThemeSelected))
+  }
 }
