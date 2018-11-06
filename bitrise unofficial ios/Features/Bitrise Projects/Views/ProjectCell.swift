@@ -110,6 +110,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     timeElapsedSinceLastBuildLabel.text = vm.lastBuildTime
     
     DispatchQueue.main.async {
+      self.buildStatusStrip.hideSkeleton()
       self.buildNumberLabel.textColor = vm.buildStatusColor
       self.buildStatusStrip.backgroundColor = vm.buildStatusColor
     }

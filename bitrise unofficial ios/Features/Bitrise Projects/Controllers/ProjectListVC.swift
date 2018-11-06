@@ -55,7 +55,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     setupProfileButton()
     loadTestItems() // dummy items to show a preview until the table view is updated with live data
     setupRefreshing()
-    tableView.showAnimatedSkeleton()
+    //tableView.showAnimatedSkeleton()
     loadDataWithAuthorization()
     
     impactGenerator.prepare()
@@ -263,6 +263,9 @@ extension ProjectListViewController {
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    guard !activeDataSource.isEmpty else {
+      return 44
+    }
     return activeDataSource[indexPath.section].rowHeight
   }
   
@@ -292,9 +295,9 @@ extension ProjectListViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-    if searchController.isActive { searchController.isActive = false }
+    //if searchController.isActive { searchController.isActive = false }
     
-    //print("*** Tapped row at \(indexPath.section)")
+    print("*** Tapped row at \(indexPath.section)")
     
     let project = activeDataSource[indexPath.section] as? BitriseProjectViewModel
     
@@ -408,11 +411,11 @@ extension ProjectListViewController {
   
   fileprivate func loadTestItems() {
     let testModels: [CellRepresentable] = [
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp())]
+      DummyProjectViewModel(),
+      DummyProjectViewModel(),
+      DummyProjectViewModel(),
+      DummyProjectViewModel(),
+      DummyProjectViewModel()]
     apps.append(contentsOf: testModels)
     activeDataSource = apps
   }
