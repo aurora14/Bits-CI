@@ -17,6 +17,8 @@ internal enum StoryboardSegue {
     case getNewTokenSegue = "GetNewTokenSegue"
     case profileTabTokenSegue = "ProfileTabTokenSegue"
     case projectDetailSegue = "ProjectDetailSegue"
+    case resetPasscodeSegue = "ResetPasscodeSegue"
+    case setupPasscodeSegue = "SetupPasscodeSegue"
     case startNewBuildSegue = "StartNewBuildSegue"
     case tokenSegue = "TokenSegue"
   }

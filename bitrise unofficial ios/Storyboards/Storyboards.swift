@@ -21,6 +21,8 @@ internal enum StoryboardScene {
     internal static let storyboardName = "Main"
 
     internal static let initialScene = InitialSceneType<UIKit.UITabBarController>(storyboard: Main.self)
+
+    internal static let passcodeViewController = SceneType<bitrise_unofficial_ios.PasscodeViewController>(storyboard: Main.self, identifier: "PasscodeViewController")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length type_body_length type_name

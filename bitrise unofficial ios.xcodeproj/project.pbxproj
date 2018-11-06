@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A00FAD0218FE06500893C93 /* ThemeUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A00FACF218FE06500893C93 /* ThemeUpdater.swift */; };
 		7A1BD1CE20E11646005D805B /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BD1CD20E11646005D805B /* SearchFooter.swift */; };
 		7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1420D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift */; };
 		7A200B1720D53604003C6D97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A200B1620D53604003C6D97 /* User.swift */; };
@@ -19,6 +20,20 @@
 		7A22923D216DB4A700372FDF /* APIClient+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22923C216DB4A700372FDF /* APIClient+Build.swift */; };
 		7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */; };
 		7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */; };
+		7A3498FF218E9A160098F31B /* .swift-version in Resources */ = {isa = PBXBuildFile; fileRef = 7A349899218E9A150098F31B /* .swift-version */; };
+		7A349900218E9A160098F31B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7A34989A218E9A150098F31B /* LICENSE */; };
+		7A349926218E9A160098F31B /* SMILELOCK_README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498D7218E9A150098F31B /* SMILELOCK_README.md */; };
+		7A349927218E9A160098F31B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498D8218E9A150098F31B /* .gitignore */; };
+		7A349928218E9A160098F31B /* PasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DB218E9A150098F31B /* PasswordInputView.swift */; };
+		7A349929218E9A160098F31B /* PasswordContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DC218E9A150098F31B /* PasswordContainerView.swift */; };
+		7A34992A218E9A160098F31B /* PasswordDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DD218E9A150098F31B /* PasswordDotView.swift */; };
+		7A34992B218E9A160098F31B /* PasswordUIValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DE218E9A150098F31B /* PasswordUIValidation.swift */; };
+		7A34992D218E9A160098F31B /* PasswordContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498E6218E9A150098F31B /* PasswordContainerView.xib */; };
+		7A34992E218E9A160098F31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498E7218E9A150098F31B /* Assets.xcassets */; };
+		7A349932218EAF710098F31B /* Bundle+AppVersions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A349931218EAF710098F31B /* Bundle+AppVersions.swift */; };
+		7A595224219069AB00F3B84E /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A595223219069AB00F3B84E /* PasscodeViewController.swift */; };
+		7A5952262191537400F3B84E /* DummyProjectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5952252191537400F3B84E /* DummyProjectVM.swift */; };
+		7A5952282191589A00F3B84E /* RawIdentifierConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5952272191589A00F3B84E /* RawIdentifierConstants.swift */; };
 		7A5DFB7E20D26AE400A3330B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB5D20D26AE300A3330B /* App.swift */; };
 		7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */; };
 		7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DFB6220D26AE300A3330B /* AppDelegate.swift */; };
@@ -60,6 +75,7 @@
 		7ABD2856217DD127004BA681 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD2855217DD127004BA681 /* CloudKit.framework */; };
 		7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4275620E3A62000DC99C0 /* Paging.swift */; };
 		7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */; };
+		7AD08344218E7FCC003CB57A /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD08343218E7FCC003CB57A /* SettingsVC.swift */; };
 		7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD314820D3305000BE2A77 /* ContentContainer.swift */; };
 		7AEEECAB2102037B00D6DD0D /* BuildCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEECAA2102037B00D6DD0D /* BuildCell.xib */; };
 		7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEECAC2102058C00D6DD0D /* BuildCell.swift */; };
@@ -77,6 +93,7 @@
 /* Begin PBXFileReference section */
 		0FDA6596E94ED769D179232C /* Pods-bitrise unofficial ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bitrise unofficial ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios.debug.xcconfig"; sourceTree = "<group>"; };
 		1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bitrise_unofficial_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A00FACF218FE06500893C93 /* ThemeUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeUpdater.swift; sourceTree = "<group>"; };
 		7A1BD1CD20E11646005D805B /* SearchFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
 		7A200B1420D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+BackgroundColor.swift"; sourceTree = "<group>"; };
 		7A200B1620D53604003C6D97 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -89,6 +106,21 @@
 		7A22923C216DB4A700372FDF /* APIClient+Build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Build.swift"; sourceTree = "<group>"; };
 		7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseAuthDelegate.swift; sourceTree = "<group>"; };
 		7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseYMLViewController.swift; sourceTree = "<group>"; };
+		7A349897218E99420098F31B /* VENDORS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = VENDORS.md; sourceTree = "<group>"; };
+		7A349899218E9A150098F31B /* .swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
+		7A34989A218E9A150098F31B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7A3498D7218E9A150098F31B /* SMILELOCK_README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = SMILELOCK_README.md; sourceTree = "<group>"; };
+		7A3498D8218E9A150098F31B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		7A3498DB218E9A150098F31B /* PasswordInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordInputView.swift; sourceTree = "<group>"; };
+		7A3498DC218E9A150098F31B /* PasswordContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordContainerView.swift; sourceTree = "<group>"; };
+		7A3498DD218E9A150098F31B /* PasswordDotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDotView.swift; sourceTree = "<group>"; };
+		7A3498DE218E9A150098F31B /* PasswordUIValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordUIValidation.swift; sourceTree = "<group>"; };
+		7A3498E6218E9A150098F31B /* PasswordContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordContainerView.xib; sourceTree = "<group>"; };
+		7A3498E7218E9A150098F31B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A349931218EAF710098F31B /* Bundle+AppVersions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+AppVersions.swift"; sourceTree = "<group>"; };
+		7A595223219069AB00F3B84E /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
+		7A5952252191537400F3B84E /* DummyProjectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyProjectVM.swift; sourceTree = "<group>"; };
+		7A5952272191589A00F3B84E /* RawIdentifierConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawIdentifierConstants.swift; sourceTree = "<group>"; };
 		7A5DFB4620D26A8D00A3330B /* bitrise unofficial ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bitrise unofficial ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5DFB5D20D26AE300A3330B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenAuthVC.swift; sourceTree = "<group>"; };
@@ -141,6 +173,7 @@
 		7ABD2855217DD127004BA681 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
+		7AD08343218E7FCC003CB57A /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		7ADD314820D3305000BE2A77 /* ContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentContainer.swift; sourceTree = "<group>"; };
 		7AEEECAA2102037B00D6DD0D /* BuildCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuildCell.xib; sourceTree = "<group>"; };
 		7AEEECAC2102058C00D6DD0D /* BuildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildCell.swift; sourceTree = "<group>"; };
@@ -177,6 +210,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7A00FACE218FE03E00893C93 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				7A00FACF218FE06500893C93 /* ThemeUpdater.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		7A200B1120D4FFC6003C6D97 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,8 +245,51 @@
 				7A5E759420DD4285008D32A5 /* String+Digits.swift */,
 				7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */,
 				7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */,
+				7A349931218EAF710098F31B /* Bundle+AppVersions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7A349896218E99290098F31B /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				7A349897218E99420098F31B /* VENDORS.md */,
+				7A349898218E9A150098F31B /* SmileLock */,
+			);
+			path = Vendors;
+			sourceTree = "<group>";
+		};
+		7A349898218E9A150098F31B /* SmileLock */ = {
+			isa = PBXGroup;
+			children = (
+				7A349899218E9A150098F31B /* .swift-version */,
+				7A34989A218E9A150098F31B /* LICENSE */,
+				7A3498D7218E9A150098F31B /* SMILELOCK_README.md */,
+				7A3498D8218E9A150098F31B /* .gitignore */,
+				7A3498DA218E9A150098F31B /* Classes */,
+				7A3498E5218E9A150098F31B /* Assets */,
+			);
+			path = SmileLock;
+			sourceTree = "<group>";
+		};
+		7A3498DA218E9A150098F31B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7A3498DB218E9A150098F31B /* PasswordInputView.swift */,
+				7A3498DC218E9A150098F31B /* PasswordContainerView.swift */,
+				7A3498DD218E9A150098F31B /* PasswordDotView.swift */,
+				7A3498DE218E9A150098F31B /* PasswordUIValidation.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		7A3498E5218E9A150098F31B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7A3498E6218E9A150098F31B /* PasswordContainerView.xib */,
+				7A3498E7218E9A150098F31B /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		7A5DFB3D20D26A8D00A3330B = {
@@ -231,6 +315,7 @@
 			children = (
 				7A5DFB8F20D26B0B00A3330B /* bitrise unofficial ios.entitlements */,
 				7A5DFB5B20D26AE300A3330B /* App */,
+				7A00FACE218FE03E00893C93 /* Theme */,
 				7A5DFB6A20D26AE300A3330B /* Resources */,
 				7ADD314720D3301600BE2A77 /* Components */,
 				7A5DFB7020D26AE300A3330B /* Services */,
@@ -241,6 +326,7 @@
 				7A5DFB7920D26AE400A3330B /* Storyboards */,
 				7A5DFB7320D26AE300A3330B /* Supporting Files */,
 				7A5DFB6F20D26AE300A3330B /* Utils */,
+				7A349896218E99290098F31B /* Vendors */,
 			);
 			path = "bitrise unofficial ios";
 			sourceTree = "<group>";
@@ -262,6 +348,7 @@
 				7A797D9A2170746100E57587 /* Bitrise Builds */,
 				7A5DFB5F20D26AE300A3330B /* User Authentication */,
 				7A8E182B20FF218F0013C253 /* User Profile */,
+				7AD08342218E7FA5003CB57A /* Settings & Preferences */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -271,6 +358,7 @@
 			children = (
 				7A5DFB6020D26AE300A3330B /* TokenAuthVC.swift */,
 				7A200B2320D7389A003C6D97 /* BitriseBrowserViewController.swift */,
+				7A595223219069AB00F3B84E /* PasscodeViewController.swift */,
 			);
 			path = "User Authentication";
 			sourceTree = "<group>";
@@ -313,6 +401,7 @@
 			children = (
 				7A5DFB6E20D26AE300A3330B /* BitriseProjectVM.swift */,
 				7AEEECAE2106C71B00D6DD0D /* ProjectBuildVM.swift */,
+				7A5952252191537400F3B84E /* DummyProjectVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -321,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				7A200B1320D5147E003C6D97 /* Extensions */,
+				7A5952272191589A00F3B84E /* RawIdentifierConstants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -433,6 +523,14 @@
 			path = "User Profile";
 			sourceTree = "<group>";
 		};
+		7AD08342218E7FA5003CB57A /* Settings & Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				7AD08343218E7FCC003CB57A /* SettingsVC.swift */,
+			);
+			path = "Settings & Preferences";
+			sourceTree = "<group>";
+		};
 		7ADD314720D3301600BE2A77 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,6 +637,7 @@
 				Base,
 				ru,
 				fr,
+				ja,
 			);
 			mainGroup = 7A5DFB3D20D26A8D00A3330B;
 			productRefGroup = 7A5DFB4720D26A8D00A3330B /* Products */;
@@ -556,11 +655,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A5DFB8E20D26AE400A3330B /* Main.storyboard in Resources */,
+				7A34992E218E9A160098F31B /* Assets.xcassets in Resources */,
 				7A5DFB8720D26AE400A3330B /* Assets.xcassets in Resources */,
+				7A3498FF218E9A160098F31B /* .swift-version in Resources */,
 				7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */,
 				7A5DFB8620D26AE400A3330B /* Colors.xcassets in Resources */,
+				7A349927218E9A160098F31B /* .gitignore in Resources */,
 				7A5DFB8B20D26AE400A3330B /* README.md in Resources */,
+				7A34992D218E9A160098F31B /* PasswordContainerView.xib in Resources */,
+				7A349900218E9A160098F31B /* LICENSE in Resources */,
 				7A99C6A8212D3E4A003DC5D9 /* Localizable.strings in Resources */,
+				7A349926218E9A160098F31B /* SMILELOCK_README.md in Resources */,
 				7A5DFB8D20D26AE400A3330B /* LaunchScreen.storyboard in Resources */,
 				7AEEECAB2102037B00D6DD0D /* BuildCell.xib in Resources */,
 				7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */,
@@ -590,7 +695,6 @@
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
-				"${BUILT_PRODUCTS_DIR}/SmileLock/SmileLock.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/ViewAnimator/ViewAnimator.framework",
@@ -612,7 +716,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SmileLock.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewAnimator.framework",
@@ -709,24 +812,30 @@
 				7A200B1720D53604003C6D97 /* User.swift in Sources */,
 				7A797D992170497700E57587 /* Segues.swift in Sources */,
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
+				7A349929218E9A160098F31B /* PasswordContainerView.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
 				7A99C6AE212E5515003DC5D9 /* NewBuildViewController.swift in Sources */,
 				7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */,
+				7A349932218EAF710098F31B /* Bundle+AppVersions.swift in Sources */,
 				7A5E759120DD36B4008D32A5 /* Build.swift in Sources */,
 				7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */,
 				7A5E759520DD4285008D32A5 /* String+Digits.swift in Sources */,
 				7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */,
 				7A99C6A3212D3D04003DC5D9 /* Strings.swift in Sources */,
 				7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */,
+				7A34992A218E9A160098F31B /* PasswordDotView.swift in Sources */,
 				7AFCBB8C214C8C9000FF0326 /* Organization.swift in Sources */,
 				7A99C6B2212E55A8003DC5D9 /* AsyncResult.swift in Sources */,
+				7A34992B218E9A160098F31B /* PasswordUIValidation.swift in Sources */,
 				7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */,
 				7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */,
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
 				7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */,
 				7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */,
+				7A00FAD0218FE06500893C93 /* ThemeUpdater.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
+				7A5952282191589A00F3B84E /* RawIdentifierConstants.swift in Sources */,
 				7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */,
 				7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */,
 				7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */,
@@ -739,8 +848,11 @@
 				7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */,
 				7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */,
 				7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */,
+				7A595224219069AB00F3B84E /* PasscodeViewController.swift in Sources */,
+				7AD08344218E7FCC003CB57A /* SettingsVC.swift in Sources */,
 				7A5DFB8920D26AE400A3330B /* APIClient.swift in Sources */,
 				7A5E758F20DD275B008D32A5 /* Router.swift in Sources */,
+				7A349928218E9A160098F31B /* PasswordInputView.swift in Sources */,
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
 				7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */,
 				7AEEECAF2106C71B00D6DD0D /* ProjectBuildVM.swift in Sources */,
@@ -755,6 +867,7 @@
 				7A5DFB7E20D26AE400A3330B /* App.swift in Sources */,
 				7A99C6B4212E55C4003DC5D9 /* StartNewBuild.swift in Sources */,
 				7A5DFB8220D26AE400A3330B /* CellRepresentable.swift in Sources */,
+				7A5952262191537400F3B84E /* DummyProjectVM.swift in Sources */,
 				7AEF23F1215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift in Sources */,
 				7A628C34215BC0C600759E48 /* BRNavigationController.swift in Sources */,
 			);
