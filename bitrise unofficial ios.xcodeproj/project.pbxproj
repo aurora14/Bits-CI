@@ -20,16 +20,6 @@
 		7A22923D216DB4A700372FDF /* APIClient+Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22923C216DB4A700372FDF /* APIClient+Build.swift */; };
 		7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */; };
 		7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */; };
-		7A3498FF218E9A160098F31B /* .swift-version in Resources */ = {isa = PBXBuildFile; fileRef = 7A349899218E9A150098F31B /* .swift-version */; };
-		7A349900218E9A160098F31B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7A34989A218E9A150098F31B /* LICENSE */; };
-		7A349926218E9A160098F31B /* SMILELOCK_README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498D7218E9A150098F31B /* SMILELOCK_README.md */; };
-		7A349927218E9A160098F31B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498D8218E9A150098F31B /* .gitignore */; };
-		7A349928218E9A160098F31B /* PasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DB218E9A150098F31B /* PasswordInputView.swift */; };
-		7A349929218E9A160098F31B /* PasswordContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DC218E9A150098F31B /* PasswordContainerView.swift */; };
-		7A34992A218E9A160098F31B /* PasswordDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DD218E9A150098F31B /* PasswordDotView.swift */; };
-		7A34992B218E9A160098F31B /* PasswordUIValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3498DE218E9A150098F31B /* PasswordUIValidation.swift */; };
-		7A34992D218E9A160098F31B /* PasswordContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498E6218E9A150098F31B /* PasswordContainerView.xib */; };
-		7A34992E218E9A160098F31B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A3498E7218E9A150098F31B /* Assets.xcassets */; };
 		7A349932218EAF710098F31B /* Bundle+AppVersions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A349931218EAF710098F31B /* Bundle+AppVersions.swift */; };
 		7A595224219069AB00F3B84E /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A595223219069AB00F3B84E /* PasscodeViewController.swift */; };
 		7A5952262191537400F3B84E /* DummyProjectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5952252191537400F3B84E /* DummyProjectVM.swift */; };
@@ -73,6 +63,14 @@
 		7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */; };
 		7ABD284E2179E01F004BA681 /* APIClient+Organizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABD284D2179E01F004BA681 /* APIClient+Organizations.swift */; };
 		7ABD2856217DD127004BA681 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABD2855217DD127004BA681 /* CloudKit.framework */; };
+		7ABF160E2199AB9A008F0A65 /* swift-version in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF160D2199AB9A008F0A65 /* swift-version */; };
+		7ABF16102199AC84008F0A65 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF160F2199AC84008F0A65 /* LICENSE */; };
+		7ABF16142199AD7C008F0A65 /* PasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF16132199AD7C008F0A65 /* PasswordInputView.swift */; };
+		7ABF16162199ADAE008F0A65 /* PasswordContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF16152199ADAE008F0A65 /* PasswordContainerView.swift */; };
+		7ABF16182199AE01008F0A65 /* PasswordDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF16172199AE01008F0A65 /* PasswordDotView.swift */; };
+		7ABF161A2199AE24008F0A65 /* PasswordUIValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF16192199AE24008F0A65 /* PasswordUIValidation.swift */; };
+		7ABF161E2199AE87008F0A65 /* PasswordContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF161C2199AE87008F0A65 /* PasswordContainerView.xib */; };
+		7ABF161F2199AE87008F0A65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF161D2199AE87008F0A65 /* Assets.xcassets */; };
 		7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4275620E3A62000DC99C0 /* Paging.swift */; };
 		7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */; };
 		7AD08344218E7FCC003CB57A /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD08343218E7FCC003CB57A /* SettingsVC.swift */; };
@@ -107,16 +105,6 @@
 		7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseAuthDelegate.swift; sourceTree = "<group>"; };
 		7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseYMLViewController.swift; sourceTree = "<group>"; };
 		7A349897218E99420098F31B /* VENDORS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = VENDORS.md; sourceTree = "<group>"; };
-		7A349899218E9A150098F31B /* .swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
-		7A34989A218E9A150098F31B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		7A3498D7218E9A150098F31B /* SMILELOCK_README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = SMILELOCK_README.md; sourceTree = "<group>"; };
-		7A3498D8218E9A150098F31B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		7A3498DB218E9A150098F31B /* PasswordInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordInputView.swift; sourceTree = "<group>"; };
-		7A3498DC218E9A150098F31B /* PasswordContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordContainerView.swift; sourceTree = "<group>"; };
-		7A3498DD218E9A150098F31B /* PasswordDotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDotView.swift; sourceTree = "<group>"; };
-		7A3498DE218E9A150098F31B /* PasswordUIValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordUIValidation.swift; sourceTree = "<group>"; };
-		7A3498E6218E9A150098F31B /* PasswordContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordContainerView.xib; sourceTree = "<group>"; };
-		7A3498E7218E9A150098F31B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A349931218EAF710098F31B /* Bundle+AppVersions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+AppVersions.swift"; sourceTree = "<group>"; };
 		7A595223219069AB00F3B84E /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		7A5952252191537400F3B84E /* DummyProjectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyProjectVM.swift; sourceTree = "<group>"; };
@@ -171,6 +159,15 @@
 		7AB9D262210EDB410022951F /* AppDelegate+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Utils.swift"; sourceTree = "<group>"; };
 		7ABD284D2179E01F004BA681 /* APIClient+Organizations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Organizations.swift"; sourceTree = "<group>"; };
 		7ABD2855217DD127004BA681 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		7ABF160D2199AB9A008F0A65 /* swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "swift-version"; sourceTree = "<group>"; };
+		7ABF160F2199AC84008F0A65 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7ABF16112199ACAE008F0A65 /* SMILELOCK_README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SMILELOCK_README.md; sourceTree = "<group>"; };
+		7ABF16132199AD7C008F0A65 /* PasswordInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasswordInputView.swift; path = "bitrise unofficial ios/Vendors/SmileLock/PasswordInputView.swift"; sourceTree = SOURCE_ROOT; };
+		7ABF16152199ADAE008F0A65 /* PasswordContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasswordContainerView.swift; path = "bitrise unofficial ios/Vendors/SmileLock/PasswordContainerView.swift"; sourceTree = SOURCE_ROOT; };
+		7ABF16172199AE01008F0A65 /* PasswordDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasswordDotView.swift; path = "bitrise unofficial ios/Vendors/SmileLock/PasswordDotView.swift"; sourceTree = SOURCE_ROOT; };
+		7ABF16192199AE24008F0A65 /* PasswordUIValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasswordUIValidation.swift; path = "bitrise unofficial ios/Vendors/SmileLock/PasswordUIValidation.swift"; sourceTree = SOURCE_ROOT; };
+		7ABF161C2199AE87008F0A65 /* PasswordContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordContainerView.xib; sourceTree = "<group>"; };
+		7ABF161D2199AE87008F0A65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		7AD08343218E7FCC003CB57A /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -254,42 +251,9 @@
 			isa = PBXGroup;
 			children = (
 				7A349897218E99420098F31B /* VENDORS.md */,
-				7A349898218E9A150098F31B /* SmileLock */,
+				7ABF160C2199A9DF008F0A65 /* SmileLock */,
 			);
 			path = Vendors;
-			sourceTree = "<group>";
-		};
-		7A349898218E9A150098F31B /* SmileLock */ = {
-			isa = PBXGroup;
-			children = (
-				7A349899218E9A150098F31B /* .swift-version */,
-				7A34989A218E9A150098F31B /* LICENSE */,
-				7A3498D7218E9A150098F31B /* SMILELOCK_README.md */,
-				7A3498D8218E9A150098F31B /* .gitignore */,
-				7A3498DA218E9A150098F31B /* Classes */,
-				7A3498E5218E9A150098F31B /* Assets */,
-			);
-			path = SmileLock;
-			sourceTree = "<group>";
-		};
-		7A3498DA218E9A150098F31B /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				7A3498DB218E9A150098F31B /* PasswordInputView.swift */,
-				7A3498DC218E9A150098F31B /* PasswordContainerView.swift */,
-				7A3498DD218E9A150098F31B /* PasswordDotView.swift */,
-				7A3498DE218E9A150098F31B /* PasswordUIValidation.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		7A3498E5218E9A150098F31B /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				7A3498E6218E9A150098F31B /* PasswordContainerView.xib */,
-				7A3498E7218E9A150098F31B /* Assets.xcassets */,
-			);
-			path = Assets;
 			sourceTree = "<group>";
 		};
 		7A5DFB3D20D26A8D00A3330B = {
@@ -523,6 +487,39 @@
 			path = "User Profile";
 			sourceTree = "<group>";
 		};
+		7ABF160C2199A9DF008F0A65 /* SmileLock */ = {
+			isa = PBXGroup;
+			children = (
+				7ABF160D2199AB9A008F0A65 /* swift-version */,
+				7ABF160F2199AC84008F0A65 /* LICENSE */,
+				7ABF16112199ACAE008F0A65 /* SMILELOCK_README.md */,
+				7ABF16122199AD43008F0A65 /* Classes */,
+			);
+			path = SmileLock;
+			sourceTree = "<group>";
+		};
+		7ABF16122199AD43008F0A65 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7ABF16132199AD7C008F0A65 /* PasswordInputView.swift */,
+				7ABF16152199ADAE008F0A65 /* PasswordContainerView.swift */,
+				7ABF16172199AE01008F0A65 /* PasswordDotView.swift */,
+				7ABF16192199AE24008F0A65 /* PasswordUIValidation.swift */,
+				7ABF161B2199AE87008F0A65 /* Assets */,
+			);
+			name = Classes;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		7ABF161B2199AE87008F0A65 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7ABF161C2199AE87008F0A65 /* PasswordContainerView.xib */,
+				7ABF161D2199AE87008F0A65 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		7AD08342218E7FA5003CB57A /* Settings & Preferences */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,20 +652,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A5DFB8E20D26AE400A3330B /* Main.storyboard in Resources */,
-				7A34992E218E9A160098F31B /* Assets.xcassets in Resources */,
+				7ABF160E2199AB9A008F0A65 /* swift-version in Resources */,
 				7A5DFB8720D26AE400A3330B /* Assets.xcassets in Resources */,
-				7A3498FF218E9A160098F31B /* .swift-version in Resources */,
+				7ABF161E2199AE87008F0A65 /* PasswordContainerView.xib in Resources */,
 				7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */,
+				7ABF16102199AC84008F0A65 /* LICENSE in Resources */,
 				7A5DFB8620D26AE400A3330B /* Colors.xcassets in Resources */,
-				7A349927218E9A160098F31B /* .gitignore in Resources */,
 				7A5DFB8B20D26AE400A3330B /* README.md in Resources */,
-				7A34992D218E9A160098F31B /* PasswordContainerView.xib in Resources */,
-				7A349900218E9A160098F31B /* LICENSE in Resources */,
 				7A99C6A8212D3E4A003DC5D9 /* Localizable.strings in Resources */,
-				7A349926218E9A160098F31B /* SMILELOCK_README.md in Resources */,
 				7A5DFB8D20D26AE400A3330B /* LaunchScreen.storyboard in Resources */,
 				7AEEECAB2102037B00D6DD0D /* BuildCell.xib in Resources */,
 				7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */,
+				7ABF161F2199AE87008F0A65 /* Assets.xcassets in Resources */,
 				7A5DFB8A20D26AE400A3330B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -812,8 +807,9 @@
 				7A200B1720D53604003C6D97 /* User.swift in Sources */,
 				7A797D992170497700E57587 /* Segues.swift in Sources */,
 				7A5DFB8020D26AE400A3330B /* AppDelegate.swift in Sources */,
-				7A349929218E9A160098F31B /* PasswordContainerView.swift in Sources */,
+				7ABF16182199AE01008F0A65 /* PasswordDotView.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
+				7ABF16162199ADAE008F0A65 /* PasswordContainerView.swift in Sources */,
 				7A99C6AE212E5515003DC5D9 /* NewBuildViewController.swift in Sources */,
 				7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */,
 				7A349932218EAF710098F31B /* Bundle+AppVersions.swift in Sources */,
@@ -823,10 +819,8 @@
 				7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */,
 				7A99C6A3212D3D04003DC5D9 /* Strings.swift in Sources */,
 				7AEEECAD2102058C00D6DD0D /* BuildCell.swift in Sources */,
-				7A34992A218E9A160098F31B /* PasswordDotView.swift in Sources */,
 				7AFCBB8C214C8C9000FF0326 /* Organization.swift in Sources */,
 				7A99C6B2212E55A8003DC5D9 /* AsyncResult.swift in Sources */,
-				7A34992B218E9A160098F31B /* PasswordUIValidation.swift in Sources */,
 				7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */,
 				7ADD314920D3305000BE2A77 /* ContentContainer.swift in Sources */,
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
@@ -852,10 +846,11 @@
 				7AD08344218E7FCC003CB57A /* SettingsVC.swift in Sources */,
 				7A5DFB8920D26AE400A3330B /* APIClient.swift in Sources */,
 				7A5E758F20DD275B008D32A5 /* Router.swift in Sources */,
-				7A349928218E9A160098F31B /* PasswordInputView.swift in Sources */,
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
 				7AC4275720E3A62000DC99C0 /* Paging.swift in Sources */,
+				7ABF16142199AD7C008F0A65 /* PasswordInputView.swift in Sources */,
 				7AEEECAF2106C71B00D6DD0D /* ProjectBuildVM.swift in Sources */,
+				7ABF161A2199AE24008F0A65 /* PasswordUIValidation.swift in Sources */,
 				7A99C6B0212E5552003DC5D9 /* UIButton+ViewConfigurable.swift in Sources */,
 				7A22923D216DB4A700372FDF /* APIClient+Build.swift in Sources */,
 				7A5DFB8420D26AE400A3330B /* ProjectCell.swift in Sources */,
