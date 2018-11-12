@@ -6,11 +6,31 @@
 //  Copyright © 2018 Alexei Gudimenko. All rights reserved.
 //
 
+
 import Foundation
 import KeychainAccess
 
 protocol UserUpdateDelegate: class {
   func updateUserViews()
+}
+
+extension UIApplication {
+  
+  class func topViewController() -> UIViewController? {
+    guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+      print("*** App delegate was nil when trying to find top view controller")
+      return nil
+    }
+    
+    guard let topController = delegate.window?.rootViewController else {
+      print("*** Window's root view controller property was null - failed getting top view controller")
+      return nil
+    }
+    
+    print("*** \(topController.description)")
+    
+    return topController
+  }
 }
 
 class App {
@@ -189,7 +209,7 @@ extension App {
     
     print("Setting theme to dark: \(flag)")
     
-    let theme: Theme = flag ? .dark : .regular
+    let _: Theme = flag ? .dark : .regular
 
   }
   
