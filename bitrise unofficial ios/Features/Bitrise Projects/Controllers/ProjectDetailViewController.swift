@@ -150,6 +150,3 @@ extension ProjectDetailViewController {
     title = projectTitle
   }
 }
-
-
-
