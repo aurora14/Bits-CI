@@ -682,6 +682,7 @@
                         <outlet property="biometricAuthSwitch" destination="lOv-db-hKU" id="GuP-Lb-kd5"/>
                         <outlet property="passcodeAuthSwitch" destination="86B-uZ-Sgz" id="EQl-Rm-G3d"/>
                         <segue destination="7pa-x7-a1Q" kind="presentation" identifier="SetupPasscodeSegue" id="3J9-2f-LV9"/>
+                        <segue destination="7pa-x7-a1Q" kind="presentation" identifier="SwitchOffPasscodeSegue" id="jcP-95-eCm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FhY-zh-Ttr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -703,37 +704,15 @@
                                     <constraint firstAttribute="height" constant="36" id="iZj-4r-sHA"/>
                                 </constraints>
                                 <state key="normal" image="close"/>
+                                <connections>
+                                    <action selector="didTapCancel:" destination="7pa-x7-a1Q" eventType="touchUpInside" id="haW-3Y-4ET"/>
+                                </connections>
                             </button>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3N-PP-O7a">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FPr-Ry-sBd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O9f-vK-RDe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="CtY-xu-tnO">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                            <vibrancyEffect>
-                                                <blurEffect style="light"/>
-                                            </vibrancyEffect>
-                                        </visualEffectView>
-                                    </subviews>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Sg2-3l-dlm" firstAttribute="trailing" secondItem="BBB-uN-1j7" secondAttribute="trailing" constant="16" id="4ve-ie-FyE"/>
-                            <constraint firstItem="H3N-PP-O7a" firstAttribute="leading" secondItem="Sg2-3l-dlm" secondAttribute="leading" id="Cgr-CR-3hb"/>
                             <constraint firstItem="BBB-uN-1j7" firstAttribute="top" secondItem="Sg2-3l-dlm" secondAttribute="top" constant="4" id="WMh-Ih-eyu"/>
-                            <constraint firstItem="H3N-PP-O7a" firstAttribute="top" secondItem="vZH-p2-dC4" secondAttribute="top" id="igG-bf-532"/>
-                            <constraint firstItem="H3N-PP-O7a" firstAttribute="trailing" secondItem="Sg2-3l-dlm" secondAttribute="trailing" id="kUy-ME-F3J"/>
-                            <constraint firstItem="H3N-PP-O7a" firstAttribute="bottom" secondItem="Sg2-3l-dlm" secondAttribute="bottom" id="xjI-IZ-tvd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Sg2-3l-dlm"/>
                     </view>
@@ -1000,7 +979,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3J9-2f-LV9"/>
+        <segue reference="jcP-95-eCm"/>
         <segue reference="llp-X9-mvH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,6 +20,7 @@ internal enum StoryboardSegue {
     case resetPasscodeSegue = "ResetPasscodeSegue"
     case setupPasscodeSegue = "SetupPasscodeSegue"
     case startNewBuildSegue = "StartNewBuildSegue"
+    case switchOffPasscodeSegue = "SwitchOffPasscodeSegue"
     case tokenSegue = "TokenSegue"
   }
 }

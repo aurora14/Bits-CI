@@ -30,8 +30,14 @@ class SettingsViewController: UITableViewController {
     setupUI()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    setUnlockSwitches()
+  }
+  
   private func setupUI() {
     setDefaultThemePreference()
+    setUnlockSwitches()
   }
   
   @IBAction func didTogglePasscode(_ sender: Any) {
@@ -39,7 +45,9 @@ class SettingsViewController: UITableViewController {
     UserDefaults.standard.set(isUsingPasscodeUnlock, forKey: L10n.isUsingPasscodeUnlock)
     
     if isUsingPasscodeUnlock {
-      
+      perform(segue: StoryboardSegue.Main.setupPasscodeSegue)
+    } else {
+      perform(segue: StoryboardSegue.Main.switchOffPasscodeSegue)
     }
     /*
      Note: for simplicity we're using UserDefaults for passcode unlock. In theory this
@@ -58,7 +66,41 @@ class SettingsViewController: UITableViewController {
     UserDefaults.standard.set(isUsingBiometricUnlock, forKey: L10n.isUsingBiometricUnlock)
   }
   
-  
+  // MARK: - navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    if let passcodeController = segue.destination as? PasscodeViewController {
+      passcodeController.delegate = self
+      passcodeController.isUsingBiometrics = isUsingBiometricUnlock
+      
+      switch segue.identifier {
+      case StoryboardSegue.Main.setupPasscodeSegue.rawValue:
+        guard segue.destination is PasscodeViewController else {
+          assertionFailure("Setup Passcode Segue isn't pointing to an instance of Passcode View Controller")
+          return
+        }
+        passcodeController.userFlow = .settingUp
+        passcodeController.userActionText = L10n.enterNewPasscode
+      case StoryboardSegue.Main.resetPasscodeSegue.rawValue:
+        guard segue.destination is PasscodeViewController else {
+          assertionFailure("Reset Passcode Segue isn't pointing to an instance of Passcode View Controller")
+          return
+        }
+        passcodeController.userFlow = .resetting
+        passcodeController.userActionText = L10n.enterCurrentPasscode
+      case StoryboardSegue.Main.switchOffPasscodeSegue.rawValue:
+        guard segue.destination is PasscodeViewController else {
+          assertionFailure("Switch Off Passcode Segue isn't pointing to an instance of Passcode View Controller")
+          return
+        }
+        passcodeController.userFlow = .switchingOff
+        passcodeController.userActionText = L10n.enterCurrentPasscode
+      default:
+        ()
+      }
+    }
+    
+  }
 }
 
 // MARK: - Table view datasource
@@ -121,6 +163,7 @@ extension SettingsViewController {
     switch (indexPath.section, indexPath.row) {
     case (0, 2):
       print("Reset Passcode row tapped")
+      perform(segue: StoryboardSegue.Main.resetPasscodeSegue)
     default:
       print("Settings VC row tapped")
     }
@@ -135,6 +178,16 @@ extension SettingsViewController {
     defaults.set(false, forKey: L10n.isDarkThemeSelected)
   }
   
+  fileprivate func setUnlockSwitches() {
+    isUsingPasscodeUnlock = UserDefaults.standard.bool(forKey: L10n.isUsingPasscodeUnlock)
+    isUsingBiometricUnlock = UserDefaults.standard.bool(forKey: L10n.isUsingBiometricUnlock)
+    
+    passcodeAuthSwitch.isOn = isUsingPasscodeUnlock
+    
+    // only allow biometrics if a passcode has been set
+    biometricAuthSwitch.isEnabled = isUsingPasscodeUnlock
+    biometricAuthSwitch.isOn = isUsingPasscodeUnlock && isUsingBiometricUnlock
+  }
 //  @IBAction func didSwitchThemes(_ sender: UISwitch) {
 //    let userDefaults = UserDefaults.standard
 //    uiThemeSwitch.isOn.toggle()
@@ -142,5 +195,36 @@ extension SettingsViewController {
 //    App.sharedInstance.setDarkThemeActive(uiThemeSwitch.isOn)
 //    print("Dark theme is on: \(uiThemeSwitch.isOn)")
 //  }
+  
+}
+
+
+extension SettingsViewController: PasscodeViewControllerDelegate {
+  
+  func didCompletePasscodeSetup(_ controller: PasscodeViewController) {
+    UserDefaults.standard.set(true, forKey: L10n.isUsingPasscodeUnlock)
+    // TODO: - Configuration once a passcode has been set:
+    // 1. Enable biometric switch to allow users to use touch and face ID if they so wish
+    // 2.
+    controller.dismiss(animated: true, completion: nil)
+  }
+  
+  func didCancelPasscodeSetup(_ controller: PasscodeViewController) {
+    
+    controller.dismiss(animated: true, completion: nil)
+  }
+  
+  func didUnlock(_ controller: PasscodeViewController, withAuthorizationOfType authorizationType: AppUnlockAuthorizationType) {
+    
+    controller.dismiss(animated: true, completion: nil)
+  }
+  
+  func didSwitchOffPasscode(_ controller: PasscodeViewController) {
+    UserDefaults.standard.set(false, forKey: L10n.isUsingPasscodeUnlock)
+    UserDefaults.standard.set(false, forKey: L10n.isUsingBiometricUnlock)
+    // setUnlockSwitches() // this call might not be necessary, since it's invoked in viewWillAppear.
+    // However if issues are experienced, try using it 
+    controller.dismiss(animated: true, completion: nil)
+  }
   
 }
