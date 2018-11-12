@@ -27,14 +27,15 @@ extension UIApplication {
       return nil
     }
     
-    guard let topController = rootViewController.presentedViewController else {
-      print("*** Presented view controller property was nil, deferring to Root VC")
-      return rootViewController
-    }
+//    guard let topController = rootViewController.presentedViewController,
+//      !topController.isKind(of: UIAlertController.self) else {
+//      print("*** Presented view controller property was nil, deferring to Root VC")
+//      return rootViewController
+//    }
+//
+//    print("*** \(topController.description)")
     
-    print("*** \(topController.description)")
-    
-    return topController
+    return rootViewController
   }
 }
 
