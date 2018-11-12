@@ -22,9 +22,14 @@ extension UIApplication {
       return nil
     }
     
-    guard let topController = delegate.window?.rootViewController else {
-      print("*** Window's root view controller property was null - failed getting top view controller")
+    guard let rootViewController = delegate.window?.rootViewController else {
+      print("*** Window's root view controller property was null - failed getting window's root VC")
       return nil
+    }
+    
+    guard let topController = rootViewController.presentedViewController else {
+      print("*** Presented view controller property was nil, deferring to Root VC")
+      return rootViewController
     }
     
     print("*** \(topController.description)")
