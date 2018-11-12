@@ -25,8 +25,14 @@ internal enum L10n {
   internal static let d = L10n.tr("Localizable", "d")
   /// days
   internal static let days = L10n.tr("Localizable", "days")
+  /// Delete
+  internal static let deletePasscodeCharacter = L10n.tr("Localizable", "deletePasscodeCharacter")
   /// Dismiss
   internal static let dismiss = L10n.tr("Localizable", "dismiss")
+  /// Enter Current Passcode
+  internal static let enterCurrentPasscode = L10n.tr("Localizable", "enterCurrentPasscode")
+  /// Enter New Passcode
+  internal static let enterNewPasscode = L10n.tr("Localizable", "enterNewPasscode")
   /// Find your project by name
   internal static let filterByProjectTitle = L10n.tr("Localizable", "filterByProjectTitle")
   /// hours
@@ -37,6 +43,8 @@ internal enum L10n {
   internal static let hrs = L10n.tr("Localizable", "hrs")
   /// Invalid Parameters
   internal static let invalidParams = L10n.tr("Localizable", "invalidParams")
+  /// Invalid Passcode
+  internal static let invalidPasscode = L10n.tr("Localizable", "invalidPasscode")
   /// Dark Theme Selection Key
   internal static let isDarkThemeSelected = L10n.tr("Localizable", "isDarkThemeSelected")
   /// Biometric Lock Key
@@ -61,6 +69,8 @@ internal enum L10n {
   internal static let mth = L10n.tr("Localizable", "mth")
   /// mths
   internal static let mths = L10n.tr("Localizable", "mths")
+  /// Passcodes do not match
+  internal static let noMatchPasscode = L10n.tr("Localizable", "noMatchPasscode")
   /// User doesn't belong to any organizations
   internal static let noOrganizations = L10n.tr("Localizable", "noOrganizations")
   /// No token saved in keychain
@@ -71,6 +81,8 @@ internal enum L10n {
   internal static let profile = L10n.tr("Localizable", "profile")
   /// Projects
   internal static let projects = L10n.tr("Localizable", "projects")
+  /// Re-enter New Passcode
+  internal static let reenterNewPasscode = L10n.tr("Localizable", "reenterNewPasscode")
   /// seconds
   internal static let seconds = L10n.tr("Localizable", "seconds")
   /// Showing all apps

@@ -61,3 +61,10 @@
 "yr" = "г";
 "yrs" = "г";
 
+// Passcode controller
+"deletePasscodeCharacter" = "Удалить";
+"enterNewPasscode" = "Enter New Passcode";
+"enterCurrentPasscode" = "Enter Current Passcode";
+"reenterNewPasscode" = "Re-enter New Passcode";
+"invalidPasscode" = "Invalid Passcode";
+"noMatchPasscode" = "Passcodes do not match";

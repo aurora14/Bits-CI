@@ -66,3 +66,11 @@
 "isDarkThemeSelected" = "Dark Theme Selection Key";
 "isUsingPasscodeUnlock" = "Passcode Lock Key";
 "isUsingBiometricUnlock" = "Biometric Lock Key";
+
+// Passcode controller
+"deletePasscodeCharacter" = "Delete";
+"enterNewPasscode" = "Enter New Passcode";
+"enterCurrentPasscode" = "Enter Current Passcode";
+"reenterNewPasscode" = "Re-enter New Passcode";
+"invalidPasscode" = "Invalid Passcode";
+"noMatchPasscode" = "Passcodes do not match";
