@@ -21,6 +21,8 @@ class SettingsViewController: UITableViewController {
   var isUsingPasscodeUnlock = false
   var isUsingBiometricUnlock = false
   
+  let keychain = App.sharedInstance.keychain
+  
   // UI Controls
   // @IBOutlet weak var uiThemeSwitch: UISwitch!
   
@@ -160,10 +162,21 @@ extension SettingsViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     
+    // this is something of a fragile implementation, should the passcode rows ever change.
+    //
     switch (indexPath.section, indexPath.row) {
     case (0, 2):
       print("Reset Passcode row tapped")
-      perform(segue: StoryboardSegue.Main.resetPasscodeSegue)
+      do {
+        guard let _ = try keychain.get(kPasscodeUnlockKey) else {
+          print("No previously stored passcodes. Aborting... ")
+          return
+        }
+        perform(segue: StoryboardSegue.Main.resetPasscodeSegue)
+      } catch let error {
+        print("Settings VC Keychain Err: \(error.localizedDescription)")
+      }
+      
     default:
       print("Settings VC row tapped")
     }
@@ -214,7 +227,8 @@ extension SettingsViewController: PasscodeViewControllerDelegate {
     controller.dismiss(animated: true, completion: nil)
   }
   
-  func didUnlock(_ controller: PasscodeViewController, withAuthorizationOfType authorizationType: AppUnlockAuthorizationType) {
+  func didUnlock(_ controller: PasscodeViewController,
+                 withAuthorizationOfType authorizationType: AppUnlockAuthorizationType) {
     
     controller.dismiss(animated: true, completion: nil)
   }

@@ -53,8 +53,8 @@ class PasscodeViewController: UIViewController {
   /// before presenting or navigating to the Passcode View Controller.
   var userFlow: PasscodeUserFlow = .settingUp
   
-  let keychain = Keychain(service: "com.gudimenko.alexei.bitrise-unofficial-ios")
-  let passcodeUnlockKey = "PasscodeUnlockKey"
+  let keychain = App.sharedInstance.keychain
+  //let passcodeUnlockKey = "PasscodeUnlockKey"
   
   /// Length of the passcode
   let kPasscodeDigit = 6
@@ -79,7 +79,7 @@ class PasscodeViewController: UIViewController {
       // 1. - There IS a stored value in the keychain under 'passcode unlock key' but it's an empty string
       // 2. - There isn't a stored value in the keychain under this passcode
       // then
-      if let storedPasscode = try keychain.get(passcodeUnlockKey) {
+      if let storedPasscode = try keychain.get(kPasscodeUnlockKey) {
         if storedPasscode.isEmpty {
           setUserDefaultLockValuesToOff()
         }
@@ -217,7 +217,7 @@ extension PasscodeViewController {
           .comment("Authorization value for accessing Bitrise.io API")
           .synchronizable(true)
           .accessibility(.afterFirstUnlock)
-          .set(input, key: passcodeUnlockKey)
+          .set(input, key: kPasscodeUnlockKey)
         delegate?.didCompletePasscodeSetup(self)
       } catch let error {
         assertionFailure("Error saving passcode to keychain: \(error.localizedDescription)")
@@ -235,6 +235,22 @@ extension PasscodeViewController {
     // 1. Check the input against the stored passcode
     // 2. If the passcode is correct, clear input and proceed to the 'setup' workflow
     // 3. Otherwise present 'invalid' option. User can re-enter or cancel
+    do {
+      guard let storedPasscode = try keychain.get(kPasscodeUnlockKey) else {
+        print("No previously stored passcodes. Aborting... ")
+        return
+      }
+      
+      if storedPasscode == input {
+        passwordContainerView.clearInput()
+        userActionText = L10n.enterNewPasscode
+        userFlow = .settingUp
+      } else {
+        passwordContainerView.wrongPassword()
+      }
+    } catch let error {
+      print("Passcode View Controller: " + error.localizedDescription)
+    }
   }
   
   fileprivate func performUnlockFlow(in passwordContainerView: PasswordContainerView, withCode input: String) {
@@ -245,7 +261,7 @@ extension PasscodeViewController {
     //    launches the app.
     // 3. Otherwise present 'invalid' option. User can re-enter or cancel
     do {
-      guard let storedPasscode = try keychain.get(passcodeUnlockKey) else {
+      guard let storedPasscode = try keychain.get(kPasscodeUnlockKey) else {
         print("No previously stored passcodes. Aborting...")
         return
       }
@@ -262,14 +278,14 @@ extension PasscodeViewController {
   
   fileprivate func performSwitchOffFlow(in passwordContainerView: PasswordContainerView, withCode input: String) {
     do {
-      guard let storedPasscode = try keychain.get(passcodeUnlockKey) else {
+      guard let storedPasscode = try keychain.get(kPasscodeUnlockKey) else {
         print("No previously stored passcodes. Aborting...")
         return
       }
       // 1. Check the input against the stored passcode.
       if storedPasscode == input {
         // 2. If the passcode is correct - delete the keychain entry. Then set the touch and passcode switches to off. Dismiss the view controller
-        try keychain.remove(passcodeUnlockKey)
+        try keychain.remove(kPasscodeUnlockKey)
         delegate?.didSwitchOffPasscode(self)
       } else {
         // 3. If the passcode is incorrect, invoke passwordContainerView.wrongPassword(), and DO NOT update any of the settings

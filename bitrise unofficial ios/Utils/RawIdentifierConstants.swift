@@ -9,3 +9,4 @@
 import Foundation
 
 let kProjectCellReusableIdentifier = "ProjectCell"
+internal let kPasscodeUnlockKey = "PasscodeUnlockKey"
