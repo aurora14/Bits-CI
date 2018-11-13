@@ -73,6 +73,12 @@ class PasscodeViewController: UIViewController {
     createUserActionLabel(withTitle: userActionText)
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    passcodeContainerView?.touchAuthenticationEnabled =
+      userFlow == .resetting ? false : true
+  }
+  
   @IBAction func didTapCancel(_ sender: Any) {
     do {
       // If user cancels entry and one of the following is true:
