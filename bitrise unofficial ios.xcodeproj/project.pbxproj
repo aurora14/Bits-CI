@@ -168,6 +168,7 @@
 		7ABF16192199AE24008F0A65 /* PasswordUIValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PasswordUIValidation.swift; path = "bitrise unofficial ios/Vendors/SmileLock/PasswordUIValidation.swift"; sourceTree = SOURCE_ROOT; };
 		7ABF161C2199AE87008F0A65 /* PasswordContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordContainerView.xib; sourceTree = "<group>"; };
 		7ABF161D2199AE87008F0A65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7ABF1620219AD884008F0A65 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		7AC4275620E3A62000DC99C0 /* Paging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		7AC58BBE20F5E9F5007C95C0 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		7AD08343218E7FCC003CB57A /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -259,6 +260,8 @@
 		7A5DFB3D20D26A8D00A3330B = {
 			isa = PBXGroup;
 			children = (
+				7A5DFB7520D26AE300A3330B /* README.md */,
+				7ABF1620219AD884008F0A65 /* CONTRIBUTING.md */,
 				7A5DFB4820D26A8D00A3330B /* bitrise unofficial ios */,
 				7A5DFB4720D26A8D00A3330B /* Products */,
 				3564B5D8F6711471F1645289 /* Pods */,
@@ -403,7 +406,6 @@
 			isa = PBXGroup;
 			children = (
 				7A5DFB7420D26AE300A3330B /* GoogleService-Info.plist */,
-				7A5DFB7520D26AE300A3330B /* README.md */,
 				7A5DFB7620D26AE300A3330B /* Info.plist */,
 			);
 			path = "Supporting Files";
