@@ -1,6 +1,8 @@
+[![Build Status](https://app.bitrise.io/app/e88b90edc48f2fac/status.svg?token=ApRu9n8s9xPI4uM9wzpXGQ&branch=master)](https://app.bitrise.io/app/e88b90edc48f2fac)
+
 #  Bitrise Unofficial Client for iOS
 
-This app is intended to provide a modern, up-to-date interface for interacting with the Bitrise continuous integration system
+This app is a client for Bitrise CI platform, providing a clean, functional interface to manage your workflows and builds
 
 ## Authentication
 Access to the functions provided by the API is via Bitrise Personal Access Token. As of version 1.1, the app can be locked down via passcode and biometric authentication. 
