@@ -29,15 +29,6 @@ protocol PasscodeViewControllerDelegate: class {
 
 class PasscodeViewController: UIViewController {
   
-  // TODO: - Manage states: is the user entering a passcode for the first time?
-  // - first-time setup: show VC, enter password once, re-enter password, on successful match store p/code & dismiss VC.
-  // - resetting passcode: show VC, enter old, enter new, reenter new, on success dismiss
-  // -
-  
-  // TODO: - Consider offloading the flow determination to coordinator. Currently we're
-  //         doing too much work in the view controllers. But we'll defer this until the actual code
-  //         feature works.
-  
   weak var delegate: PasscodeViewControllerDelegate?
   
   var passcodeContainerView: PasswordContainerView?
@@ -166,15 +157,6 @@ class PasscodeViewController: UIViewController {
     UserDefaults.standard.set(false, forKey: L10n.isUsingPasscodeUnlock)
     UserDefaults.standard.set(false, forKey: L10n.isUsingBiometricUnlock)
   }
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destination.
-   // Pass the selected object to the new view controller.
-   }
-   */
   
 }
 
@@ -237,7 +219,6 @@ extension PasscodeViewController {
   }
   
   fileprivate func performResetFlow(in passwordContainerView: PasswordContainerView, withCode input: String) {
-    #warning("Perform Reset Flow: - incomplete or empty implementation. ")
     // 1. Check the input against the stored passcode
     // 2. If the passcode is correct, clear input and proceed to the 'setup' workflow
     // 3. Otherwise present 'invalid' option. User can re-enter or cancel

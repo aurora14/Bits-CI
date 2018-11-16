@@ -15,3 +15,8 @@ Code contributions can be made with pull requests.
 ### Issues
 
 If you find something not working quite like you expect, please open an issue in GitHub. I will do my best to attend to it as quickly as it's possible. 
+
+### Beta testing
+
+There is a limited number of spots available for beta testing. Contact me on the same address as specified in Features and Improvements 
+to get beta link. 
