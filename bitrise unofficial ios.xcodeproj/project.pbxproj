@@ -106,6 +106,8 @@
 		7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseYMLViewController.swift; sourceTree = "<group>"; };
 		7A349897218E99420098F31B /* VENDORS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = VENDORS.md; sourceTree = "<group>"; };
 		7A349931218EAF710098F31B /* Bundle+AppVersions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+AppVersions.swift"; sourceTree = "<group>"; };
+		7A53EC6A219E7845001BB556 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		7A53EC6B219E98CA001BB556 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		7A595223219069AB00F3B84E /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
 		7A5952252191537400F3B84E /* DummyProjectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyProjectVM.swift; sourceTree = "<group>"; };
 		7A5952272191589A00F3B84E /* RawIdentifierConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawIdentifierConstants.swift; sourceTree = "<group>"; };
@@ -260,6 +262,8 @@
 		7A5DFB3D20D26A8D00A3330B = {
 			isa = PBXGroup;
 			children = (
+				7A53EC6B219E98CA001BB556 /* CHANGELOG.md */,
+				7A53EC6A219E7845001BB556 /* LICENSE.md */,
 				7A5DFB7520D26AE300A3330B /* README.md */,
 				7ABF1620219AD884008F0A65 /* CONTRIBUTING.md */,
 				7A5DFB4820D26A8D00A3330B /* bitrise unofficial ios */,
