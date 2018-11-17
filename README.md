@@ -10,7 +10,7 @@ Access to the functions provided by the API is via Bitrise Personal Access Token
 Personal Access Token is stored in the keychain once generated. 
 
 ## Design notes
-Where possible, follow iOS 11/12 conventions. One notable exception is the tabbed views in Project Detail and Build Detail.
+Where possible, follow iOS 11/12 conventions. One notable exception is the tabbed page views in Project Detail and Build Detail.
 
 New build modal sheet is styled similar to Facebook and Music apps, can be dismissed by dragging down or tapping the chevron. 
 
