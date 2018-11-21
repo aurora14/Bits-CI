@@ -69,3 +69,4 @@
 "reenterNewPasscode" = "Re-enter New Passcode";
 "invalidPasscode" = "Invalid Passcode";
 "noMatchPasscode" = "Passcodes do not match";
+"enterYourPasscode" = "Enter your passcode";

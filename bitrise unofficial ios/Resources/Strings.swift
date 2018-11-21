@@ -33,6 +33,8 @@ internal enum L10n {
   internal static let enterCurrentPasscode = L10n.tr("Localizable", "enterCurrentPasscode")
   /// Enter New Passcode
   internal static let enterNewPasscode = L10n.tr("Localizable", "enterNewPasscode")
+  /// Enter your passcode
+  internal static let enterYourPasscode = L10n.tr("Localizable", "enterYourPasscode")
   /// Find your project by name
   internal static let filterByProjectTitle = L10n.tr("Localizable", "filterByProjectTitle")
   /// hours
