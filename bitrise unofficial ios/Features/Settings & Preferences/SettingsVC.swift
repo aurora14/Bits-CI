@@ -43,6 +43,9 @@ class SettingsViewController: UITableViewController {
   }
   
   @IBAction func didTogglePasscode(_ sender: Any) {
+    // TODO: - The logic in the two lines below should be moved to the delegate method to avoid
+    // doubling up on states. Then if it doesn't activate correctly, the issue would simply be
+    // that the delegate method wasn't called in the right place, making it easier to debug.
     isUsingPasscodeUnlock = passcodeAuthSwitch.isOn
     UserDefaults.standard.set(isUsingPasscodeUnlock, forKey: L10n.isUsingPasscodeUnlock)
     
@@ -64,12 +67,42 @@ class SettingsViewController: UITableViewController {
   }
   
   @IBAction func didToggleBiometrics(_ sender: Any) {
+    
+    if isUsingBiometricUnlock {
+      // If the bio lock is already on, toggling the switch will turn it off after asking for passcode
+      let passcodeController = StoryboardScene.Main.passcodeViewController.instantiate()
+      passcodeController.userFlow = .switchingOffBiometrics
+      passcodeController.userActionText = L10n.enterYourPasscode
+      present(passcodeController, animated: true, completion: nil)
+    } else {
+      // No passcode is required for switching the bio on
+    }
+    
     isUsingBiometricUnlock = biometricAuthSwitch.isOn
     UserDefaults.standard.set(isUsingBiometricUnlock, forKey: L10n.isUsingBiometricUnlock)
   }
   
   // MARK: - navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    /*
+     These scenarios handle following cases for presenting PasscodeVC using segues:
+     - setup
+     - reset
+     - switch off
+     
+     In other cases the PasscodeVC is presented modally using the present(animated:completion:) method.
+     These cases are:
+     - unlock app
+     - switch off biometrics
+     
+     Unlocking is presented in this way because the user could background the app from any screen,
+     and secondly, because PasscodeVC needs to be able to be presented at any time from any place
+     that it's required.
+     
+     Biometrics is presented to avoid additional boilerplate and to keep the storyboard clean.
+     This may be changed in the future.
+     */
     
     if let passcodeController = segue.destination as? PasscodeViewController {
       passcodeController.delegate = self
@@ -241,4 +274,24 @@ extension SettingsViewController: PasscodeViewControllerDelegate {
     controller.dismiss(animated: true, completion: nil)
   }
   
+  func didCancelPasscodeOff(_ controller: PasscodeViewController) {
+    isUsingPasscodeUnlock = true
+    passcodeAuthSwitch.isOn = isUsingPasscodeUnlock
+    UserDefaults.standard.set(isUsingPasscodeUnlock, forKey: L10n.isUsingPasscodeUnlock)
+    controller.dismiss(animated: true, completion: nil)
+  }
+  
+  func didSwitchOffBiometrics(_ controller: PasscodeViewController) {
+    isUsingBiometricUnlock = false
+    biometricAuthSwitch.isOn = isUsingBiometricUnlock
+    UserDefaults.standard.set(isUsingBiometricUnlock, forKey: L10n.isUsingBiometricUnlock)
+    controller.dismiss(animated: true, completion: nil)
+  }
+  
+  func didCancelBiometricsOff(_ controller: PasscodeViewController) {
+    isUsingBiometricUnlock = true
+    biometricAuthSwitch.isOn = isUsingBiometricUnlock
+    UserDefaults.standard.set(isUsingBiometricUnlock, forKey: L10n.isUsingBiometricUnlock)
+    controller.dismiss(animated: true, completion: nil)
+  }
 }

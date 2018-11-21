@@ -15,8 +15,25 @@ enum AppUnlockAuthorizationType {
   case passcode, biometric
 }
 
+/// Describes potential user actions in relation to passcode and biometrics protection.
+/// Specify one of these when presenting the Passcode View Controller
+///
+/// - settingUp: <#settingUp description#>
+/// - resetting: <#resetting description#>
+/// - unlocking: <#unlocking description#>
+/// - switchingOff: <#switchingOff description#>
+/// - switchingOffBiometrics: <#switchingOffBiometrics description#>
 enum PasscodeUserFlow {
-  case settingUp, resetting, unlocking, switchingOff
+  /// <#Description#>
+  case settingUp
+  /// <#Description#>
+  case resetting
+  /// <#Description#>
+  case unlocking
+  /// <#Description#>
+  case switchingOff
+  /// <#Description#>
+  case switchingOffBiometrics
 }
 
 protocol PasscodeViewControllerDelegate: class {
@@ -25,11 +42,19 @@ protocol PasscodeViewControllerDelegate: class {
   func didUnlock(_ controller: PasscodeViewController,
                  withAuthorizationOfType authorizationType: AppUnlockAuthorizationType)
   func didSwitchOffPasscode(_ controller: PasscodeViewController)
+  func didCancelPasscodeOff(_ controller: PasscodeViewController)
+  func didSwitchOffBiometrics(_ controller: PasscodeViewController)
+  func didCancelBiometricsOff(_ controller: PasscodeViewController)
 }
 
 class PasscodeViewController: UIViewController {
   
+  @IBOutlet weak var dismissButton: UIButton!
+  
   weak var delegate: PasscodeViewControllerDelegate?
+  
+  private var notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+  private var impactFeedbackGenerator = UIImpactFeedbackGenerator()
   
   var passcodeContainerView: PasswordContainerView?
   fileprivate var userActionLabel: UILabel?
@@ -60,34 +85,56 @@ class PasscodeViewController: UIViewController {
     // Do any additional setup after loading the view.
     modalPresentationStyle = .overCurrentContext
     
+    notificationFeedbackGenerator.prepare()
+    impactFeedbackGenerator.prepare()
+    
     createPasscodeView()
     createUserActionLabel(withTitle: userActionText)
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    passcodeContainerView?.touchAuthenticationEnabled =
-      userFlow == .resetting ? false : true
+    
+    if userFlow == .resetting || userFlow == .settingUp {
+      passcodeContainerView?.touchAuthenticationEnabled = false
+    }
+    
+    // don't give user the option to cancel if they must enter passcode or biometrics
+    if userFlow == .unlocking {
+      dismissButton.isHidden = true
+    }
   }
   
   @IBAction func didTapCancel(_ sender: Any) {
-    do {
-      // If user cancels entry and one of the following is true:
-      // 1. - There IS a stored value in the keychain under 'passcode unlock key' but it's an empty string
-      // 2. - There isn't a stored value in the keychain under this passcode
-      // then
-      if let storedPasscode = try keychain.get(kPasscodeUnlockKey) {
-        if storedPasscode.isEmpty {
+    
+    // First two cases handle switching off existing setup.
+    // Default currently handles setup case, when no passcode exists in the system
+    
+    switch userFlow {
+    case .switchingOffBiometrics:
+      delegate?.didCancelBiometricsOff(self)
+    case .switchingOff:
+      delegate?.didCancelPasscodeOff(self)
+    default:
+      do {
+        // If user cancels entry and one of the following is true:
+        // 1. - There IS a stored value in the keychain under 'passcode unlock key' but it's an empty string
+        // 2. - There isn't a stored value in the keychain under this passcode
+        // then
+        if let storedPasscode = try keychain.get(kPasscodeUnlockKey) {
+          if storedPasscode.isEmpty {
+            setUserDefaultLockValuesToOff()
+          }
+          // Otherwise, the implication is that user defaults state is preserved
+        } else {
           setUserDefaultLockValuesToOff()
         }
-        // Otherwise, the implication is that user defaults state is preserved
-      } else {
-        setUserDefaultLockValuesToOff()
+      } catch let error {
+        assertionFailure("Error retrieving passcode: \(error.localizedDescription)")
       }
-    } catch let error {
-      assertionFailure("Error retrieving passcode: \(error.localizedDescription)")
+      delegate?.didCancelPasscodeSetup(self)
     }
-    delegate?.didCancelPasscodeSetup(self)
+    
   }
   
   private func createPasscodeView() {
@@ -173,13 +220,29 @@ extension PasscodeViewController: PasswordInputCompleteProtocol {
       performUnlockFlow(in: passwordContainerView, withCode: input)
     case .switchingOff:
       performSwitchOffFlow(in: passwordContainerView, withCode: input)
+    case .switchingOffBiometrics:
+      performSwitchOffBiometricFlow(in: passwordContainerView, withCode: input)
     }
   }
   
   func touchAuthenticationComplete(_ passwordContainerView: PasswordContainerView, success: Bool, error: Error?) {
+    
+    guard error == nil else {
+      print(error?.localizedDescription ?? "Biometric auth error")
+      return
+    }
+    
     if success {
-      delegate?.didUnlock(self, withAuthorizationOfType: .biometric)
-      dismiss(animated: true, completion: nil)
+      switch userFlow {
+      case .switchingOffBiometrics:
+        delegate?.didSwitchOffBiometrics(self)
+      default:
+        delegate?.didUnlock(self, withAuthorizationOfType: .biometric)
+        if delegate == nil {
+          dismiss(animated: true, completion: nil)
+        }
+        
+      }
     } else {
       passwordContainerView.wrongPassword()
     }
@@ -196,6 +259,7 @@ extension PasscodeViewController {
       // No passcode has been entered yet
       passcodeToMatch = input
       passcodeContainerView?.clearInput()
+      impactFeedbackGenerator.impactOccurred()
       userActionLabel?.text = L10n.reenterNewPasscode
     } else if input == passcodeToMatch {
       // Second time entering password, first and second input attempts match
@@ -206,6 +270,7 @@ extension PasscodeViewController {
           .synchronizable(true)
           .accessibility(.afterFirstUnlock)
           .set(input, key: kPasscodeUnlockKey)
+        notificationFeedbackGenerator.notificationOccurred(.success)
         delegate?.didCompletePasscodeSetup(self)
       } catch let error {
         assertionFailure("Error saving passcode to keychain: \(error.localizedDescription)")
@@ -214,6 +279,7 @@ extension PasscodeViewController {
         // TODO: - present an error, instructing to contact support
       }
     } else {
+      notificationFeedbackGenerator.notificationOccurred(.error)
       passwordContainerView.wrongPassword()
     }
   }
@@ -222,21 +288,19 @@ extension PasscodeViewController {
     // 1. Check the input against the stored passcode
     // 2. If the passcode is correct, clear input and proceed to the 'setup' workflow
     // 3. Otherwise present 'invalid' option. User can re-enter or cancel
-    do {
-      guard let storedPasscode = try keychain.get(kPasscodeUnlockKey) else {
-        print("No previously stored passcodes. Aborting... ")
-        return
-      }
-      
-      if storedPasscode == input {
-        passwordContainerView.clearInput()
-        userActionText = L10n.enterNewPasscode
-        userFlow = .settingUp
-      } else {
-        passwordContainerView.wrongPassword()
-      }
-    } catch let error {
-      print("Passcode View Controller: " + error.localizedDescription)
+    
+    guard let storedPasscode = validateStoredPasscode(in: passwordContainerView) else {
+      return
+    }
+    
+    if storedPasscode == input {
+      notificationFeedbackGenerator.notificationOccurred(.success)
+      passwordContainerView.clearInput()
+      userActionText = L10n.enterNewPasscode
+      userFlow = .settingUp
+    } else {
+      notificationFeedbackGenerator.notificationOccurred(.error)
+      passwordContainerView.wrongPassword()
     }
   }
   
@@ -247,39 +311,80 @@ extension PasscodeViewController {
     //    Note that if lock is activated with no time, the passcode screen will always show when user
     //    launches the app.
     // 3. Otherwise present 'invalid' option. User can re-enter or cancel
-    do {
-      guard let storedPasscode = try keychain.get(kPasscodeUnlockKey) else {
-        print("No previously stored passcodes. Aborting...")
-        return
-      }
-      if storedPasscode == input {
-        delegate?.didUnlock(self, withAuthorizationOfType: .passcode)
+    
+    guard let storedPasscode = validateStoredPasscode(in: passwordContainerView) else {
+      return
+    }
+    
+    if storedPasscode == input {
+      notificationFeedbackGenerator.notificationOccurred(.success)
+      delegate?.didUnlock(self, withAuthorizationOfType: .passcode)
+      if delegate == nil {
         dismiss(animated: true, completion: nil)
-      } else {
-        passwordContainerView.wrongPassword()
       }
-    } catch let error {
-      assertionFailure("*** Key op error: \(error.localizedDescription)")
+    } else {
+      notificationFeedbackGenerator.notificationOccurred(.error)
+      passwordContainerView.wrongPassword()
     }
   }
   
   fileprivate func performSwitchOffFlow(in passwordContainerView: PasswordContainerView, withCode input: String) {
+    
+    guard let storedPasscode = validateStoredPasscode(in: passwordContainerView) else {
+      return
+    }
+    
+    // 1. Check the input against the stored passcode.
+    if storedPasscode == input {
+      do {
+        try keychain.remove(kPasscodeUnlockKey)
+        notificationFeedbackGenerator.notificationOccurred(.success)
+      } catch let error {
+        notificationFeedbackGenerator.notificationOccurred(.error)
+        assertionFailure("Error removing passcode: \(error.localizedDescription)")
+        userActionText = "Couldn't remove passcode"
+        return
+      }
+      delegate?.didSwitchOffPasscode(self)
+    } else {
+      notificationFeedbackGenerator.notificationOccurred(.error)
+      passwordContainerView.wrongPassword()
+    }
+  }
+  
+  fileprivate func performSwitchOffBiometricFlow(in passwordContainerView: PasswordContainerView,
+                                                 withCode input: String) {
+    
+    guard let storedPasscode = validateStoredPasscode(in: passwordContainerView) else {
+      return
+    }
+    
+    if storedPasscode == input {
+      notificationFeedbackGenerator.notificationOccurred(.success)
+      delegate?.didSwitchOffBiometrics(self)
+    } else {
+      notificationFeedbackGenerator.notificationOccurred(.error)
+      passwordContainerView.wrongPassword()
+    }
+  }
+  
+  private typealias PasscodeString = String
+  
+  private func validateStoredPasscode(in passwordContainerView: PasswordContainerView) -> PasscodeString? {
     do {
       guard let storedPasscode = try keychain.get(kPasscodeUnlockKey) else {
         print("No previously stored passcodes. Aborting...")
-        return
-      }
-      // 1. Check the input against the stored passcode.
-      if storedPasscode == input {
-        // 2. If the passcode is correct - delete the keychain entry. Then set the touch and passcode switches to off. Dismiss the view controller
-        try keychain.remove(kPasscodeUnlockKey)
-        delegate?.didSwitchOffPasscode(self)
-      } else {
-        // 3. If the passcode is incorrect, invoke passwordContainerView.wrongPassword(), and DO NOT update any of the settings
         passwordContainerView.wrongPassword()
+        notificationFeedbackGenerator.notificationOccurred(.error)
+        return nil
       }
+      
+      return storedPasscode
+      
     } catch let error {
+      notificationFeedbackGenerator.notificationOccurred(.error)
       assertionFailure("Key op error:  \(error.localizedDescription)")
+      return nil
     }
   }
 }
