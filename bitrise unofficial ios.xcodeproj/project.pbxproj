@@ -21,6 +21,8 @@
 		7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */; };
 		7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */; };
 		7A349932218EAF710098F31B /* Bundle+AppVersions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A349931218EAF710098F31B /* Bundle+AppVersions.swift */; };
+		7A53166721A2DDDA00C9DC91 /* InfoContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */; };
+		7A53166A21A2E56E00C9DC91 /* Acknowledgements.md in Resources */ = {isa = PBXBuildFile; fileRef = 7A53166921A2E56E00C9DC91 /* Acknowledgements.md */; };
 		7A595224219069AB00F3B84E /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A595223219069AB00F3B84E /* PasscodeViewController.swift */; };
 		7A5952262191537400F3B84E /* DummyProjectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5952252191537400F3B84E /* DummyProjectVM.swift */; };
 		7A5952282191589A00F3B84E /* RawIdentifierConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5952272191589A00F3B84E /* RawIdentifierConstants.swift */; };
@@ -106,6 +108,8 @@
 		7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseYMLViewController.swift; sourceTree = "<group>"; };
 		7A349897218E99420098F31B /* VENDORS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = VENDORS.md; sourceTree = "<group>"; };
 		7A349931218EAF710098F31B /* Bundle+AppVersions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+AppVersions.swift"; sourceTree = "<group>"; };
+		7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContentViewController.swift; sourceTree = "<group>"; };
+		7A53166921A2E56E00C9DC91 /* Acknowledgements.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Acknowledgements.md; sourceTree = "<group>"; };
 		7A53EC6A219E7845001BB556 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		7A53EC6B219E98CA001BB556 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		7A595223219069AB00F3B84E /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +263,14 @@
 			path = Vendors;
 			sourceTree = "<group>";
 		};
+		7A53166821A2DE0D00C9DC91 /* Markdown Content Pages */ = {
+			isa = PBXGroup;
+			children = (
+				7A53166921A2E56E00C9DC91 /* Acknowledgements.md */,
+			);
+			path = "Markdown Content Pages";
+			sourceTree = "<group>";
+		};
 		7A5DFB3D20D26A8D00A3330B = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +369,7 @@
 		7A5DFB6A20D26AE300A3330B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7A53166821A2DE0D00C9DC91 /* Markdown Content Pages */,
 				7A99C6A6212D3E49003DC5D9 /* Localizable.strings */,
 				7A200B2120D681EC003C6D97 /* Resources.swift */,
 				7A99C6A2212D3D04003DC5D9 /* Strings.swift */,
@@ -530,6 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				7AD08343218E7FCC003CB57A /* SettingsVC.swift */,
+				7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */,
 			);
 			path = "Settings & Preferences";
 			sourceTree = "<group>";
@@ -666,6 +680,7 @@
 				7A5DFB8620D26AE400A3330B /* Colors.xcassets in Resources */,
 				7A5DFB8B20D26AE400A3330B /* README.md in Resources */,
 				7A99C6A8212D3E4A003DC5D9 /* Localizable.strings in Resources */,
+				7A53166A21A2E56E00C9DC91 /* Acknowledgements.md in Resources */,
 				7A5DFB8D20D26AE400A3330B /* LaunchScreen.storyboard in Resources */,
 				7AEEECAB2102037B00D6DD0D /* BuildCell.xib in Resources */,
 				7AEEECFD21097DD100D6DD0D /* ProfileHeaderView.xib in Resources */,
@@ -692,6 +707,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/MarkdownView/MarkdownView.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
@@ -713,6 +729,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarkdownView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
@@ -840,6 +857,7 @@
 				7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */,
 				7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */,
 				7A200B2220D681EC003C6D97 /* Resources.swift in Sources */,
+				7A53166721A2DDDA00C9DC91 /* InfoContentViewController.swift in Sources */,
 				7A1BD1CE20E11646005D805B /* SearchFooter.swift in Sources */,
 				7A69095221420C4C00487F13 /* BuildAction.swift in Sources */,
 				7AEF23EF215A4BF700BB8DE2 /* BuildDetailViewController.swift in Sources */,

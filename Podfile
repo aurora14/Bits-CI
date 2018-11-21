@@ -19,11 +19,14 @@ target 'bitrise unofficial ios' do
   pod 'IQKeyboardManagerSwift'
   pod 'SkyFloatingLabelTextField'
   pod 'SVProgressHUD'
-  pod 'SwiftSoup'
   pod 'ViewAnimator'
   pod 'SkeletonView'
   pod 'XLPagerTabStrip'
   pod 'lottie-ios'
+  
+  # -- content rendering
+  pod 'SwiftSoup'
+  pod 'MarkdownView'
   
   # -- analytics & crash reporting --
   pod 'Fabric'
