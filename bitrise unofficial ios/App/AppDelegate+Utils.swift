@@ -43,4 +43,33 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
   func initUITheme() {
     App.sharedInstance.setDarkThemeActive(UserDefaults.standard.bool(forKey: L10n.isDarkThemeSelected))
   }
+  
+  func unlockIfNecessary() {
+    
+    guard let controller = UIApplication.topViewController() else {
+      return
+    }
+    
+    if UserDefaults.standard.bool(forKey: L10n.isUsingPasscodeUnlock) {
+      
+      if isInactivityTimeoutReached() {
+        let passcodeController = StoryboardScene.Main.passcodeViewController.instantiate()
+        passcodeController.userFlow = .unlocking
+        passcodeController.userActionText = L10n.enterYourPasscode
+        controller.present(passcodeController, animated: true, completion: nil)
+      }
+      
+    }
+
+  }
+  
+  private func isInactivityTimeoutReached() -> Bool {
+    
+    // TODO: - compare the time and record the time difference between the stored 'inactive' time and current time.
+    // If the time difference is greater than the set 'timeout' to activate screen lock, handle screen lock presentation
+    
+    return true
+    
+  }
+  
 }

@@ -53,19 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationDidBecomeActive(_ application: UIApplication) {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    guard let controller = UIApplication.topViewController() else {
-      return
-    }
-    
-    if UserDefaults.standard.bool(forKey: L10n.isUsingPasscodeUnlock) {
-      let passcodeController = StoryboardScene.Main.passcodeViewController.instantiate()
-      passcodeController.userFlow = .unlocking
-      passcodeController.userActionText = "Enter Your Passcode"
-      controller.present(passcodeController, animated: true, completion: nil)
-    }
-    
-    // TODO: - compare the time and record the time difference between the stored 'inactive' time and current time.
-    // If the time difference is greater than the set 'timeout' to activate screen lock, handle screen lock presentation
+    unlockIfNecessary()
   }
 
   func applicationWillTerminate(_ application: UIApplication) {
