@@ -85,8 +85,12 @@ internal enum L10n {
   internal static let projects = L10n.tr("Localizable", "projects")
   /// Re-enter New Passcode
   internal static let reenterNewPasscode = L10n.tr("Localizable", "reenterNewPasscode")
+  /// Save
+  internal static let save = L10n.tr("Localizable", "save")
   /// seconds
   internal static let seconds = L10n.tr("Localizable", "seconds")
+  /// Settings & Preferences
+  internal static let settingsTitle = L10n.tr("Localizable", "settingsTitle")
   /// Showing all apps
   internal static let showingAllApps = L10n.tr("Localizable", "showingAllApps")
   /// Start Build

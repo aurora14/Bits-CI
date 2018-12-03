@@ -14,6 +14,7 @@
 "showingAllApps"   = "Все приложения";
 "filterByProjectTitle" = "Фильтровать по названию";
 "welcome"          = "Здравствуй,";
+"settingsTitle"    = "Настройки";
 
 // Login & Authorization
 "logIn"            = "Войти";
@@ -25,6 +26,7 @@
 "noOrganizations"  = "Пользователь не состоит в организации";
 
 // Standard actions
+"save"             = "Сохранить";
 "dismiss"          = "Закрыть";
 "cancel"           = "Отмена";
 

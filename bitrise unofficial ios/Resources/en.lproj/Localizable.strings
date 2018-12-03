@@ -14,6 +14,7 @@
 "showingAllApps"   = "Showing all apps";
 "filterByProjectTitle" = "Find your project by name";
 "welcome"          = "Welcome,";
+"settingsTitle"    = "Settings & Preferences";
 
 // Login & Authorization
 "logIn"            = "Log In";
@@ -25,6 +26,7 @@
 "noOrganizations"  = "User doesn't belong to any organizations";
 
 // Standard actions
+"save"             = "Save";
 "dismiss"          = "Dismiss";
 "cancel"           = "Cancel";
 
