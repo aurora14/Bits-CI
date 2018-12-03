@@ -38,8 +38,7 @@ extension APIClient {
         
         switch response.result {
           
-        case .success(let value):
-          print("*** Orgs success: \(value)")
+        case .success:
           
           guard let data = response.data else {
             then(.error, [], "Response contained no data")
