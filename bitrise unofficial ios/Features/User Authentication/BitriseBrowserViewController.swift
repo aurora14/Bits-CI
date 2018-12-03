@@ -11,8 +11,8 @@ import WebKit
 
 
 protocol TokenGenerationDelegate: class {
-  func didGenerate(token value: String, then: (() -> Void)?)
-  func didCancelGeneration()
+  func didGenerate(_ controller: BitriseBrowserViewController, token value: String, then: (() -> Void)?)
+  func didCancelGeneration(_ controller: BitriseBrowserViewController)
 }
 
 
@@ -50,7 +50,7 @@ class BitriseBrowserViewController: UIViewController {
   @IBAction func didTapCancel(_ sender: Any) {
     
     browserView.stopLoading()
-    tokenGenerationDelegate?.didCancelGeneration()
+    tokenGenerationDelegate?.didCancelGeneration(self)
     dismiss(animated: true, completion: nil)
   }
   
@@ -72,8 +72,10 @@ class BitriseBrowserViewController: UIViewController {
     
     App.sharedInstance.apiClient.validateGeneratedToken(tokenValue) { [weak self] isValid, message in
       
+      guard let strongSelf = self else { return }
+      
       if isValid {
-        self?.tokenGenerationDelegate?.didGenerate(token: tokenValue, then: nil)
+        self?.tokenGenerationDelegate?.didGenerate(strongSelf, token: tokenValue, then: nil)
         DispatchQueue.main.async {
           self?.dismiss(animated: true, completion: nil)
         }

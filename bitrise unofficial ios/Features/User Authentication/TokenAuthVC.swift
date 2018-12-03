@@ -19,7 +19,13 @@ class TokenAuthViewController: UIViewController {
   
   weak var authorizationDelegate: BitriseAuthorizationDelegate?
   
-  var enteredToken: String = ""
+  var enteredToken: String = "" {
+    didSet {
+      DispatchQueue.main.async {
+        self.tokenInputTF?.text = self.enteredToken
+      }
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -34,8 +40,7 @@ class TokenAuthViewController: UIViewController {
     
     authorizationDelegate?.didCancelAuthorization()
     
-    dismiss(animated: true, completion: nil)
-    
+    threadSafeDismiss()
   }
   
   @IBAction func didTapGetNewToken(_ sender: Any) {
@@ -49,7 +54,7 @@ class TokenAuthViewController: UIViewController {
     SVProgressHUD.show(Asset.Icons.userLrg.image, status: "Getting everything ready")
     
     guard let token = tokenInputTF.text, enteredToken == token else {
-      SVProgressHUD.dismiss()
+      threadSafeHUDDismiss()
       if enteredToken != tokenInputTF.text {
         assertionFailure("\(L10n.unequalTokenInAuthTF) \(tokenInputTF.text ?? "") <-> \(enteredToken)")
       }
@@ -89,8 +94,23 @@ class TokenAuthViewController: UIViewController {
     layer.shadowOffset = CGSize(width: 0.75, height: 0.75)
     layer.shadowPath = UIBezierPath(roundedRect: saveTokenButton.bounds, cornerRadius: cornerRadius).cgPath
     layer.masksToBounds = false
+    
+    saveTokenButton.setTitle(L10n.save, for: .normal)
   }
   
+  
+  fileprivate func threadSafeDismiss() {
+    DispatchQueue.main.async {
+      self.dismiss(animated: true, completion: nil)
+    }
+  }
+  
+  
+  fileprivate func threadSafeHUDDismiss() {
+    DispatchQueue.main.async {
+      SVProgressHUD.dismiss()
+    }
+  }
   
   // MARK: - Navigation
   
@@ -126,9 +146,9 @@ extension TokenAuthViewController: UITextFieldDelegate {
   }
   
   func setupTextfield() {
-    tokenInputTF.delegate = self
-    tokenInputTF.becomeFirstResponder()
-    tokenInputTF.addTarget(self, action: #selector(textFieldDidChangeValue(_:)), for: [.editingChanged])
+    tokenInputTF?.delegate = self
+    tokenInputTF?.becomeFirstResponder()
+    tokenInputTF?.addTarget(self, action: #selector(textFieldDidChangeValue(_:)), for: [.editingChanged])
   }
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -149,37 +169,41 @@ extension TokenAuthViewController: TokenGenerationDelegate {
   
   func validateAndClose(with token: AuthToken) {
     App.sharedInstance.apiClient.validateGeneratedToken(token) { [weak self] isValid, message in
-      DispatchQueue.main.async {
-        SVProgressHUD.dismiss()
-      }
-      if isValid {
-        self?.didGenerate(token: token) {
-          DispatchQueue.main.async {
-            self?.dismiss(animated: true, completion: nil)
-          }
-        }
-      } else {
+      self?.threadSafeHUDDismiss()
+      
+      guard isValid else {
+        #warning("Incomplete implementation, show error on failure.")
         print(message)
+        return
+      }
+      
+      self?.write(token) {
+        self?.threadSafeDismiss()
       }
     }
   }
   
-  func didGenerate(token value: AuthToken, then: (() -> Void)? = nil) {
-    enteredToken = value
+  func didGenerate(_ controller: BitriseBrowserViewController, token value: AuthToken, then: (() -> Void)? = nil) {
+    write(value)
     DispatchQueue.main.async {
-      self.tokenInputTF.text = self.enteredToken
+      controller.dismiss(animated: true, completion: nil)
     }
-    App.sharedInstance.saveBitriseAuthToken(value) {
+  }
+  
+  func didCancelGeneration(_ controller: BitriseBrowserViewController) {
+    print("*** User cancelled token generation - not authorized")
+    DispatchQueue.main.async {
+      controller.dismiss(animated: true, completion: nil)      
+    }
+  }
+  
+  private func write(_ token: AuthToken, then: (() -> Void)? = nil) {
+    enteredToken = token
+    App.sharedInstance.saveBitriseAuthToken(enteredToken) {
       NotificationCenter.default.post(name: .didAuthorizeUserNotification, object: self)
       #warning("Removed authorizationDelegate call; ensure project & user fetch still works")
       //self.authorizationDelegate?.didAuthorizeSuccessfully(withToken: value)
       then?()
     }
   }
-  
-  func didCancelGeneration() {
-    print("*** User cancelled token generation - not authorized")
-  }
-  
-  
 }
