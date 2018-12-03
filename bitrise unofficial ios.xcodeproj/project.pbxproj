@@ -23,6 +23,7 @@
 		7A349932218EAF710098F31B /* Bundle+AppVersions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A349931218EAF710098F31B /* Bundle+AppVersions.swift */; };
 		7A53166721A2DDDA00C9DC91 /* InfoContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */; };
 		7A53166A21A2E56E00C9DC91 /* Acknowledgements.md in Resources */ = {isa = PBXBuildFile; fileRef = 7A53166921A2E56E00C9DC91 /* Acknowledgements.md */; };
+		7A53166C21A4FDD000C9DC91 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A53166B21A4FDD000C9DC91 /* KeyConstants.swift */; };
 		7A595224219069AB00F3B84E /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A595223219069AB00F3B84E /* PasscodeViewController.swift */; };
 		7A5952262191537400F3B84E /* DummyProjectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5952252191537400F3B84E /* DummyProjectVM.swift */; };
 		7A5952282191589A00F3B84E /* RawIdentifierConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5952272191589A00F3B84E /* RawIdentifierConstants.swift */; };
@@ -110,6 +111,7 @@
 		7A349931218EAF710098F31B /* Bundle+AppVersions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+AppVersions.swift"; sourceTree = "<group>"; };
 		7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContentViewController.swift; sourceTree = "<group>"; };
 		7A53166921A2E56E00C9DC91 /* Acknowledgements.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Acknowledgements.md; sourceTree = "<group>"; };
+		7A53166B21A4FDD000C9DC91 /* KeyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
 		7A53EC6A219E7845001BB556 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		7A53EC6B219E98CA001BB556 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		7A595223219069AB00F3B84E /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 			children = (
 				7A200B1320D5147E003C6D97 /* Extensions */,
 				7A5952272191589A00F3B84E /* RawIdentifierConstants.swift */,
+				7A53166B21A4FDD000C9DC91 /* KeyConstants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -881,6 +884,7 @@
 				7A200B2620D78F1B003C6D97 /* BRSessionManager.swift in Sources */,
 				7A628C32215B597000759E48 /* BuildLogViewController.swift in Sources */,
 				7A5DFB8320D26AE400A3330B /* ViewConfigurable.swift in Sources */,
+				7A53166C21A4FDD000C9DC91 /* KeyConstants.swift in Sources */,
 				7A5DFB8820D26AE400A3330B /* BitriseProjectVM.swift in Sources */,
 				7A628C30215B4A8D00759E48 /* BuildLog.swift in Sources */,
 				7A5DFB7E20D26AE400A3330B /* App.swift in Sources */,
