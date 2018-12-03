@@ -12,6 +12,8 @@ import Alamofire
 import AlamofireImage
 import SkeletonView
 import ViewAnimator
+import Fabric
+import Crashlytics
 
 /// Landing Page
 ///
@@ -507,9 +509,27 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
 extension ProjectListViewController: ViewRefreshDelegate {
   
   func update(at indexPath: IndexPath?) {
+    #warning("This seems to crash when filtering list of projects, in particular on the + and Max phone models")
     
     guard let path = indexPath else {
       return
+    }
+    
+    // Logging to troubleshoot the occasional crash on the + and Max phones during search
+    DispatchQueue.main.async {
+      guard path.section < self.tableView.numberOfSections else {
+        assertionFailure("Attempting to update section outside of accessible range. Section: \(path.section). Range Count: \(self.tableView.numberOfSections)")
+        
+        let eventReport = [
+          "Attempted section update": "\(path.section)",
+          "Number of sections during attempt": "\(self.tableView.numberOfSections)",
+          "Search string": "\(self.searchController.searchBar.text ?? "--unavailable")"
+        ]
+        
+        Answers.logCustomEvent(withName: "Filtering TableView Error",
+                               customAttributes: eventReport)
+        return
+      }
     }
     
     DispatchQueue.main.async {
