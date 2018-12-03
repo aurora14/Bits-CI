@@ -44,6 +44,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     App.sharedInstance.setDarkThemeActive(UserDefaults.standard.bool(forKey: L10n.isDarkThemeSelected))
   }
   
+}
+
+
+// MARK: - Locking mechanisms
+extension AppDelegate {
+  
+  func recordTimeWhenMovedToBackground() {
+    let currentTime = Date().toString()
+    UserDefaults.standard.set(currentTime, forKey: kBackgroundTimeValue)
+  }
+  
   func unlockIfNecessary() {
     
     guard let controller = UIApplication.topViewController() else {
@@ -60,13 +71,29 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
       }
       
     }
-
+    
   }
   
   private func isInactivityTimeoutReached() -> Bool {
     
+    /*
+    let timeoutEnabled = UserDefaults.standard.bool(forKey: kPasscodeTimeoutEnabled)
+    
+    guard timeoutEnabled,
+      let backgroundTime = UserDefaults.standard.string(forKey: kBackgroundTimeValue) else {
+      
+      return false // Disabled or no backgrounding time was recorded, skip the passcode lock
+    }
+    
+    let timeResumed = Date()
+    
     // TODO: - compare the time and record the time difference between the stored 'inactive' time and current time.
     // If the time difference is greater than the set 'timeout' to activate screen lock, handle screen lock presentation
+    
+    // if timeResumed.timecomponent - timeBackgrounded.timecomponent >= selectedTimeoutMinutesValue return true else false
+    
+    #warning("Incomplete implementation that currently always returns true, meaning any timeout value is ignored")
+    */
     
     return true
     
