@@ -134,7 +134,7 @@ extension BitriseBrowserViewController: WKNavigationDelegate {
   
   fileprivate func loadBitriseURL() {
     
-    guard let url = URL(string: "https://www.bitrise.io/me/profile#/security") else {
+    guard let url = URL(string: "https://app.bitrise.io/me/profile#/security") else {
       assertionFailure("Couldn't return a URL object. Invalid URL string supplied")
       return
     }
