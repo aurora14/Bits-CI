@@ -37,9 +37,7 @@ class TokenAuthViewController: UIViewController {
   }
   
   @IBAction func didTapCancel(_ sender: Any) {
-    
     authorizationDelegate?.didCancelAuthorization()
-    
     threadSafeDismiss()
   }
   
@@ -145,6 +143,10 @@ extension TokenAuthViewController: UITextFieldDelegate {
     }
   }
   
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    //TODO: - set border colour to light grey, width to .5 or less (match defaults), hide any error labels
+  }
+  
   func setupTextfield() {
     tokenInputTF?.delegate = self
     tokenInputTF?.becomeFirstResponder()
@@ -173,6 +175,7 @@ extension TokenAuthViewController: TokenGenerationDelegate {
       
       guard isValid else {
         #warning("Incomplete implementation, show error on failure.")
+        // TODO: - set border colour to red, show a label with error message
         print(message)
         return
       }
@@ -193,7 +196,7 @@ extension TokenAuthViewController: TokenGenerationDelegate {
   func didCancelGeneration(_ controller: BitriseBrowserViewController) {
     print("*** User cancelled token generation - not authorized")
     DispatchQueue.main.async {
-      controller.dismiss(animated: true, completion: nil)      
+      controller.dismiss(animated: true, completion: nil)
     }
   }
   
