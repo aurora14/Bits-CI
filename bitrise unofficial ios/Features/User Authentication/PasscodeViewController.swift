@@ -38,7 +38,7 @@ enum PasscodeUserFlow {
 
 protocol PasscodeViewControllerDelegate: class {
   func didCompletePasscodeSetup(_ controller: PasscodeViewController)
-  func didCancelPasscodeSetup(_ controller: PasscodeViewController)
+  func didCancelPasscodeSetup(_ controller: PasscodeViewController, forUserFlow flow: PasscodeUserFlow)
   func didUnlock(_ controller: PasscodeViewController,
                  withAuthorizationOfType authorizationType: AppUnlockAuthorizationType)
   func didSwitchOffPasscode(_ controller: PasscodeViewController)
@@ -110,6 +110,8 @@ class PasscodeViewController: UIViewController {
     // First two cases handle switching off existing setup.
     // Default currently handles setup case, when no passcode exists in the system
     
+    print("*** User flow when cancel button tapped: \(userFlow)")
+    
     switch userFlow {
     case .switchingOffBiometrics:
       delegate?.didCancelBiometricsOff(self)
@@ -132,7 +134,7 @@ class PasscodeViewController: UIViewController {
       } catch let error {
         assertionFailure("Error retrieving passcode: \(error.localizedDescription)")
       }
-      delegate?.didCancelPasscodeSetup(self)
+      delegate?.didCancelPasscodeSetup(self, forUserFlow: userFlow)
     }
     
   }
@@ -188,7 +190,7 @@ class PasscodeViewController: UIViewController {
     
     l.centerXAnchor.constraint(equalTo: margins.centerXAnchor, constant: 0).isActive = true
     l.heightAnchor.constraint(equalToConstant: 56).isActive = true
-    l.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -48).isActive = true // equal with passcode container
+    l.widthAnchor.constraint(equalTo: margins.widthAnchor, constant: -48).isActive = true // equal w/passcode container
     
     guard let passcodeView = passcodeContainerView else {
       l.topAnchor.constraint(equalTo: margins.topAnchor, constant: 48).isActive = true
