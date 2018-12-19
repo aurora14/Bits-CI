@@ -13,8 +13,6 @@ import SVProgressHUD
 
 class SettingsViewController: UITableViewController {
   
-  // TODO: - add label IBOutlets and config methods to handle localization
-  
   // Auth controls
   @IBOutlet weak var passcodeAuthSwitch: UISwitch!
   @IBOutlet weak var biometricAuthSwitch: UISwitch!
@@ -25,6 +23,7 @@ class SettingsViewController: UITableViewController {
   @IBOutlet weak var resetPasscodeLabel: UILabel!
   @IBOutlet weak var acknowledgementsLabel: UILabel!
   
+  // @IBOutlet weak var uiThemeSwitch: UISwitch!
   
   private var timeoutLabelText: String = "OFF" {
     didSet {
@@ -39,8 +38,6 @@ class SettingsViewController: UITableViewController {
   
   let keychain = App.sharedInstance.keychain
   
-  // UI Controls
-  // @IBOutlet weak var uiThemeSwitch: UISwitch!
   
   // MARK: - View lifecycle
   override func viewDidLoad() {
