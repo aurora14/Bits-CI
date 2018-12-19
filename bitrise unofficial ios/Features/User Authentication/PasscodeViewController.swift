@@ -121,7 +121,7 @@ class PasscodeViewController: UIViewController {
         // 1. - There IS a stored value in the keychain under 'passcode unlock key' but it's an empty string
         // 2. - There isn't a stored value in the keychain under this passcode
         // then
-        if let storedPasscode = try keychain.get(kPasscodeUnlockKey) {
+        if let storedPasscode = try keychain.get(UserDefaultKey.passcodeUnlockKey) {
           if storedPasscode.isEmpty {
             setUserDefaultLockValuesToOff()
           }
@@ -147,7 +147,7 @@ class PasscodeViewController: UIViewController {
     passcodeContainerView?.highlightedColor = Asset.Colors.bitrisePurple.color
     
     passcodeContainerView?.touchAuthenticationEnabled =
-      isUsingBiometrics || UserDefaults.standard.bool(forKey: L10n.isUsingBiometricUnlock)
+      isUsingBiometrics || UserDefaults.standard.bool(forKey: UserDefaultKey.isUsingBiometricUnlock)
     
     guard let v = passcodeContainerView else {
       assertionFailure("Failed to initialise PasswordContainerView instance from NIB")
@@ -201,8 +201,8 @@ class PasscodeViewController: UIViewController {
   
   /// Convenience method for user defaults
   fileprivate func setUserDefaultLockValuesToOff() {
-    UserDefaults.standard.set(false, forKey: L10n.isUsingPasscodeUnlock)
-    UserDefaults.standard.set(false, forKey: L10n.isUsingBiometricUnlock)
+    UserDefaults.standard.set(false, forKey: UserDefaultKey.isUsingPasscodeUnlock)
+    UserDefaults.standard.set(false, forKey: UserDefaultKey.isUsingBiometricUnlock)
   }
   
 }
@@ -269,7 +269,7 @@ extension PasscodeViewController {
           .comment("Authorization value for accessing Bitrise.io API")
           .synchronizable(true)
           .accessibility(.afterFirstUnlock)
-          .set(input, key: kPasscodeUnlockKey)
+          .set(input, key: UserDefaultKey.passcodeUnlockKey)
         notificationFeedbackGenerator.notificationOccurred(.success)
         delegate?.didCompletePasscodeSetup(self)
       } catch let error {
@@ -337,7 +337,7 @@ extension PasscodeViewController {
     // 1. Check the input against the stored passcode.
     if storedPasscode == input {
       do {
-        try keychain.remove(kPasscodeUnlockKey)
+        try keychain.remove(UserDefaultKey.passcodeUnlockKey)
         notificationFeedbackGenerator.notificationOccurred(.success)
       } catch let error {
         notificationFeedbackGenerator.notificationOccurred(.error)
@@ -372,7 +372,7 @@ extension PasscodeViewController {
   
   private func validateStoredPasscode(in passwordContainerView: PasswordContainerView) -> PasscodeString? {
     do {
-      guard let storedPasscode = try keychain.get(kPasscodeUnlockKey) else {
+      guard let storedPasscode = try keychain.get(UserDefaultKey.passcodeUnlockKey) else {
         print("No previously stored passcodes. Aborting...")
         passwordContainerView.wrongPassword()
         notificationFeedbackGenerator.notificationOccurred(.error)

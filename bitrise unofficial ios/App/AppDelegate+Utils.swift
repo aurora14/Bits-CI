@@ -41,7 +41,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
   }
   
   func initUITheme() {
-    App.sharedInstance.setDarkThemeActive(UserDefaults.standard.bool(forKey: L10n.isDarkThemeSelected))
+    App.sharedInstance.setDarkThemeActive(UserDefaults.standard.bool(forKey: UserDefaultKey.isDarkThemeSelected))
   }
   
 }
@@ -52,7 +52,7 @@ extension AppDelegate {
   
   func recordTimeWhenMovedToBackground() {
     let currentTime = Date().toString()
-    UserDefaults.standard.set(currentTime, forKey: kBackgroundTimeValue)
+    UserDefaults.standard.set(currentTime, forKey: UserDefaultKey.backgroundTimeValue)
   }
   
   func unlockIfNecessary() {
@@ -61,7 +61,7 @@ extension AppDelegate {
       return
     }
     
-    if UserDefaults.standard.bool(forKey: L10n.isUsingPasscodeUnlock) {
+    if UserDefaults.standard.bool(forKey: UserDefaultKey.isUsingPasscodeUnlock) {
       
       if isInactivityTimeoutReached() {
         let passcodeController = StoryboardScene.Main.passcodeViewController.instantiate()

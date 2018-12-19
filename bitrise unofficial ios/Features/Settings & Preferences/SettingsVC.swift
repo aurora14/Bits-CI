@@ -9,6 +9,7 @@
 import UIKit
 import LocalAuthentication
 import KeychainAccess
+import SVProgressHUD
 
 class SettingsViewController: UITableViewController {
   
@@ -41,6 +42,7 @@ class SettingsViewController: UITableViewController {
   // UI Controls
   // @IBOutlet weak var uiThemeSwitch: UISwitch!
   
+  // MARK: - View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
