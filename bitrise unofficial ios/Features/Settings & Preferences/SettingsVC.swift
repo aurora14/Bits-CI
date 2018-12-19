@@ -199,9 +199,12 @@ extension SettingsViewController {
     //
     switch (indexPath.section, indexPath.row) {
     case (0, 2):
+      print("Passcode timeout row tapped")
+      presentTimeoutOptions()
+    case (0, 3):
       print("Reset Passcode row tapped")
       do {
-        guard let _ = try keychain.get(kPasscodeUnlockKey) else {
+        guard let _ = try keychain.get(UserDefaultKey.passcodeUnlockKey) else {
           print("No previously stored passcodes. Aborting... ")
           return
         }
@@ -214,26 +217,126 @@ extension SettingsViewController {
       print("Settings VC row tapped")
     }
   }
+  
+  override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    switch (indexPath.section, indexPath.row) {
+    case (0, 2), (0, 3):
+      if UserDefaults.standard.bool(forKey: UserDefaultKey.isUsingPasscodeUnlock) {
+        return indexPath
+      } else {
+        return nil
+      }
+    default:
+      return indexPath
+    }
+  }
+  
+  
+  private func presentTimeoutOptions() {
+    
+    let optionsController = UIAlertController(
+      title: "Set time to elapse before locking",
+      message: nil,
+      preferredStyle: .actionSheet)
+    
+    optionsController.view.tintColor = Asset.Colors.bitriseGreen.color
+    
+    let always = UIAlertAction(title: PasscodeTimeoutDuration.always.title, style: .default, handler: { _ in
+      self.saveTimeoutSelection(isEnabled: false, forDuration: PasscodeTimeoutDuration.always)
+      UserDefaults.standard.set(false, forKey: UserDefaultKey.isPasscodeTimeoutEnabled)
+      UserDefaults.standard.set(PasscodeTimeoutDuration.always.rawValue, forKey: UserDefaultKey.passcodeTimeoutValue)
+      self.timeoutLabelText = "OFF"
+    })
+    
+    let oneMinute = UIAlertAction(title: PasscodeTimeoutDuration.one.title, style: .default, handler: { _ in
+      self.saveTimeoutSelection(isEnabled: true, forDuration: PasscodeTimeoutDuration.one)
+    })
+    
+    let fiveMinutes = UIAlertAction(title: PasscodeTimeoutDuration.five.title, style: .default, handler: { _ in
+      self.saveTimeoutSelection(isEnabled: true, forDuration: PasscodeTimeoutDuration.five)
+    })
+    
+    let fifteenMinutes = UIAlertAction(title: PasscodeTimeoutDuration.fifteen.title, style: .default, handler: { _ in
+      self.saveTimeoutSelection(isEnabled: true, forDuration: PasscodeTimeoutDuration.fifteen)
+    })
+    
+    let sixtyMinutes = UIAlertAction(title: PasscodeTimeoutDuration.sixty.title, style: .default, handler: { _ in
+      self.saveTimeoutSelection(isEnabled: true, forDuration: PasscodeTimeoutDuration.sixty)
+    })
+    
+    let cancelAction = UIAlertAction(title: L10n.cancel, style: .cancel, handler: nil)
+    
+    optionsController.addAction(always)
+    optionsController.addAction(oneMinute)
+    optionsController.addAction(fiveMinutes)
+    optionsController.addAction(fifteenMinutes)
+    optionsController.addAction(sixtyMinutes)
+    optionsController.addAction(cancelAction)
+    
+    present(optionsController, animated: true, completion: {
+      
+    })
+  }
+  
+  private func saveTimeoutSelection(isEnabled flag: Bool, forDuration duration: PasscodeTimeoutDuration) {
+    UserDefaults.standard.set(flag, forKey: UserDefaultKey.isPasscodeTimeoutEnabled)
+    UserDefaults.standard.set(duration.rawValue, forKey: UserDefaultKey.passcodeTimeoutValue)
+    if duration == .always {
+      timeoutLabelText = "OFF"
+    } else {
+      timeoutLabelText = duration.title
+    }
+  }
 }
 
-// MARK: - Switches
+// MARK: - Switches & Helpers
 extension SettingsViewController {
+  
+  fileprivate func setLocalisedTitles() {
+    title = L10n.settingsTitle
+    unlockWithPasscodeLabel.text = L10n.unlockWithPasscode
+    unlockWithBiometricsLabel.text = L10n.unlockWithBio
+    passcodeGracePeriodLabel.text = L10n.setGracePeriod
+    resetPasscodeLabel.text = L10n.resetPasscode
+    acknowledgementsLabel.text = L10n.acknowledgements
+  }
   
   fileprivate func setDefaultThemePreference() {
     let defaults = UserDefaults.standard
-    defaults.set(false, forKey: L10n.isDarkThemeSelected)
+    defaults.set(false, forKey: UserDefaultKey.isDarkThemeSelected)
   }
   
-  fileprivate func setUnlockSwitches() {
-    isUsingPasscodeUnlock = UserDefaults.standard.bool(forKey: L10n.isUsingPasscodeUnlock)
-    isUsingBiometricUnlock = UserDefaults.standard.bool(forKey: L10n.isUsingBiometricUnlock)
-    
+  func setUnlockSwitches() {
+    isUsingPasscodeUnlock = UserDefaults.standard.bool(forKey: UserDefaultKey.isUsingPasscodeUnlock)
     passcodeAuthSwitch.isOn = isUsingPasscodeUnlock
     
     // only allow biometrics if a passcode has been set
     biometricAuthSwitch.isEnabled = isUsingPasscodeUnlock
     biometricAuthSwitch.isOn = isUsingPasscodeUnlock && isUsingBiometricUnlock
   }
+  
+  func setupResetAndGraceRows() {
+    let timeoutIndexPath = IndexPath(row: 2, section: 0)
+    let resetIndexPath = IndexPath(row: 3, section: 0)
+    
+    let timeoutCell = tableView.cellForRow(at: timeoutIndexPath)
+    let resetCell = tableView.cellForRow(at: resetIndexPath)
+    
+    if UserDefaults.standard.bool(forKey: UserDefaultKey.isUsingPasscodeUnlock) {
+      resetCell?.selectionStyle = .default
+      resetPasscodeLabel.textColor = Asset.Colors.bitriseGreen.color
+      
+      timeoutCell?.selectionStyle = .default
+      passcodeGracePeriodLabel.textColor = Asset.Colors.bitrisePurple.color
+    } else {
+      resetCell?.selectionStyle = .none
+      resetPasscodeLabel.textColor = UIColor.lightGray
+      
+      timeoutCell?.selectionStyle = .none
+      passcodeGracePeriodLabel.textColor = UIColor.lightGray
+    }
+  }
+  
 //  @IBAction func didSwitchThemes(_ sender: UISwitch) {
 //    let userDefaults = UserDefaults.standard
 //    uiThemeSwitch.isOn.toggle()

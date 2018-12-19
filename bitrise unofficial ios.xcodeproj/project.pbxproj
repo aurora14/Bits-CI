@@ -21,6 +21,7 @@
 		7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FB38521367A4A00FC788B /* BitriseAuthDelegate.swift */; };
 		7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */; };
 		7A349932218EAF710098F31B /* Bundle+AppVersions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A349931218EAF710098F31B /* Bundle+AppVersions.swift */; };
+		7A4CD89B21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4CD89A21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift */; };
 		7A53166721A2DDDA00C9DC91 /* InfoContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */; };
 		7A53166A21A2E56E00C9DC91 /* Acknowledgements.md in Resources */ = {isa = PBXBuildFile; fileRef = 7A53166921A2E56E00C9DC91 /* Acknowledgements.md */; };
 		7A53166C21A4FDD000C9DC91 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A53166B21A4FDD000C9DC91 /* KeyConstants.swift */; };
@@ -53,6 +54,7 @@
 		7A69095221420C4C00487F13 /* BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69095121420C4C00487F13 /* BuildAction.swift */; };
 		7A797D992170497700E57587 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A797D982170497700E57587 /* Segues.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
+		7A8F71D621C0CC0B008E1825 /* PasscodeTimeoutDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */; };
 		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
 		7A95AE2320FC77FB008E6E28 /* TabPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */; };
 		7A9917CD20E8EDFA002879AF /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9917CC20E8EDFA002879AF /* Icons.xcassets */; };
@@ -109,6 +111,7 @@
 		7A31109420FEFB84008B5893 /* BitriseYMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitriseYMLViewController.swift; sourceTree = "<group>"; };
 		7A349897218E99420098F31B /* VENDORS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = VENDORS.md; sourceTree = "<group>"; };
 		7A349931218EAF710098F31B /* Bundle+AppVersions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+AppVersions.swift"; sourceTree = "<group>"; };
+		7A4CD89A21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsVC+PasscodeDelegate.swift"; sourceTree = "<group>"; };
 		7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContentViewController.swift; sourceTree = "<group>"; };
 		7A53166921A2E56E00C9DC91 /* Acknowledgements.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Acknowledgements.md; sourceTree = "<group>"; };
 		7A53166B21A4FDD000C9DC91 /* KeyConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 		7A69095121420C4C00487F13 /* BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAction.swift; sourceTree = "<group>"; };
 		7A797D982170497700E57587 /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
 		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
+		7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeTimeoutDuration.swift; sourceTree = "<group>"; };
 		7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 		7A95AE2220FC77FB008E6E28 /* TabPageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageTableViewController.swift; sourceTree = "<group>"; };
 		7A9917CC20E8EDFA002879AF /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
@@ -446,6 +450,7 @@
 				7A69095121420C4C00487F13 /* BuildAction.swift */,
 				7AFCBB8B214C8C9000FF0326 /* Organization.swift */,
 				7A628C2F215B4A8D00759E48 /* BuildLog.swift */,
+				7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				7AD08343218E7FCC003CB57A /* SettingsVC.swift */,
+				7A4CD89A21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift */,
 				7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */,
 			);
 			path = "Settings & Preferences";
@@ -852,12 +858,14 @@
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
 				7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */,
 				7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */,
+				7A4CD89B21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift in Sources */,
 				7A00FAD0218FE06500893C93 /* ThemeUpdater.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
 				7A5952282191589A00F3B84E /* RawIdentifierConstants.swift in Sources */,
 				7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */,
 				7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */,
+				7A8F71D621C0CC0B008E1825 /* PasscodeTimeoutDuration.swift in Sources */,
 				7A200B2020D681B4003C6D97 /* Storyboards.swift in Sources */,
 				7A200B2220D681EC003C6D97 /* Resources.swift in Sources */,
 				7A53166721A2DDDA00C9DC91 /* InfoContentViewController.swift in Sources */,
