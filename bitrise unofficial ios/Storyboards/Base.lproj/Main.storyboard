@@ -560,8 +560,32 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hZn-Ml-BVH" userLabel="Reset Passcode Cell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Z4N-6f-lUF" userLabel="Grace Period Cell">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z4N-6f-lUF" id="8gN-7q-jbU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set passcode grace period" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7St-dD-VV0">
+                                                    <rect key="frame" x="16" y="11" width="206" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="BitrisePurple"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OFF" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHX-y6-KmR">
+                                                    <rect key="frame" x="242" y="11" width="117" height="24"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hZn-Ml-BVH" userLabel="Reset Passcode Cell">
+                                        <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hZn-Ml-BVH" id="vne-ox-H80">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -589,7 +613,7 @@
                             <tableViewSection headerTitle="Information" id="xvT-Il-ph4">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="iCR-yl-bAl" userLabel="Acknowledgements Cell">
-                                        <rect key="frame" x="0.0" y="243.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="287.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iCR-yl-bAl" id="5V8-cP-VAD">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -627,8 +651,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings &amp; Preferences" id="Tgx-Ct-fks"/>
                     <connections>
+                        <outlet property="acknowledgementsLabel" destination="o03-Oa-VTR" id="2ld-xq-9t0"/>
                         <outlet property="biometricAuthSwitch" destination="lOv-db-hKU" id="GuP-Lb-kd5"/>
                         <outlet property="passcodeAuthSwitch" destination="86B-uZ-Sgz" id="EQl-Rm-G3d"/>
+                        <outlet property="passcodeGracePeriodLabel" destination="7St-dD-VV0" id="wZC-9K-gKh"/>
+                        <outlet property="resetPasscodeLabel" destination="1DX-GV-ZXd" id="OXJ-yO-ZlI"/>
+                        <outlet property="unlockWithBiometricsLabel" destination="fgX-2s-rZ0" id="LVt-Dd-QYg"/>
+                        <outlet property="unlockWithPasscodeLabel" destination="gMZ-Uc-Pf9" id="cFC-sc-EM4"/>
                         <segue destination="7pa-x7-a1Q" kind="presentation" identifier="SetupPasscodeSegue" id="3J9-2f-LV9"/>
                         <segue destination="7pa-x7-a1Q" kind="presentation" identifier="SwitchOffPasscodeSegue" id="jcP-95-eCm"/>
                         <segue destination="7pa-x7-a1Q" kind="presentation" identifier="ResetPasscodeSegue" id="9Ll-NF-4k4"/>
@@ -636,7 +665,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FhY-zh-Ttr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-602" y="1307"/>
+            <point key="canvasLocation" x="-602.39999999999998" y="1306.5967016491754"/>
         </scene>
         <!--Info Content View Controller-->
         <scene sceneID="ce5-u9-c60">
