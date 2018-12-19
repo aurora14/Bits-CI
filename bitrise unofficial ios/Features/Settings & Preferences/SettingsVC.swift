@@ -91,16 +91,17 @@ class SettingsViewController: UITableViewController {
       let passcodeController = StoryboardScene.Main.passcodeViewController.instantiate()
       passcodeController.userFlow = .switchingOffBiometrics
       passcodeController.userActionText = L10n.enterYourPasscode
+      passcodeController.delegate = self
       present(passcodeController, animated: true, completion: nil)
     } else {
       // No passcode is required for switching the bio on
     }
     
     isUsingBiometricUnlock = biometricAuthSwitch.isOn
-    UserDefaults.standard.set(isUsingBiometricUnlock, forKey: L10n.isUsingBiometricUnlock)
+    UserDefaults.standard.set(isUsingBiometricUnlock, forKey: UserDefaultKey.isUsingBiometricUnlock)
   }
   
-  // MARK: - navigation
+  // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     /*
