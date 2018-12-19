@@ -15,6 +15,12 @@
 "filterByProjectTitle" = "Find your project by name";
 "welcome"          = "Welcome,";
 "settingsTitle"    = "Settings & Preferences";
+"settingsTitleShort" = "Settings";
+"unlockWithPasscode" = "Unlock with passcode";
+"unlockWithBio" = "Unlock with Touch ID or Face ID";
+"setGracePeriod" = "Set passcode grace period";
+"resetPasscode" = "Reset passcode";
+"acknowledgements" = "Acknowledgements";
 
 // Login & Authorization
 "logIn"            = "Log In";
@@ -50,6 +56,7 @@
 "months" = "months";
 "years" = "years";
 "ago" = "ago";
+"minute" = "minute";
 
 // Time - short version
 "hr" = "hr";
@@ -63,11 +70,6 @@
 "mths" = "mths";
 "yr" = "yr";
 "yrs" = "yrs";
-
-// Setting and flag keys
-"isDarkThemeSelected" = "Dark Theme Selection Key";
-"isUsingPasscodeUnlock" = "Passcode Lock Key";
-"isUsingBiometricUnlock" = "Biometric Lock Key";
 
 // Passcode controller
 "deletePasscodeCharacter" = "Delete";

@@ -11,6 +11,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
+  /// Acknowledgements
+  internal static let acknowledgements = L10n.tr("Localizable", "acknowledgements")
   /// ago
   internal static let ago = L10n.tr("Localizable", "ago")
   /// Bitrise User
@@ -47,12 +49,6 @@ internal enum L10n {
   internal static let invalidParams = L10n.tr("Localizable", "invalidParams")
   /// Invalid Passcode
   internal static let invalidPasscode = L10n.tr("Localizable", "invalidPasscode")
-  /// Dark Theme Selection Key
-  internal static let isDarkThemeSelected = L10n.tr("Localizable", "isDarkThemeSelected")
-  /// Biometric Lock Key
-  internal static let isUsingBiometricUnlock = L10n.tr("Localizable", "isUsingBiometricUnlock")
-  /// Passcode Lock Key
-  internal static let isUsingPasscodeUnlock = L10n.tr("Localizable", "isUsingPasscodeUnlock")
   /// Log In
   internal static let logIn = L10n.tr("Localizable", "logIn")
   /// Log Out
@@ -63,6 +59,8 @@ internal enum L10n {
   internal static let min = L10n.tr("Localizable", "min")
   /// mins
   internal static let mins = L10n.tr("Localizable", "mins")
+  /// minute
+  internal static let minute = L10n.tr("Localizable", "minute")
   /// minutes
   internal static let minutes = L10n.tr("Localizable", "minutes")
   /// months
@@ -85,12 +83,18 @@ internal enum L10n {
   internal static let projects = L10n.tr("Localizable", "projects")
   /// Re-enter New Passcode
   internal static let reenterNewPasscode = L10n.tr("Localizable", "reenterNewPasscode")
+  /// Reset passcode
+  internal static let resetPasscode = L10n.tr("Localizable", "resetPasscode")
   /// Save
   internal static let save = L10n.tr("Localizable", "save")
   /// seconds
   internal static let seconds = L10n.tr("Localizable", "seconds")
+  /// Set passcode grace period
+  internal static let setGracePeriod = L10n.tr("Localizable", "setGracePeriod")
   /// Settings & Preferences
   internal static let settingsTitle = L10n.tr("Localizable", "settingsTitle")
+  /// Settings
+  internal static let settingsTitleShort = L10n.tr("Localizable", "settingsTitleShort")
   /// Showing all apps
   internal static let showingAllApps = L10n.tr("Localizable", "showingAllApps")
   /// Start Build
@@ -99,6 +103,10 @@ internal enum L10n {
   internal static let unauthorizedUser = L10n.tr("Localizable", "unauthorizedUser")
   /// Value of 'enteredToken' isn't equal to text field value:
   internal static let unequalTokenInAuthTF = L10n.tr("Localizable", "unequalTokenInAuthTF")
+  /// Unlock with Touch ID or Face ID
+  internal static let unlockWithBio = L10n.tr("Localizable", "unlockWithBio")
+  /// Unlock with passcode
+  internal static let unlockWithPasscode = L10n.tr("Localizable", "unlockWithPasscode")
   /// weeks
   internal static let weeks = L10n.tr("Localizable", "weeks")
   /// Welcome,

@@ -15,6 +15,12 @@
 "filterByProjectTitle" = "Фильтровать по названию";
 "welcome"          = "Здравствуй,";
 "settingsTitle"    = "Настройки";
+"unlockWithPasscode" = "Разблокировать с помощью PIN-кода";
+"unlockWithBio" = "Разблокировать с помощью Touch ID/Face ID";
+"setGracePeriod" = "Установить перерыв перед блокировкой";
+"resetPasscode" = "Сменить PIN-код";
+"acknowledgements" = "Благодарность";
+"settingsTitleShort" = "Настройки";
 
 // Login & Authorization
 "logIn"            = "Войти";
@@ -49,6 +55,7 @@
 "months" = "месяцев";
 "years" = "лет";
 "ago" = "назад";
+"minute" = "минута";
 
 // Time - contracted version
 "hr" = "ч";
