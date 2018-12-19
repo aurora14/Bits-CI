@@ -175,7 +175,9 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   }
   
   private func presentAuthorizationView() {
-    performSegue(withIdentifier: "TokenSegue", sender: nil)
+    DispatchQueue.main.async {
+      self.performSegue(withIdentifier: "TokenSegue", sender: nil)
+    }
   }
   
   // MARK: - UI Actions
