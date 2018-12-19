@@ -61,8 +61,8 @@ class SettingsViewController: UITableViewController {
      from physical access, so for now it's enough to shield your content from prying eyes.
      
      Furthermore, if you want to secure the actual electronic access to your projects, or
-     enforce a stronger security for any case in general, you should use Bitrise's personal
-     access tokens with an expiry time.
+     enforce a stronger security for any case in general, the app user should use Bitrise
+     Personal Access Token with an expiry period (configurable on bitrise.io in Security)
     */
   }
   
