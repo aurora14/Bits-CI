@@ -18,6 +18,21 @@ class SettingsViewController: UITableViewController {
   @IBOutlet weak var passcodeAuthSwitch: UISwitch!
   @IBOutlet weak var biometricAuthSwitch: UISwitch!
   
+  @IBOutlet weak var unlockWithPasscodeLabel: UILabel!
+  @IBOutlet weak var unlockWithBiometricsLabel: UILabel!
+  @IBOutlet weak var passcodeGracePeriodLabel: UILabel!
+  @IBOutlet weak var resetPasscodeLabel: UILabel!
+  @IBOutlet weak var acknowledgementsLabel: UILabel!
+  
+  
+  private var timeoutLabelText: String = "OFF" {
+    didSet {
+      DispatchQueue.main.async {
+        self.passcodeGracePeriodLabel.text = self.timeoutLabelText
+      }
+    }
+  }
+  
   var isUsingPasscodeUnlock = false
   var isUsingBiometricUnlock = false
   
@@ -35,24 +50,27 @@ class SettingsViewController: UITableViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     setUnlockSwitches()
+    setupResetAndGraceRows()
+    setLocalisedTitles()
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    title = L10n.settingsTitleShort
+    super.viewWillDisappear(animated)
   }
   
   private func setupUI() {
     setDefaultThemePreference()
     setUnlockSwitches()
+    setLocalisedTitles()
   }
   
+  // MARK: - UI actions
   @IBAction func didTogglePasscode(_ sender: Any) {
-    // TODO: - The logic in the two lines below should be moved to the delegate method to avoid
-    // doubling up on states. Then if it doesn't activate correctly, the issue would simply be
-    // that the delegate method wasn't called in the right place, making it easier to debug.
-    isUsingPasscodeUnlock = passcodeAuthSwitch.isOn
-    UserDefaults.standard.set(isUsingPasscodeUnlock, forKey: L10n.isUsingPasscodeUnlock)
-    
     if isUsingPasscodeUnlock {
-      perform(segue: StoryboardSegue.Main.setupPasscodeSegue)
-    } else {
       perform(segue: StoryboardSegue.Main.switchOffPasscodeSegue)
+    } else {
+      perform(segue: StoryboardSegue.Main.setupPasscodeSegue)
     }
     /*
      Note: for simplicity we're using UserDefaults for passcode unlock. In theory this
@@ -347,54 +365,3 @@ extension SettingsViewController {
   
 }
 
-
-extension SettingsViewController: PasscodeViewControllerDelegate {
-  
-  func didCompletePasscodeSetup(_ controller: PasscodeViewController) {
-    UserDefaults.standard.set(true, forKey: L10n.isUsingPasscodeUnlock)
-    // TODO: - Configuration once a passcode has been set:
-    // 1. Enable biometric switch to allow users to use touch and face ID if they so wish
-    // 2.
-    controller.dismiss(animated: true, completion: nil)
-  }
-  
-  func didCancelPasscodeSetup(_ controller: PasscodeViewController) {
-    
-    controller.dismiss(animated: true, completion: nil)
-  }
-  
-  func didUnlock(_ controller: PasscodeViewController,
-                 withAuthorizationOfType authorizationType: AppUnlockAuthorizationType) {
-    
-    controller.dismiss(animated: true, completion: nil)
-  }
-  
-  func didSwitchOffPasscode(_ controller: PasscodeViewController) {
-    UserDefaults.standard.set(false, forKey: L10n.isUsingPasscodeUnlock)
-    UserDefaults.standard.set(false, forKey: L10n.isUsingBiometricUnlock)
-    // setUnlockSwitches() // this call might not be necessary, since it's invoked in viewWillAppear.
-    // However if issues are experienced, try using it 
-    controller.dismiss(animated: true, completion: nil)
-  }
-  
-  func didCancelPasscodeOff(_ controller: PasscodeViewController) {
-    isUsingPasscodeUnlock = true
-    passcodeAuthSwitch.isOn = isUsingPasscodeUnlock
-    UserDefaults.standard.set(isUsingPasscodeUnlock, forKey: L10n.isUsingPasscodeUnlock)
-    controller.dismiss(animated: true, completion: nil)
-  }
-  
-  func didSwitchOffBiometrics(_ controller: PasscodeViewController) {
-    isUsingBiometricUnlock = false
-    biometricAuthSwitch.isOn = isUsingBiometricUnlock
-    UserDefaults.standard.set(isUsingBiometricUnlock, forKey: L10n.isUsingBiometricUnlock)
-    controller.dismiss(animated: true, completion: nil)
-  }
-  
-  func didCancelBiometricsOff(_ controller: PasscodeViewController) {
-    isUsingBiometricUnlock = true
-    biometricAuthSwitch.isOn = isUsingBiometricUnlock
-    UserDefaults.standard.set(isUsingBiometricUnlock, forKey: L10n.isUsingBiometricUnlock)
-    controller.dismiss(animated: true, completion: nil)
-  }
-}
