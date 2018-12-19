@@ -10,7 +10,15 @@
 
 import Foundation
 
-internal let kBackgroundTimeValue = "ApplicationBackgroundTime"
-internal let kPasscodeTimeoutEnabled = "PasscodeTimeoutEnabled"
-internal let kPasscodeTimeoutValue = "PasscodeTimeoutValue"
-internal let kPasscodeUnlockKey = "PasscodeUnlockKey"
+struct UserDefaultKey {
+  
+  static let isDarkThemeSelected = "Dark Theme Selection Key"
+  static let isUsingPasscodeUnlock = "Passcode Lock Key"
+  static let isUsingBiometricUnlock = "Biometric Lock Key"
+  
+  static let backgroundTimeValue = "ApplicationBackgroundTime"
+  static let isPasscodeTimeoutEnabled = "PasscodeTimeoutEnabled"
+  static let passcodeTimeoutValue = "PasscodeTimeoutValue"
+  static let passcodeUnlockKey = "PasscodeUnlockKey"
+  
+}
