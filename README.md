@@ -1,4 +1,4 @@
-[![Build Status](https://app.bitrise.io/app/e88b90edc48f2fac/status.svg?token=ApRu9n8s9xPI4uM9wzpXGQ&branch=master)](https://app.bitrise.io/app/e88b90edc48f2fac)
+[![Build Status](https://app.bitrise.io/app/e88b90edc48f2fac/status.svg?token=ApRu9n8s9xPI4uM9wzpXGQ)](https://app.bitrise.io/app/e88b90edc48f2fac)
 
 #  Bitrise Unofficial Client for iOS
 
