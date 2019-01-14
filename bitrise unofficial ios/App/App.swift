@@ -6,6 +6,7 @@
 //  Copyright © 2018 Alexei Gudimenko. All rights reserved.
 //
 
+
 import Foundation
 import KeychainAccess
 
@@ -13,8 +14,58 @@ protocol UserUpdateDelegate: class {
   func updateUserViews()
 }
 
+extension UIApplication {
+  
+  /// <#Description#>
+  ///
+  /// - Returns: <#return value description#>
+  class func topViewController() -> UIViewController? {
+    guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+      print("*** App delegate was nil when trying to find top view controller")
+      return nil
+    }
+    
+    guard let rootViewController = delegate.window?.rootViewController else {
+      print("*** Window's root view controller property was null - failed getting window's root VC")
+      return nil
+    }
+    
+    return rootViewController
+  }
+  
+  /// <#Description#>
+  ///
+  /// - Returns: <#return value description#>
+  class func topPresentedViewController() -> UIViewController? {
+    
+    guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+      print("*** App delegate was nil when trying to find top view controller")
+      return nil
+    }
+    
+    guard let rootViewController = delegate.window?.rootViewController else {
+      print("*** Window's root view controller property was null - failed getting window's root VC")
+      return nil
+    }
+    
+    guard let topController = rootViewController.presentedViewController,
+      !topController.isKind(of: UIAlertController.self) else {
+        print("*** Presented view controller property was nil, deferring to Root VC")
+        return rootViewController
+    }
+    
+    print("*** \(topController.description)")
+    
+    return topController
+  }
+}
+
 class App {
   
+  /// App singleton instance.
+  ///
+  /// Maintains a set of shared application-wise objects and utilities that would otherwise be
+  /// expensive or fragile to maintain and instantiate
   static let sharedInstance = App()
   
   let apiClient = APIClient(baseURL: URL(string: "https://api.bitrise.io")!)
@@ -182,3 +233,15 @@ extension App {
   }
 }
 
+// MARK: - UIAppearance & theme setting
+extension App {
+  
+  func setDarkThemeActive(_ flag: Bool = false) {
+    
+    print("Setting theme to dark: \(flag)")
+    
+    let _: Theme = flag ? .dark : .regular
+
+  }
+  
+}

@@ -8,7 +8,7 @@
 
 import UIKit
 import XLPagerTabStrip
-
+import FirebasePerformance
 
 class ProjectDetailViewController: ButtonBarPagerTabStripViewController {
   
@@ -93,6 +93,8 @@ class ProjectDetailViewController: ButtonBarPagerTabStripViewController {
                                          forAppViewModel: projectVM ??
                                           BitriseProjectViewModel(with: BitriseApp()))
     
+    page2.ymlText = projectVM?.bitriseYML
+    
     return [page1, page2]
   }
   
@@ -148,4 +150,3 @@ extension ProjectDetailViewController {
     title = projectTitle
   }
 }
-

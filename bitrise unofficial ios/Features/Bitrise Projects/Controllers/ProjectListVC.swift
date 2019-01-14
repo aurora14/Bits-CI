@@ -12,6 +12,8 @@ import Alamofire
 import AlamofireImage
 import SkeletonView
 import ViewAnimator
+import Fabric
+import Crashlytics
 
 /// Landing Page
 ///
@@ -55,7 +57,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     setupProfileButton()
     loadTestItems() // dummy items to show a preview until the table view is updated with live data
     setupRefreshing()
-    tableView.showAnimatedSkeleton()
+    //tableView.showAnimatedSkeleton()
     loadDataWithAuthorization()
     
     impactGenerator.prepare()
@@ -173,7 +175,9 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   }
   
   private func presentAuthorizationView() {
-    performSegue(withIdentifier: "TokenSegue", sender: nil)
+    DispatchQueue.main.async {
+      self.performSegue(withIdentifier: "TokenSegue", sender: nil)
+    }
   }
   
   // MARK: - UI Actions
@@ -263,6 +267,9 @@ extension ProjectListViewController {
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    guard !activeDataSource.isEmpty else {
+      return 44
+    }
     return activeDataSource[indexPath.section].rowHeight
   }
   
@@ -292,9 +299,9 @@ extension ProjectListViewController {
   
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-    if searchController.isActive { searchController.isActive = false }
+    //if searchController.isActive { searchController.isActive = false }
     
-    //print("*** Tapped row at \(indexPath.section)")
+    print("*** Tapped row at \(indexPath.section)")
     
     let project = activeDataSource[indexPath.section] as? BitriseProjectViewModel
     
@@ -408,11 +415,11 @@ extension ProjectListViewController {
   
   fileprivate func loadTestItems() {
     let testModels: [CellRepresentable] = [
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp()),
-      BitriseProjectViewModel(with: BitriseApp())]
+      DummyProjectViewModel(),
+      DummyProjectViewModel(),
+      DummyProjectViewModel(),
+      DummyProjectViewModel(),
+      DummyProjectViewModel()]
     apps.append(contentsOf: testModels)
     activeDataSource = apps
   }
@@ -504,9 +511,27 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
 extension ProjectListViewController: ViewRefreshDelegate {
   
   func update(at indexPath: IndexPath?) {
+    #warning("This seems to crash when filtering list of projects, in particular on the + and Max phone models")
     
     guard let path = indexPath else {
       return
+    }
+    
+    // Logging to troubleshoot the occasional crash on the + and Max phones during search
+    DispatchQueue.main.async {
+      guard path.section < self.tableView.numberOfSections else {
+        assertionFailure("Attempting to update section outside of accessible range. Section: \(path.section). Range Count: \(self.tableView.numberOfSections)")
+        
+        let eventReport = [
+          "Attempted section update": "\(path.section)",
+          "Number of sections during attempt": "\(self.tableView.numberOfSections)",
+          "Search string": "\(self.searchController.searchBar.text ?? "--unavailable")"
+        ]
+        
+        Answers.logCustomEvent(withName: "Filtering TableView Error",
+                               customAttributes: eventReport)
+        return
+      }
     }
     
     DispatchQueue.main.async {

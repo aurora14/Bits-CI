@@ -19,22 +19,25 @@ target 'bitrise unofficial ios' do
   pod 'IQKeyboardManagerSwift'
   pod 'SkyFloatingLabelTextField'
   pod 'SVProgressHUD'
-  pod 'SwiftSoup'
   pod 'ViewAnimator'
   pod 'SkeletonView'
   pod 'XLPagerTabStrip'
   pod 'lottie-ios'
+  
+  # -- content rendering
+  pod 'SwiftSoup'
+  pod 'MarkdownView'
   
   # -- analytics & crash reporting --
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  #  pod 'Firebase/Performance'
+  pod 'Firebase/Performance'
   
   # -- authentication --
-  
-  pod 'KeychainAccess' # let's look at Apple Documentation first and try to do this natively without libraries.
+  pod 'KeychainAccess'
+  # pod 'SmileLock' # @see Vendors subdirectory & contained README.md
   
   # -- Lint and Code-Gen --
   pod 'SwiftLint'

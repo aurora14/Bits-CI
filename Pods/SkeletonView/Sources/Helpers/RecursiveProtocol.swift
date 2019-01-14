@@ -9,7 +9,7 @@ protocol IterableElement {}
 extension UIView: IterableElement {}
 extension CALayer: IterableElement {}
 
-//MARK: Recursive
+// MARK: - Recursive
 protocol Recursive {
     associatedtype Element: IterableElement
     func recursiveSearch(leafBlock: VoidBlock, recursiveBlock: RecursiveBlock<Element>)

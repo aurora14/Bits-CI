@@ -14,6 +14,13 @@
 "showingAllApps"   = "Showing all apps";
 "filterByProjectTitle" = "Find your project by name";
 "welcome"          = "Welcome,";
+"settingsTitle"    = "Settings & Preferences";
+"settingsTitleShort" = "Settings";
+"unlockWithPasscode" = "Unlock with passcode";
+"unlockWithBio" = "Unlock with Touch ID or Face ID";
+"setGracePeriod" = "Set passcode grace period";
+"resetPasscode" = "Reset passcode";
+"acknowledgements" = "Acknowledgements";
 
 // Login & Authorization
 "logIn"            = "Log In";
@@ -25,6 +32,7 @@
 "noOrganizations"  = "User doesn't belong to any organizations";
 
 // Standard actions
+"save"             = "Save";
 "dismiss"          = "Dismiss";
 "cancel"           = "Cancel";
 
@@ -48,6 +56,7 @@
 "months" = "months";
 "years" = "years";
 "ago" = "ago";
+"minute" = "minute";
 
 // Time - short version
 "hr" = "hr";
@@ -61,3 +70,13 @@
 "mths" = "mths";
 "yr" = "yr";
 "yrs" = "yrs";
+
+// Passcode controller
+"deletePasscodeCharacter" = "Delete";
+"enterNewPasscode" = "Enter New Passcode";
+"enterCurrentPasscode" = "Enter Current Passcode";
+"reenterNewPasscode" = "Re-enter New Passcode";
+"invalidPasscode" = "Invalid Passcode";
+"noMatchPasscode" = "Passcodes do not match";
+"enterYourPasscode" = "Enter your passcode";
+

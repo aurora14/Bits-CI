@@ -22,8 +22,6 @@ struct Organization: Codable, CustomStringConvertible {
     case avatarIconUrl
   }
   
-  var data: Data?
-  
   var avatarIconUrl: String?
   var name: String?
   var slug: Slug?

@@ -49,6 +49,7 @@ class NewBuildViewController: UIViewController {
     
     configureContainer()
     configureProjectNameLabel()
+    configureStartBuildButton()
     configureInitTouchPoint()
     configureTextFields()
     configureSwipeModal()
@@ -56,10 +57,6 @@ class NewBuildViewController: UIViewController {
     
     selectionFeedbackGenerator?.prepare()
     notificationFeedbackGenerator?.prepare()
-    
-    //    Answers.logContentView(withName: "Start New Build",
-    //                           contentType: "Start new app build scene",
-    //                           contentId: nil, customAttributes: nil)
   }
   
   @IBAction func didTapStartBuild() {
@@ -88,8 +85,7 @@ class NewBuildViewController: UIViewController {
         print("*** Start New Build: \(message)")
         switch result {
         case .success:
-          print("*** \(message)")
-          // 1. close controller
+          //print("*** \(message)")
           NotificationCenter
             .default
             .post(name: .didStartNewBuildNotification, object: self)
@@ -98,6 +94,7 @@ class NewBuildViewController: UIViewController {
             self.notificationFeedbackGenerator?.notificationOccurred(.success)
           }
           self.startBuildDelegate?.didStartNewBuild(from: self)
+          Answers.logCustomEvent(withName: "New Build Started", customAttributes: nil)
           self.didTapDismiss()
         case .error:
           self.dismissStartHUD()
@@ -152,7 +149,7 @@ class NewBuildViewController: UIViewController {
   
   /// Checks branch, workflow and message variables for valid input and that the app isn't nil
   ///
-  /// - Returns: true if all parameters are correct, false if not
+  /// - Returns: true if all parameters are correct, false if not. Provides an info message for further debugging
   func validated() -> (result: AsyncResult, message: String) {
     // add new validation rules as necessary
     guard !branch.isEmpty else {
@@ -174,17 +171,7 @@ class NewBuildViewController: UIViewController {
     // print("*** Error \(errorName): \(errorMessage)")
     SVProgressHUD.showError(withStatus: errorMessage)
   }
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destination.
-   // Pass the selected object to the new view controller.
-   }
-   */
-  
+
 }
 
 
@@ -276,6 +263,10 @@ extension NewBuildViewController {
   fileprivate func configureSwipeModal() {
     let panGR = UIPanGestureRecognizer(target: self, action: #selector(didStartPanGesture(_:)))
     view.addGestureRecognizer(panGR)
+  }
+  
+  fileprivate func configureStartBuildButton() {
+    startBuildButton.setTitle(L10n.startBuild, for: .normal)
   }
   
   @IBAction @objc private func didStartPanGesture(_ sender: UIPanGestureRecognizer) {

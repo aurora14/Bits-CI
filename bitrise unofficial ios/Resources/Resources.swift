@@ -28,6 +28,7 @@ internal enum Asset {
     internal static let bitrisePurple = ColorAsset(name: "BitrisePurple")
     internal static let bitriseYellow = ColorAsset(name: "BitriseYellow")
     internal static let canaryYellow = ColorAsset(name: "CanaryYellow")
+    internal static let darkBackground = ColorAsset(name: "DarkBackground")
     internal static let fieldGreen = ColorAsset(name: "FieldGreen")
     internal static let lightBlue = ColorAsset(name: "LightBlue")
     internal static let lushPurple = ColorAsset(name: "LushPurple")
@@ -59,12 +60,15 @@ internal enum Asset {
     internal static let log = ImageAsset(name: "log")
     internal static let message = ImageAsset(name: "message")
     internal static let projects = ImageAsset(name: "projects")
+    internal static let projectsGlyph = ImageAsset(name: "projects_glyph")
     internal static let providerBitbucket = ImageAsset(name: "provider_bitbucket")
     internal static let providerGithub = ImageAsset(name: "provider_github")
     internal static let providerGitlab = ImageAsset(name: "provider_gitlab")
     internal static let `repeat` = ImageAsset(name: "repeat")
+    internal static let settingsGlyph = ImageAsset(name: "settings_glyph")
     internal static let user = ImageAsset(name: "user")
     internal static let userLrg = ImageAsset(name: "user_lrg")
+    internal static let usrGlyph = ImageAsset(name: "usr_glyph")
     internal static let workflow = ImageAsset(name: "workflow")
   }
 }
