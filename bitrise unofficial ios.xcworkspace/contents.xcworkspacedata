@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:bitrise unofficial ios/SwiftDateTest.playground">
+   </FileRef>
+   <FileRef
       location = "group:bitrise unofficial ios.xcodeproj">
    </FileRef>
    <FileRef
