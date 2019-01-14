@@ -192,7 +192,8 @@ open class PasswordContainerView: UIView {
   
   open func touchAuthentication() {
     guard isTouchAuthenticationAvailable else { return }
-    touchIDContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: touchAuthenticationReason) { (success, error) in
+    touchIDContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                  localizedReason: touchAuthenticationReason) { success, error in
       DispatchQueue.main.async {
         if success {
           self.passwordDotView.inputDotCount = self.passwordDotView.totalDotCount

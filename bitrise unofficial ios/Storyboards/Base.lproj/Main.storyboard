@@ -655,6 +655,7 @@
                         <outlet property="biometricAuthSwitch" destination="lOv-db-hKU" id="GuP-Lb-kd5"/>
                         <outlet property="passcodeAuthSwitch" destination="86B-uZ-Sgz" id="EQl-Rm-G3d"/>
                         <outlet property="passcodeGracePeriodLabel" destination="7St-dD-VV0" id="wZC-9K-gKh"/>
+                        <outlet property="passcodeGracePeriodValueLabel" destination="aHX-y6-KmR" id="CSL-O9-Uru"/>
                         <outlet property="resetPasscodeLabel" destination="1DX-GV-ZXd" id="OXJ-yO-ZlI"/>
                         <outlet property="unlockWithBiometricsLabel" destination="fgX-2s-rZ0" id="LVt-Dd-QYg"/>
                         <outlet property="unlockWithPasscodeLabel" destination="gMZ-Uc-Pf9" id="cFC-sc-EM4"/>

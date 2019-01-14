@@ -124,9 +124,11 @@ open class PasswordDotView: UIView {
 }
 
 private extension PasswordDotView {
-  // MARK: -Animation
-  func shakeAnimation(withDuration duration: TimeInterval, animations: @escaping () -> (), completion: @escaping () -> ()) {
-    UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.01, initialSpringVelocity: 0.35, options: UIView.AnimationOptions(), animations: {
+  // MARK: - Animation
+  func shakeAnimation(withDuration duration: TimeInterval, animations: @escaping () -> Void,
+                      completion: @escaping () -> Void) {
+    UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.01,
+                   initialSpringVelocity: 0.35, options: UIView.AnimationOptions(), animations: {
       animations()
     }) { _ in
       completion()

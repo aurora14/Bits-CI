@@ -134,7 +134,12 @@ open class PasswordInputView: UIView {
     circleView.layer.borderWidth = isVibrancyEffect ? borderWidth : 0
     
     //update mask
-    let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: 2.0 * CGFloat(Double.pi), clockwise: false)
+    let path = UIBezierPath(
+      arcCenter: center,
+      radius: radius,
+      startAngle: 0,
+      endAngle: 2.0 * CGFloat(Double.pi),
+      clockwise: false)
     let maskLayer = CAShapeLayer()
     maskLayer.path = path.cgPath
     layer.mask = maskLayer
@@ -158,7 +163,8 @@ private extension PasswordInputView {
     NSLayoutConstraint.addEqualConstraintsFromSubView(button, toSuperView: self)
     button.isExclusiveTouch = true
     button.addTarget(self, action: #selector(PasswordInputView.touchDown), for: [.touchDown])
-    button.addTarget(self, action: #selector(PasswordInputView.touchUp), for: [.touchUpInside, .touchDragOutside, .touchCancel, .touchDragExit])
+    button.addTarget(self, action: #selector(PasswordInputView.touchUp),
+                     for: [.touchUpInside, .touchDragOutside, .touchCancel, .touchDragExit])
     button.accessibilityValue = numberString
   }
   
@@ -202,7 +208,8 @@ private extension PasswordInputView {
   }
   
   func tappedAnimation(animations: @escaping () -> Void, completion: (() -> Void)?) {
-    UIView.animate(withDuration: 0.25, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: animations) { _ in
+    UIView.animate(withDuration: 0.25, delay: 0,
+                   options: [.allowUserInteraction, .beginFromCurrentState], animations: animations) { _ in
       completion?()
     }
   }

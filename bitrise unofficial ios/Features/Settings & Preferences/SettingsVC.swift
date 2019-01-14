@@ -20,6 +20,8 @@ class SettingsViewController: UITableViewController {
   @IBOutlet weak var unlockWithPasscodeLabel: UILabel!
   @IBOutlet weak var unlockWithBiometricsLabel: UILabel!
   @IBOutlet weak var passcodeGracePeriodLabel: UILabel!
+  @IBOutlet weak var passcodeGracePeriodValueLabel: UILabel!
+  
   @IBOutlet weak var resetPasscodeLabel: UILabel!
   @IBOutlet weak var acknowledgementsLabel: UILabel!
   
@@ -28,7 +30,7 @@ class SettingsViewController: UITableViewController {
   private var timeoutLabelText: String = "OFF" {
     didSet {
       DispatchQueue.main.async {
-        self.passcodeGracePeriodLabel.text = self.timeoutLabelText
+        self.passcodeGracePeriodValueLabel.text = self.timeoutLabelText
       }
     }
   }
@@ -317,6 +319,11 @@ extension SettingsViewController {
     passcodeGracePeriodLabel.text = L10n.setGracePeriod
     resetPasscodeLabel.text = L10n.resetPasscode
     acknowledgementsLabel.text = L10n.acknowledgements
+
+    let durationValue = UserDefaults.standard.integer(forKey: UserDefaultKey.passcodeTimeoutValue)
+    let passcodeDuration = PasscodeTimeoutDuration(rawValue: durationValue)
+    
+    passcodeGracePeriodValueLabel.text = passcodeDuration?.title ?? "OFF"
   }
   
   fileprivate func setDefaultThemePreference() {
