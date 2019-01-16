@@ -75,7 +75,7 @@ class ProfileViewController: UITableViewController {
   /// This should be called before 'setupTableView', so that this view is available to
   /// set as the table view header
   private func setupProfileView() {
-    profileHeaderView = ProfileHeaderView.instanceFromNib()
+    profileHeaderView = UIView.instanceFromNib(forViewType: ProfileHeaderView.self)
     profileHeaderView?.welcomeLabel.text = L10n.welcome
     profileHeaderView?.welcomeLabel.adjustsFontSizeToFitWidth = true
   }

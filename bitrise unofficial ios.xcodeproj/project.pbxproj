@@ -53,6 +53,7 @@
 		7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */; };
 		7A69095221420C4C00487F13 /* BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69095121420C4C00487F13 /* BuildAction.swift */; };
 		7A797D992170497700E57587 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A797D982170497700E57587 /* Segues.swift */; };
+		7A8750C721EF323B0096D821 /* UIView+instanceFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750C621EF323B0096D821 /* UIView+instanceFromNib.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
 		7A8F71D621C0CC0B008E1825 /* PasscodeTimeoutDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */; };
 		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
@@ -151,6 +152,7 @@
 		7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNameExt+Names.swift"; sourceTree = "<group>"; };
 		7A69095121420C4C00487F13 /* BuildAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAction.swift; sourceTree = "<group>"; };
 		7A797D982170497700E57587 /* Segues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
+		7A8750C621EF323B0096D821 /* UIView+instanceFromNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+instanceFromNib.swift"; sourceTree = "<group>"; };
 		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
 		7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeTimeoutDuration.swift; sourceTree = "<group>"; };
 		7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */,
 				7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */,
 				7A349931218EAF710098F31B /* Bundle+AppVersions.swift */,
+				7A8750C621EF323B0096D821 /* UIView+instanceFromNib.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -879,6 +882,7 @@
 				7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */,
 				7A595224219069AB00F3B84E /* PasscodeViewController.swift in Sources */,
 				7AD08344218E7FCC003CB57A /* SettingsVC.swift in Sources */,
+				7A8750C721EF323B0096D821 /* UIView+instanceFromNib.swift in Sources */,
 				7A5DFB8920D26AE400A3330B /* APIClient.swift in Sources */,
 				7A5E758F20DD275B008D32A5 /* Router.swift in Sources */,
 				7A5DFB7F20D26AE400A3330B /* TokenAuthVC.swift in Sources */,
