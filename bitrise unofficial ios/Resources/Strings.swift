@@ -1,3 +1,4 @@
+// swiftlint:disable all
 // Generated using SwiftGen, by O.Halligon — https://github.com/SwiftGen/SwiftGen
 
 import Foundation
@@ -5,8 +6,13 @@ import Foundation
 // swiftlint:disable superfluous_disable_command
 // swiftlint:disable file_length
 
-// swiftlint:disable explicit_type_interface identifier_name line_length nesting type_body_length type_name
+// MARK: - Strings
+
+// swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
+// swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
+  /// Acknowledgements
+  internal static let acknowledgements = L10n.tr("Localizable", "acknowledgements")
   /// ago
   internal static let ago = L10n.tr("Localizable", "ago")
   /// Bitrise User
@@ -21,8 +27,18 @@ internal enum L10n {
   internal static let d = L10n.tr("Localizable", "d")
   /// days
   internal static let days = L10n.tr("Localizable", "days")
+  /// Delete
+  internal static let deletePasscodeCharacter = L10n.tr("Localizable", "deletePasscodeCharacter")
   /// Dismiss
   internal static let dismiss = L10n.tr("Localizable", "dismiss")
+  /// Enter Current Passcode
+  internal static let enterCurrentPasscode = L10n.tr("Localizable", "enterCurrentPasscode")
+  /// Enter New Passcode
+  internal static let enterNewPasscode = L10n.tr("Localizable", "enterNewPasscode")
+  /// Enter your passcode
+  internal static let enterYourPasscode = L10n.tr("Localizable", "enterYourPasscode")
+  /// Find your project by name
+  internal static let filterByProjectTitle = L10n.tr("Localizable", "filterByProjectTitle")
   /// hours
   internal static let hours = L10n.tr("Localizable", "hours")
   /// hr
@@ -31,6 +47,8 @@ internal enum L10n {
   internal static let hrs = L10n.tr("Localizable", "hrs")
   /// Invalid Parameters
   internal static let invalidParams = L10n.tr("Localizable", "invalidParams")
+  /// Invalid Passcode
+  internal static let invalidPasscode = L10n.tr("Localizable", "invalidPasscode")
   /// Log In
   internal static let logIn = L10n.tr("Localizable", "logIn")
   /// Log Out
@@ -41,6 +59,8 @@ internal enum L10n {
   internal static let min = L10n.tr("Localizable", "min")
   /// mins
   internal static let mins = L10n.tr("Localizable", "mins")
+  /// minute
+  internal static let minute = L10n.tr("Localizable", "minute")
   /// minutes
   internal static let minutes = L10n.tr("Localizable", "minutes")
   /// months
@@ -49,6 +69,8 @@ internal enum L10n {
   internal static let mth = L10n.tr("Localizable", "mth")
   /// mths
   internal static let mths = L10n.tr("Localizable", "mths")
+  /// Passcodes do not match
+  internal static let noMatchPasscode = L10n.tr("Localizable", "noMatchPasscode")
   /// User doesn't belong to any organizations
   internal static let noOrganizations = L10n.tr("Localizable", "noOrganizations")
   /// No token saved in keychain
@@ -59,14 +81,40 @@ internal enum L10n {
   internal static let profile = L10n.tr("Localizable", "profile")
   /// Projects
   internal static let projects = L10n.tr("Localizable", "projects")
+  /// Re-enter New Passcode
+  internal static let reenterNewPasscode = L10n.tr("Localizable", "reenterNewPasscode")
+  /// Reset passcode
+  internal static let resetPasscode = L10n.tr("Localizable", "resetPasscode")
+  /// Save
+  internal static let save = L10n.tr("Localizable", "save")
   /// seconds
   internal static let seconds = L10n.tr("Localizable", "seconds")
+  /// Set passcode grace period
+  internal static let setGracePeriod = L10n.tr("Localizable", "setGracePeriod")
+  /// Settings & Preferences
+  internal static let settingsTitle = L10n.tr("Localizable", "settingsTitle")
+  /// Settings
+  internal static let settingsTitleShort = L10n.tr("Localizable", "settingsTitleShort")
   /// Showing all apps
   internal static let showingAllApps = L10n.tr("Localizable", "showingAllApps")
   /// Start Build
   internal static let startBuild = L10n.tr("Localizable", "startBuild")
+  /// Unauthorized user
+  internal static let unauthorizedUser = L10n.tr("Localizable", "unauthorizedUser")
+  /// Value of 'enteredToken' isn't equal to text field value:
+  internal static let unequalTokenInAuthTF = L10n.tr("Localizable", "unequalTokenInAuthTF")
+  /// Unlock with Touch ID or Face ID
+  internal static let unlockWithBio = L10n.tr("Localizable", "unlockWithBio")
+  /// Unlock with passcode
+  internal static let unlockWithPasscode = L10n.tr("Localizable", "unlockWithPasscode")
   /// weeks
   internal static let weeks = L10n.tr("Localizable", "weeks")
+  /// Welcome,
+  internal static let welcome = L10n.tr("Localizable", "welcome")
+  /// wk
+  internal static let wk = L10n.tr("Localizable", "wk")
+  /// wks
+  internal static let wks = L10n.tr("Localizable", "wks")
   /// years
   internal static let years = L10n.tr("Localizable", "years")
   /// Bitrise YML isn't available for this application
@@ -76,7 +124,10 @@ internal enum L10n {
   /// yrs
   internal static let yrs = L10n.tr("Localizable", "yrs")
 }
-// swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
+// swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
+// swiftlint:enable nesting type_body_length type_name
+
+// MARK: - Implementation Details
 
 extension L10n {
   private static func tr(_ table: String, _ key: String, _ args: CVarArg...) -> String {

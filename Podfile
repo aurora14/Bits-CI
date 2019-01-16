@@ -19,34 +19,37 @@ target 'bitrise unofficial ios' do
   pod 'IQKeyboardManagerSwift'
   pod 'SkyFloatingLabelTextField'
   pod 'SVProgressHUD'
-  pod 'SwiftSoup'
   pod 'ViewAnimator'
   pod 'SkeletonView'
   pod 'XLPagerTabStrip'
   pod 'lottie-ios'
   
+  # -- content rendering
+  pod 'SwiftSoup'
+  pod 'MarkdownView'
+  
   # -- analytics & crash reporting --
-  pod 'Fabric' #Broken on Xcode 10 Beta 5, fixed in subsequent builds
+  pod 'Fabric'
   pod 'Crashlytics'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  #  pod 'Firebase/Performance'
+  pod 'Firebase/Performance'
   
   # -- authentication --
-  
-  pod 'KeychainAccess' # let's look at Apple Documentation first and try to do this natively without libraries.
+  pod 'KeychainAccess'
+  # pod 'SmileLock' # @see Vendors subdirectory & contained README.md
   
   # -- Lint and Code-Gen --
   pod 'SwiftLint'
   pod 'SwiftGen'
   
   # TEMP - Remove once pods are updated to Swift 4.2
-  post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '4.0'
-      end # end Swiftversion
-    end # end loop through targets 
-  end # end post-install
-  
+#  post_install do |installer|
+#    installer.pods_project.targets.each do |target|
+#      target.build_configurations.each do |config|
+#        config.build_settings['SWIFT_VERSION'] = '4.0'
+#      end # end Swiftversion
+#    end # end loop through targets
+#  end # end post-install
+
 end

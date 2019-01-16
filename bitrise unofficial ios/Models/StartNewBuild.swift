@@ -13,11 +13,13 @@ struct BuildParameters: Codable {
   var branch: String
   var workflowId: String
   var commitMessage: String
+  var commitHash: String
   
-  init(branch: String, workflowId: String = "", commitMessage: String = "") {
+  init(branch: String, workflowId: String = "", commitMessage: String = "", commitHash: String = "") {
     self.branch = branch
     self.workflowId = workflowId
     self.commitMessage = commitMessage
+    self.commitHash = commitHash
   }
 }
 
@@ -32,9 +34,13 @@ struct BuildData: Codable {
   let hookInfo: HookInfo
   let buildParams: BuildParameters
   
-  init(branch: String, workflowId: String, commitMessage: String = "") {
+  init(branch: String, workflowId: String, commitMessage: String = "", commitHash: String = "") {
     triggeredBy = Bundle.main.bundleIdentifier ?? "Bitrise iOS Client"
     hookInfo = HookInfo()
-    buildParams = BuildParameters(branch: branch, workflowId: workflowId, commitMessage: commitMessage)
+    buildParams = BuildParameters(
+      branch: branch,
+      workflowId: workflowId,
+      commitMessage: commitMessage,
+      commitHash: commitHash)
   }
 }

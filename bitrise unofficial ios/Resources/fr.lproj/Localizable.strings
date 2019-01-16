@@ -1,0 +1,81 @@
+/* 
+  Localizable.strings
+  bitrise unofficial ios
+
+  Created by Alexei Gudimenko on 18/8/18.
+  Copyright © 2018 Alexei Gudimenko. All rights reserved.
+*/
+
+// General text
+"startBuild"       = "Démarrer la génération";
+"bitriseUser"      = "Utilisateur Bitrise";
+"projects"         = "Projets";
+"profile"          = "Profil";
+"showingAllApps"   = "Afficher toutes les applications";
+"filterByProjectTitle" = "Trouvez votre projet par nom";
+"welcome"          = "Bonjour,";
+"settingsTitle"    = "Paramètres & Préférences";
+"unlockWithPasscode" = "Unlock with passcode";
+"unlockWithBio" = "Unlock with Touch ID or Face ID";
+"setGracePeriod" = "Set passcode grace period";
+"resetPasscode" = "Reset passcode";
+"acknowledgements" = "Acknowledgements";
+"settingsTitleShort" = "Paramètres";
+
+// Login & Authorization
+"logIn"            = "Entrée";
+"logOut"           = "Sortie";
+"logOutConfirmationMsg" = "Êtes-vous sûr de vouloir vous déconnecter? Vous devrez peut-être générer un nouveau jeton d'accès la prochaine fois que vous souhaitez utiliser l'application.";
+"noTokenInKeychain" = "Aucun jeton enregistré dans le trousseau";
+
+// User information
+"noOrganizations"  = "L'utilisateur n'appartient à aucune organisation";
+
+// Standard actions
+"save"             = "Save";
+"dismiss"          = "Fermer";
+"cancel"           = "Annuler";
+
+// Error handling
+"invalidParams"    = "Paramètres non valides";
+"checkBuildParamsMsg" = "Assurez-vous que les champs requis sont remplis et que les champs de message Branch, Workflow et Commit Contiennent des chaînes valides.";
+"nullAppProperty" = "La propriété app n'a pas été initialisée dans le contrôleur de vue. Cette propriété doit être remplie avec une application bitrise valide pour permettre la validation de nouvelles générations";
+"unequalTokenInAuthTF" = "La valeur de'enteredToken'n'est pas égale à la valeur du champ de texte:";
+"unauthorizedUser" = "Utilisateur non autorisé";
+
+// Bitrise content
+"ymlUnavailable" = "Bitrise YML n'est pas disponible pour cette application";
+"branchParamRequired" = "Le paramètre 'Branch' est vide. Succursale est nécessaire pour démarrer une build";
+
+// Time - full version
+"seconds" = "secondes";
+"minutes" = "minutes";
+"hours" = "heures";
+"days" = "jours";
+"weeks" = "semaines";
+"months" = "mois";
+"years" = "ans";
+"ago" = "longtemps";
+"minute" = "minute";
+
+// Time - short version
+"hr" = "hr";
+"hrs" = "hrs";
+"min" = "min";
+"mins" = "mins";
+"d" = "jrs";
+"wk" = "sem";
+"wks" = "sems";
+"mth" = "mois";
+"mths" = "mois";
+"yr" = "année";
+"yrs" = "ans";
+
+// Passcode controller
+"deletePasscodeCharacter" = "Delete";
+"enterNewPasscode" = "Enter New Passcode";
+"enterCurrentPasscode" = "Enter Current Passcode";
+"reenterNewPasscode" = "Re-enter New Passcode";
+"invalidPasscode" = "Invalid Passcode";
+"noMatchPasscode" = "Passcodes do not match";
+"enterYourPasscode" = "Enter your passcode";

@@ -77,7 +77,7 @@ class BitriseProjectViewModel: CellRepresentable {
           return "N/A"
         }
       case .inProgress: return status.text
-      case .aborted:
+      case .aborted, .abortedWithSuccess:
         if let finishedTime = build.finishedAt {
           return timeSinceBuild(forBuildFinishTime: finishedTime)
         } else {
@@ -100,22 +100,28 @@ class BitriseProjectViewModel: CellRepresentable {
   
   var bitriseYML: String?
   
+  
   init(with app: BitriseApp) {
     self.app = app
-    // get last build info here?
+    
+    guard !app.slug.isEmpty else {
+      // if there's no app ID, don't get the last builds (e.g. if loading dummy items)
+      return
+    }
+    
     updateLastBuild()
     DispatchQueue.global(qos: .background).async { [weak self] in
       self?.updateAllBuilds()
       self?.updateYML()
     }
   }
+
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
     guard let cell = tableView
-      .dequeueReusableCell(withIdentifier: "ProjectCell") as? ProjectCell else {
-        
-        return UITableViewCell(style: .default, reuseIdentifier: "ProjectCell")
+      .dequeueReusableCell(withIdentifier: kProjectCellReusableIdentifier) as? ProjectCell else {
+        return UITableViewCell(style: .default, reuseIdentifier: kProjectCellReusableIdentifier)
     }
     
     cell.setup(with: self)
@@ -132,7 +138,7 @@ class BitriseProjectViewModel: CellRepresentable {
     App
       .sharedInstance
       .apiClient
-      .getBuilds(for: self.app, withLimit: 1) { [weak self] success, builds, message in
+      .getBuilds(for: self.app, withLimit: 1) { [weak self] _, builds, _ in
       self?.lastBuild = builds?.first?.build
     }
   }
@@ -145,10 +151,10 @@ class BitriseProjectViewModel: CellRepresentable {
     App
       .sharedInstance
       .apiClient
-      .getBuilds(for: self.app) { [weak self] success, builds, message in
+      .getBuilds(for: self.app) { [weak self] _, builds, message in
       
       guard let b = builds else {
-        print("*** No builds available")
+        print("*** No builds available, \(message)")
         self?.buildList = [ProjectBuildViewModel]()
         return
       }
@@ -187,21 +193,21 @@ class BitriseProjectViewModel: CellRepresentable {
     
     if let years = difference.year, years > 0 {
       timeElapsed.append("\(years) ")
-      years == 1 ? timeElapsed.append("yr ") : timeElapsed.append("yrs ")
+      years == 1 ? timeElapsed.append("\(L10n.yr) ") : timeElapsed.append("\(L10n.yrs) ")
     }
     
     if let months = difference.month, months > 0 {
       timeElapsed.append("\(months) ")
-      months == 1 ? timeElapsed.append("mth ") : timeElapsed.append("mths ")
+      months == 1 ? timeElapsed.append("\(L10n.mth) ") : timeElapsed.append("\(L10n.mths) ")
     }
 
     if let weeks = difference.weekOfYear, weeks > 0 {
       timeElapsed.append("\(weeks) ")
-      weeks == 1 ? timeElapsed.append("wk ") : timeElapsed.append("wks ")
+      weeks == 1 ? timeElapsed.append("\(L10n.wk) ") : timeElapsed.append("\(L10n.wks) ")
     }
     
     if let days = difference.day, days > 0 {
-      timeElapsed.append("\(days) d ")
+      timeElapsed.append("\(days) \(L10n.d) ")
     }
     
     if let hours = difference.hour, hours > 0 {
@@ -216,7 +222,7 @@ class BitriseProjectViewModel: CellRepresentable {
     
     if let minutes = difference.minute, minutes == 0,
       let seconds = difference.second, seconds > 0 {
-      timeElapsed.append("\(seconds) \(L10n.seconds)")
+      timeElapsed.append("\(seconds) \(L10n.seconds) ")
     }
     
     return "\(timeElapsed)\(L10n.ago)"

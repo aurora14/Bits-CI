@@ -14,6 +14,7 @@ enum BuildStatus: Int, Codable {
   case success
   case failure
   case aborted
+  case abortedWithSuccess
   
   var text: String {
     switch self {
@@ -21,6 +22,7 @@ enum BuildStatus: Int, Codable {
     case .success:    return "SUCCESS"
     case .failure:    return "FAILING"
     case .aborted:    return "ABORTED"
+    case .abortedWithSuccess: return BuildStatus.aborted.text
     }
   }
   
@@ -30,6 +32,7 @@ enum BuildStatus: Int, Codable {
     case .success:    return Asset.Colors.bitriseGreen.color
     case .failure:    return Asset.Colors.bitriseOrange.color
     case .aborted:    return Asset.Colors.bitriseYellow.color
+    case .abortedWithSuccess: return BuildStatus.aborted.color
     }
   }
   
@@ -40,6 +43,7 @@ enum BuildStatus: Int, Codable {
     case .success:    return Asset.Icons.buildSucceeded.image
     case .failure:    return Asset.Icons.buildFailed.image
     case .aborted:    return Asset.Icons.buildAborted.image
+    case .abortedWithSuccess: return BuildStatus.aborted.icon
     }
   }
   
@@ -50,6 +54,7 @@ enum BuildStatus: Int, Codable {
     case .success:    return Asset.Icons.buildSucceededWhite.image
     case .failure:    return Asset.Icons.buildFailedWhite.image
     case .aborted:    return Asset.Icons.buildAbortedWhite.image
+    case .abortedWithSuccess: return BuildStatus.aborted.iconWhite
     }
   }
 }
@@ -91,6 +96,7 @@ struct Build: Codable {
   var triggeredAt: String
   var triggeredBy: String
   var triggeredWorkflow: String
+  
   
   init(from decoder: Decoder) throws {
     

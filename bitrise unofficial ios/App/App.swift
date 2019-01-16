@@ -6,6 +6,7 @@
 //  Copyright © 2018 Alexei Gudimenko. All rights reserved.
 //
 
+
 import Foundation
 import KeychainAccess
 
@@ -13,8 +14,58 @@ protocol UserUpdateDelegate: class {
   func updateUserViews()
 }
 
+extension UIApplication {
+  
+  /// <#Description#>
+  ///
+  /// - Returns: <#return value description#>
+  class func topViewController() -> UIViewController? {
+    guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+      print("*** App delegate was nil when trying to find top view controller")
+      return nil
+    }
+    
+    guard let rootViewController = delegate.window?.rootViewController else {
+      print("*** Window's root view controller property was null - failed getting window's root VC")
+      return nil
+    }
+    
+    return rootViewController
+  }
+  
+  /// <#Description#>
+  ///
+  /// - Returns: <#return value description#>
+  class func topPresentedViewController() -> UIViewController? {
+    
+    guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+      print("*** App delegate was nil when trying to find top view controller")
+      return nil
+    }
+    
+    guard let rootViewController = delegate.window?.rootViewController else {
+      print("*** Window's root view controller property was null - failed getting window's root VC")
+      return nil
+    }
+    
+    guard let topController = rootViewController.presentedViewController,
+      !topController.isKind(of: UIAlertController.self) else {
+        print("*** Presented view controller property was nil, deferring to Root VC")
+        return rootViewController
+    }
+    
+    print("*** \(topController.description)")
+    
+    return topController
+  }
+}
+
 class App {
   
+  /// App singleton instance.
+  ///
+  /// Maintains a set of shared application-wise objects and utilities that would otherwise be
+  /// expensive or fragile to maintain and instantiate
   static let sharedInstance = App()
   
   let apiClient = APIClient(baseURL: URL(string: "https://api.bitrise.io")!)
@@ -52,11 +103,11 @@ extension App {
   /// - Parameter token: Bitrise access token. The app should only ever have one value maintained
   /// for sign on. If the user decides to log out, that token is wiped and a new one must be entered
   /// before accessing any BR content again
-  func saveBitriseAuthToken(_ token: String, completion: (() -> Void)? = nil) {
+  func saveBitriseAuthToken(_ token: String, then: (() -> Void)? = nil) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       
       guard let strongSelf = self else {
-        completion?()
+        then?()
         return
       }
       
@@ -67,10 +118,10 @@ extension App {
           .synchronizable(true)
           .accessibility(.afterFirstUnlock)
           .set(token, key: strongSelf.tokenKey)
-        completion?()
+        then?()
       } catch let error {
         print(error.localizedDescription)
-        completion?()
+        then?()
       }
     }
   }
@@ -88,20 +139,20 @@ extension App {
   /// time-dependent should be placed in the completion closure. If there's nothing
   /// that needs to be done after removing a token, the user can pass 'nil' for this
   /// parameter
-  func removeBitriseAuthToken(completion: (() -> Void)?) {
+  func removeBitriseAuthToken(then: (() -> Void)?) {
     DispatchQueue.global(qos: .background).async { [weak self] in
       
       guard let strongSelf = self else {
-        completion?()
+        then?()
         return
       }
       
       do {
         try strongSelf.keychain.remove(strongSelf.tokenKey)
-        completion?()
+        then?()
       } catch let error {
         print(error.localizedDescription)
-        completion?()
+        then?()
       }
     }
   }
@@ -124,24 +175,24 @@ extension App {
   /// - Parameter completion: true if there are valid credentials available, false if not.
   ///
   /// * Usage: App.shared.checkForAvailableBitriseToken { isAvailable in }
-  func checkForAvailableBitriseToken(_ completion: @escaping (_ isAvailable: Bool) -> Void) {
+  func checkForAvailableBitriseToken(_ then: @escaping (_ isAvailable: Bool) -> Void) {
     
     // Step 1: Check if Keychain has a valid token. If not, open the token modal. There the user
     // has the option
     guard let savedToken = getBitriseAuthToken() else {
-      completion(false)
+      then(false)
       return
     }
     
     // Step 2: Check whether the keychain token is stale (e.g. if the user manually deleted it in Bitrise dashboard)
-    apiClient.validateGeneratedToken(savedToken) { isValid, message in
+    apiClient.validateGeneratedToken(savedToken) { isValid, _ in
       
       if isValid {
-        completion(true)
+        then(true)
         return
       }
       
-      completion(false)
+      then(false)
       return
     }
   }
@@ -177,5 +228,20 @@ extension App {
     }
   }
   
+  func isZuckerbergALizard() -> Bool {
+    return true
+  }
 }
 
+// MARK: - UIAppearance & theme setting
+extension App {
+  
+  func setDarkThemeActive(_ flag: Bool = false) {
+    
+    print("Setting theme to dark: \(flag)")
+    
+    let _: Theme = flag ? .dark : .regular
+
+  }
+  
+}

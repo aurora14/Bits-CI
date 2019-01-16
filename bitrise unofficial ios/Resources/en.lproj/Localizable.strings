@@ -12,6 +12,15 @@
 "projects"         = "Projects";
 "profile"          = "Profile";
 "showingAllApps"   = "Showing all apps";
+"filterByProjectTitle" = "Find your project by name";
+"welcome"          = "Welcome,";
+"settingsTitle"    = "Settings & Preferences";
+"settingsTitleShort" = "Settings";
+"unlockWithPasscode" = "Unlock with passcode";
+"unlockWithBio" = "Unlock with Touch ID or Face ID";
+"setGracePeriod" = "Set passcode grace period";
+"resetPasscode" = "Reset passcode";
+"acknowledgements" = "Acknowledgements";
 
 // Login & Authorization
 "logIn"            = "Log In";
@@ -23,6 +32,7 @@
 "noOrganizations"  = "User doesn't belong to any organizations";
 
 // Standard actions
+"save"             = "Save";
 "dismiss"          = "Dismiss";
 "cancel"           = "Cancel";
 
@@ -30,6 +40,8 @@
 "invalidParams"    = "Invalid Parameters";
 "checkBuildParamsMsg" = "Please check that required fields are filled in, and that Branch, Workflow and Commit Message fields contain valid strings.";
 "nullAppProperty" = "App property wasn't initialised in view controller. This property must be populated with a valid Bitrise App to allow posting new builds";
+"unequalTokenInAuthTF" = "Value of 'enteredToken' isn't equal to text field value:";
+"unauthorizedUser" = "Unauthorized user";
 
 // Bitrise content
 "ymlUnavailable" = "Bitrise YML isn't available for this application";
@@ -44,6 +56,7 @@
 "months" = "months";
 "years" = "years";
 "ago" = "ago";
+"minute" = "minute";
 
 // Time - short version
 "hr" = "hr";
@@ -57,3 +70,13 @@
 "mths" = "mths";
 "yr" = "yr";
 "yrs" = "yrs";
+
+// Passcode controller
+"deletePasscodeCharacter" = "Delete";
+"enterNewPasscode" = "Enter New Passcode";
+"enterCurrentPasscode" = "Enter Current Passcode";
+"reenterNewPasscode" = "Re-enter New Passcode";
+"invalidPasscode" = "Invalid Passcode";
+"noMatchPasscode" = "Passcodes do not match";
+"enterYourPasscode" = "Enter your passcode";
+

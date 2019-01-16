@@ -78,7 +78,14 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
             return
         }
         let color = isEnabled ? placeholderColor : disabledColor
-        #if swift(>=4.0)
+        #if swift(>=4.2)
+            attributedPlaceholder = NSAttributedString(
+                string: placeholder,
+                attributes: [
+                    NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font
+                ]
+            )
+        #elseif swift(>=4.0)
             attributedPlaceholder = NSAttributedString(
                 string: placeholder,
                 attributes: [
@@ -127,21 +134,21 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
             updateColors()
         }
     }
-    
+
     /// A UIColor value that determines the color used for the text when error message is not `nil`
     @IBInspectable dynamic open var textErrorColor: UIColor? {
         didSet {
             updateColors()
         }
     }
-    
+
     /// A UIColor value that determines the color used for the title label when error message is not `nil`
     @IBInspectable dynamic open var titleErrorColor: UIColor? {
         didSet {
             updateColors()
         }
     }
-    
+
     /// A UIColor value that determines the color used for the title label and line when text field is disabled
     @IBInspectable dynamic open var disabledColor: UIColor = UIColor(white: 0.88, alpha: 1.0) {
         didSet {
@@ -219,6 +226,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     }
 
     /// A String value for the error message to display.
+    @IBInspectable
     open var errorMessage: String? {
         didSet {
             updateControl(true)
@@ -411,9 +419,11 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     }
 
     fileprivate func updateLineView() {
-        if let lineView = lineView {
-            lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected)
+        guard let lineView = lineView else {
+            return
         }
+
+        lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected)
         updateLineColor()
     }
 
@@ -427,6 +437,10 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     }
 
     fileprivate func updateLineColor() {
+        guard let lineView = lineView else {
+            return
+        }
+
         if !isEnabled {
             lineView.backgroundColor = disabledColor
         } else if hasErrorMessage {
@@ -437,6 +451,10 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     }
 
     fileprivate func updateTitleColor() {
+        guard let titleLabel = titleLabel else {
+            return
+        }
+
         if !isEnabled {
             titleLabel.textColor = disabledColor
         } else if hasErrorMessage {
@@ -463,8 +481,11 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     // MARK: - Title handling
 
     fileprivate func updateTitleLabel(_ animated: Bool = false) {
+        guard let titleLabel = titleLabel else {
+            return
+        }
 
-        var titleText: String? = nil
+        var titleText: String?
         if hasErrorMessage {
             titleText = titleFormatter(errorMessage!)
         } else {
@@ -517,7 +538,11 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
             self.titleLabel.frame = frame
         }
         if animated {
-            let animationOptions: UIViewAnimationOptions = .curveEaseOut
+            #if swift(>=4.2)
+                let animationOptions: UIView.AnimationOptions = .curveEaseOut
+            #else
+                let animationOptions: UIViewAnimationOptions = .curveEaseOut
+            #endif
             let duration = isTitleVisible() ? titleFadeInDuration : titleFadeOutDuration
             UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: { () -> Void in
                 updateBlock()
@@ -629,7 +654,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
             return 0.0
         }
 
-        return font.lineHeight + 7.0;
+        return font.lineHeight + 7.0
     }
 
     // MARK: - Layout

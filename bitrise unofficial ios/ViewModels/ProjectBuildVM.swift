@@ -16,6 +16,8 @@ class ProjectBuildViewModel: CellRepresentable {
   
   var build: Build
   
+  var app: BitriseApp?
+  
   var buildStatusColor: UIColor {
     guard let color = build.status?.color else {
       return Asset.Colors.bitriseGrey.color
@@ -36,14 +38,16 @@ class ProjectBuildViewModel: CellRepresentable {
   
   var buildTriggeredAt: String {
     
+    let region = Region(calendar: Calendars.gregorian, zone: Zones.current, locale: Locale.autoupdatingCurrent)
+    
     guard let startDate = DateInRegion(
       build.triggeredAt,
       format: DateFormats.iso8601,
-      region: SwiftDate.defaultRegion) else {
+      region: region) else {
         return build.triggeredAt
     }
-    
-    return startDate.toFormat("dd MMM yyyy 'at' HH:mm", locale: Locale.current)
+
+    return startDate.toFormat("dd MMM yyyy 'at' HH:mm", locale: Locale.autoupdatingCurrent)
   }
   
   var workflow: String {
@@ -104,9 +108,17 @@ class ProjectBuildViewModel: CellRepresentable {
     return "#\(build.buildNumber)"
   }
   
-  init(with build: Build) {
+  var log: BuildLog?
+  
+  private init(with build: Build) {
     self.build = build
   }
+  
+  convenience init(with build: Build, forApp app: BitriseApp) {
+    self.init(with: build)
+    self.app = app
+  }
+  
   
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
@@ -120,4 +132,5 @@ class ProjectBuildViewModel: CellRepresentable {
     
     return cell
   }
+  
 }
