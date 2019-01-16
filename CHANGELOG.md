@@ -1,6 +1,6 @@
 #  Changelog
 
-## 1.1
+## 1.1 - Passcode Lock
 
 * Passcode & Biometric protection
 * Fixed row tap issue when project list is filtered
