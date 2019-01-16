@@ -222,6 +222,9 @@ extension ProfileViewController {
     switch section {
     case 0:
       return defaultHeaderHeight
+    case 1:
+      if organizations.isEmpty { return 0 }
+      return 36
     default:
       return 0
     }
@@ -232,6 +235,13 @@ extension ProfileViewController {
     case 0:
       let view = UIView()
       view.backgroundColor = .clear
+      return view
+    case 1:
+      if organizations.isEmpty { return nil }
+      guard let view = UIView.instanceFromNib(forViewType: TeamHeaderView.self) else {
+        return nil
+      }
+      view.titleLabel.text = L10n.userTeamsHeader
       return view
     default:
       return nil

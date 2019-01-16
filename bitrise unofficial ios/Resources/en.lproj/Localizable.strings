@@ -21,6 +21,7 @@
 "setGracePeriod" = "Set passcode grace period";
 "resetPasscode" = "Reset passcode";
 "acknowledgements" = "Acknowledgements";
+"userTeamsHeader" = "You are part of the following teams:";
 
 // Login & Authorization
 "logIn"            = "Log In";

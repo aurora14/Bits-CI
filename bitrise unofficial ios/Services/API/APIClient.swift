@@ -308,6 +308,11 @@ extension APIClient {
     
     let queue = DispatchQueue.global(qos: .background)
     
+    // FIXME: - seems like there's a crash after sign-in here. Look into further in future releases.
+    // A. G., 17/01/2019
+    // EXC_BAD_ACCESS - simultaneous access to the instance?
+    // Doesn't happen often, in fact very rarely. First time a proper log/error was witnessed was when
+    // testing on a simulator. Recent logins with a physical device worked like a charm. 
     BRSessionManager.shared.background.request(url,
                                                method: .get,
                                                parameters: nil,

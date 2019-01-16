@@ -107,6 +107,8 @@ internal enum L10n {
   internal static let unlockWithBio = L10n.tr("Localizable", "unlockWithBio")
   /// Unlock with passcode
   internal static let unlockWithPasscode = L10n.tr("Localizable", "unlockWithPasscode")
+  /// You are part of the following teams:
+  internal static let userTeamsHeader = L10n.tr("Localizable", "userTeamsHeader")
   /// weeks
   internal static let weeks = L10n.tr("Localizable", "weeks")
   /// Welcome,
