@@ -231,6 +231,7 @@ extension ProfileViewController {
   }
   
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    
     switch section {
     case 0:
       let view = UIView()

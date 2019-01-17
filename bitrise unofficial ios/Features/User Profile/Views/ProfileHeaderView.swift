@@ -34,15 +34,4 @@ class ProfileHeaderView: UIView {
     usernameLabel?.adjustsFontSizeToFitWidth = true
   }
   
-  class func instanceFromNib() -> ProfileHeaderView? {
-    
-    guard let profileHeaderView = UINib(nibName: "ProfileHeaderView", bundle: nil)
-      .instantiate(withOwner: nil, options: nil)[0] as? ProfileHeaderView else {
-        assertionFailure("Couldn't instantiate Profile View from provided NIB file")
-        return nil
-    }
-    
-    return profileHeaderView
-  }
-  
 }
