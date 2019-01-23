@@ -21,7 +21,6 @@
 "resetPasscode" = "Сменить PIN-код";
 "acknowledgements" = "Благодарность";
 "settingsTitleShort" = "Настройки";
-"userTeamsHeader" = "Вы являетесь членом следующих команд:";
 
 // Login & Authorization
 "logIn"            = "Войти";
@@ -30,7 +29,8 @@
 "noTokenInKeychain" = "Ключ авторизации не найден в связке Keychain";
 
 // User information
-"noOrganizations"  = "Пользователь не состоит в организации";
+"userTeamsHeader" = "Вы являетесь членом следующих команд:";
+"noOrganizations"  = "Вы не состоите в команде или организации";
 
 // Standard actions
 "save"             = "Сохранить";

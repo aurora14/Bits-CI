@@ -21,7 +21,6 @@
 "resetPasscode" = "Reset passcode";
 "acknowledgements" = "Acknowledgements";
 "settingsTitleShort" = "Paramètres";
-"userTeamsHeader" = "You are part of the following teams:";
 
 // Login & Authorization
 "logIn"            = "Entrée";
@@ -30,6 +29,7 @@
 "noTokenInKeychain" = "Aucun jeton enregistré dans le trousseau";
 
 // User information
+"userTeamsHeader" = "You are part of the following teams:";
 "noOrganizations"  = "L'utilisateur n'appartient à aucune organisation";
 
 // Standard actions

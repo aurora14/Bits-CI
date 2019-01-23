@@ -71,7 +71,7 @@ internal enum L10n {
   internal static let mths = L10n.tr("Localizable", "mths")
   /// Passcodes do not match
   internal static let noMatchPasscode = L10n.tr("Localizable", "noMatchPasscode")
-  /// User doesn't belong to any organizations
+  /// You aren't part of any teams
   internal static let noOrganizations = L10n.tr("Localizable", "noOrganizations")
   /// No token saved in keychain
   internal static let noTokenInKeychain = L10n.tr("Localizable", "noTokenInKeychain")

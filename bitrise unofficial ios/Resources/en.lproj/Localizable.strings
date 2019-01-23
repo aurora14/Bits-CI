@@ -21,7 +21,6 @@
 "setGracePeriod" = "Set passcode grace period";
 "resetPasscode" = "Reset passcode";
 "acknowledgements" = "Acknowledgements";
-"userTeamsHeader" = "You are part of the following teams:";
 
 // Login & Authorization
 "logIn"            = "Log In";
@@ -30,7 +29,8 @@
 "noTokenInKeychain" = "No token saved in keychain";
 
 // User information
-"noOrganizations"  = "User doesn't belong to any organizations";
+"userTeamsHeader" = "You are part of the following teams:";
+"noOrganizations"  = "You aren't part of any teams";
 
 // Standard actions
 "save"             = "Save";
