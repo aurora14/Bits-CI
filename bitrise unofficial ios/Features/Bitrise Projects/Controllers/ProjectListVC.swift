@@ -34,7 +34,11 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
   fileprivate var isFiltering = false
   
   var apps = [CellRepresentable]()
-  var activeDataSource = [CellRepresentable]()
+  var activeDataSource = [CellRepresentable]() {
+    didSet {
+      reloadProjectFeed()
+    }
+  }
   
   let impactGenerator = UIImpactFeedbackGenerator(style: .light)
   
@@ -73,9 +77,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
       
       guard isValid else {
         self?.apps.removeAll()
-        DispatchQueue.main.async {
-          self?.tableView.reloadData()
-        }
+        self?.reloadProjectFeed()
         return
       }
     }
@@ -126,14 +128,16 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
       }
       
       strongSelf.apps = p
-      self?.activeDataSource = strongSelf.apps
       
       DispatchQueue.main.async {
         strongSelf.finishRefreshing()
         self?.tableView.hideSkeleton()
-        self?.tableView.reloadData()
+        //self?.tableView.reloadData()
         self?.setupAnimations()
       }
+      // this is placed after the skeleton hiding and animation block, to take advantage of the
+      // didSet observer on the activeDataSource property
+      self?.activeDataSource = strongSelf.apps
       
       return
     }
@@ -291,6 +295,11 @@ extension ProjectListViewController {
     impactGenerator.impactOccurred()
   }
   
+  fileprivate func reloadProjectFeed() {
+    DispatchQueue.main.async {
+      self.tableView.reloadData()
+    }
+  }
 }
 
 
@@ -477,7 +486,7 @@ extension ProjectListViewController: UISearchResultsUpdating, UISearchController
       isFiltering = false
       activeDataSource = apps
     }
-    tableView.reloadData()
+    //tableView.reloadData()
   }
 }
 
