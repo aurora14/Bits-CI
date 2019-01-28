@@ -56,6 +56,8 @@
 		7A8750C321EF30FC0096D821 /* TeamHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8750C221EF30FC0096D821 /* TeamHeaderView.xib */; };
 		7A8750C521EF314E0096D821 /* TeamHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750C421EF314E0096D821 /* TeamHeaderView.swift */; };
 		7A8750C721EF323B0096D821 /* UIView+instanceFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750C621EF323B0096D821 /* UIView+instanceFromNib.swift */; };
+		7A8750C921F0481F0096D821 /* UISection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750C821F0481F0096D821 /* UISection.swift */; };
+		7A8750CB21F176210096D821 /* UITableView+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750CA21F176210096D821 /* UITableView+State.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
 		7A8F71D621C0CC0B008E1825 /* PasscodeTimeoutDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */; };
 		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
@@ -171,6 +173,8 @@
 		7A8750C221EF30FC0096D821 /* TeamHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamHeaderView.xib; sourceTree = "<group>"; };
 		7A8750C421EF314E0096D821 /* TeamHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamHeaderView.swift; sourceTree = "<group>"; };
 		7A8750C621EF323B0096D821 /* UIView+instanceFromNib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+instanceFromNib.swift"; sourceTree = "<group>"; };
+		7A8750C821F0481F0096D821 /* UISection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISection.swift; sourceTree = "<group>"; };
+		7A8750CA21F176210096D821 /* UITableView+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+State.swift"; sourceTree = "<group>"; };
 		7A8E182C20FF67F30013C253 /* BuildListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildListViewController.swift; sourceTree = "<group>"; };
 		7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeTimeoutDuration.swift; sourceTree = "<group>"; };
 		7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
@@ -289,6 +293,7 @@
 				7AEF23F0215A4DF500BB8DE2 /* UIViewController+InteractiveGestures.swift */,
 				7A349931218EAF710098F31B /* Bundle+AppVersions.swift */,
 				7A8750C621EF323B0096D821 /* UIView+instanceFromNib.swift */,
+				7A8750CA21F176210096D821 /* UITableView+State.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 				7AFCBB8B214C8C9000FF0326 /* Organization.swift */,
 				7A628C2F215B4A8D00759E48 /* BuildLog.swift */,
 				7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */,
+				7A8750C821F0481F0096D821 /* UISection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -938,9 +944,11 @@
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
 				7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */,
 				7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */,
+				7A8750C921F0481F0096D821 /* UISection.swift in Sources */,
 				7A4CD89B21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift in Sources */,
 				7A00FAD0218FE06500893C93 /* ThemeUpdater.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
+				7A8750CB21F176210096D821 /* UITableView+State.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
 				7A5952282191589A00F3B84E /* RawIdentifierConstants.swift in Sources */,
 				7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */,

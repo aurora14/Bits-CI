@@ -3,6 +3,7 @@
 ## 1.2
 
 * Added a title header for the Organizations list
+* Minor user interface improvements (alignment fixes, etc)
 
 ## 1.1 - Passcode Lock
 
