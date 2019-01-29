@@ -123,9 +123,9 @@ class ProjectBuildViewModel: CellRepresentable {
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
     guard let cell = tableView
-      .dequeueReusableCell(withIdentifier: "BuildCell") as? BuildCell else {
+      .dequeueReusableCell(withIdentifier: CellReuseIdentifier.buildCell) as? BuildCell else {
         
-        return UITableViewCell(style: .default, reuseIdentifier: "BuildCell")
+        return UITableViewCell(style: .default, reuseIdentifier: CellReuseIdentifier.buildCell)
     }
     
     cell.setup(with: self)

@@ -120,8 +120,8 @@ class BitriseProjectViewModel: CellRepresentable {
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
     guard let cell = tableView
-      .dequeueReusableCell(withIdentifier: kProjectCellReusableIdentifier) as? ProjectCell else {
-        return UITableViewCell(style: .default, reuseIdentifier: kProjectCellReusableIdentifier)
+      .dequeueReusableCell(withIdentifier: CellReuseIdentifier.projectCell) as? ProjectCell else {
+        return UITableViewCell(style: .default, reuseIdentifier: CellReuseIdentifier.projectCell)
     }
     
     cell.setup(with: self)

@@ -20,8 +20,8 @@ class DummyProjectViewModel: BitriseProjectViewModel {
   override func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
     guard let cell = tableView
-      .dequeueReusableCell(withIdentifier: kProjectCellReusableIdentifier) as? ProjectCell else {
-        return UITableViewCell(style: .default, reuseIdentifier: kProjectCellReusableIdentifier)
+      .dequeueReusableCell(withIdentifier: CellReuseIdentifier.projectCell) as? ProjectCell else {
+        return UITableViewCell(style: .default, reuseIdentifier: CellReuseIdentifier.projectCell)
     }
     
     // Since this is just a dummy VM that's intended to show a 'loading' skeleton view, we can skip
