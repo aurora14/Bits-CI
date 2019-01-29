@@ -50,6 +50,7 @@
 		7A628C30215B4A8D00759E48 /* BuildLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A628C2F215B4A8D00759E48 /* BuildLog.swift */; };
 		7A628C32215B597000759E48 /* BuildLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A628C31215B597000759E48 /* BuildLogViewController.swift */; };
 		7A628C34215BC0C600759E48 /* BRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A628C33215BC0C600759E48 /* BRNavigationController.swift */; };
+		7A63EF1122006AB10096E259 /* SettingsVC+MailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A63EF1022006AB10096E259 /* SettingsVC+MailComposer.swift */; };
 		7A690950214176F900487F13 /* NotificationNameExt+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69094F214176F900487F13 /* NotificationNameExt+Names.swift */; };
 		7A69095221420C4C00487F13 /* BuildAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A69095121420C4C00487F13 /* BuildAction.swift */; };
 		7A797D992170497700E57587 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A797D982170497700E57587 /* Segues.swift */; };
@@ -164,6 +165,7 @@
 		7A628C2F215B4A8D00759E48 /* BuildLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLog.swift; sourceTree = "<group>"; };
 		7A628C31215B597000759E48 /* BuildLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildLogViewController.swift; sourceTree = "<group>"; };
 		7A628C33215BC0C600759E48 /* BRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNavigationController.swift; sourceTree = "<group>"; };
+		7A63EF1022006AB10096E259 /* SettingsVC+MailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsVC+MailComposer.swift"; sourceTree = "<group>"; };
 		7A6649DB21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7A6649DC21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		7A6649DD21797D3600543F89 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 			children = (
 				7AD08343218E7FCC003CB57A /* SettingsVC.swift */,
 				7A4CD89A21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift */,
+				7A63EF1022006AB10096E259 /* SettingsVC+MailComposer.swift */,
 				7A53166621A2DDDA00C9DC91 /* InfoContentViewController.swift */,
 			);
 			path = "Settings & Preferences";
@@ -927,6 +930,7 @@
 				7ABF16182199AE01008F0A65 /* PasswordDotView.swift in Sources */,
 				7A8750C521EF314E0096D821 /* TeamHeaderView.swift in Sources */,
 				7A200B1920D53E82003C6D97 /* BitriseApp.swift in Sources */,
+				7A63EF1122006AB10096E259 /* SettingsVC+MailComposer.swift in Sources */,
 				7ABF16162199ADAE008F0A65 /* PasswordContainerView.swift in Sources */,
 				7A99C6AE212E5515003DC5D9 /* NewBuildViewController.swift in Sources */,
 				7AEEECFB2109537C00D6DD0D /* ProfileViewController.swift in Sources */,

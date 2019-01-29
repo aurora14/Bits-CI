@@ -23,6 +23,8 @@ internal enum L10n {
   internal static let cancel = L10n.tr("Localizable", "cancel")
   /// Please check that required fields are filled in, and that Branch, Workflow and Commit Message fields contain valid strings.
   internal static let checkBuildParamsMsg = L10n.tr("Localizable", "checkBuildParamsMsg")
+  /// When reporting an issue, please provide device and operating system. This should be followed by dot-point set of steps to reproduce the issue, along with any other pertinent information (e.g screenshots)\n\nOtherwise, write any feedback, ideas or suggestions as most appropriate.\n\nWe will try to address concerns as quickly as it's reasonably possible, and look forward to hearing from you.\n
+  internal static let contactSupportBody = L10n.tr("Localizable", "contactSupportBody")
   /// d
   internal static let d = L10n.tr("Localizable", "d")
   /// days
