@@ -12,11 +12,17 @@ import SwiftDate
 
 class ProjectBuildViewModel: CellRepresentable {
   
+  enum State {
+    case regular, expanded
+  }
+  
   var rowHeight: CGFloat = 76
   
   var build: Build
   
   var app: BitriseApp?
+  
+  var state: State
   
   var buildStatusColor: UIColor {
     guard let color = build.status?.color else {
@@ -112,6 +118,7 @@ class ProjectBuildViewModel: CellRepresentable {
   
   private init(with build: Build) {
     self.build = build
+    self.state = .regular
   }
   
   convenience init(with build: Build, forApp app: BitriseApp) {
