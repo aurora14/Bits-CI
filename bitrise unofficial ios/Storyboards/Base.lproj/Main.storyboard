@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIU-OW-vfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIU-OW-vfU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -973,17 +973,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="application_ios_grey" width="90" height="90"/>
-        <image name="branch" width="72" height="72"/>
-        <image name="build_succeeded" width="75" height="75"/>
+        <image name="application_ios_grey" width="45" height="45"/>
+        <image name="branch" width="36" height="36"/>
+        <image name="build_succeeded" width="37.5" height="37.5"/>
         <image name="chevron" width="36" height="12"/>
-        <image name="close" width="50" height="50"/>
-        <image name="message" width="32" height="32"/>
-        <image name="projects_glyph" width="60" height="60"/>
-        <image name="settings_glyph" width="60" height="60"/>
-        <image name="user" width="50" height="50"/>
-        <image name="usr_glyph" width="60" height="60"/>
-        <image name="workflow" width="64" height="64"/>
+        <image name="close" width="25" height="25"/>
+        <image name="message" width="16" height="16"/>
+        <image name="projects_glyph" width="30" height="30"/>
+        <image name="settings_glyph" width="30" height="30"/>
+        <image name="user" width="25" height="25"/>
+        <image name="usr_glyph" width="30" height="30"/>
+        <image name="workflow" width="32" height="32"/>
         <namedColor name="BitriseGreen">
             <color red="0.2627450980392157" green="0.76078431372549016" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

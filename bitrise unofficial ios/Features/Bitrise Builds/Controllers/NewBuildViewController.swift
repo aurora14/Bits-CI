@@ -111,22 +111,25 @@ class NewBuildViewController: UIViewController {
     dismissStartHUD()
     closeTapticEngines()
     startBuildDelegate?.didCancelNewBuild(from: self)
-    
+    animateDismissTransition()
+  }
+
+  private func animateDismissTransition() {
     UIView.animateKeyframes(withDuration: 1.0, delay: 0,
                             options: [ .calculationModeCubic, .beginFromCurrentState ],
                             animations: {
-      UIView.addKeyframe(withRelativeStartTime: 0.0/1.0, relativeDuration: 0.6/1.0, animations: {
-        DispatchQueue.main.async {
-          self.dismiss(animated: true, completion: nil)
-        }
-      })
-      UIView.addKeyframe(withRelativeStartTime: 0.4/1.0, relativeDuration: 0.6/1.0, animations: {
-        DispatchQueue.main.async {
-          self.dismiss(animated: true, completion: nil)
-        }
-      })
+                              UIView.addKeyframe(withRelativeStartTime: 0.0/1.0, relativeDuration: 0.6/1.0, animations: {
+                                DispatchQueue.main.async {
+                                  self.dismiss(animated: true, completion: nil)
+                                }
+                              })
+                              UIView.addKeyframe(withRelativeStartTime: 0.4/1.0, relativeDuration: 0.6/1.0, animations: {
+                                DispatchQueue.main.async {
+                                  self.dismiss(animated: true, completion: nil)
+                                }
+                              })
     }, completion: nil)
-    
+
     UIView.animate(withDuration: 0.2, delay: 0, options: [ .beginFromCurrentState ], animations: {
       DispatchQueue.main.async {
         self.view.backgroundColor = .clear
@@ -144,7 +147,7 @@ class NewBuildViewController: UIViewController {
                         }
       }, completion: nil)
     })
-    
+
   }
   
   /// Checks branch, workflow and message variables for valid input and that the app isn't nil
@@ -155,7 +158,7 @@ class NewBuildViewController: UIViewController {
     guard !branch.isEmpty else {
       return (.error, L10n.branchParamRequired)
     }
-    
+
     guard app != nil else {
       assertionFailure(L10n.nullAppProperty)
       Answers.logCustomEvent(withName: "New Build Error", customAttributes: ["Reason": "Null App Property"])
@@ -240,9 +243,9 @@ extension NewBuildViewController {
     
     projectNameLabel.text =
       app.title
-      .capitalized
-      .replacingOccurrences(of: "-", with: " ")
-      .replacingOccurrences(of: "Ios", with: "iOS")
+        .capitalized
+        .replacingOccurrences(of: "-", with: " ")
+        .replacingOccurrences(of: "Ios", with: "iOS")
   }
   
   fileprivate func configureInitTouchPoint() {
@@ -250,10 +253,10 @@ extension NewBuildViewController {
   }
   
   fileprivate func configureTextFields() {
-    
-    for f in textFields {
-      f.delegate = self
-      f.addTarget(self, action: #selector(textFieldDidChangeValue(_:)), for: [.editingChanged])
+
+    textFields.forEach {
+      $0.delegate = self
+      $0.addTarget(self, action: #selector(textFieldDidChangeValue(_:)), for: [.editingChanged])
     }
     
     // When view appears, help the user by automatically making the first text field active.
@@ -300,8 +303,7 @@ extension NewBuildViewController {
                                         height: self.container.frame.size.height)
         })
       }
-    default:
-      () // do nothing on any other states
+    default: break
     }
   }
   

@@ -86,7 +86,7 @@ class ProfileViewController: UITableViewController {
   /// - Parameter bitriseUser: optional user parameter. You can force a UI update with
   ///   explicit user info. If a user object is passed in as an argument, it will take
   ///   precedence over the shared instance version.
-  private func updateWithUserInfo(forUser bitriseUser: User? = nil) {
+  private func updateWithUserInfo(for bitriseUser: User? = nil) {
     
     let currentUser: User? = bitriseUser == nil ? App.sharedInstance.currentUser : bitriseUser
     
@@ -147,6 +147,7 @@ class ProfileViewController: UITableViewController {
     }
   }
   
+  // TODO: - explore changing this to a Coordinator/Router setup in a future release (22/01/2019)
   private func presentAuthorizationView() {
     DispatchQueue.main.async {
       self.perform(segue: StoryboardSegue.Main.profileTabTokenSegue)
@@ -187,16 +188,11 @@ extension ProfileViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // TODO: - fetch user organizations and display them. Return 1 and show default text if no orgs found
     switch section {
     case 0:
       return 0
     default:
-      if organizations.isEmpty {
-        return 1
-      } else {
-        return organizations.count
-      }
+      return organizations.isEmpty ? 1 : organizations.count
     }
   }
   
@@ -378,11 +374,11 @@ extension ProfileViewController: BitriseAuthorizationDelegate {
     print("*** Auth delegate called")
     if App.sharedInstance.currentUser == nil {
       App.sharedInstance.apiClient.getUserProfile { _, user, _ in
-        self.updateWithUserInfo(forUser: user)
+        self.updateWithUserInfo(for: user)
         self.updateAvatar(for: user ?? User(username: L10n.bitriseUser, slug: nil, avatarURL: nil))
       }
     } else {
-      print("*** User wasn't null \(App.sharedInstance.currentUser.debugDescription)")
+      print("*** User record exists: \(App.sharedInstance.currentUser.debugDescription)")
       updateWithUserInfo()
     }
   }
