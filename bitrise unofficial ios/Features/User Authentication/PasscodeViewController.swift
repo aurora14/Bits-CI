@@ -47,7 +47,7 @@ protocol PasscodeViewControllerDelegate: class {
   func didCancelBiometricsOff(_ controller: PasscodeViewController)
 }
 
-class PasscodeViewController: UIViewController {
+final class PasscodeViewController: UIViewController {
   
   @IBOutlet weak var dismissButton: UIButton!
   
@@ -147,6 +147,8 @@ class PasscodeViewController: UIViewController {
     
     passcodeContainerView?.tintColor = Asset.Colors.bitriseGreen.color
     passcodeContainerView?.highlightedColor = Asset.Colors.bitrisePurple.color
+    
+    passcodeContainerView?.accessibilityIdentifier = "passcodeView"
     
     passcodeContainerView?.touchAuthenticationEnabled =
       isUsingBiometrics || UserDefaults.standard.bool(forKey: UserDefaultKey.isUsingBiometricUnlock)
