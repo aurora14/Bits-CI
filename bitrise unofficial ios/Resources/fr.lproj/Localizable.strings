@@ -21,7 +21,6 @@
 "resetPasscode" = "Reset passcode";
 "acknowledgements" = "Acknowledgements";
 "settingsTitleShort" = "Paramètres";
-"userTeamsHeader" = "You are part of the following teams:";
 
 // Login & Authorization
 "logIn"            = "Entrée";

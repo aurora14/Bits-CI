@@ -83,9 +83,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
   }
   
   private func setImages(from app: BitriseApp) {
-
-    // TODO: - don't set this in the cell, get the viewmodel to return an image. Cell doesn't need to know about anything
-    // other than what it needs to show. 
+    
     guard let projectType = app.projectType else {
       print("*** App doesn't have project type")
       return

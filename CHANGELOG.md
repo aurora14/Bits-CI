@@ -1,9 +1,5 @@
 #  Changelog
 
-## 1.2
-
-* Added a title header for the Organizations list
-
 ## 1.1 - Passcode Lock
 
 * Passcode & Biometric protection

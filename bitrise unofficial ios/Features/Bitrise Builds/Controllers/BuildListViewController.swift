@@ -20,17 +20,10 @@ class BuildListViewController: TabPageTableViewController {
 
   var projectVM: BitriseProjectViewModel
   
-  var buildList: [ProjectBuildViewModel] {
-    didSet {
-      updateViews()
-    }
-  }
-  
   let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
   
   init(style: UITableView.Style, itemInfo: IndicatorInfo, forAppViewModel appVM: BitriseProjectViewModel) {
     projectVM = appVM
-    buildList = projectVM.buildList
     super.init(style: style, itemInfo: itemInfo)
   }
   
@@ -60,10 +53,8 @@ class BuildListViewController: TabPageTableViewController {
   }
   
   @objc private func updateViews() {
-    DispatchQueue.main.async {
-      self.selectionFeedbackGenerator.selectionChanged()
-      self.tableView.reloadData()
-    }
+    selectionFeedbackGenerator.selectionChanged()
+    tableView.reloadData()
   }
 }
 
@@ -71,7 +62,7 @@ class BuildListViewController: TabPageTableViewController {
 extension BuildListViewController {
   
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return buildList.count
+    return projectVM.buildList.count
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,11 +70,11 @@ extension BuildListViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return buildList[indexPath.section].cellInstance(tableView, indexPath: indexPath)
+    return projectVM.buildList[indexPath.section].cellInstance(tableView, indexPath: indexPath)
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return buildList[indexPath.section].rowHeight
+    return projectVM.buildList[indexPath.section].rowHeight
   }
   
   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -107,7 +98,7 @@ extension BuildListViewController {
   override func tableView(_ tableView: UITableView,
                           leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     
-    let build = buildList[indexPath.section].build
+    let build = projectVM.buildList[indexPath.section].build
     
     guard let buildStatus = build.status else { return nil }
     
@@ -138,11 +129,13 @@ extension BuildListViewController {
   private func createSwipeConfiguration(forRequestAction action: BuildAction,
                                         forRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     
-    if buildList.isEmpty { return nil }
+    guard !projectVM.buildList.isEmpty else {
+      return nil
+    }
     
     switch action {
     case .abort:
-      let build = buildList[indexPath.section].build
+      let build = projectVM.buildList[indexPath.section].build
       let abort = UIContextualAction(style: .destructive, title: action.title,
                                       handler: { _, _, success in
                                         self.abortBuild(withID: build.slug, forAppID: self.projectVM.app.slug)
@@ -169,7 +162,10 @@ extension BuildListViewController {
   @objc fileprivate func refreshBuilds() {
     App.sharedInstance.apiClient.getBuilds(for: projectVM.app) { _, buildList, _ in
       // TODO: - add a temporary status update strip that shows the fetching status
-      self.buildList = buildList ?? []
+      self.projectVM.buildList = buildList ?? []
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
     }
   }
   
@@ -187,7 +183,7 @@ extension BuildListViewController {
   
   @objc fileprivate func rebuild(at indexPath: IndexPath) {
     
-    let build = buildList[indexPath.section].build
+    let build = projectVM.buildList[indexPath.section].build
     
     DispatchQueue.main.async {
       SVProgressHUD.setDefaultStyle(.dark)

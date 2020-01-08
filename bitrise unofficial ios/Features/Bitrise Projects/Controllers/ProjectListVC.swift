@@ -496,11 +496,11 @@ extension ProjectListViewController: BitriseAuthorizationDelegate {
   }
   
   func didFailToAuthorize(with message: String) {
-    // no.op // TODO: - display an empty list with appropriate message
+    
   }
   
   func didCancelAuthorization() {
-    // no.op // TODO: -
+    
   }
   
 }

@@ -21,7 +21,6 @@
 "resetPasscode" = "Сменить PIN-код";
 "acknowledgements" = "Благодарность";
 "settingsTitleShort" = "Настройки";
-"userTeamsHeader" = "Вы являетесь членом следующих команд:";
 
 // Login & Authorization
 "logIn"            = "Войти";
