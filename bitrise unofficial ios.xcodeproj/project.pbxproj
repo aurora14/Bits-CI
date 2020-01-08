@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -57,8 +57,6 @@
 		7A8750C321EF30FC0096D821 /* TeamHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8750C221EF30FC0096D821 /* TeamHeaderView.xib */; };
 		7A8750C521EF314E0096D821 /* TeamHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750C421EF314E0096D821 /* TeamHeaderView.swift */; };
 		7A8750C721EF323B0096D821 /* UIView+instanceFromNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750C621EF323B0096D821 /* UIView+instanceFromNib.swift */; };
-		7A8750C921F0481F0096D821 /* UISection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750C821F0481F0096D821 /* UISection.swift */; };
-		7A8750CB21F176210096D821 /* UITableView+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8750CA21F176210096D821 /* UITableView+State.swift */; };
 		7A8E182D20FF67F30013C253 /* BuildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E182C20FF67F30013C253 /* BuildListViewController.swift */; };
 		7A8F71D621C0CC0B008E1825 /* PasscodeTimeoutDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8F71D521C0CC0B008E1825 /* PasscodeTimeoutDuration.swift */; };
 		7A95AE2120FC753E008E6E28 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A95AE2020FC753E008E6E28 /* TabPageViewController.swift */; };
@@ -98,7 +96,6 @@
 		7AFCBB8C214C8C9000FF0326 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFCBB8B214C8C9000FF0326 /* Organization.swift */; };
 		80C3A65A44ECB15E7CE6A6E3 /* Pods_bitrise_unofficial_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D257D26E6A39EAFFD702009 /* Pods_bitrise_unofficial_ios.framework */; };
 		AA81174F21F6BE0100134820 /* bitrise_unofficial_ios_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA81174E21F6BE0100134820 /* bitrise_unofficial_ios_UITests.swift */; };
-		AA81175721F6C3B100134820 /* AppDelegate+TestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA81175621F6C3B100134820 /* AppDelegate+TestConfig.swift */; };
 		AAA59991220A464A00AD91AE /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA59990220A464A00AD91AE /* AccessibilityIdentifiers.swift */; };
 		AAA59992220A464A00AD91AE /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA59990220A464A00AD91AE /* AccessibilityIdentifiers.swift */; };
 /* End PBXBuildFile section */
@@ -794,49 +791,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityIndicator/AlamofireNetworkActivityIndicator.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
-				"${BUILT_PRODUCTS_DIR}/MarkdownView/MarkdownView.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
-				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
-				"${BUILT_PRODUCTS_DIR}/ViewAnimator/ViewAnimator.framework",
-				"${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityIndicator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarkdownView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewAnimator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLPagerTabStrip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bitrise unofficial ios/Pods-bitrise unofficial ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -948,11 +908,9 @@
 				7A5DFB8120D26AE400A3330B /* ViewRepresentable.swift in Sources */,
 				7A31109520FEFB84008B5893 /* BitriseYMLViewController.swift in Sources */,
 				7A99C6B6212E55E2003DC5D9 /* BuildResponse.swift in Sources */,
-				7A8750C921F0481F0096D821 /* UISection.swift in Sources */,
 				7A4CD89B21BA23DD00D906DC /* SettingsVC+PasscodeDelegate.swift in Sources */,
 				7A00FAD0218FE06500893C93 /* ThemeUpdater.swift in Sources */,
 				7A200B1520D514A2003C6D97 /* UITableViewCell+BackgroundColor.swift in Sources */,
-				7A8750CB21F176210096D821 /* UITableView+State.swift in Sources */,
 				7A5DFB8520D26AE400A3330B /* ProjectListVC.swift in Sources */,
 				7A5952282191589A00F3B84E /* RawIdentifierConstants.swift in Sources */,
 				7AFCBB8A214B8A6000FF0326 /* AbortBuildParams.swift in Sources */,
@@ -967,7 +925,6 @@
 				7A2FB38621367A4A00FC788B /* BitriseAuthDelegate.swift in Sources */,
 				AAA59991220A464A00AD91AE /* AccessibilityIdentifiers.swift in Sources */,
 				7ABD284E2179E01F004BA681 /* APIClient+Organizations.swift in Sources */,
-				AA81175721F6C3B100134820 /* AppDelegate+TestConfig.swift in Sources */,
 				7AEEECFF2109843D00D6DD0D /* ProfileHeaderView.swift in Sources */,
 				7AC58BBF20F5E9F5007C95C0 /* ProjectDetailViewController.swift in Sources */,
 				7AB9D263210EDB410022951F /* AppDelegate+Utils.swift in Sources */,

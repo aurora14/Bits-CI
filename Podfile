@@ -22,7 +22,6 @@ target 'bitrise unofficial ios' do
   pod 'ViewAnimator'
   pod 'SkeletonView'
   pod 'XLPagerTabStrip'
-  pod 'lottie-ios'
   
   # -- content rendering
   pod 'SwiftSoup'
