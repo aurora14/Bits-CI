@@ -22,7 +22,7 @@ enum BuildStatus: Int, Codable {
     case .success:    return "SUCCESS"
     case .failure:    return "FAILING"
     case .aborted:    return "ABORTED"
-    case .abortedWithSuccess: return BuildStatus.aborted.text
+    case .abortedWithSuccess: return "CANCELLED BY USER"
     }
   }
   
@@ -116,7 +116,8 @@ struct Build: Codable {
     pullRequestTargetBranch = try container.decodeIfPresent(String.self, forKey: .pullRequestTargetBranch)
     pullRequestViewUrl = try container.decodeIfPresent(String.self, forKey: .pullRequestViewUrl)
     slug = try container.decode(String.self, forKey: .slug)
-    stackConfigType = try container.decode(String.self, forKey: .stackConfigType)
+    stackConfigType = try container.decodeIfPresent(String.self, forKey: .stackConfigType) ??
+    "Stack Configuration Unavailable"
     stackIdentifier = try container.decode(String.self, forKey: .stackIdentifier)
     startedOnWorkerAt = try container.decodeIfPresent(String.self, forKey: .startedOnWorkerAt)
     statusText = try container.decode(String.self, forKey: .statusText)
