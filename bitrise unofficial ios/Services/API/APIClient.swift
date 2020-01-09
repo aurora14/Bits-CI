@@ -230,7 +230,9 @@ extension APIClient {
     let sortByLastBuildQuery = URLQueryItem(name: "sort_by", value: "last_build_at")
     let queryItems = [sortByLastBuildQuery]
     let url = apiEndpointURL(Endpoint.apps.rawValue, withQueryItems: queryItems)
-    print(url)
+
+    log.debug("GET apps with url: \(url)")
+
     let queue = DispatchQueue.global(qos: .background)
     
     BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
@@ -238,7 +240,7 @@ extension APIClient {
       .validate()
       .responseJSON(queue: queue, completionHandler: { [weak self] response in
         
-        print("*** Completed project fetch")
+        log.debug("*** Completed project fetch")
         
         switch response.result {
         case .success:
@@ -261,7 +263,7 @@ extension APIClient {
               then(false, nil, "Invalid data structure")
             }
           } catch let error {
-            then(false, nil, "Failed to decode application sets with \(error.localizedDescription)")
+            then(false, nil, "Failed to decode application sets with \(error)")
           }
         case .failure(let error):
           then(false, nil, "Unauthorized, \(error.localizedDescription)")

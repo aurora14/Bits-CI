@@ -10,6 +10,12 @@
 import Foundation
 import KeychainAccess
 
+// Initialise global logger
+let log = Logger(
+  categorization: Logger.Categorization(subsystem: "com.gudimenko.alexei.bitrise-unofficial-ios",
+                                        category: "General")
+)
+
 protocol UserUpdateDelegate: class {
   func updateUserViews()
 }

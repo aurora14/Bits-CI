@@ -126,7 +126,8 @@ extension AppDelegate {
       let day = abs(difference.day ?? 0)
       let hour = abs(difference.hour ?? 0)
       let minute = abs(difference.minute ?? 0)
-      
+
+      #if DEBUG
       print("""
         > Time Background String: \(timeStringMovedIntoBackground)
         
@@ -142,6 +143,7 @@ extension AppDelegate {
         - hour:   \(hour)
         - minute: \(minute)
       """)
+      #endif
       
       guard year == 0, month == 0, week == 0, day == 0, hour < 1, minute < timeoutDurationValue else {
         // if any of these are greater than 0, then it's guaranteed to be above 60 minutes, so always invoke passcode screen. The 'hour' value cannot be greater than one, - otherwise the same rule applies.

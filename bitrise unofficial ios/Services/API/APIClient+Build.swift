@@ -45,6 +45,8 @@ extension APIClient {
     }
     
     let responseQueue = DispatchQueue.global(qos: .background)
+
+    log.debug("GET app builds with url: \(url)")
     
     BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
                                                encoding: JSONEncoding.default, headers: headers)
@@ -67,11 +69,11 @@ extension APIClient {
             then(true, buildsArray, "Successfully fetched build")
           } catch let error {
             then(false, nil,
-                 "Build retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
+                 "Build retrieval failed with \(error), \(response.value ?? "")")
           }
           
         case .failure(let error):
-          then(false, nil, "Build retrieval failed with \(error.localizedDescription)")
+          then(false, nil, "Build retrieval failed with \(error)")
         }
       })
   }
