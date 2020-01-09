@@ -116,7 +116,7 @@ class BitriseProjectViewModel: CellRepresentable {
     }
   }
 
-  
+  // FIXME: - View model shouldn't be responsible for dequeuing cells
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
     guard let cell = tableView
