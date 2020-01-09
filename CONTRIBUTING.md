@@ -12,6 +12,8 @@ animated_stardust_dev (at) gmx (dot) com
 
 Code contributions can be made with pull requests. 
 
+CI runs a test workflow for any PRs issued. Standard formats for feature and fix branches are feature/<feature_name>, fix/<fix_name> etc. When creating a PR simply assign @aurora14 as reviewer. 
+
 ### Issues
 
 If you find something not working quite like you expect, please open an issue in GitHub. I will do my best to attend to it as quickly as it's possible. 
