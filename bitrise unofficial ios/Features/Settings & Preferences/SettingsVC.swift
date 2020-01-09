@@ -50,8 +50,12 @@ class SettingsViewController: UITableViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     setUnlockSwitches()
-    setupResetAndGraceRows()
     setLocalisedTitles()
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    setupResetAndGraceRows()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -341,6 +345,7 @@ extension SettingsViewController {
   }
   
   func setupResetAndGraceRows() {
+
     let timeoutIndexPath = IndexPath(row: 2, section: 0)
     let resetIndexPath = IndexPath(row: 3, section: 0)
     
