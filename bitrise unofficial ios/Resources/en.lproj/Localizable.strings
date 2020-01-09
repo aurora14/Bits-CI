@@ -82,4 +82,4 @@
 "enterYourPasscode" = "Enter your passcode";
 
 // Contact Support - Composer text
-"contactSupportBody" = "When reporting an issue, please provide device and operating system. This should be followed by dot-point set of steps to reproduce the issue, along with any other pertinent information (e.g screenshots)\n\nOtherwise, write any feedback, ideas or suggestions as most appropriate.\n\nWe will try to address concerns as quickly as it's reasonably possible, and look forward to hearing from you.\n";
+"contactSupportBody" = "\n\nWhen reporting an issue, please provide device and operating system. This should be followed by dot-point set of steps to reproduce the issue, along with any other pertinent information (e.g screenshots)\n\nOtherwise, write any feedback, ideas or suggestions as most appropriate.\n\nWe will try to address concerns as quickly as it's reasonably possible, and look forward to hearing from you.\n";

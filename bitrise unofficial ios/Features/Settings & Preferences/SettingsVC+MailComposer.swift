@@ -39,16 +39,16 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     switch result {
     case .sent:
       // log sent analytics
-      ()
+      self.dismiss(animated: true, completion: nil)
     case .failed:
       // log failed error
       if error != nil { print ("Email couldn't be sent: \(String(describing: error?.localizedDescription))") }
     case .saved:
       // close controller or no-op
-      ()
+      self.dismiss(animated: true, completion: nil)
     case .cancelled:
       // close controller
-      ()
+      self.dismiss(animated: true, completion: nil)
     default:
       print("Mail composer error: \(String(describing: error?.localizedDescription))")
     }
