@@ -59,7 +59,7 @@ class ProjectListViewController: UITableViewController, SkeletonTableViewDataSou
     setupSearchAndNavigationUI()
     setupTableView()
     setupProfileButton()
-    loadTestItems() // dummy items to show a preview until the table view is updated with live data
+    loadPlaceholders() // dummy items to show a preview until the table view is updated with live data
     setupRefreshing()
     //tableView.showAnimatedSkeleton()
     loadDataWithAuthorization()
@@ -422,7 +422,7 @@ extension ProjectListViewController {
     return footerView
   }
   
-  fileprivate func loadTestItems() {
+  fileprivate func loadPlaceholders() {
     let testModels: [CellRepresentable] = [
       DummyProjectViewModel(),
       DummyProjectViewModel(),
