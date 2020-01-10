@@ -102,6 +102,15 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - PromiseKit (6.12.0):
+    - PromiseKit/CorePromise (= 6.12.0)
+    - PromiseKit/Foundation (= 6.12.0)
+    - PromiseKit/UIKit (= 6.12.0)
+  - PromiseKit/CorePromise (6.12.0)
+  - PromiseKit/Foundation (6.12.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.12.0):
+    - PromiseKit/CorePromise
   - Protobuf (3.6.1)
   - SkeletonView (1.4.1)
   - SkyFloatingLabelTextField (3.6.0)
@@ -126,6 +135,7 @@ DEPENDENCIES:
   - KeychainAccess
   - lottie-ios
   - MarkdownView
+  - PromiseKit
   - SkeletonView
   - SkyFloatingLabelTextField
   - SVProgressHUD
@@ -161,6 +171,7 @@ SPEC REPOS:
     - lottie-ios
     - MarkdownView
     - nanopb
+    - PromiseKit
     - Protobuf
     - SkeletonView
     - SkyFloatingLabelTextField
@@ -196,6 +207,7 @@ SPEC CHECKSUMS:
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
   MarkdownView: 5bbee438c823db1cd189002d44c84fa909b3a896
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SkeletonView: 60d6ce7edb0cb4c7758db33c74add50392b3c475
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
@@ -207,6 +219,6 @@ SPEC CHECKSUMS:
   ViewAnimator: 20df9a24a076c6ee78b77a4dbf1943808c94954e
   XLPagerTabStrip: 22d4c58200d7c105e0e407ab6bfd01a5d85014be
 
-PODFILE CHECKSUM: a46629d60c2831de3985764684e44ade65b60d73
+PODFILE CHECKSUM: adcc49295ba9c875257a7e9b0c10fe6259031f4c
 
 COCOAPODS: 1.8.3
