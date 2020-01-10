@@ -165,11 +165,11 @@ extension App {
   
   func getBitriseAuthToken() -> String? {
     do {
-      try bitriseAPIToken = self.keychain.get(tokenKey)
+      self.bitriseAPIToken = try self.keychain.get(tokenKey)
       return bitriseAPIToken
     } catch let error {
       log.error("Error retrieving authorization token from keychain with error: \(error)")
-      bitriseAPIToken = nil
+      self.bitriseAPIToken = nil
       return bitriseAPIToken
     }
   }

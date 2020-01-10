@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftDate
+import PromiseKit
 
 protocol ViewRefreshDelegate: class {
   func update(at indexPath: IndexPath?)
@@ -15,6 +16,8 @@ protocol ViewRefreshDelegate: class {
 
 class BitriseProjectViewModel: CellRepresentable {
 
+  private let apiClient = App.sharedInstance.apiClient
+  
   var rowHeight: CGFloat = 84
   
   weak var viewRefreshDelegate: ViewRefreshDelegate?
@@ -50,8 +53,7 @@ class BitriseProjectViewModel: CellRepresentable {
   
   var lastBuild: Build? {
     didSet {
-      isReady = true
-      viewRefreshDelegate?.update(at: indexPath)
+
     }
   }
   
@@ -96,22 +98,12 @@ class BitriseProjectViewModel: CellRepresentable {
   
   var buildList = [ProjectBuildViewModel]()
   
-  var bitriseYML: String?
-  
-  
+  var bitriseYML: YAMLPayload?
+
+  // MARK: - init
   init(with app: BitriseApp) {
     self.app = app
-    
-    guard !app.slug.isEmpty else {
-      // if there's no app ID, don't get the last builds (e.g. if loading dummy items)
-      return
-    }
-    
-    updateLastBuild()
-    DispatchQueue.global(qos: .background).async { [weak self] in
-      self?.updateAllBuilds()
-      self?.updateYML()
-    }
+    self.fetchAppBuildsAndData()
   }
 
   // FIXME: - View model shouldn't be responsible for dequeuing cells
@@ -130,41 +122,28 @@ class BitriseProjectViewModel: CellRepresentable {
     return cell
   }
 
+  private func fetchAppBuildsAndData() {
+    let mostRecentBuild = self.apiClient.getBuilds(for: self.app, withLimit: 1)
+    let lastFiftyBuilds = self.apiClient.getBuilds(for: self.app) // fetches a list that's paged at 50 results
+    let yamlConfig = self.apiClient.getYMLFor(bitriseApp: self.app)
 
-  func updateLastBuild() {
-    App
-      .sharedInstance
-      .apiClient
-      .getBuilds(for: self.app, withLimit: 1) { [weak self] _, builds, _ in
-      self?.lastBuild = builds?.first?.build
-    }
-  }
-  
-  
-  func updateAllBuilds() {
-    
-    // TODO: - assign builds to the BitriseApp model directly instead after the main functionality works
-    
-    App
-      .sharedInstance
-      .apiClient
-      .getBuilds(for: self.app) { [weak self] _, builds, message in
-      
-      guard let b = builds else {
-        print("*** No builds available, \(message)")
-        self?.buildList = [ProjectBuildViewModel]()
-        return
-      }
-      
-      self?.buildList = b
-    }
-  }
-  
+    firstly {
+      when(fulfilled: mostRecentBuild, lastFiftyBuilds, yamlConfig)
+    }.done { [weak self] mostRecent, lastFifty, yaml in
 
-  func updateYML() {
-    App.sharedInstance.apiClient.getYMLFor(bitriseApp: self.app) { [weak self] _, yml, _ in
-      // if let y = yml { print("YML available") } else { print("yml null") }
-      self?.bitriseYML = yml
+      guard let self = self else { return }
+
+      self.lastBuild = mostRecent.first?.build
+      self.buildList = lastFifty
+      self.bitriseYML = yaml
+
+      self.isReady = true
+      self.viewRefreshDelegate?.update(at: self.indexPath)
+    }.catch { error in
+      self.lastBuild = nil
+      self.buildList = []
+      self.bitriseYML = nil
+      log.error("Failed to retrieve build and yaml data with error: \(error)")
     }
   }
   

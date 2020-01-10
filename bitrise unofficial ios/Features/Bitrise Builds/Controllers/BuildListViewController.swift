@@ -9,6 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 import SVProgressHUD
+import PromiseKit
 
 protocol BuildRowTapDelegate: class {
   func didSelectBuild(at indexPath: IndexPath)
@@ -167,9 +168,13 @@ extension BuildListViewController {
 extension BuildListViewController {
   
   @objc fileprivate func refreshBuilds() {
-    App.sharedInstance.apiClient.getBuilds(for: projectVM.app) { _, buildList, _ in
-      // TODO: - add a temporary status update strip that shows the fetching status
-      self.buildList = buildList ?? []
+    firstly {
+      App.sharedInstance.apiClient.getBuilds(for: projectVM.app)
+    }.done { builds in
+      self.buildList = builds
+    }.catch { error in
+      log.error("No builds available to display; error: \(error)")
+      self.buildList = []
     }
   }
   

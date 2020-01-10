@@ -9,6 +9,21 @@
 import Foundation
 import Alamofire
 import AlamofireImage
+import PromiseKit
+
+typealias BitriseAccessToken = String
+typealias YAMLPayload = String
+
+typealias HTTPStatusCode = Int
+
+enum APIError: Error {
+  case noAuthTokenInKeychain
+  case apiUnauthorized
+  case failedResponseParsing(Error?)
+  case emptyOrNilResponse
+  case apiResponseError(Error)
+  case apiResponseError(Error?, HTTPStatusCode)
+}
 
 enum Endpoint: String {
   case me
@@ -35,8 +50,6 @@ final class APIClient {
   
   private(set) var baseURL: URL
   
-  private(set) var headers: HTTPHeaders
-  
   internal lazy var decoder = JSONDecoder() // consume API payload
   internal lazy var encoder = JSONEncoder() // send API payload
   
@@ -51,11 +64,6 @@ final class APIClient {
   init(baseURL: URL) {
     self.baseURL = baseURL
     
-    // try to set headers with token from keychain
-    headers = [
-      "Authorization": ""
-    ]
-    
     decoder.keyDecodingStrategy = .convertFromSnakeCase
     decoder.dataDecodingStrategy = .deferredToData
     encoder.keyEncodingStrategy = .convertToSnakeCase
@@ -67,33 +75,19 @@ final class APIClient {
   ///
   /// - Returns: true or false based on whether a token was found and headers set. When false, the
   ///   "Authorization" header key can be assumed to contain a nil or invalid value.
-  internal func headersSetWithAuthorization() -> Bool {
-    guard let token = App.sharedInstance.getBitriseAuthToken() else {
-      return false
-    }
-    
-    setAuthHeaders(withToken: token)
-    return true
-  }
-  
-  
-  /// Helper method that sets the Authorization header to a valid token value. Mainly acts as a wrapper
-  /// to provide clarity and auto-completion
-  ///
-  /// - Parameter value: an authorization token string. An authorization token is the Personal Access Token
-  ///   obtained from the Bitrise site.
-  private func setAuthHeaders(withToken value: String) {
-    headers["Authorization"] = value
-  }
+  func headersSetWithAuthorization() -> Promise<BitriseAccessToken> {
 
-  
-  /// Resets the Authorization header to an empty string, wiping any stored value. Normally you wouldn't
-  /// need to use this functionality, but it's provided as a convenience in case you want to call an
-  /// endpoint with a clean slate.
-  ///
-  /// Note that this doesn't change anything in the Keychain, it purely clears the HTTP headers
-  internal func invalidateAuthHeaders() {
-    headers["Authorization"] = ""
+    let promise = Promise<BitriseAccessToken> { resolver in
+
+      guard let token = App.sharedInstance.getBitriseAuthToken() else {
+        resolver.reject(APIError.noAuthTokenInKeychain)
+        return
+      }
+
+      resolver.fulfill(token)
+    }
+
+    return promise
   }
   
   /// Generates a URL with the provided endpoint path. Paths must not start with a forward slash.
@@ -147,8 +141,8 @@ extension APIClient {
   ///   - completion: Validation result handler.
   func validateGeneratedToken(_ token: String,
                               then: @escaping (_ isValid: Bool, _ message: String) -> Void) {
-    
-    setAuthHeaders(withToken: token)
+
+    let headers = ["Authorization": token]
     
     let url = apiEndpointURL(Endpoint.me.rawValue)
     let queue = DispatchQueue.global(qos: .background)
@@ -175,43 +169,46 @@ extension APIClient {
   ///
   /// - Parameter completion: <#completion description#>
   func getUserProfile(then: @escaping (_ isSignedIn: Bool, _ user: User?, _ message: String) -> Void) {
-    
-    guard headersSetWithAuthorization() else {
+
+    firstly {
+      self.headersSetWithAuthorization()
+    }.done { token in
+      let url = self.apiEndpointURL(Endpoint.me.rawValue)
+      let queue = DispatchQueue.global(qos: .background)
+      let headers = ["Authorization": token]
+
+      BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
+                                                 encoding: JSONEncoding.default, headers: headers)
+        .validate(statusCode: 200 ..< 300)
+        .responseJSON(queue: queue, completionHandler: { [weak self] response in
+
+          switch response.result {
+          case .success:
+
+            guard let data = response.data else {
+              then(false, nil, "Response contained no data")
+              return
+            }
+
+            do {
+
+              let user = try self?.decoder.decode(User.self, from: data)
+
+              App.sharedInstance.currentUser = user
+              then(true, user, "User retrieved successfully")
+
+            } catch let error {
+              print("Failed json decoding with \(error)")
+              then(false, nil, "Failed to decode user object with \(error)")
+            }
+          case .failure(let error):
+            then(false, nil, "Unauthorized, \(error)")
+          }
+        })
+    }.catch { error in
+      log.error("No token found in keychain: \(error)")
       then(false, nil, L10n.noTokenInKeychain)
-      return
     }
-    
-    let url = apiEndpointURL(Endpoint.me.rawValue)
-    let queue = DispatchQueue.global(qos: .background)
-    
-    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
-                                               encoding: JSONEncoding.default, headers: headers)
-      .validate(statusCode: 200 ..< 300)
-      .responseJSON(queue: queue, completionHandler: { [weak self] response in
-        
-        switch response.result {
-        case .success:
-          
-          guard let data = response.data else {
-            then(false, nil, "Response contained no data")
-            return
-          }
-          
-          do {
-            
-            let user = try self?.decoder.decode(User.self, from: data)
-            //print(user?.description)
-            App.sharedInstance.currentUser = user
-            then(true, user, "User retrieved successfully")
-            
-          } catch let error {
-            print("Failed json decoding with \(error.localizedDescription)")
-            then(false, nil, "Failed to decode user object with \(error.localizedDescription)")
-          }
-        case .failure(let error):
-          then(false, nil, "Unauthorized, \(error.localizedDescription)")
-        }
-      })
   }
   
   
@@ -221,54 +218,56 @@ extension APIClient {
   /// if successful or nil if not, and a message that provides additional information
   func getUserApps(then: @escaping (_ success: Bool,
     _ apps: [BitriseProjectViewModel]?, _ message: String) -> Void) {
-    
-    guard headersSetWithAuthorization() else {
-      then(false, nil, L10n.noTokenInKeychain)
-      return
-    }
-    
-    let sortByLastBuildQuery = URLQueryItem(name: "sort_by", value: "last_build_at")
-    let queryItems = [sortByLastBuildQuery]
-    let url = apiEndpointURL(Endpoint.apps.rawValue, withQueryItems: queryItems)
 
-    log.debug("GET apps with url: \(url)")
+    firstly {
+      self.headersSetWithAuthorization()
+    }.done { token in
 
-    let queue = DispatchQueue.global(qos: .background)
-    
-    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
-                                               encoding: JSONEncoding.default, headers: headers)
-      .validate()
-      .responseJSON(queue: queue, completionHandler: { [weak self] response in
-        
-        log.debug("*** Completed project fetch")
-        
-        switch response.result {
-        case .success:
-          
-          guard let data = response.data else {
-            then(false, nil, "Response contained no data")
-            return
-          }
-          
-          do { // essentially, only one success condition
-            
-            let projectArrayStruct = try self?.decoder.decode(BitriseProjects.self, from: data)
-            
-            if let p = projectArrayStruct {
-              var retrievedProjects = [BitriseProjectViewModel]()
-              retrievedProjects = p.data.compactMap { BitriseProjectViewModel(with: $0) }
-              then(true, retrievedProjects, "Fetched successfully")
-            } else {
-              print("Couldn't unwrap project struct")
-              then(false, nil, "Invalid data structure")
+      log.info("Access token: \(token)")
+
+      let sortByLastBuildQuery = URLQueryItem(name: "sort_by", value: "last_build_at")
+      let queryItems = [sortByLastBuildQuery]
+      let url = self.apiEndpointURL(Endpoint.apps.rawValue, withQueryItems: queryItems)
+      let headers = ["Authorization": token]
+
+      log.debug("GET apps with url: \(url)")
+
+      let queue = DispatchQueue.global(qos: .background)
+
+      BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
+                                                 encoding: JSONEncoding.default, headers: headers)
+        .validate()
+        .responseJSON(queue: queue, completionHandler: { [weak self] response in
+
+          switch response.result {
+          case .success:
+
+            guard let data = response.data else {
+              then(false, nil, "Response contained no data")
+              return
             }
-          } catch let error {
-            then(false, nil, "Failed to decode application sets with \(error)")
+
+            do { // essentially, only one success condition
+
+              let projectArrayStruct = try self?.decoder.decode(BitriseProjects.self, from: data)
+
+              if let p = projectArrayStruct {
+                let retrievedProjects = p.data.compactMap { BitriseProjectViewModel(with: $0) }
+                then(true, retrievedProjects, "Fetched successfully")
+              } else {
+                print("Couldn't unwrap project struct")
+                then(false, nil, "Invalid data structure")
+              }
+            } catch let error {
+              then(false, nil, "Failed to decode application sets with \(error)")
+            }
+          case .failure(let error):
+            then(false, nil, "Unauthorized, \(error.localizedDescription)")
           }
-        case .failure(let error):
-          then(false, nil, "Unauthorized, \(error.localizedDescription)")
-        }
-      })
+        })
+    }.catch { error in
+      log.error("No token in keychain; error: \(error)")
+    }
   }
   
   
@@ -298,50 +297,64 @@ extension APIClient {
   }
 
   
-  func getYMLFor(bitriseApp app: BitriseApp,
-                 then: @escaping (_ success: Bool, _ yamlString: String?, _ message: String) -> Void) {
-    
-    guard headersSetWithAuthorization() else {
-      then(false, nil, L10n.noTokenInKeychain)
-      return
+  func getYMLFor(bitriseApp app: BitriseApp) -> Promise<YAMLPayload> {
+
+    firstly {
+      self.headersSetWithAuthorization()
+    }.then { token -> Promise<YAMLPayload> in
+      return self.getYML(token, for: app)
     }
-    
-    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/bitrise.yml")
-    
-    let queue = DispatchQueue.global(qos: .background)
-    
-    // FIXME: - seems like there's a crash after sign-in here. Look into further in future releases.
-    // A. G., 17/01/2019
-    // EXC_BAD_ACCESS - simultaneous access to the instance?
-    // Doesn't happen often, in fact very rarely. First time a proper log/error was witnessed was when
-    // testing on a simulator. Recent logins with a physical device worked like a charm. 
-    BRSessionManager.shared.background.request(url,
-                                               method: .get,
-                                               parameters: nil,
-                                               encoding: URLEncoding.default, headers: headers)
-      .validate()
-      .response(queue: queue) { response in
-        
-        guard let httpResponse = response.response else {
-          then(false, nil, "Bitrise YML wasn't available: missing HTTP URL Response")
-          return
-        }
-        
-        if httpResponse.statusCode == 200 {
-          
-          guard let data = response.data else {
-            then(false, nil, "Bitrise YML wasn't available: response's data payload was empty")
+  }
+}
+
+// MARK: - Private API
+extension APIClient {
+
+  private func getYML(_ token: BitriseAccessToken, for app: BitriseApp) -> Promise<YAMLPayload> {
+
+    let promise: Promise<YAMLPayload> = Promise { resolver in
+      let url = self.apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/bitrise.yml")
+      let headers = ["Authorization": token]
+
+      let queue = DispatchQueue.global(qos: .background)
+
+      // FIXME: - seems like there's a crash after sign-in here. Look into further in future releases.
+      // A. G., 17/01/2019
+      // EXC_BAD_ACCESS - simultaneous access to the instance?
+      // Doesn't happen often, in fact very rarely. First time a proper log/error was witnessed was when
+      // testing on a simulator. Recent logins with a physical device worked like a charm.
+      Alamofire.request(url,
+                                                 method: .get,
+                                                 parameters: nil,
+                                                 encoding: URLEncoding.default, headers: headers)
+        .validate()
+        .response(queue: queue) { response in
+
+          guard let httpResponse = response.response else {
+            resolver.reject(APIError.emptyOrNilResponse)
             return
           }
-          
-          let ymlString = String(data: data, encoding: .utf8)
-          
-          then(true, ymlString, "Successfully fetched yml file")
-          
-        } else {
-          then(false, nil, "Bitrise YML wasn't available, status code: \(httpResponse.statusCode)")
-          return
-        }
+
+          if httpResponse.statusCode == 200 {
+
+            guard let data = response.data else {
+              resolver.reject(APIError.emptyOrNilResponse)
+              return
+            }
+
+            guard let ymlString = String(data: data, encoding: .utf8) else {
+              resolver.reject(APIError.failedResponseParsing(nil))
+              return
+            }
+
+            resolver.fulfill(ymlString)
+          } else {
+            resolver.reject(APIError.apiResponseError(nil, httpResponse.statusCode))
+            return
+          }
+      }
     }
+
+    return promise
   }
 }
