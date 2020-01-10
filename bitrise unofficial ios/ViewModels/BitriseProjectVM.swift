@@ -9,14 +9,12 @@
 import UIKit
 import SwiftDate
 
-
 protocol ViewRefreshDelegate: class {
   func update(at indexPath: IndexPath?)
 }
 
-
 class BitriseProjectViewModel: CellRepresentable {
-  
+
   var rowHeight: CGFloat = 84
   
   weak var viewRefreshDelegate: ViewRefreshDelegate?
@@ -129,11 +127,10 @@ class BitriseProjectViewModel: CellRepresentable {
     // May be replaced with project status, depending on design and API - alternatively might give
     // user the option of how they want projects colored
     // setDefaultBackgroundColor(in: cell, for: indexPath)
-    
     return cell
   }
-  
-  
+
+
   func updateLastBuild() {
     App
       .sharedInstance
@@ -163,7 +160,7 @@ class BitriseProjectViewModel: CellRepresentable {
     }
   }
   
-  
+
   func updateYML() {
     App.sharedInstance.apiClient.getYMLFor(bitriseApp: self.app) { [weak self] _, yml, _ in
       // if let y = yml { print("YML available") } else { print("yml null") }
