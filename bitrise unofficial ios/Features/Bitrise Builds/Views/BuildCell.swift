@@ -11,19 +11,19 @@ import UIKit
 class BuildCell: UITableViewCell, ViewConfigurable {
   
   
-  @IBOutlet weak var buildStatusStrip: UIView!
-  @IBOutlet weak var buildStatusIcon: UIImageView!
-  @IBOutlet weak var buildStatusTextLabel: UILabel!
-  @IBOutlet weak var repoBranchIcon: UIImageView!
-  @IBOutlet weak var repoBranchNameLabel: UILabel!
-  @IBOutlet weak var workflowIcon: UIImageView!
-  @IBOutlet weak var workflowNameLabel: UILabel!
-  @IBOutlet weak var buildTriggeredTimeLabel: UILabel!
-  @IBOutlet weak var buildDurationIcon: UIImageView!
-  @IBOutlet weak var buildDurationLabel: UILabel!
-  @IBOutlet weak var bitriseBuildNumberLabel: UILabel!
-  @IBOutlet weak var separatorView: UIView!
-  @IBOutlet weak var contentContainer: ContentContainer!
+  @IBOutlet private var buildStatusStrip: UIView!
+  @IBOutlet private var buildStatusIcon: UIImageView!
+  @IBOutlet private var buildStatusTextLabel: UILabel!
+  @IBOutlet private var repoBranchIcon: UIImageView!
+  @IBOutlet private var repoBranchNameLabel: UILabel!
+  @IBOutlet private var workflowIcon: UIImageView!
+  @IBOutlet private var workflowNameLabel: UILabel!
+  @IBOutlet private var buildTriggeredTimeLabel: UILabel!
+  @IBOutlet private var buildDurationIcon: UIImageView!
+  @IBOutlet private var buildDurationLabel: UILabel!
+  @IBOutlet private var bitriseBuildNumberLabel: UILabel!
+  @IBOutlet private var separatorView: UIView!
+  @IBOutlet private var contentContainer: ContentContainer!
   
   var borderColor: UIColor = UIColor.black
   

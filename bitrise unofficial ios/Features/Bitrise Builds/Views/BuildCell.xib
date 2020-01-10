@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,14 +14,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a3I-lB-nym" id="5gK-pN-nYx">
-                <rect key="frame" x="0.0" y="0.0" width="341" height="83.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="348" height="84"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFc-3V-6AS" customClass="ContentContainer" customModule="bitrise_unofficial_ios" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="341" height="83.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="349" height="84"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pi5-ae-ubq">
-                                <rect key="frame" x="0.0" y="0.0" width="16" height="83.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="16" height="84"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tCh-qA-bo6">
                                         <rect key="frame" x="2" y="36" width="12" height="12"/>
@@ -96,7 +94,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZy-1N-nSn">
-                                <rect key="frame" x="24" y="41.5" width="313" height="1"/>
+                                <rect key="frame" x="24" y="41.5" width="321" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="hgd-aa-ysa"/>
@@ -177,9 +175,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="branch" width="72" height="72"/>
-        <image name="clock" width="78" height="78"/>
-        <image name="workflow" width="64" height="64"/>
+        <image name="branch" width="36" height="36"/>
+        <image name="clock" width="39" height="39"/>
+        <image name="workflow" width="32" height="32"/>
         <namedColor name="BitriseGreen">
             <color red="0.2627450980392157" green="0.76078431372549016" blue="0.63921568627450975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
