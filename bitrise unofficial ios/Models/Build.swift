@@ -123,7 +123,7 @@ struct Build: Codable {
     statusText = try container.decode(String.self, forKey: .statusText)
     tag = try container.decodeIfPresent(String.self, forKey: .tag)
     triggeredAt = try container.decode(String.self, forKey: .triggeredAt)
-    triggeredBy = try container.decode(String.self, forKey: .triggeredBy)
+    triggeredBy = try container.decodeIfPresent(String.self, forKey: .triggeredBy) ?? "Not Available"
     triggeredWorkflow = try container.decode(String.self, forKey: .triggeredWorkflow)
     status = try container.decodeIfPresent(BuildStatus.self, forKey: .status)
     originalBuildParams = try container
