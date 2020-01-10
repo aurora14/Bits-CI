@@ -168,7 +168,7 @@ extension App {
       try bitriseAPIToken = self.keychain.get(tokenKey)
       return bitriseAPIToken
     } catch let error {
-      print(error.localizedDescription)
+      log.error("Error retrieving authorization token from keychain with error: \(error)")
       bitriseAPIToken = nil
       return bitriseAPIToken
     }

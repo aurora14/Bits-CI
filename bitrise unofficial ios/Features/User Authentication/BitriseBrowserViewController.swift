@@ -68,7 +68,7 @@ class BitriseBrowserViewController: UIViewController {
       return
     }
     
-    print("*** Token text: \(tokenValue)")
+    log.debug("*** Token text: \(tokenValue)")
     
     App.sharedInstance.apiClient.validateGeneratedToken(tokenValue) { [weak self] isValid, message in
       
@@ -81,7 +81,7 @@ class BitriseBrowserViewController: UIViewController {
         }
         //print(message)
       } else {
-        print(message)
+        log.error("Token validation failed with error: \(message)")
       }
     }
   }
