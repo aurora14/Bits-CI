@@ -10,6 +10,12 @@
 import Foundation
 import KeychainAccess
 
+// Initialise global logger
+let log = Logger(
+  categorization: Logger.Categorization(subsystem: "com.gudimenko.alexei.bitrise-unofficial-ios",
+                                        category: "General")
+)
+
 protocol UserUpdateDelegate: class {
   func updateUserViews()
 }
@@ -159,11 +165,11 @@ extension App {
   
   func getBitriseAuthToken() -> String? {
     do {
-      try bitriseAPIToken = self.keychain.get(tokenKey)
+      self.bitriseAPIToken = try self.keychain.get(tokenKey)
       return bitriseAPIToken
     } catch let error {
-      print(error.localizedDescription)
-      bitriseAPIToken = nil
+      log.error("Error retrieving authorization token from keychain with error: \(error)")
+      self.bitriseAPIToken = nil
       return bitriseAPIToken
     }
   }

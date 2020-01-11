@@ -40,7 +40,6 @@ class SettingsViewController: UITableViewController {
   
   let keychain = App.sharedInstance.keychain
   
-  
   // MARK: - View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -51,8 +50,12 @@ class SettingsViewController: UITableViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     setUnlockSwitches()
-    setupResetAndGraceRows()
     setLocalisedTitles()
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    setupResetAndGraceRows()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -215,8 +218,8 @@ extension SettingsViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     
-    // this is something of a fragile implementation, should the passcode rows ever change.
-    //
+    // FIXME: - This is something of a fragile implementation, should any rows ever change. There are
+    // a few solutions available that can be looked at during a proper maintenance update.
     switch (indexPath.section, indexPath.row) {
     case (0, 2):
       print("Passcode timeout row tapped")
@@ -232,7 +235,8 @@ extension SettingsViewController {
       } catch let error {
         print("Settings VC Keychain Err: \(error.localizedDescription)")
       }
-      
+    case (1, 1):
+      startMailComposer()
     default:
       print("Settings VC row tapped")
     }
@@ -341,6 +345,7 @@ extension SettingsViewController {
   }
   
   func setupResetAndGraceRows() {
+
     let timeoutIndexPath = IndexPath(row: 2, section: 0)
     let resetIndexPath = IndexPath(row: 3, section: 0)
     
@@ -371,4 +376,3 @@ extension SettingsViewController {
 //  }
   
 }
-

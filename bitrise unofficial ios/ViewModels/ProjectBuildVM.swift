@@ -12,7 +12,7 @@ import SwiftDate
 
 class ProjectBuildViewModel: CellRepresentable {
   
-  var rowHeight: CGFloat = 76
+  var rowHeight: CGFloat = UITableView.automaticDimension
   
   var build: Build
   
@@ -107,8 +107,37 @@ class ProjectBuildViewModel: CellRepresentable {
   var buildNumber: String {
     return "#\(build.buildNumber)"
   }
+
+  var commitMessage: NSAttributedString {
+    let mainMessageAttributes: [NSAttributedString.Key: Any] = [
+      :
+    ]
+
+    return NSMutableAttributedString(string: "\(build.commitMessage ?? "No commit message.")",
+                                            attributes: mainMessageAttributes)
+  }
+
+  var commitURL: NSAttributedString? {
+
+    if let commitURLString = build.commitViewUrl, let url = NSURL(string: commitURLString) {
+      let commitMessageAttributes: [NSAttributedString.Key: Any] = [
+        .obliqueness: 0.1
+      ]
+
+      let message = NSMutableAttributedString(string: "View this commit ",
+                                              attributes: commitMessageAttributes)
+
+      let linkString = NSMutableAttributedString(string: "here", attributes: commitMessageAttributes)
+      linkString.addAttribute(.link, value: url, range: NSRange(location: 0, length: 4))
+      message.append(linkString)
+
+      return message
+    }
+
+    return nil
+  }
   
-  var log: BuildLog?
+  var buildLog: BuildLog?
   
   private init(with build: Build) {
     self.build = build
@@ -123,9 +152,9 @@ class ProjectBuildViewModel: CellRepresentable {
   func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     
     guard let cell = tableView
-      .dequeueReusableCell(withIdentifier: "BuildCell") as? BuildCell else {
+      .dequeueReusableCell(withIdentifier: CellReuseIdentifier.buildCell) as? BuildCell else {
         
-        return UITableViewCell(style: .default, reuseIdentifier: "BuildCell")
+        return UITableViewCell(style: .default, reuseIdentifier: CellReuseIdentifier.buildCell)
     }
     
     cell.setup(with: self)

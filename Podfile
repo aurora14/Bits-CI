@@ -6,6 +6,8 @@ target 'bitrise unofficial ios' do
   use_frameworks!
   
   # Pods for bitrise-unofficial-ios
+
+  pod 'PromiseKit'
   
   # Utilities
   pod 'SwiftDate'

@@ -9,6 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 import SVProgressHUD
+import PromiseKit
 
 protocol BuildRowTapDelegate: class {
   func didSelectBuild(at indexPath: IndexPath)
@@ -40,10 +41,8 @@ class BuildListViewController: TabPageTableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    tableView.register(UINib(nibName: "BuildCell", bundle: nil), forCellReuseIdentifier: "BuildCell")
-    tableView.separatorStyle = .singleLine
-    tableView.separatorInset = .zero
+
+    self.configureTableView()
     
     selectionFeedbackGenerator.prepare()
     
@@ -65,6 +64,14 @@ class BuildListViewController: TabPageTableViewController {
       self.tableView.reloadData()
     }
   }
+
+  private func configureTableView() {
+    self.tableView.register(UINib(nibName: "BuildCell", bundle: nil), forCellReuseIdentifier: "BuildCell")
+    self.tableView.separatorStyle = .singleLine
+    self.tableView.separatorInset = .zero
+    self.tableView.estimatedRowHeight = 156
+    self.tableView.rowHeight = UITableView.automaticDimension
+  }
 }
 
 // MARK: - Table view datasource
@@ -80,10 +87,6 @@ extension BuildListViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     return buildList[indexPath.section].cellInstance(tableView, indexPath: indexPath)
-  }
-  
-  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return buildList[indexPath.section].rowHeight
   }
   
   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -167,9 +170,13 @@ extension BuildListViewController {
 extension BuildListViewController {
   
   @objc fileprivate func refreshBuilds() {
-    App.sharedInstance.apiClient.getBuilds(for: projectVM.app) { _, buildList, _ in
-      // TODO: - add a temporary status update strip that shows the fetching status
-      self.buildList = buildList ?? []
+    firstly {
+      App.sharedInstance.apiClient.getBuilds(for: projectVM.app)
+    }.done { builds in
+      self.buildList = builds
+    }.catch { error in
+      log.error("No builds available to display; error: \(error)")
+      self.buildList = []
     }
   }
   

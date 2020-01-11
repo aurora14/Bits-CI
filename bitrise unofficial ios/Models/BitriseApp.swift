@@ -37,7 +37,6 @@ struct BitriseApp: Codable, Equatable, CustomStringConvertible {
   
   var description: String = "\(type(of: BitriseApp.self))"
   
-  
   init(from decoder: Decoder) throws {
     
     let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -55,7 +54,6 @@ struct BitriseApp: Codable, Equatable, CustomStringConvertible {
     owner = try container.decode(BitriseProjectOwner.self, forKey: .owner)
     
   }
-  
   
   init(
     title appTitle: String,

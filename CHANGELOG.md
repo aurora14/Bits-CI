@@ -1,8 +1,10 @@
 #  Changelog
 
-## 1.2
+## 1.2 - Build Commit Messages
 
 * Added a title header for the Organizations list
+* Minor user interface improvements (alignment fixes, etc)
+* Added ability to email support from Settings screen
 
 ## 1.1 - Passcode Lock
 

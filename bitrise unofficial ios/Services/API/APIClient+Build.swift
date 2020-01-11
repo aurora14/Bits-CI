@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import PromiseKit
 
 // MARK: - Build management
 extension APIClient {
@@ -22,58 +23,14 @@ extension APIClient {
   ///   - limit: how many builds to fetch. Pass '1' to this parameter to fetch the last build. Pass '0' to this parameter to fetch
   ///     all builds for an application. Otherwise, set whatever value is necessary for the use case. The default value is '0'.
   ///   - completion: a closure containing the result of the call, an array of builds on success (or nil on failure), and a message
-  func getBuilds(for app: BitriseApp, withLimit limit: Int = 0,
-                 then: @escaping (_ success: Bool, _ builds: [ProjectBuildViewModel]?, _ message: String) -> Void) {
+  func getBuilds(for app: BitriseApp, withLimit limit: Int = 0) -> Promise<[ProjectBuildViewModel]> {
     
     // v0.1/apps/{APP-SLUG}/builds
-    
-    guard headersSetWithAuthorization() else {
-      then(false, nil, L10n.noTokenInKeychain)
-      return
+    firstly {
+      self.headersSetWithAuthorization()
+    }.then { token -> Promise<[ProjectBuildViewModel]> in
+      return self.getBuilds(token, for: app, withLimit: limit)
     }
-    
-    var url: URL
-    
-    if limit == 0 {
-      url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
-    } else {
-      let limitItem = URLQueryItem(name: "limit", value: "\(limit)")
-      
-      let queryItems: [URLQueryItem] = [limitItem]
-      
-      url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds", withQueryItems: queryItems)
-    }
-    
-    let responseQueue = DispatchQueue.global(qos: .background)
-    
-    BRSessionManager.shared.background.request(url, method: .get, parameters: nil,
-                                               encoding: JSONEncoding.default, headers: headers)
-      .validate()
-      .responseJSON(queue: responseQueue, completionHandler: { [weak self] response in
-        
-        switch response.result {
-        case .success:
-          
-          guard let data = response.data else {
-            then(false, nil, "Response contained no data")
-            return
-          }
-          
-          do { // essentially, only one success condition
-            let builds = try self?.decoder.decode(Builds.self, from: data)
-            // experimenting with a lazy collection instead of standard map and seeing whether performance
-            // improves
-            let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0, forApp: app) }
-            then(true, buildsArray, "Successfully fetched build")
-          } catch let error {
-            then(false, nil,
-                 "Build retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
-          }
-          
-        case .failure(let error):
-          then(false, nil, "Build retrieval failed with \(error.localizedDescription)")
-        }
-      })
   }
   
   // MARK: - Start a new build
@@ -87,64 +44,63 @@ extension APIClient {
   func startNewBuild(for app: BitriseApp,
                      withBuildParams buildParams: BuildData,
                      then: @escaping (_ result: AsyncResult, _ message: String) -> Void) {
-    
-    // ensure user is authorized
-    guard headersSetWithAuthorization() else {
-      then(.error, L10n.noTokenInKeychain)
-      return
+
+    firstly {
+      self.headersSetWithAuthorization()
+    }.done { token in
+
+       let url = self.apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
+
+       // Encode build params data
+       var buildRequestBody: Data
+       do {
+        buildRequestBody = try self.encoder.encode(buildParams)
+       } catch let error {
+         print(error.localizedDescription)
+         then(.error, error.localizedDescription)
+         return
+       }
+
+       // Create a custom request
+       var buildRequest = URLRequest(url: url)
+       buildRequest.httpMethod = HTTPMethod.post.rawValue
+       buildRequest.setValue(token, forHTTPHeaderField: "Authorization")
+       buildRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+       buildRequest.httpBody = buildRequestBody
+
+       BRSessionManager.shared.background.request(buildRequest)
+         .validate()
+         .responseJSON { response in
+
+           switch response.result {
+           case .success:
+             guard let data = response.data, let statusCode = response.response?.statusCode else {
+               then(.success, "Build started successfully")
+               return
+             }
+             do {
+               let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
+               then(.success, "\(statusCode): \(response.message)")
+             } catch {
+               then(.success, "Build started successfully")
+             }
+             then(.success, "Build started successfully")
+           case .failure(let error):
+             guard let data = response.data, let statusCode = response.response?.statusCode else {
+               then(.error, error.localizedDescription)
+               return
+             }
+             do {
+               let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
+               then(.error, "\(statusCode): \(response.message)")
+             } catch {
+               then(.error, error.localizedDescription)
+             }
+           }
+       }
+    }.catch { error in
+      log.error("No auth token in keychain; error: \(error)")
     }
-    
-    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
-    
-    // Encode build params data
-    var buildRequestBody: Data
-    do {
-      buildRequestBody = try encoder.encode(buildParams)
-    } catch let error {
-      print(error.localizedDescription)
-      then(.error, error.localizedDescription)
-      return
-    }
-    
-    // Create a custom request
-    var buildRequest = URLRequest(url: url)
-    buildRequest.httpMethod = HTTPMethod.post.rawValue
-    buildRequest.setValue(headers["Authorization"], forHTTPHeaderField: "Authorization")
-    buildRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-    buildRequest.httpBody = buildRequestBody
-    
-    BRSessionManager.shared.background.request(buildRequest)
-      .validate()
-      .responseJSON { response in
-        
-        switch response.result {
-        case .success:
-          guard let data = response.data, let statusCode = response.response?.statusCode else {
-            then(.success, "Build started successfully")
-            return
-          }
-          do {
-            let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
-            then(.success, "\(statusCode): \(response.message)")
-          } catch {
-            then(.success, "Build started successfully")
-          }
-          then(.success, "Build started successfully")
-        case .failure(let error):
-          guard let data = response.data, let statusCode = response.response?.statusCode else {
-            then(.error, error.localizedDescription)
-            return
-          }
-          do {
-            let response = try self.decoder.decode(BuildErrorResponse.self, from: data)
-            then(.error, "\(statusCode): \(response.message)")
-          } catch {
-            then(.error, error.localizedDescription)
-          }
-        }
-    }
-    
-    // Validate HTTP errors, get HTTP body of response
   }
   
   // MARK: - Abort build
@@ -158,59 +114,57 @@ extension APIClient {
   ///   - then: <#then description#>
   func abortBuild(for buildID: Slug, inApp bitriseAppID: Slug,
                   withParams abortParams: AbortBuildParams, then: @escaping () -> Void) {
-    
-    // ensure user is authorized
-    guard headersSetWithAuthorization() else {
-      then()
-      return
-    }
-    
-    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/abort")
-    
-    //print("Abort PARAMS: \(url) \(token) \(buildID) \(bitriseAppID)")
-    
-    // Encode build params data
-    var requestBody: Data
-    do {
-      requestBody = try encoder.encode(abortParams)
-    } catch let error {
-      print(error.localizedDescription)
-      then()
-      return
-    }
-    
-    // Create a custom request
-    var abortRequest = URLRequest(url: url)
-    abortRequest.httpMethod = HTTPMethod.post.rawValue
-    abortRequest.setValue(headers["Authorization"], forHTTPHeaderField: "Authorization")
-    abortRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-    abortRequest.httpBody = requestBody
-    
-    let queue = DispatchQueue.global(qos: .background)
-    
-    BRSessionManager.shared.background.request(abortRequest)
-      .validate()
-      .responseJSON(queue: queue) { response in
-        
-        switch response.result {
-        case .success:
-          print("*** API Client MSG: build aborted successfully")
-          then()
-        case .failure(let error):
-          print("*** API Client MSG: build abort op FAIL: \(error.localizedDescription)")
-          if let data = response.data {
-            do {
-              let response = try self.decoder.decode(AbortErrorResponse.self, from: data)
-              print(response.errorMsg)
-              then()
-            } catch {
-              then()
+
+    firstly {
+      self.headersSetWithAuthorization()
+    }.done { token in
+      let url = self.apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/abort")
+
+      // Encode build params data
+      var requestBody: Data
+      do {
+        requestBody = try self.encoder.encode(abortParams)
+      } catch let error {
+        print(error.localizedDescription)
+        then()
+        return
+      }
+
+      // Create a custom request
+      var abortRequest = URLRequest(url: url)
+      abortRequest.httpMethod = HTTPMethod.post.rawValue
+      abortRequest.setValue(token, forHTTPHeaderField: "Authorization")
+      abortRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+      abortRequest.httpBody = requestBody
+
+      let queue = DispatchQueue.global(qos: .background)
+
+      BRSessionManager.shared.background.request(abortRequest)
+        .validate()
+        .responseJSON(queue: queue) { response in
+
+          switch response.result {
+          case .success:
+            log.info("*** API Client MSG: build aborted successfully")
+            then()
+          case .failure(let error):
+            log.error("*** API Client MSG: build abort op FAIL: \(error.localizedDescription)")
+            if let data = response.data {
+              do {
+                let response = try self.decoder.decode(AbortErrorResponse.self, from: data)
+                print(response.errorMsg)
+                then()
+              } catch {
+                then()
+              }
             }
+            then()
           }
-          then()
-        }
+      }
+      //then()
+    }.catch { error in
+      log.error("No auth token in keychain; error: \(error)")
     }
-    //then()
   }
   
   // MARK: - Get the build log
@@ -225,44 +179,45 @@ extension APIClient {
               inApp bitriseAppID: Slug,
               then: @escaping (_ result: AsyncResult, _ log: BuildLog?, _ message: String) -> Void) {
     
-    // ensure user is authorized
-    guard headersSetWithAuthorization() else {
-      then(.error, nil, L10n.noTokenInKeychain)
-      return
-    }
-    
     // v0.1/apps/{APP-SLUG}/builds/{BUILD-SLUG}/log
-    
-    let url = apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/log")
-    
-    let queue = DispatchQueue.global(qos: .utility)
-    
-    BRSessionManager
-      .shared
-      .background
-      .request(url, method: .get, parameters: nil,
-               encoding: JSONEncoding.default, headers: headers)
-      .validate().responseJSON(queue: queue) { [weak self] response in
-        
-        switch response.result {
-        case .success:
-          
-          guard let data = response.data else {
-            then(.error, nil, "Build Log Request: response contained no data")
-            return
+
+    firstly {
+      self.headersSetWithAuthorization()
+    }.done { token in
+      let url = self.apiEndpointURL("\(Endpoint.apps.rawValue)/\(bitriseAppID)/builds/\(buildID)/log")
+      let headers = ["Authorization": token]
+
+      let queue = DispatchQueue.global(qos: .utility)
+
+      BRSessionManager
+        .shared
+        .background
+        .request(url, method: .get, parameters: nil,
+                 encoding: JSONEncoding.default, headers: headers)
+        .validate().responseJSON(queue: queue) { [weak self] response in
+
+          switch response.result {
+          case .success:
+
+            guard let data = response.data else {
+              then(.error, nil, "Build Log Request: response contained no data")
+              return
+            }
+
+            do { // essentially, only one success condition
+              let buildLog = try self?.decoder.decode(BuildLog.self, from: data)
+              then(.success, buildLog, "Successfully fetched build log")
+            } catch let error {
+              then(.error, nil,
+                   "Build log retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
+            }
+
+          case .failure(let error):
+            then(.error, nil, "Build log retrieval failed with \(error.localizedDescription)")
           }
-          
-          do { // essentially, only one success condition
-            let buildLog = try self?.decoder.decode(BuildLog.self, from: data)
-            then(.success, buildLog, "Successfully fetched build log")
-          } catch let error {
-            then(.error, nil,
-                 "Build log retrieval failed with \(error.localizedDescription), \(response.value ?? "")")
-          }
-          
-        case .failure(let error):
-          then(.error, nil, "Build log retrieval failed with \(error.localizedDescription)")
-        }
+      }
+    }.catch { error in
+      log.error("No auth token in keychain")
     }
   }
   
@@ -304,4 +259,62 @@ extension APIClient {
     }
   }
   
+}
+
+// MARK: - private API
+extension APIClient {
+
+  private func getBuilds(_ authToken: BitriseAccessToken, for app: BitriseApp, withLimit limit: Int = 0) -> Promise<[ProjectBuildViewModel]> {
+
+    let promise: Promise<[ProjectBuildViewModel]> = Promise { resolver in
+
+      var _url: URL
+
+      if limit == 0 {
+        _url = self.apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds")
+      } else {
+        let limitItem = URLQueryItem(name: "limit", value: "\(limit)")
+
+        let queryItems: [URLQueryItem] = [limitItem]
+
+        _url = self.apiEndpointURL("\(Endpoint.apps.rawValue)/\(app.slug)/builds", withQueryItems: queryItems)
+      }
+
+      let headers = ["Authorization": authToken]
+
+      let responseQueue = DispatchQueue.global(qos: .background)
+
+      log.debug("GET app builds with url: \(_url)")
+
+      BRSessionManager.shared.background.request(_url, method: .get, parameters: nil,
+                                                 encoding: JSONEncoding.default, headers: headers)
+        .validate()
+        .responseJSON(queue: responseQueue, completionHandler: { [weak self] response in
+
+          switch response.result {
+          case .success:
+
+            guard let data = response.data else {
+              resolver.reject(APIError.emptyOrNilResponse)
+              return
+            }
+
+            do { // essentially, only one success condition
+              let builds = try self?.decoder.decode(Builds.self, from: data)
+              // experimenting with a lazy collection instead of standard map and seeing whether performance
+              // improves
+              let buildsArray = builds?.data.compactMap { ProjectBuildViewModel(with: $0, forApp: app) } ?? []
+              resolver.fulfill(buildsArray)
+            } catch let error {
+              resolver.reject(APIError.failedResponseParsing(error))
+            }
+
+          case .failure(let error):
+            resolver.reject(APIError.apiResponseError(error))
+          }
+        })
+    }
+
+    return promise
+  }
 }

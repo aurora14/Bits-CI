@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMotion
 
 class ProjectCell: UITableViewCell, ViewConfigurable {
   
@@ -39,10 +40,19 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     }
   }
   
+  fileprivate let motionManager = CMMotionManager()
+  
+  fileprivate var longPressGestureRecognizer: UILongPressGestureRecognizer?
+  
+  fileprivate var isPressed = false
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
     // showAllSkeletons()
+    if longPressGestureRecognizer == nil {
+      setupLongGestureRecognizer()
+    }
   }
   
   func setup(with viewModel: ViewRepresentable?) {
@@ -58,6 +68,10 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     setLastBuildViews(from: vm)
     setCornerRounding()
     setDropShadow()
+    
+    if longPressGestureRecognizer == nil {
+      setupLongGestureRecognizer()
+    }
     
     if vm.isReady { hideAllSkeletons() }
   }
@@ -87,7 +101,7 @@ class ProjectCell: UITableViewCell, ViewConfigurable {
     // TODO: - don't set this in the cell, get the viewmodel to return an image. Cell doesn't need to know about anything
     // other than what it needs to show. 
     guard let projectType = app.projectType else {
-      print("*** App doesn't have project type")
+      log.error("*** App doesn't have project type")
       return
     }
     
@@ -147,5 +161,70 @@ extension ProjectCell {
       self.timeElapsedSinceLastBuildLabel.hideSkeleton()
       self.buildStatusImageView.hideSkeleton()
     }
+  }
+}
+
+// MARK: - Long Press handling (including animation)
+// REF: - https://github.com/phillfarrugia/appstore-clone/blob/master/AppStoreClone/CollectionViewCells/BaseRoundedCardCell.swift
+extension ProjectCell {
+  
+  override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    
+    return gestureRecognizer == longPressGestureRecognizer
+  }
+  
+  fileprivate func setupLongGestureRecognizer() {
+    longPressGestureRecognizer =
+      UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(gestureRecognizer:)))
+    longPressGestureRecognizer?.minimumPressDuration = 0.1
+    
+    longPressGestureRecognizer?.delegate = self
+    
+    if let r = longPressGestureRecognizer {
+      addGestureRecognizer(r)
+    }
+  }
+  
+  @objc fileprivate func handleLongPressGesture(gestureRecognizer: UILongPressGestureRecognizer) {
+    switch gestureRecognizer.state {
+    case .began:
+      longPressBegan()
+    case .ended:
+      longPressEnded()
+    default:
+      print("*** Handle LP Gesture: - Gesture Recognizer State [\(gestureRecognizer.state)]")
+    }
+  }
+  
+  fileprivate func longPressBegan() {
+    if isPressed { return }
+    
+    isPressed = true
+    
+    UIView.animate(withDuration: 0.5,
+                   delay: 0.0,
+                   usingSpringWithDamping: 0.8,
+                   initialSpringVelocity: 0.2,
+                   options: .beginFromCurrentState,
+                   animations: {
+                    self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+    }, completion: { _ in
+      
+    })
+  }
+  
+  fileprivate func longPressEnded() {
+    guard isPressed else { return }
+    
+    UIView.animate(withDuration: 0.5,
+                   delay: 0.0,
+                   usingSpringWithDamping: 0.4,
+                   initialSpringVelocity: 0.2,
+                   options: .beginFromCurrentState,
+                   animations: {
+                    self.transform = CGAffineTransform.identity
+    }, completion: { _ in
+      self.isPressed = false
+    })
   }
 }
