@@ -130,9 +130,9 @@ private extension PasswordDotView {
     UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.01,
                    initialSpringVelocity: 0.35, options: UIView.AnimationOptions(), animations: {
       animations()
-    }) { _ in
-      completion()
-    }
+    }, completion: { _ in
+        completion()
+    })
   }
   
   // MARK: - Update Radius

@@ -11,7 +11,6 @@ import SkyFloatingLabelTextField
 import SVProgressHUD
 import Fabric
 import Crashlytics
-import Lottie
 
 protocol StartBuildDelegate: class {
   func didStartNewBuild(from controller: NewBuildViewController)

@@ -8,4 +8,8 @@
 
 import Foundation
 
-let kProjectCellReusableIdentifier = "ProjectCell"
+enum CellReuseIdentifier {
+  static let projectCell = "ProjectCell"
+  static let buildCell = "BuildCell"
+}
+
