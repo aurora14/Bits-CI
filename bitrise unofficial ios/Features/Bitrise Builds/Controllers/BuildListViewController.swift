@@ -41,10 +41,8 @@ class BuildListViewController: TabPageTableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    tableView.register(UINib(nibName: "BuildCell", bundle: nil), forCellReuseIdentifier: "BuildCell")
-    tableView.separatorStyle = .singleLine
-    tableView.separatorInset = .zero
+
+    self.configureTableView()
     
     selectionFeedbackGenerator.prepare()
     
@@ -66,6 +64,14 @@ class BuildListViewController: TabPageTableViewController {
       self.tableView.reloadData()
     }
   }
+
+  private func configureTableView() {
+    self.tableView.register(UINib(nibName: "BuildCell", bundle: nil), forCellReuseIdentifier: "BuildCell")
+    self.tableView.separatorStyle = .singleLine
+    self.tableView.separatorInset = .zero
+    self.tableView.estimatedRowHeight = 156
+    self.tableView.rowHeight = UITableView.automaticDimension
+  }
 }
 
 // MARK: - Table view datasource
@@ -81,10 +87,6 @@ extension BuildListViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     return buildList[indexPath.section].cellInstance(tableView, indexPath: indexPath)
-  }
-  
-  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return buildList[indexPath.section].rowHeight
   }
   
   override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

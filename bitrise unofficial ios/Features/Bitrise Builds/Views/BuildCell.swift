@@ -9,11 +9,9 @@
 import UIKit
 
 class BuildCell: UITableViewCell, ViewConfigurable {
-  
-  
-  @IBOutlet private var buildStatusStrip: UIView!
-  @IBOutlet private var buildStatusIcon: UIImageView!
-  @IBOutlet private var buildStatusTextLabel: UILabel!
+
+  // - General info
+  @IBOutlet private var bitriseBuildNumberLabel: UILabel!
   @IBOutlet private var repoBranchIcon: UIImageView!
   @IBOutlet private var repoBranchNameLabel: UILabel!
   @IBOutlet private var workflowIcon: UIImageView!
@@ -21,15 +19,24 @@ class BuildCell: UITableViewCell, ViewConfigurable {
   @IBOutlet private var buildTriggeredTimeLabel: UILabel!
   @IBOutlet private var buildDurationIcon: UIImageView!
   @IBOutlet private var buildDurationLabel: UILabel!
-  @IBOutlet private var bitriseBuildNumberLabel: UILabel!
-  @IBOutlet private var separatorView: UIView!
+
+  // - Build status
+  @IBOutlet private var buildStatusStrip: UIView!
+  @IBOutlet private var buildStatusIcon: UIImageView!
+  @IBOutlet private var buildStatusTextLabel: UILabel!
+
+  // - Commit messages
+  @IBOutlet private var commitMessageLabel: UILabel!
+  @IBOutlet private var commitURLTextView: UITextView!
+
+  // - Containers
   @IBOutlet private var contentContainer: ContentContainer!
+  @IBOutlet private var branchAndWorkflowStackView: UIStackView!
   
-  var borderColor: UIColor = UIColor.black
-  
-  var borderWidth: CGFloat = 0
-  
-  var cornerRadius: CGFloat = 3
+  // View Configurable conformance
+  internal var borderColor: UIColor = UIColor.black
+  internal var borderWidth: CGFloat = 0
+  internal var cornerRadius: CGFloat = 3
   
   override var frame: CGRect {
     get {
@@ -42,16 +49,19 @@ class BuildCell: UITableViewCell, ViewConfigurable {
       super.frame = frame
     }
   }
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+
+    self.commitMessageLabel.sizeToFit()
+    self.commitURLTextView.textContainerInset = .zero
+    self.commitURLTextView.textContainer.lineFragmentPadding = 0
+
+    if self.commitURLTextView.attributedText.string.isEmpty {
+      self.commitURLTextView.sizeThatFits(.zero)
+    } else {
+      self.commitURLTextView.sizeThatFits(commitURLTextView.intrinsicContentSize)
+    }
   }
   
   func setup(with viewModel: ViewRepresentable?) {
@@ -60,17 +70,12 @@ class BuildCell: UITableViewCell, ViewConfigurable {
       assertionFailure("Incorrect view model selected for cell \(self.debugDescription)")
       return
     }
-    
-    buildStatusTextLabel.text = vm.buildStatusText
-    repoBranchNameLabel.text = vm.branch
-    workflowNameLabel.text = vm.workflow
-    buildTriggeredTimeLabel.text = vm.buildTriggeredAt
-    buildDurationLabel.text = vm.duration
-    bitriseBuildNumberLabel.text = vm.buildNumber
-    buildStatusIcon.image = vm.buildStatusIcon
+
+    self.updateText(with: vm)
     
     // this must be on the main thread for the colour updates to take effect immediately
-    DispatchQueue.main.async { 
+    DispatchQueue.main.async {
+      self.buildStatusIcon.image = vm.buildStatusIcon
       self.buildStatusStrip.backgroundColor = vm.buildStatusColor
       self.buildStatusTextLabel.textColor = vm.buildStatusColor
       
@@ -78,15 +83,36 @@ class BuildCell: UITableViewCell, ViewConfigurable {
       self.buildStatusTextLabel.setNeedsDisplay()
     }
     
-    contentContainer.layer.cornerRadius = 3
+    self.contentContainer.layer.cornerRadius = self.cornerRadius
+
+    self.branchAndWorkflowStackView.setCustomSpacing(4, after: self.workflowIcon)
     
-    setWorkflowLabelAppearance()
+    self.setWorkflowLabelAppearance()
   }
-  
-  
+
+  private func updateText(with viewModel: ProjectBuildViewModel) {
+    buildStatusTextLabel.text = viewModel.buildStatusText
+    repoBranchNameLabel.text = viewModel.branch
+    workflowNameLabel.text = viewModel.workflow
+    buildTriggeredTimeLabel.text = viewModel.buildTriggeredAt
+    buildDurationLabel.text = viewModel.duration
+    bitriseBuildNumberLabel.text = viewModel.buildNumber
+
+    self.commitMessageLabel.attributedText = viewModel.commitMessage
+
+    if let urlAttrString = viewModel.commitURL {
+      self.commitURLTextView.attributedText = urlAttrString
+    } else {
+      self.commitURLTextView.isHidden = true
+    }
+
+    self.setNeedsLayout()
+    self.layoutIfNeeded()
+  }
+
   private func setWorkflowLabelAppearance() {
     let layer = workflowNameLabel.layer
-    layer.cornerRadius = 3
+    layer.cornerRadius = self.cornerRadius
     layer.borderColor = Asset.Colors.bitriseGrey.color.cgColor
     layer.borderWidth = 1
   }

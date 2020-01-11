@@ -252,7 +252,9 @@ extension APIClient {
               let projectArrayStruct = try self?.decoder.decode(BitriseProjects.self, from: data)
 
               if let p = projectArrayStruct {
-                let retrievedProjects = p.data.compactMap { BitriseProjectViewModel(with: $0) }
+                let retrievedProjects = p.data
+                  .filter { $0.projectType != nil }
+                  .compactMap { BitriseProjectViewModel(with: $0) }
                 then(true, retrievedProjects, "Fetched successfully")
               } else {
                 print("Couldn't unwrap project struct")
