@@ -53,7 +53,6 @@ class BuildCell: UITableViewCell, ViewConfigurable {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    self.commitMessageLabel.sizeToFit()
     self.commitURLTextView.textContainerInset = .zero
     self.commitURLTextView.textContainer.lineFragmentPadding = 0
 
