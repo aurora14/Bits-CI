@@ -113,7 +113,7 @@ class ProjectBuildViewModel: CellRepresentable {
       :
     ]
 
-    return NSMutableAttributedString(string: "\(build.commitMessage ?? "No commit message.")",
+    return NSMutableAttributedString(string: "\(build.commitMessage ?? "No commit message.") \n",
                                             attributes: mainMessageAttributes)
   }
 
