@@ -21,11 +21,11 @@ import Crashlytics
 /// functionality and scenes branch off from here.
 class ProjectListViewController: UITableViewController, SkeletonTableViewDataSource {
   
-  @IBOutlet weak var rightBarContainer: UIView!
+  @IBOutlet private var rightBarContainer: UIView!
   
   // TODO: - should remove this and just update the tab bar with the user image.
   // TODO: - use this button instead for something like adding a new application.
-  @IBOutlet weak var userProfileButton: UIButton!
+  @IBOutlet private var userProfileButton: UIButton!
   
   var searchController: UISearchController = UISearchController(searchResultsController: nil)
   var searchFooter: SearchFooter?
